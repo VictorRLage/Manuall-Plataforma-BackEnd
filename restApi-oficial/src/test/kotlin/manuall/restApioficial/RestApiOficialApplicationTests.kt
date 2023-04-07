@@ -1,10 +1,10 @@
-package manuall.restApi
+package manuall.restApioficial
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class RestApiApplicationTests {
+class RestApiOficialApplicationTests {
 
 	@Test
 	fun contextLoads() {

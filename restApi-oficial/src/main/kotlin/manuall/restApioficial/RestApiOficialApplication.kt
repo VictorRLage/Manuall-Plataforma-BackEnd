@@ -1,13 +1,11 @@
-package manuall.restApi
+package manuall.restApioficial
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 @SpringBootApplication
-@EnableSwagger2
-class RestApiApplication
+class RestApiOficialApplication
 
 fun main(args: Array<String>) {
-	runApplication<RestApiApplication>(*args)
+	runApplication<RestApiOficialApplication>(*args)
 }
