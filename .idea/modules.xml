@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Manuall-Plataforma-BackEnd.iml" filepath="$PROJECT_DIR$/.idea/Manuall-Plataforma-BackEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changelog-consulta/altCrud/altCrud/altCrud.iml" filepath="$PROJECT_DIR$/changelog-consulta/altCrud/altCrud/altCrud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/changelog-consulta/logdemo/logdemo.iml" filepath="$PROJECT_DIR$/changelog-consulta/logdemo/logdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/restApi-oficial/restApi-oficial.iml" filepath="$PROJECT_DIR$/restApi-oficial/restApi-oficial.iml" />
+    </modules>
+  </component>
+</project>
