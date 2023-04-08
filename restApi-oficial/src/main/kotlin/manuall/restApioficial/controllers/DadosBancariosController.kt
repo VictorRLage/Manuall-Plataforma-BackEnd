@@ -4,6 +4,7 @@ import manuall.restApioficial.models.DadosBancarios
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/dadosBancarios")
 class DadosBancariosController {
