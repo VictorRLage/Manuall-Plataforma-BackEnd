@@ -28,6 +28,5 @@ data class Imagem (
     val rgVerso:Blob,
 
     @OneToOne
-    @Column(name = "fk_usuario")
     val fkUsuario:Usuario
 )

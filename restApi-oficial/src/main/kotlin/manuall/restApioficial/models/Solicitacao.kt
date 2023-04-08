@@ -8,11 +8,9 @@ import javax.persistence.*
 data class Solicitacao (
 
     @ManyToOne
-    @Column(name = "fk_remetente")
     val fkRemetente:Usuario,
 
     @ManyToOne
-    @Column(name = "fk_destinatario")
     val fkDestinatario:Usuario,
 
     @field:Id

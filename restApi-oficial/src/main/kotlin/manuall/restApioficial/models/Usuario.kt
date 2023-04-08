@@ -27,6 +27,5 @@ data class Usuario (
     val aprovado:Boolean = false,
 
     @OneToOne
-    @Column(name = "fk_perfis")
     val fkPerfis:Perfis
 )

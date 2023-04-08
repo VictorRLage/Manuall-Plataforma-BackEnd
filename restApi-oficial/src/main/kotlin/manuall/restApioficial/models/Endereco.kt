@@ -39,6 +39,5 @@ data class Endereco (
     val complemento:String,
 
     @ManyToOne
-    @Column(name = "fk_usuario")
     val fkUsuario:Usuario
 )

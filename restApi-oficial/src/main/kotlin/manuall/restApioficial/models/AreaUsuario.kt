@@ -1,19 +1,19 @@
 package manuall.restApioficial.models
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.ManyToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "area_usuario")
 data class AreaUsuario (
 
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_area_usuario")
+    val idAreaUsuario:Int,
+
     @ManyToOne
-    @Column(name = "fk_usuario")
     val fkUsuario:Usuario,
 
     @ManyToOne
-    @Column(name = "fk_area")
     val fkArea:Area
 )

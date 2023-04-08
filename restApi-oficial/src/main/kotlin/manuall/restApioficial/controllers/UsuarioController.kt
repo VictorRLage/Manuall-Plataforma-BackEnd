@@ -43,7 +43,7 @@ class UsuarioController(val usuarioService: UsuarioService) {
     // agora as DEMO
     // Utilizando as funções que o Repository traz por padrão
 
-    @GetMapping("/listarDemo")
+    @GetMapping("/demo/listarDemo")
     fun listarUsuariosDemo(): ResponseEntity<List<Usuario>> {
         val usuarios = usuarioService.getAllUsuarios()
         return if (usuarios.isEmpty()) {
@@ -53,7 +53,7 @@ class UsuarioController(val usuarioService: UsuarioService) {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/demo/{id}")
     fun buscarUsuarioPorIdDemo(@PathVariable id: Int): ResponseEntity<Optional<Usuario>> {
         val usuario = usuarioService.getUsuarioById(id)
         return status(200).body(usuario)
@@ -65,13 +65,13 @@ class UsuarioController(val usuarioService: UsuarioService) {
         return status(201).body(usuarioSalva)
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/demo/{id}")
     fun atualizarUsuario(@PathVariable id: Int, @RequestBody usuario: Usuario): ResponseEntity<Optional<Usuario>> {
         val usuarioAtualizada = usuarioService.updateUsuario(id, usuario)
         return status(200).body(usuarioAtualizada)
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/demo/{id}")
     fun deletarUsuario(@PathVariable id: Int): ResponseEntity<Void> {
         usuarioService.deleteUsuario(id)
         return status(204).body(null)
@@ -79,7 +79,7 @@ class UsuarioController(val usuarioService: UsuarioService) {
 
     // Utilizando as funções que eu fiz no Repository
 
-    @GetMapping("/aprovados")
+    @GetMapping("/demo/aprovados")
     fun getUsuariosAprovados(): ResponseEntity<List<Usuario>> {
         val usuarios = usuarioService.getUsuariosAprovados()
         return if (usuarios.isEmpty()) {
@@ -89,7 +89,7 @@ class UsuarioController(val usuarioService: UsuarioService) {
         }
     }
 
-    @GetMapping("/aprovados/alfabetica")
+    @GetMapping("/demo/aprovados/alfabetica")
     fun getUsuariosAprovadosAlfabeticamente(): ResponseEntity<List<Usuario>> {
         val usuarios = usuarioService.getUsuariosAprovadosOrdemAlfabetica()
         return if (usuarios.isEmpty()) {

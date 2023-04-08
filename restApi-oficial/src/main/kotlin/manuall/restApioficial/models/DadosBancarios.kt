@@ -28,6 +28,5 @@ data class DadosBancarios (
     val cvv:String,
 
     @OneToOne
-    @Column(name = "fk_usuario")
     val fkUsuario:Usuario
 )
