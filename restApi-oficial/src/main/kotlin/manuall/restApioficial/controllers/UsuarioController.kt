@@ -1,7 +1,7 @@
 package manuall.restApioficial.controllers
 
 import manuall.restApioficial.models.Usuario
-import manuall.restApioficial.services.UsuarioService
+import manuall.restApioficial.repositories.UsuarioRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.status
 import org.springframework.web.bind.annotation.*
@@ -10,7 +10,7 @@ import java.util.Optional
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/usuarios")
-class UsuarioController(val usuarioService: UsuarioService) {
+class UsuarioController(val repository: UsuarioRepository) {
 
     // Primeiro vou listar as solicitações que REALMENTE precisam vir da tabela usuário, e depois mostrar
     // algumas que eu fiz como demonstração básica
@@ -45,7 +45,7 @@ class UsuarioController(val usuarioService: UsuarioService) {
 
     @GetMapping("/demo/listarDemo")
     fun listarUsuariosDemo(): ResponseEntity<List<Usuario>> {
-        val usuarios = usuarioService.getAllUsuarios()
+        val usuarios = repository.findAll()
         return if (usuarios.isEmpty()) {
             status(204).body(usuarios)
         } else {
@@ -55,25 +55,31 @@ class UsuarioController(val usuarioService: UsuarioService) {
 
     @GetMapping("/demo/{id}")
     fun buscarUsuarioPorIdDemo(@PathVariable id: Int): ResponseEntity<Optional<Usuario>> {
-        val usuario = usuarioService.getUsuarioById(id)
+        val usuario = repository.findById(id)
         return status(200).body(usuario)
     }
 
     @PostMapping
     fun criarUsuario(@RequestBody usuario: Usuario): ResponseEntity<Usuario> {
-        val usuarioSalva = usuarioService.createUsuario(usuario)
+        val usuarioSalva = repository.save(usuario)
         return status(201).body(usuarioSalva)
     }
 
     @PutMapping("/demo/{id}")
     fun atualizarUsuario(@PathVariable id: Int, @RequestBody usuario: Usuario): ResponseEntity<Optional<Usuario>> {
-        val usuarioAtualizada = usuarioService.updateUsuario(id, usuario)
-        return status(200).body(usuarioAtualizada)
+        return status(200).body(
+            if (repository.findById(id).isPresent) {
+                usuario.idUsuario = id
+                Optional.of(repository.save(usuario))
+            } else {
+                Optional.empty()
+            }
+        )
     }
 
     @DeleteMapping("/demo/{id}")
     fun deletarUsuario(@PathVariable id: Int): ResponseEntity<Void> {
-        usuarioService.deleteUsuario(id)
+        repository.deleteById(id)
         return status(204).body(null)
     }
 
@@ -81,7 +87,7 @@ class UsuarioController(val usuarioService: UsuarioService) {
 
     @GetMapping("/demo/aprovados")
     fun getUsuariosAprovados(): ResponseEntity<List<Usuario>> {
-        val usuarios = usuarioService.getUsuariosAprovados()
+        val usuarios = repository.findByAprovadoTrue()
         return if (usuarios.isEmpty()) {
             status(204).body(usuarios)
         } else {
@@ -91,7 +97,7 @@ class UsuarioController(val usuarioService: UsuarioService) {
 
     @GetMapping("/demo/aprovados/alfabetica")
     fun getUsuariosAprovadosAlfabeticamente(): ResponseEntity<List<Usuario>> {
-        val usuarios = usuarioService.getUsuariosAprovadosOrdemAlfabetica()
+        val usuarios = repository.findByAprovadoTrueOrderByNomeDesc()
         return if (usuarios.isEmpty()) {
             status(204).body(usuarios)
         } else {

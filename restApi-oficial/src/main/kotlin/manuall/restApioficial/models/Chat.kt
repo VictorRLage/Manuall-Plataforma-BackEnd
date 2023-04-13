@@ -8,10 +8,10 @@ import javax.persistence.*
 data class Chat (
 
     @ManyToOne
-    val fkRemetente:Usuario,
+    val fkContratante:Usuario,
 
     @ManyToOne
-    val fkDestinatario:Usuario,
+    val fkPrestador:Usuario,
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +22,8 @@ data class Chat (
     val mensagem:String,
 
     @Column(name = "horario")
-    val horario:Date
+    val horario:Date,
+
+    @Column(name = "aprovado")
+    val status:Int
 )

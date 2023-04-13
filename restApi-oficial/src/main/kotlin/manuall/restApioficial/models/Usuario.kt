@@ -23,9 +23,21 @@ data class Usuario (
     @Column(name = "cpf", length = 11)
     val cpf:String,
 
-    @Column(name = "aprovado")
-    val aprovado:Boolean = false,
+    @Column(name = "orcamento_min")
+    val orcamentoMin:Double,
+
+    @Column(name = "orcamento_max")
+    val orcamentoMax:Double,
+
+    @Column(name = "status")
+    val status:Int,
+
+    @Column(name = "acessos")
+    val acessos:Int,
+
+    @Column(name = "tipo_usuario")
+    val tipoUsuario:Int,
 
     @OneToOne
-    val fkPerfis:Perfis
+    val fkCanal:Canal
 )
