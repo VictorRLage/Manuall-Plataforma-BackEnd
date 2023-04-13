@@ -8,8 +8,8 @@ data class Usuario (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    var idUsuario:Int,
+    @Column(name = "id")
+    var id:Int,
 
     @Column(name = "nome", length = 45)
     val nome:String,
@@ -39,5 +39,5 @@ data class Usuario (
     val tipoUsuario:Int,
 
     @OneToOne
-    val fkCanal:Canal
+    val canal:Canal
 )

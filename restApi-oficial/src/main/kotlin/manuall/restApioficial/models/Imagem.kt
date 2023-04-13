@@ -15,8 +15,8 @@ data class Imagem (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_imagem")
-    val idImagem:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @Column(name = "perfil")
     val perfil:Blob,
@@ -28,5 +28,5 @@ data class Imagem (
     val rgVerso:Blob,
 
     @OneToOne
-    val fkUsuario:Usuario
+    val usuario:Usuario
 )

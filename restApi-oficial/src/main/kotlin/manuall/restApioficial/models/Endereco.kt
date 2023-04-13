@@ -14,8 +14,8 @@ data class Endereco (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_endereco")
-    val idEndereco:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @Column(name = "estado", length = 25)
     val estado:String,
@@ -39,5 +39,5 @@ data class Endereco (
     val complemento:String,
 
     @ManyToOne
-    val fkUsuario:Usuario
+    val usuario:Usuario
 )

@@ -8,8 +8,8 @@ data class AreaUsuario (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_area_usuario")
-    val idAreaUsuario:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @ManyToOne
     val fkUsuario:Usuario,

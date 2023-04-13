@@ -8,8 +8,8 @@ data class Area (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_area")
-    val idArea:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @Column(name = "nome", length = 45)
     val nome:String

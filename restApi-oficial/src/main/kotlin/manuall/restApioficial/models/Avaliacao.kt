@@ -7,15 +7,15 @@ import javax.persistence.*
 data class Avaliacao (
 
     @ManyToOne
-    val fkContratante:Usuario,
+    val contratanteUsuario:Usuario,
 
     @ManyToOne
-    val fkPrestador:Usuario,
+    val prestadorUsuario:Usuario,
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_avaliacao")
-    val idAvaliacao:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @Column(name = "nota")
     val nota:Int,

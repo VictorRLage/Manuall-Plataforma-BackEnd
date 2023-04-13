@@ -9,12 +9,12 @@ data class Anexo (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_anexo")
-    val idAnexo:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @Column(name = "arquivo")
-    val Arquivo:Blob,
+    val arquivo:Blob,
 
     @ManyToOne
-    val fkMensagem:Chat
+    val chat:Chat
 )

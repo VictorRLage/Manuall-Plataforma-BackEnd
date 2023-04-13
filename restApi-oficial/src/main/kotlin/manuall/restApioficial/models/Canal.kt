@@ -13,8 +13,8 @@ data class Canal (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_canal")
-    val idCanal:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @Column(name = "nome", length = 45)
     val nome:String

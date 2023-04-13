@@ -9,8 +9,8 @@ data class DadosBancarios (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_dados_bancarios")
-    val idDadosBancarios:Int,
+    @Column(name = "id")
+    val id:Int,
 
     @Column(name = "plano")
     val plano:Int,
@@ -28,5 +28,5 @@ data class DadosBancarios (
     val cvv:String,
 
     @OneToOne
-    val fkUsuario:Usuario
+    val usuario:Usuario
 )
