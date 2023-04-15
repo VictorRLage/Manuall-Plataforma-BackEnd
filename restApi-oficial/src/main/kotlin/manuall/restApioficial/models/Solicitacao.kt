@@ -20,7 +20,7 @@ data class Solicitacao (
         @Column(name = "assunto", length = 30)
         val assunto:String,
 
-        @Column(name = "mensagem", length = 80)
+        @Column(name = "mensagem", length = 120)
         val mensagem:String,
 
         @Column(name = "status")

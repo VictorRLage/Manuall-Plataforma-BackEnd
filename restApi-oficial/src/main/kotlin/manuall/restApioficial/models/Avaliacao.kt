@@ -20,6 +20,6 @@ data class Avaliacao (
     @Column(name = "nota")
     val nota:Int,
 
-    @Column(name = "descricao", length = 45)
+    @Column(name = "descricao", length = 75)
     val descricao:String
 )

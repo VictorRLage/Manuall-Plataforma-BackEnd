@@ -11,6 +11,6 @@ data class Area (
     @Column(name = "id")
     val id:Int,
 
-    @Column(name = "nome", length = 45)
+    @Column(name = "nome", length = 30)
     val nome:String
 )

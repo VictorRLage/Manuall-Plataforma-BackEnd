@@ -1,11 +1,18 @@
 package manuall.restApioficial.controllers
 
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import manuall.restApioficial.models.Chat
+import manuall.restApioficial.repositories.ChatRepository
+import org.springframework.web.bind.annotation.*
 
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/chat")
-class ChatController {
+class ChatController (
+    val chatRepository: ChatRepository
+) {
+
+    @GetMapping("/{id}")
+    fun buscarChatPorId(@PathVariable id: Int): Chat? {
+        return chatRepository.findById(id).orElseThrow()
+    }
 }

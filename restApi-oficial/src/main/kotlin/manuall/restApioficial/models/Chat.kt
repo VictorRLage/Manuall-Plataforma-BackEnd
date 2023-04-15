@@ -18,7 +18,7 @@ data class Chat (
     @Column(name = "id")
     val id:Int,
 
-    @Column(name = "mensagem", length = 80)
+    @Column(name = "mensagem", length = 150)
     val mensagem:String,
 
     @Column(name = "horario")

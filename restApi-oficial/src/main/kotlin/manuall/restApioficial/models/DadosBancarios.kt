@@ -19,7 +19,7 @@ data class DadosBancarios (
     val nome:String,
 
     @Column(name = "numero", length = 16)
-    val numero:Int,
+    val numero:String,
 
     @Column(name = "validade")
     val validade: Date,

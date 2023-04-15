@@ -1,20 +1,19 @@
 package manuall.restApioficial.models
 
-import java.sql.Blob
 import javax.persistence.*
 
 @Entity
-@Table(name = "anexo")
-data class Anexo (
+@Table(name = "desc_servicos")
+data class DescServicos (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     val id:Int,
 
-    @Column(name = "arquivo")
-    val arquivo:Blob,
+    @Column(name = "topico", length = 30)
+    val topico:String,
 
-    @ManyToOne
-    val chat:Chat
+    @OneToOne
+    val usuario:Usuario
 )

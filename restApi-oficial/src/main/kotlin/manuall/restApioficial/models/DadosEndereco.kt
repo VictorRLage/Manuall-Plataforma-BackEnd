@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "endereco")
-data class Endereco (
+@Table(name = "dados_endereco")
+data class DadosEndereco (
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
