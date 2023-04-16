@@ -1,11 +1,13 @@
 package manuall.restApioficial.controllers
 
+import manuall.restApioficial.dtos.AlterDescRequest
 import manuall.restApioficial.dtos.AlterSenhaRequest
 import manuall.restApioficial.dtos.CadastroRequest
 import manuall.restApioficial.models.Usuario
 import manuall.restApioficial.repositories.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.transaction.Transactional
 
 
 @CrossOrigin("http://localhost:3000")
@@ -39,5 +41,25 @@ class UsuarioController(
             usuarioRepository.findById(alterSenhaRequest.id).orElseThrow()
         usuario.nome = alterSenhaRequest.senha
         return ResponseEntity.status(200).body(usuarioRepository.save(usuario))
+    }
+
+    @PatchMapping("/alterar/desc")
+    fun atualizarDesc(@RequestBody alterDescRequest: AlterDescRequest): ResponseEntity<Usuario?> {
+        val usuario: Usuario =
+            usuarioRepository.findById(alterDescRequest.id).orElseThrow()
+        usuario.nome = alterDescRequest.desc_primaria
+        usuario.nome = alterDescRequest.desc_secundaria
+        return ResponseEntity.status(200).body(usuarioRepository.save(usuario))
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    @Transactional
+    fun deletar(@PathVariable id: Int): ResponseEntity<Void> {
+        descServicosRepository.deleteByUsuarioId(id)
+        dadosBancariosRepository.deleteByUsuarioId(id)
+        areaUsuarioRepository.deleteByUsuarioId(id)
+        dadosEnderecoRepository.deleteByUsuarioId(id)
+        usuarioRepository.deleteById(id)
+        return ResponseEntity.status(200).body(null)
     }
 }

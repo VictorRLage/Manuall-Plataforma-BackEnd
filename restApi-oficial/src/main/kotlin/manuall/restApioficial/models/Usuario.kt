@@ -42,8 +42,5 @@ data class Usuario (
     val descSecundaria:String,
 
     @Column(name = "tipo_usuario")
-    val tipoUsuario:Int,
-
-    @OneToOne
-    val canal:Canal
+    val tipoUsuario:Int
 )

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface DadosEnderecoRepository: JpaRepository<DadosEndereco, Int> {
+    fun deleteByUsuarioId(id: Int)
 }
