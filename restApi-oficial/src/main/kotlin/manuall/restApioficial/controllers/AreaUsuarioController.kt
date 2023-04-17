@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/areausuario")
-class AreaUsuarioController
-    (val AreaUsuarioRepository: AreaUsuarioRepository)
-{
+class AreaUsuarioController (
+        val areaUsuarioRepository: AreaUsuarioRepository
+) {
     @GetMapping("/{id}")
     fun buscarAreaUsuarioPorId(@PathVariable id: Int): AreaUsuario? {
-        return AreaUsuarioRepository.findById(id).orElseThrow()
+        return areaUsuarioRepository.findById(id).orElseThrow()
     }
 }

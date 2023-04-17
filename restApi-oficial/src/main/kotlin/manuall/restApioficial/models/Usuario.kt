@@ -12,13 +12,13 @@ data class Usuario (
     var id:Int,
 
     @Column(name = "nome", length = 60)
-    var nome:String,
+    val nome:String,
 
     @Column(name = "email", length = 256)
     val email:String,
 
     @Column(name = "senha", length = 16)
-    val senha:String,
+    var senha:String,
 
     @Column(name = "cpf", length = 11)
     val cpf:String,
@@ -35,12 +35,12 @@ data class Usuario (
     @Column(name = "acessos")
     val acessos:Int,
 
-    @Column(name = "desc_primaria", length = 270)
-    val descPrimaria:String,
-
-    @Column(name = "desc_secundaria", length = 270)
-    val descSecundaria:String,
+    @Column(name = "descricao", length = 270)
+    var descricao:String,
 
     @Column(name = "tipo_usuario")
-    val tipoUsuario:Int
+    val tipoUsuario:Int,
+
+    @Column(name = "canal")
+    val canal:Int
 )

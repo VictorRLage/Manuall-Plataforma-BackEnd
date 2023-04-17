@@ -6,14 +6,14 @@ import javax.persistence.*
 @Table(name = "area_usuario")
 data class AreaUsuario (
 
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    val id:Int,
+
     @ManyToOne
     val usuario:Usuario,
 
     @ManyToOne
-    val area:Area,
-
-    @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    val id:Int
+    val area:Area
 )

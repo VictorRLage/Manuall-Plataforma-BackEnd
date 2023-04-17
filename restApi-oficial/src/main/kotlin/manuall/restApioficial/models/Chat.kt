@@ -7,16 +7,16 @@ import javax.persistence.*
 @Table(name = "chat")
 data class Chat (
 
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    val id:Int,
+
     @ManyToOne
     val contratanteUsuario:Usuario,
 
     @ManyToOne
     val prestadorUsuario:Usuario,
-
-    @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    val id:Int,
 
     @Column(name = "mensagem", length = 150)
     val mensagem:String,

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/area")
-class AreaController(val repository: AreaRepository) {
+class AreaController(
+        val areaRepository: AreaRepository
+) {
 
     @GetMapping("/{id}")
     fun buscarAreaPorId(@PathVariable id: Int): Area? {
-        return repository.findById(id).orElseThrow()
+        return areaRepository.findById(id).orElseThrow()
     }
 }

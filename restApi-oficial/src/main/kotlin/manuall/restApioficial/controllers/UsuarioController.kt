@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.transaction.Transactional
 
-
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/usuarios")
@@ -39,7 +38,7 @@ class UsuarioController(
     fun atualizarSenha(@RequestBody alterSenhaRequest: AlterSenhaRequest): ResponseEntity<Usuario?> {
         val usuario: Usuario =
             usuarioRepository.findById(alterSenhaRequest.id).orElseThrow()
-        usuario.nome = alterSenhaRequest.senha
+        usuario.senha = alterSenhaRequest.senha
         return ResponseEntity.status(200).body(usuarioRepository.save(usuario))
     }
 
@@ -47,8 +46,7 @@ class UsuarioController(
     fun atualizarDesc(@RequestBody alterDescRequest: AlterDescRequest): ResponseEntity<Usuario?> {
         val usuario: Usuario =
             usuarioRepository.findById(alterDescRequest.id).orElseThrow()
-        usuario.nome = alterDescRequest.desc_primaria
-        usuario.nome = alterDescRequest.desc_secundaria
+        usuario.descricao = alterDescRequest.descricao
         return ResponseEntity.status(200).body(usuarioRepository.save(usuario))
     }
 

@@ -6,16 +6,16 @@ import javax.persistence.*
 @Table(name = "avaliacao")
 data class Avaliacao (
 
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    val id:Int,
+
     @ManyToOne
     val contratanteUsuario:Usuario,
 
     @ManyToOne
     val prestadorUsuario:Usuario,
-
-    @field:Id
-    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    val id:Int,
 
     @Column(name = "nota")
     val nota:Int,
