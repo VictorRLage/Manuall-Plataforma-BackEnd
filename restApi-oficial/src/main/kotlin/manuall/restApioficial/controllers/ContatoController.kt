@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*
 class ContatoController(
         val contatoRepository: ContatoRepository
 ) {
+
     @GetMapping("/{id}")
     fun buscarContatoPorId(@PathVariable id: Int): Contato? {
         return contatoRepository.findById(id).orElseThrow()

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*
 class DescServicosController(
         val descServicosRepository: DescServicosRepository
 ) {
+
     @GetMapping("/{id}")
     fun buscarDescServicosPorId(@PathVariable id: Int): DescServicos? {
         return descServicosRepository.findById(id).orElseThrow()

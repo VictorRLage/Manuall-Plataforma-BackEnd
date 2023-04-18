@@ -45,6 +45,9 @@ data class Prospect (
         @Column(name = "opt_experiencia")
         val optExperiencia:Int,
 
+        @Column(name = "opt_canal")
+        val optCanal:Int,
+
         @Column(name = "opt_interesse_loja")
         val optInteresseLoja:Int,
 
