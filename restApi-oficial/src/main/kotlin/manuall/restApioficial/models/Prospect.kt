@@ -16,68 +16,68 @@ data class Prospect (
         val idCliente:Int,
 
         @Column(name = "nome", length = 60)
-        val nome:String,
+        val nome:String?,
 
         @Column(name = "email", length = 256)
-        val email:String,
+        val email:String?,
 
         @Column(name = "fone", length = 13)
-        val fone:String,
+        val fone:String?,
 
         @Column(name = "como_cobra", length = 45)
-        val comoCobra:String,
+        val comoCobra:String?,
 
         @Column(name = "dt_nascimento")
-        val dtNascimento:Date,
+        val dtNascimento:Date?,
 
         @Column(name = "opt_reside")
-        val optReside:Int,
+        val optReside:Int?,
 
         @Column(name = "opt_tamanho")
-        val optTamanho:Int,
+        val optTamanho:Int?,
 
         @Column(name = "opt_contratar")
-        val optContratar:Int,
+        val optContratar:Int?,
 
         @Column(name = "opt_buscando")
-        val optBuscando:Int,
+        val optBuscando:Int?,
 
         @Column(name = "opt_experiencia")
-        val optExperiencia:Int,
+        val optExperiencia:Int?,
 
         @Column(name = "opt_canal")
-        val optCanal:Int,
+        val optCanal:Int?,
 
         @Column(name = "opt_interesse_loja")
-        val optInteresseLoja:Int,
+        val optInteresseLoja:Int?,
 
         @Column(name = "opt_interesse_plat")
-        val optInteressePlat:Int,
+        val optInteressePlat:Int?,
 
         @Column(name = "bln_interesse_ensinar")
-        val blnInteresseEnsinar:Boolean,
+        val blnInteresseEnsinar:Boolean?,
 
         @Column(name = "bln_ja_contratou")
-        val blnJaContratou:Boolean,
+        val blnJaContratou:Boolean?,
 
         @Column(name = "bln_aprender")
-        val blnAprender:Boolean,
+        val blnAprender:Boolean?,
 
         @Column(name = "bln_contratou")
-        val blnContratou:Boolean,
+        val blnContratou:Boolean?,
 
         @Column(name = "bln_divulga")
-        val blnDivulga:Boolean,
+        val blnDivulga:Boolean?,
 
         @Column(name = "bln_divulgara")
-        val blnDivulgara:Boolean,
+        val blnDivulgara:Boolean?,
 
         @Column(name = "msg_desistencia", length = 90)
-        val msgDesistencia:String,
+        val msgDesistencia:String?,
 
         @Column(name = "status")
         val status:Int,
 
         @Column(name = "tipo_usuario")
-        val tipoUsuario:Int,
+        val tipoUsuario:Int
 )
