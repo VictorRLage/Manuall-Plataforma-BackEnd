@@ -14,10 +14,9 @@ class JwtAuthenticationService: UserDetailsService {
     @Autowired
     private val usuarioRepository: UsuarioRepository? = null
 
-
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val usuarioOpt: Optional<Usuario?> = usuarioRepository.findByEmailAndTipoUsuario(username)
+        val usuarioOpt: Optional<Usuario?> = usuarioRepository!!.findByEmail(username)
         if (usuarioOpt.isEmpty) {
             throw UsernameNotFoundException(String.format("usuario: %s nao encontrado", username))
         }

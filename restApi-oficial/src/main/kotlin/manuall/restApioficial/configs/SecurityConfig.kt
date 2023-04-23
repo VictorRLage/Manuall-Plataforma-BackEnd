@@ -1,20 +1,44 @@
 package manuall.restApioficial.configs
 
+import manuall.restApioficial.security.jwt.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.web.cors.CorsConfiguration
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-class SecurityConfig {
+class SecurityConfig (
+    val jwtAuthenticationService: JwtAuthenticationService,
+    val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint
+) {
+
+    companion object {
+        private const val ORIGENS_PERMITIDAS = "*"
+        private val URLS_PERMITIDAS = arrayOf(
+            AntPathRequestMatcher("/swagger-ui/**"),
+            AntPathRequestMatcher("/swagger-ui.html"),
+            AntPathRequestMatcher("/swagger-resources"),
+            AntPathRequestMatcher("/swagger-resources/**"),
+            AntPathRequestMatcher("/v3/api-docs/**"),
+            AntPathRequestMatcher("/usuarios/login/**"),
+            AntPathRequestMatcher("/usuarios/testando/sem-token"),
+            AntPathRequestMatcher("/h2-console/**")
+        )
+    }
 
     @Bean
     @Throws(Exception::class)
@@ -34,7 +58,7 @@ class SecurityConfig {
                     .authenticated()
             }
             .exceptionHandling()
-            .authenticationEntryPoint(autenticacaoJwtEntryPoint)
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -42,17 +66,52 @@ class SecurityConfig {
         return http.build()
     }
 
-    @Override
-    protected fun configure(http: HttpSecurity) {
-        http.authorizeRequests()
-            .anyRequest().permitAll()
-            .and().csrf().disable()
+    @Bean
+    @Throws(Exception::class)
+    fun authManager(http: HttpSecurity): AuthenticationManager {
+        val authenticationManagerBuilder = http.getSharedObject(
+            AuthenticationManagerBuilder::class.java
+        )
+        authenticationManagerBuilder.authenticationProvider(
+            JwtAuthenticationProvider(
+                jwtAuthenticationService,
+                passwordEncoder()
+            )
+        )
+        return authenticationManagerBuilder.build()
     }
 
     @Bean
-    @Throws(Exception::class)
-    fun authenticationManager(http: HttpSecurity): AuthenticationManager {
-        return http.getSharedObject(AuthenticationManagerBuilder::class.java)
-            .build()
+    fun jwtAuthenticationEntryPointBean(): JwtAuthenticationEntryPoint {
+        return JwtAuthenticationEntryPoint()
+    }
+
+    @Bean
+    fun jwtAuthenticationFilterBean(): JwtAuthenticationFilter {
+        return JwtAuthenticationFilter(jwtAuthenticationService, jwtAuthenticationUtilBean())
+    }
+
+    @Bean
+    fun jwtAuthenticationUtilBean(): JwtTokenManager {
+        return JwtTokenManager()
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
+    }
+
+    private fun buildCorsConfiguration(): CorsConfiguration {
+        val configuration = CorsConfiguration()
+        configuration.allowedOriginPatterns = listOf(ORIGENS_PERMITIDAS)
+        configuration.allowedMethods = listOf(
+            HttpMethod.GET.name(),
+            HttpMethod.POST.name(),
+            HttpMethod.PUT.name(),
+            HttpMethod.DELETE.name()
+        )
+        configuration.allowedHeaders =
+            listOf(HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION)
+        return configuration
     }
 }

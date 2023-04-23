@@ -8,9 +8,9 @@ import java.util.Optional
 @Repository
 interface UsuarioRepository: JpaRepository<Usuario, Int> {
 
-    fun findByEmail(email: String): List<Usuario?>
+    fun findByEmail(email: String): Optional<Usuario?>
 
     fun findByEmailAndSenha(email: String, senha: String): List<Usuario>
 
-    fun findByEmailAndTipoUsuario(email: String, tipoUsuario: Int): Optional<Usuario?>
+    fun findByEmailAndTipoUsuario(email: String, tipoUsuario: Int): Usuario?
 }

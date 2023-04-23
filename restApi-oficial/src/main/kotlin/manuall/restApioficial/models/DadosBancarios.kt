@@ -1,7 +1,7 @@
 package manuall.restApioficial.models
 
 import java.sql.Date
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "dados_bancarios")

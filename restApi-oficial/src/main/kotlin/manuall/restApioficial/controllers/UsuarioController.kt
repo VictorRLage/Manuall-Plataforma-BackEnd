@@ -6,7 +6,7 @@ import manuall.restApioficial.repositories.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
-import javax.transaction.Transactional
+import jakarta.transaction.Transactional
 
 @RestController
 @RequestMapping("/usuarios")
@@ -16,12 +16,10 @@ class UsuarioController(
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val areaUsuarioRepository: AreaUsuarioRepository,
     val descServicosRepository: DescServicosRepository,
-    //val authenticationManager: AuthenticationManager,
-    //val jwtProvider: JwtProvider
 ) {
 
     @GetMapping("/findByEmail/{email}")
-    fun findByEmail(@PathVariable email: String): List<Usuario?> {
+    fun findByEmail(@PathVariable email: String): Optional<Usuario?> {
         return usuarioRepository.findByEmail(email)
     }
 

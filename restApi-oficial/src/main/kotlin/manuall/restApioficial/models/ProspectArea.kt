@@ -1,6 +1,6 @@
 package manuall.restApioficial.models
 
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "prospect_area")
