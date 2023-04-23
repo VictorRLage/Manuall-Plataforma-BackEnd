@@ -5,7 +5,6 @@ import manuall.restApioficial.repositories.ProspectRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/prospects")
 data class ProspectController (
