@@ -47,8 +47,8 @@ class SecurityConfig (
             AntPathRequestMatcher("/solicitacoes/**"),
             AntPathRequestMatcher("/areas/**"),
             AntPathRequestMatcher("/areas/**"),
-            AntPathRequestMatcher("/usuarios/login/**"),
-            AntPathRequestMatcher("/usuarios/cadastrar/**"),
+            AntPathRequestMatcher("/usuarios/login"),
+            AntPathRequestMatcher("/usuarios/cadastrar"),
             AntPathRequestMatcher("/usuarios/checar/**"),
             AntPathRequestMatcher("/usuarios/example/sem-token")
         )

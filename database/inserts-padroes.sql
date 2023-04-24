@@ -5,3 +5,5 @@ INSERT INTO area (id, nome) VALUES (4, "Encanador");
 INSERT INTO area (id, nome) VALUES (5, "Marceneiro");
 INSERT INTO area (id, nome) VALUES (6, "Montador");
 INSERT INTO area (id, nome) VALUES (7, "Gesseiro");
+
+select * from usuario;
