@@ -31,7 +31,6 @@ class Usuario {
     var senha: String? = null
 
     @Column(name = "cpf")
-    @field:CPF
     var cpf: String? = null
 
     @Column(name = "orcamento_min")
