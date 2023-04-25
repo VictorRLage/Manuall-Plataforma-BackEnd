@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/descServicos")
-class DescServicosController(
+@CrossOrigin("http://localhost:3000")
+class DescServicosController (
         val descServicosRepository: DescServicosRepository
 ) {
 

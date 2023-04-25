@@ -19,6 +19,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin("http://localhost:3000")
 class UsuarioController (
     val passwordEncoder: PasswordEncoder,
     val jwtTokenManager: JwtTokenManager,
@@ -33,19 +34,27 @@ class UsuarioController (
     @PostMapping("/login")
     fun login(@RequestBody usuarioLoginDto: UsuarioLoginDto): ResponseEntity<String> {
 
-        return if (usuarioRepository.findByEmail(usuarioLoginDto.email).isEmpty) {
+        val emailEncontrado = usuarioRepository.findByEmail(usuarioLoginDto.email)
+
+        return if (emailEncontrado.isEmpty) {
             ResponseEntity.status(204).build()
         } else {
 
-            val authentication = authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken(
-                    usuarioLoginDto.email,
-                    usuarioLoginDto.senha
-                )
-            )
+            if (passwordEncoder.matches(usuarioLoginDto.senha, emailEncontrado.get().senha)) {
 
-            SecurityContextHolder.getContext().authentication = authentication
-            ResponseEntity.status(200).body(jwtTokenManager.generateToken(authentication))
+                val authentication = authenticationManager.authenticate(
+                    UsernamePasswordAuthenticationToken(
+                        usuarioLoginDto.email,
+                        usuarioLoginDto.senha
+                    )
+                )
+
+                SecurityContextHolder.getContext().authentication = authentication
+                ResponseEntity.status(200).body(jwtTokenManager.generateToken(authentication))
+
+            } else {
+                ResponseEntity.status(403).build()
+            }
 
         }
 

@@ -2,14 +2,11 @@ package manuall.newproject.controller
 
 import manuall.newproject.model.Area
 import manuall.newproject.repository.AreaRepository
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/areas")
+@CrossOrigin("http://localhost:3000")
 class AreaController(
         val areaRepository: AreaRepository
 ) {

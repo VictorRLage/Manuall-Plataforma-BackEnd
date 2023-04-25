@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/dadosBancarios")
-class DadosBancariosController(
+@CrossOrigin("http://localhost:3000")
+class DadosBancariosController (
         val dadosBancariosRepository: DadosBancariosRepository
 ) {
 

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/solicitacoes")
+@CrossOrigin("http://localhost:3000")
 data class SolicitacaoController (
     val solicitacaoRepository: SolicitacaoRepository
 ) {

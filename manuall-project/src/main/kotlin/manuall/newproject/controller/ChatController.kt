@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/chats")
+@CrossOrigin("http://localhost:3000")
 class ChatController (
     val chatRepository: ChatRepository
 ) {

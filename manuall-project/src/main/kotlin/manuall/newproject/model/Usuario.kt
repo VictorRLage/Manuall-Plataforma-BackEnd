@@ -27,11 +27,11 @@ class Usuario {
 
     @Column(name = "senha", length = 60)
     @field:NotBlank
-    @Size(min = 6, max = 60)
+    @Size(min = 60, max = 60)
     var senha: String? = null
 
     @Column(name = "cpf")
-    @CPF
+    @field:CPF
     var cpf: String? = null
 
     @Column(name = "orcamento_min")
@@ -42,15 +42,18 @@ class Usuario {
     @field:PositiveOrZero
     var orcamentoMax: Double? = null
 
+    @Column(name = "descricao", length = 270)
+    @Size(max = 270)
+    var descricao: String? = null
+
+    @Column(name = "presta_aula")
+    var prestaAula: Boolean? = null
+
     @Column(name = "status")
     var status: Int? = null
 
     @Column(name = "acessos")
     var acessos: Int? = null
-
-    @Column(name = "descricao", length = 270)
-    @Size(max = 270)
-    var descricao: String? = null
 
     @Column(name = "tipo_usuario")
     var tipoUsuario: Int? = null

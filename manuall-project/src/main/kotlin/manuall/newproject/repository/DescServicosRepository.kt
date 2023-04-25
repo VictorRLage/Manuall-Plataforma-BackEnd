@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface DescServicosRepository:JpaRepository<DescServicos, Int> {
+interface DescServicosRepository: JpaRepository<DescServicos, Int> {
 
     fun deleteByUsuarioId(id: Int)
 }
