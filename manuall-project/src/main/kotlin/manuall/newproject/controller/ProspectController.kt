@@ -1,13 +1,12 @@
 package manuall.newproject.controller
 
-import manuall.newproject.model.Prospect
+import manuall.newproject.domain.Prospect
 import manuall.newproject.repository.ProspectRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/prospects")
-@CrossOrigin("http://localhost:3000")
 data class ProspectController (
     val prospectRepository: ProspectRepository
 ) {

@@ -1,12 +1,11 @@
 package manuall.newproject.controller
 
-import manuall.newproject.model.Chat
+import manuall.newproject.domain.Chat
 import manuall.newproject.repository.ChatRepository
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/chats")
-@CrossOrigin("http://localhost:3000")
 class ChatController (
     val chatRepository: ChatRepository
 ) {

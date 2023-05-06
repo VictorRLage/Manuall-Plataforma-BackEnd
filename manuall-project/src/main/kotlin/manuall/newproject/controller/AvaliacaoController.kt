@@ -1,12 +1,11 @@
 package manuall.newproject.controller
 
-import manuall.newproject.model.Avaliacao
+import manuall.newproject.domain.Avaliacao
 import manuall.newproject.repository.AvaliacaoRepository
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/avaliacoes")
-@CrossOrigin("http://localhost:3000")
 data class AvaliacaoController (
     val avaliacaoRepository: AvaliacaoRepository
 ) {

@@ -1,11 +1,11 @@
 package manuall.newproject.dto
 
-import manuall.newproject.model.*
+import manuall.newproject.domain.*
 
 data class CadastroRequest (
-    val areaUsuario: AreaUsuario,
+    val areaUsuario: List<AreaUsuario>,
     val dadosBancarios: DadosBancarios,
     val dadosEndereco: DadosEndereco,
-    val descServicos: DescServicos,
+    val descServicos: List<DescServicos>,
     val usuario: Usuario
 )

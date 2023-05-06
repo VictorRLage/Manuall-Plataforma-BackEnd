@@ -1,6 +1,6 @@
 package manuall.newproject.security
 
-import manuall.newproject.model.Usuario
+import manuall.newproject.domain.Usuario
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -15,7 +15,9 @@ class JwtAuthenticationService (
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val usuarioOpt: Optional<Usuario> = usuarioRepository.findByEmail(username)
+        println("username")
+        println(username)
+        val usuarioOpt: Optional<Usuario> = usuarioRepository.findByEmailAndTipoUsuario(username.substring(1), username.substring(0,1).toInt())
         if (usuarioOpt.isEmpty) {
             throw UsernameNotFoundException(String.format("usuario: %s nao encontrado", username))
         }

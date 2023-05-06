@@ -1,6 +1,6 @@
 package manuall.newproject.repository
 
-import manuall.newproject.model.Solicitacao
+import manuall.newproject.domain.Solicitacao
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

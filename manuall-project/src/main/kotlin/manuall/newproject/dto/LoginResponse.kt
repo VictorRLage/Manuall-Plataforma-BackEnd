@@ -1,6 +1,6 @@
 package manuall.newproject.dto
 
-import manuall.newproject.model.Usuario
+import manuall.newproject.domain.Usuario
 
 data class LoginResponse (
     val qntPerfis: Int,

@@ -1,6 +1,6 @@
 package manuall.newproject.security
 
-import manuall.newproject.model.Usuario
+import manuall.newproject.domain.Usuario
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
@@ -16,8 +16,8 @@ class UserDetailsDto (
         return usuario.senha
     }
 
-    override fun getUsername(): String? {
-        return usuario.email
+    override fun getUsername(): String {
+        return usuario.tipoUsuario.toString()+usuario.email
     }
 
     override fun isAccountNonExpired(): Boolean {

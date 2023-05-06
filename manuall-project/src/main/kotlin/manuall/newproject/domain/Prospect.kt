@@ -1,4 +1,4 @@
-package manuall.newproject.model
+package manuall.newproject.domain
 
 import java.util.Date
 import jakarta.persistence.*

@@ -1,4 +1,4 @@
-package manuall.newproject.model
+package manuall.newproject.domain
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Email

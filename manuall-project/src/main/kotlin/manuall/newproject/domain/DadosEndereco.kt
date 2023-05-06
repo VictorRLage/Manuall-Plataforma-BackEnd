@@ -1,4 +1,4 @@
-package manuall.newproject.model
+package manuall.newproject.domain
 
 import jakarta.persistence.*
 
@@ -17,7 +17,7 @@ class DadosEndereco {
     @Column(name = "cidade", length = 35)
     var cidade: String? = null
 
-    @Column(name = "cep", length = 8)
+    @Column(name = "cep", length = 11)
     var cep: String? = null
 
     @Column(name = "bairro", length = 35)

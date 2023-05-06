@@ -1,6 +1,6 @@
 package manuall.newproject.repository
 
-import manuall.newproject.model.Avaliacao
+import manuall.newproject.domain.Avaliacao
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

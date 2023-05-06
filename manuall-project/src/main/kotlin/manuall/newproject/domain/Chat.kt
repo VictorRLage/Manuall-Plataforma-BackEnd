@@ -1,10 +1,11 @@
-package manuall.newproject.model
+package manuall.newproject.domain
 
+import java.util.Date
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "avaliacao")
-class Avaliacao {
+@Table(name = "chat")
+class Chat {
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +18,9 @@ class Avaliacao {
     @ManyToOne
     var prestadorUsuario: Usuario = Usuario()
 
-    @Column(name = "nota")
-    var nota: Int? = null
+    @Column(name = "mensagem", length = 150)
+    var mensagem: String? = null
 
-    @Column(name = "descricao", length = 75)
-    var descricao: String? = null
+    @Column(name = "horario")
+    var horario: Date? = null
 }

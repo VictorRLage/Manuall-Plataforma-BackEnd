@@ -1,6 +1,6 @@
 package manuall.newproject.repository
 
-import manuall.newproject.model.Area
+import manuall.newproject.domain.Area
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

@@ -1,6 +1,6 @@
 package manuall.newproject.repository
 
-import manuall.newproject.model.Usuario
+import manuall.newproject.domain.Usuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -10,7 +10,7 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
 
     fun findByEmail(
         email: String?
-    ): Optional<Usuario>
+    ): List<Optional<Usuario>>
 
     fun findByEmailAndSenha(
         email: String?,
@@ -20,5 +20,5 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
     fun findByEmailAndTipoUsuario(
         email: String?,
         tipoUsuario: Int?
-    ): Usuario?
+    ): Optional<Usuario>
 }

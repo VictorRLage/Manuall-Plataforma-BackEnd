@@ -1,12 +1,11 @@
 package manuall.newproject.controller
 
-import manuall.newproject.model.DadosEndereco
+import manuall.newproject.domain.DadosEndereco
 import manuall.newproject.repository.DadosEnderecoRepository
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/dadosEnderecos")
-@CrossOrigin("http://localhost:3000")
 class DadosEnderecoController (
         val dadosEnderecoRepository: DadosEnderecoRepository
 ) {

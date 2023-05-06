@@ -1,6 +1,6 @@
 package manuall.newproject.repository
 
-import manuall.newproject.model.DadosEndereco
+import manuall.newproject.domain.DadosEndereco
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
