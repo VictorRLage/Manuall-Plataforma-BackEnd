@@ -3,6 +3,8 @@ package manuall.newproject.security
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
+import manuall.newproject.domain.Usuario
+import manuall.newproject.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
@@ -13,13 +15,24 @@ import java.util.function.Function
 import java.util.stream.Collectors
 import javax.crypto.SecretKey
 
-class JwtTokenManager {
+class JwtTokenManager (
+    private val usuarioRepository: UsuarioRepository
+) {
 
     @Value("\${jwt.secret}")
     private val secret: String? = null
 
     @Value("\${jwt.validity}")
     private val jwtTokenValidity: Long = 0
+
+    fun getUserFromToken(token: String): Usuario {
+        val decriptacaoToken = getUsernameFromToken(token.substring(7))
+        return usuarioRepository.findByEmailAndTipoUsuario(decriptacaoToken.substring(1), decriptacaoToken.substring(0,1).toInt()).get()
+    }
+
+    fun validarToken(token: String): Boolean {
+        return true // TODO: Será feito quando a tabela de Blacklist for criada
+    }
 
     fun getUsernameFromToken(token: String): String {
         return getClaimForToken(token) { obj: Claims -> obj.subject }

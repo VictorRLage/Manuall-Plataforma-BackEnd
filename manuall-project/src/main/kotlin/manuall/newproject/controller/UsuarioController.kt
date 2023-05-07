@@ -68,6 +68,12 @@ class UsuarioController (
 
     }
 
+    @SecurityRequirement(name = "Bearer")
+    @PostMapping("/logoff")
+    fun logoff(@RequestHeader("Authorization") token: String): ResponseEntity<String> {
+        TODO() // ainda não temos a tabela para expirar token manualmente
+    }
+
     @PostMapping("/cadastrar")
     fun criar(@RequestBody cadastroRequest: CadastroRequest): ResponseEntity<Void> {
 
@@ -111,9 +117,12 @@ class UsuarioController (
     @PatchMapping("/alterar/senha")
     fun atualizarSenha(@RequestHeader("Authorization") token: String, @RequestBody alterSenhaRequest: AlterSenhaRequest): ResponseEntity<Usuario> {
 
-        // Decriptando token e encontrando usuário
-        val decriptacaoToken = jwtTokenManager.getUsernameFromToken(token.substring(7))
-        val usuarioEncontrado = usuarioRepository.findByEmailAndTipoUsuario(decriptacaoToken.substring(1), decriptacaoToken.substring(0,1).toInt()).get()
+        // Checando se token foi expirado e então encontrando usuário por token
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token)
+        } else {
+            return ResponseEntity.status(401).build()
+        }
 
         return if (alterSenhaRequest.senhaAntiga == usuarioEncontrado.senha) {
 
@@ -129,9 +138,12 @@ class UsuarioController (
     @PatchMapping("/alterar/desc")
     fun atualizarDesc(@RequestHeader("Authorization") token: String, @RequestBody alterDescRequest: AlterDescRequest): ResponseEntity<Usuario> {
 
-        // Decriptando token e encontrando usuário
-        val decriptacaoToken = jwtTokenManager.getUsernameFromToken(token.substring(7))
-        val usuarioEncontrado = usuarioRepository.findByEmailAndTipoUsuario(decriptacaoToken.substring(1), decriptacaoToken.substring(0,1).toInt()).get()
+        // Checando se token foi expirado e então encontrando usuário por token
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token)
+        } else {
+            return ResponseEntity.status(401).build()
+        }
 
         usuarioEncontrado.descricao = alterDescRequest.descricao
         return ResponseEntity.status(200).body(usuarioRepository.save(usuarioEncontrado))
@@ -140,11 +152,14 @@ class UsuarioController (
     @Transactional
     @SecurityRequirement(name = "Bearer")
     @DeleteMapping("/deletar")
-    fun deletar(@RequestHeader("Authorization") token: String): ResponseEntity<Void> {
+    fun deletar(@RequestHeader("Authorization") token: String): ResponseEntity<String> {
 
-        // Decriptando token e encontrando usuário
-        val decriptacaoToken = jwtTokenManager.getUsernameFromToken(token.substring(7))
-        val usuarioEncontrado = usuarioRepository.findByEmailAndTipoUsuario(decriptacaoToken.substring(1), decriptacaoToken.substring(0,1).toInt()).get()
+        // Checando se token foi expirado e então encontrando usuário por token
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token)
+        } else {
+            return ResponseEntity.status(401).body("Token expirado")
+        }
 
         descServicosRepository.deleteByUsuarioId(usuarioEncontrado.id)
         dadosBancariosRepository.deleteByUsuarioId(usuarioEncontrado.id)
