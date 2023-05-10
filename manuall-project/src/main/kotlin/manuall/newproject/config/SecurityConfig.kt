@@ -1,5 +1,6 @@
 package manuall.newproject.config
 
+import manuall.newproject.repository.UsuarioRepository
 import manuall.newproject.security.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,7 +25,8 @@ import java.util.*
 @EnableMethodSecurity
 class SecurityConfig (
     val jwtAuthenticationService: JwtAuthenticationService,
-    val autenticacaoJwtEntryPoint: JwtAuthenticationEntryPoint
+    val autenticacaoJwtEntryPoint: JwtAuthenticationEntryPoint,
+    val usuarioRepository: UsuarioRepository
 ) {
 
     companion object {
@@ -107,7 +109,7 @@ class SecurityConfig (
 
     @Bean
     fun jwtAuthenticationUtilBean(): JwtTokenManager {
-        return JwtTokenManager()
+        return JwtTokenManager(usuarioRepository)
     }
 
     @Bean
