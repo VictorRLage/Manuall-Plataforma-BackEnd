@@ -17,15 +17,19 @@ class Solicitacao {
     @ManyToOne
     var prestadorUsuario: Usuario = Usuario()
 
-    @Column(name = "assunto", length = 30)
-    var assunto: String? = null
+    @ManyToOne
+    var tipoServico: TipoServico = TipoServico()
 
-    @Column(name = "mensagem", length = 120)
-    var mensagem: String? = null
+    @Column(name = "tamanho")
+    var tamanho: Int? = null
+
+    @Column(name="unidade_medida", length = 20)
+    var unidadeMedida:String? = null
+
+    @Column(name = "descricao", length = 120)
+    var descricao: String? = null
 
     @Column(name = "status")
     var status: Int? = null
 
-    @Column(name = "tipo_servico")
-    var tipoServico: Int? = null
 }

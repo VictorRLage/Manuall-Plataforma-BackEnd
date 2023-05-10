@@ -11,6 +11,9 @@ class Avaliacao {
     @Column(name = "id")
     var id: Int = 0
 
+    @OneToOne
+    var solicitacaoId: Solicitacao = Solicitacao()
+
     @ManyToOne
     var contratanteUsuario: Usuario = Usuario()
 
