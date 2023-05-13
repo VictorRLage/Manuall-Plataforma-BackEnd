@@ -12,17 +12,18 @@ class Avaliacao {
     var id: Int = 0
 
     @OneToOne
-    var solicitacaoId: Solicitacao = Solicitacao()
+    var solicitacao: Solicitacao = Solicitacao()
 
     @ManyToOne
-    var contratanteUsuario: Usuario = Usuario()
+    var solicitacaoContratanteUsuario: Solicitacao = Solicitacao()
 
     @ManyToOne
-    var prestadorUsuario: Usuario = Usuario()
+    var solicitacaoPrestadorUsuario: Solicitacao = Solicitacao()
 
     @Column(name = "nota")
     var nota: Int? = null
 
     @Column(name = "descricao", length = 75)
     var descricao: String? = null
+
 }

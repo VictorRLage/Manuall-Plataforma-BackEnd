@@ -1,17 +1,11 @@
 package manuall.newproject.controller
 
-import manuall.newproject.domain.Solicitacao
-import manuall.newproject.repository.SolicitacaoRepository
+import manuall.newproject.service.SolicitacaoService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/solicitacoes")
 data class SolicitacaoController (
-    val solicitacaoRepository: SolicitacaoRepository
+    val solicitacaoService: SolicitacaoService
 ) {
-
-    @GetMapping("/{id}")
-    fun buscarSolicitacaoPorId(@PathVariable id: Int): Solicitacao? {
-        return solicitacaoRepository.findById(id).orElseThrow()
-    }
 }

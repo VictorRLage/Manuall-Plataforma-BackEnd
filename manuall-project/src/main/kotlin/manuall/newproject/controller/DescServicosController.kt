@@ -1,17 +1,11 @@
 package manuall.newproject.controller
 
-import manuall.newproject.domain.DescServicos
-import manuall.newproject.repository.DescServicosRepository
+import manuall.newproject.service.DescServicosService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/descServicos")
 class DescServicosController (
-        val descServicosRepository: DescServicosRepository
+        val descServicosService: DescServicosService
 ) {
-
-    @GetMapping("/{id}")
-    fun buscarDescServicosPorId(@PathVariable id: Int): DescServicos? {
-        return descServicosRepository.findById(id).orElseThrow()
-    }
 }

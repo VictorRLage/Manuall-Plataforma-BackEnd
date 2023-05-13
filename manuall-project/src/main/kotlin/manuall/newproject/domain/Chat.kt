@@ -23,4 +23,8 @@ class Chat {
 
     @Column(name = "horario")
     var horario: Date? = null
+
+    @OneToOne
+    var solicitacao: Solicitacao = Solicitacao()
+
 }

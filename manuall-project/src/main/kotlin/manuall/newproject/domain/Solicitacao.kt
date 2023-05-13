@@ -17,9 +17,6 @@ class Solicitacao {
     @ManyToOne
     var prestadorUsuario: Usuario = Usuario()
 
-    @ManyToOne
-    var tipoServico: TipoServico = TipoServico()
-
     @Column(name = "tamanho")
     var tamanho: Int? = null
 
@@ -31,5 +28,8 @@ class Solicitacao {
 
     @Column(name = "status")
     var status: Int? = null
+
+    @ManyToOne
+    var tipoServico: TipoServico = TipoServico()
 
 }

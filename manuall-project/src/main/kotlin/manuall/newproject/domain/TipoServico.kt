@@ -9,14 +9,12 @@ class TipoServico {
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    var id:Int = 0
+    var id: Int = 0
 
-    @Column(name = "nome", length = 80)
-    var nome:String? = null
+    @Column(name = "nome", length = 90)
+    var nome: String? = null
 
     @ManyToOne
-    var area:Area = Area()
-
-
+    var area: Area = Area()
 
 }
