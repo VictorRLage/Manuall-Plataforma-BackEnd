@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 interface DadosEnderecoRepository: JpaRepository<DadosEndereco, Int> {
 
     fun deleteByUsuarioId(id: Int)
+
+    fun findByUsuarioId(id: Int): List<DadosEndereco>
 }

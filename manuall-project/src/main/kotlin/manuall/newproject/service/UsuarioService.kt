@@ -1,14 +1,9 @@
 package manuall.newproject.service
 
+import manuall.newproject.domain.DadosEndereco
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.AlterDescRequest
-import manuall.newproject.dto.AlterSenhaRequest
-import manuall.newproject.dto.CadastroRequest
-import manuall.newproject.dto.UsuarioLoginDto
-import manuall.newproject.repository.AreaUsuarioRepository
-import manuall.newproject.repository.DadosEnderecoRepository
-import manuall.newproject.repository.DescServicosRepository
-import manuall.newproject.repository.UsuarioRepository
+import manuall.newproject.dto.*
+import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -26,7 +21,8 @@ class UsuarioService (
     val usuarioRepository: UsuarioRepository,
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val areaUsuarioRepository: AreaUsuarioRepository,
-    val descServicosRepository: DescServicosRepository
+    val descServicosRepository: DescServicosRepository,
+    val prospectRepository: ProspectRepository
 ) {
 
     fun login(usuarioLoginDto: UsuarioLoginDto): ResponseEntity<String> {
@@ -150,5 +146,53 @@ class UsuarioService (
         usuarioRepository.deleteById(usuarioEncontrado.id)
         return ResponseEntity.status(200).body(null)
 
+    }
+
+    fun cadastrar1(cadastrar1DTO: Cadastrar1DTO): ResponseEntity<Int> {
+        val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, cadastrar1DTO.tipoUsuario)
+        if (emailExistente.isPresent) {
+            return ResponseEntity.status(409).body(null)
+        } else {
+            val usuarioVisitante = prospectRepository.findByEmail(cadastrar1DTO.email)
+            var canal: Int? = 0
+            if (usuarioVisitante != null) {
+                canal = usuarioVisitante.optCanal
+            }
+            val usuario = Usuario()
+            usuario.nome = cadastrar1DTO.nome
+            usuario.email = cadastrar1DTO.email
+            usuario.cpf = cadastrar1DTO.cpf
+            usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
+            usuario.tipoUsuario = cadastrar1DTO.tipoUsuario
+            usuario.canal = canal
+
+            val usuarioAtual = usuarioRepository.save(usuario).id
+
+            return ResponseEntity.status(201).body(usuarioAtual)
+        }
+    }
+
+    fun cadastrar2Cont(id:Int, cadastrar2ContDTO: Cadastrar2ContDTO): ResponseEntity<String> {
+        val usuario = usuarioRepository.findById(id)
+        if (usuario.isEmpty) {
+            return ResponseEntity.status(404).body("Usuário não encontrado!")
+        }
+        val enderecoCadastrado = dadosEnderecoRepository.findByUsuarioId(id)
+        if (!enderecoCadastrado.isEmpty()) {
+            return ResponseEntity.status(409).body("Endereço já cadastrado!")
+        } else {
+            val dadosEndereco = DadosEndereco()
+            dadosEndereco.usuario = usuario.get() // definição de fk da dadosEndereco
+            dadosEndereco.cep = cadastrar2ContDTO.cep
+            dadosEndereco.cidade = cadastrar2ContDTO.cidade
+            dadosEndereco.estado = cadastrar2ContDTO.estado
+            dadosEndereco.bairro = cadastrar2ContDTO.bairro
+            dadosEndereco.rua = cadastrar2ContDTO.rua
+            dadosEndereco.numero = cadastrar2ContDTO.numero
+            dadosEndereco.complemento = cadastrar2ContDTO.complemento
+
+            dadosEnderecoRepository.save(dadosEndereco)
+            return ResponseEntity.status(201).body("Endereço cadastrado com sucesso!")
+        }
     }
 }

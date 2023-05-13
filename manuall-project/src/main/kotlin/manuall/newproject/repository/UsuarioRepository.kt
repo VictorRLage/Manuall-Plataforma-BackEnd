@@ -21,4 +21,6 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         email: String?,
         tipoUsuario: Int?
     ): Optional<Usuario>
+
+
 }

@@ -2,11 +2,8 @@ package manuall.newproject.controller
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
-import manuall.newproject.dto.AlterDescRequest
-import manuall.newproject.dto.AlterSenhaRequest
-import manuall.newproject.dto.CadastroRequest
-import manuall.newproject.dto.UsuarioLoginDto
 import manuall.newproject.domain.Usuario
+import manuall.newproject.dto.*
 import manuall.newproject.repository.*
 import manuall.newproject.service.UsuarioService
 import org.springframework.http.ResponseEntity
@@ -53,5 +50,16 @@ class UsuarioController (
     @DeleteMapping("/deletar")
     fun deletar(@RequestHeader("Authorization") token: String): ResponseEntity<String> {
         return usuarioService.deletar(token)
+    }
+
+
+    @PostMapping("/cadastrar/1")
+    fun cadastrar1(@RequestBody cadastrar1DTO: Cadastrar1DTO ): ResponseEntity<Int> {
+        return usuarioService.cadastrar1(cadastrar1DTO)
+    }
+
+    @PutMapping("/cadastrar/2/contratante/{id}")
+    fun cadastrar2Cont(@PathVariable id: Int, @RequestBody cadastrar2ContDTO: Cadastrar2ContDTO): ResponseEntity<String> {
+        return usuarioService.cadastrar2Cont(id, cadastrar2ContDTO)
     }
 }
