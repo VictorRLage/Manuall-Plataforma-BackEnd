@@ -14,10 +14,10 @@ class Avaliacao {
     @OneToOne
     var solicitacao: Solicitacao = Solicitacao()
 
-    @ManyToOne
+    @OneToOne
     var solicitacaoContratanteUsuario: Solicitacao = Solicitacao()
 
-    @ManyToOne
+    @OneToOne
     var solicitacaoPrestadorUsuario: Solicitacao = Solicitacao()
 
     @Column(name = "nota")
