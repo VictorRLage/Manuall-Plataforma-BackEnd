@@ -17,15 +17,14 @@ class UsuarioController (
 ) {
 
     @PostMapping("/login")
-    fun login(@RequestBody usuarioLoginDto: UsuarioLoginDto): ResponseEntity<String> {
-        return usuarioService.login(usuarioLoginDto)
-
+    fun login(@RequestBody usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
+        return usuarioService.login(usuarioLoginRequest)
     }
 
     @SecurityRequirement(name = "Bearer")
     @PostMapping("/logoff")
-    fun logoff(@RequestHeader("Authorization") token: String): ResponseEntity<String> {
-        TODO() // ainda não temos a tabela para expirar token manualmente
+    fun logoff(@RequestHeader("Authorization") token: String): ResponseEntity<Void> {
+        return usuarioService.logoff(token)
     }
 
     @PostMapping("/cadastrar")
@@ -51,7 +50,6 @@ class UsuarioController (
     fun deletar(@RequestHeader("Authorization") token: String): ResponseEntity<String> {
         return usuarioService.deletar(token)
     }
-
 
     @PostMapping("/cadastrar/1")
     fun cadastrar1(@RequestBody cadastrar1DTO: Cadastrar1DTO ): ResponseEntity<Int> {

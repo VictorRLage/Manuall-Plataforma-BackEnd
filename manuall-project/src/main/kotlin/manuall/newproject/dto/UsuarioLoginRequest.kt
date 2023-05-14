@@ -2,7 +2,7 @@ package manuall.newproject.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
 
-class UsuarioLoginDto {
+class UsuarioLoginRequest {
 
     @Schema(description = "E-mail do usuário", example = "fulano@example.com")
     var email: String? = null

@@ -25,11 +25,11 @@ class UsuarioService (
     val prospectRepository: ProspectRepository
 ) {
 
-    fun login(usuarioLoginDto: UsuarioLoginDto): ResponseEntity<String> {
+    fun login(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
 
         // Pegando os usuários com o email requisitado em uma lista, já que podem
         // existir 2 usuários com o mesmo email e tipo_usuario diferentes
-        val possiveisUsuarios = usuarioRepository.findByEmail(usuarioLoginDto.email)
+        val possiveisUsuarios = usuarioRepository.findByEmail(usuarioLoginRequest.email)
 
         return if (possiveisUsuarios.isEmpty()) {
             ResponseEntity.status(204).build()
@@ -41,25 +41,39 @@ class UsuarioService (
             val usuario = possiveisUsuarios[0].get()
 
             // Autenticando sua senha, essa função decripta a senha do banco e a compara com a recebida
-            if (passwordEncoder.matches(usuarioLoginDto.senha, usuario.senha)) {
+            if (passwordEncoder.matches(usuarioLoginRequest.senha, usuario.senha)) {
+
+                if (usuario.status!! == 4) {
+                    ResponseEntity.status(403).body("Aprovação negada")
+                } else if (usuario.status == 1) {
+                    ResponseEntity.status(403).body("Aprovação pendente")
+                }
 
                 // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login
                 val authentication = authenticationManager.authenticate(
                     UsernamePasswordAuthenticationToken(
                         usuario.tipoUsuario.toString()+usuario.email,
-                        usuarioLoginDto.senha
+                        usuarioLoginRequest.senha
                     )
                 )
 
                 SecurityContextHolder.getContext().authentication = authentication
-                ResponseEntity.status(200).body(jwtTokenManager.generateToken(authentication))
+                ResponseEntity.status(200).body(UsuarioLoginResponse(
+                    usuario.tipoUsuario!!,
+                    jwtTokenManager.generateToken(authentication)
+                ))
 
             } else {
-                ResponseEntity.status(403).body("Senha incorreta")
+                ResponseEntity.status(401).body("Senha incorreta")
             }
 
         }
 
+    }
+
+    fun logoff(token: String): ResponseEntity<Void> {
+        jwtTokenManager.expirarToken(token)
+        return ResponseEntity.status(200).build()
     }
 
     fun criar(cadastroRequest: CadastroRequest): ResponseEntity<Void> {

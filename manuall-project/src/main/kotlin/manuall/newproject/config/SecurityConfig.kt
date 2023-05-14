@@ -1,5 +1,6 @@
 package manuall.newproject.config
 
+import manuall.newproject.repository.TokenBlacklistRepository
 import manuall.newproject.repository.UsuarioRepository
 import manuall.newproject.security.*
 import org.springframework.context.annotation.Bean
@@ -26,33 +27,19 @@ import java.util.*
 class SecurityConfig (
     val jwtAuthenticationService: JwtAuthenticationService,
     val autenticacaoJwtEntryPoint: JwtAuthenticationEntryPoint,
-    val usuarioRepository: UsuarioRepository
+    val usuarioRepository: UsuarioRepository,
+    val tokenBlacklistRepository: TokenBlacklistRepository
 ) {
 
     companion object {
-        private const val ORIGENS_PERMITIDAS = "*"
         private val URLS_PERMITIDAS = arrayOf(
             AntPathRequestMatcher("/swagger-ui/**"),
             AntPathRequestMatcher("/swagger-ui.html"),
             AntPathRequestMatcher("/swagger-resources"),
             AntPathRequestMatcher("/swagger-resources/**"),
             AntPathRequestMatcher("/v3/api-docs/**"),
-            AntPathRequestMatcher("/areas/**"),
-            AntPathRequestMatcher("/areausuario/**"),
-            AntPathRequestMatcher("/avaliacoes/**"),
-            AntPathRequestMatcher("/chats/**"),
-            AntPathRequestMatcher("/contatos/**"),
-            AntPathRequestMatcher("/dadosBancarios/**"),
-            AntPathRequestMatcher("/dadosEnderecos/**"),
-            AntPathRequestMatcher("/descServicos/**"),
-            AntPathRequestMatcher("/prospects/**"),
-            AntPathRequestMatcher("/solicitacoes/**"),
-            AntPathRequestMatcher("/areas/**"),
-            AntPathRequestMatcher("/areas/**"),
             AntPathRequestMatcher("/usuarios/login"),
             AntPathRequestMatcher("/usuarios/cadastrar"),
-            AntPathRequestMatcher("/usuarios/checar/**"),
-            AntPathRequestMatcher("/usuarios/example/sem-token"),
             AntPathRequestMatcher("/usuarios/cadastrar/1"),
             AntPathRequestMatcher("/usuarios/cadastrar/2/contratante/{id}")
         )
@@ -111,7 +98,7 @@ class SecurityConfig (
 
     @Bean
     fun jwtAuthenticationUtilBean(): JwtTokenManager {
-        return JwtTokenManager(usuarioRepository)
+        return JwtTokenManager(usuarioRepository, tokenBlacklistRepository)
     }
 
     @Bean
@@ -121,7 +108,7 @@ class SecurityConfig (
 
     private fun buildCorsConfiguration(): CorsConfiguration {
         val configuration = CorsConfiguration()
-        configuration.allowedOriginPatterns = listOf(ORIGENS_PERMITIDAS)
+        configuration.allowedOriginPatterns = listOf("*")
         configuration.allowedMethods = listOf(
             HttpMethod.GET.name(),
             HttpMethod.POST.name(),

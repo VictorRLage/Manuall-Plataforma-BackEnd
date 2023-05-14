@@ -51,13 +51,24 @@ class Usuario {
 
     @Column(name = "status")
     var status: Int? = null
+    // 1: Aprovação pendente
+    // 2: Inscrição aprovada
+    // 4: Inscrição recusada
 
     @Column(name = "acessos")
     var acessos: Int? = null
 
     @Column(name = "tipo_usuario")
     var tipoUsuario: Int? = null
+    // 1: Contratante
+    // 2: Prestador
+    // 3: Administrador
 
     @Column(name = "canal")
     var canal: Int? = null
+    // 0: Website
+    // 1: Redes Sociais
+    // 2: Pesquisa
+    // 3: Indicação
+    // 4: Tela de contato (no Website)
 }

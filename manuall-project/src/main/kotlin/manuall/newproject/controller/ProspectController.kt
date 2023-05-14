@@ -10,9 +10,4 @@ import org.springframework.web.bind.annotation.*
 data class ProspectController (
     val prospectService: ProspectService
 ) {
-
-    @GetMapping("/checar-canal/{email}")
-    fun checarCanal(@PathVariable email: String): ResponseEntity<Prospect?> {
-        return prospectService.checarCanal(email)
-    }
 }
