@@ -1,5 +1,6 @@
 package manuall.newproject.service
 
+import manuall.newproject.domain.Area
 import manuall.newproject.domain.AreaUsuario
 import manuall.newproject.domain.DadosEndereco
 import manuall.newproject.domain.Usuario
@@ -23,7 +24,8 @@ class UsuarioService (
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val areaUsuarioRepository: AreaUsuarioRepository,
     val descServicosRepository: DescServicosRepository,
-    val prospectRepository: ProspectRepository
+    val prospectRepository: ProspectRepository,
+    val areaRepository: AreaRepository
 ) {
 
     fun login(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
@@ -165,10 +167,14 @@ class UsuarioService (
 
     fun cadastrar1(cadastrar1DTO: Cadastrar1DTO): ResponseEntity<Int> {
         var acessos = 0
+        var status = 2
         val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, cadastrar1DTO.tipoUsuario)
         if (emailExistente.isPresent) {
             return ResponseEntity.status(409).body(null)
         } else {
+            if (emailExistente.get().tipoUsuario == 2) {
+                status = 1
+            }
             val usuarioVisitante = prospectRepository.findByEmail(cadastrar1DTO.email)
             var canal: Int? = 0
             if (usuarioVisitante != null) {
@@ -218,22 +224,20 @@ class UsuarioService (
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
-        val areaUsuario = areaUsuarioRepository.findByUsuarioId(id)
-        if (!areaUsuario.isEmpty()) {
-            return ResponseEntity.status(409).body("Área de atuação já cadastrada!")
-        } else {
+        cadastrar2PrestDTO.areaUsuario.forEach{
             val areaUsuario = AreaUsuario()
             areaUsuario.usuario = usuario.get() // definição de fk da areaUsuario
+            areaUsuario.area = areaRepository.findById(it).get() // definição de fk da areaUsuario
 
             areaUsuarioRepository.save(areaUsuario)
+        }
 
-            val dadosProfissionais = Usuario()
-            dadosProfissionais.orcamentoMin = cadastrar2PrestDTO.orcamentoMin
-            dadosProfissionais.orcamentoMax = cadastrar2PrestDTO.orcamentoMax
+        val novoUsuario = usuario.get()
+            novoUsuario.orcamentoMin = cadastrar2PrestDTO.orcamentoMin
+            novoUsuario.orcamentoMax = cadastrar2PrestDTO.orcamentoMax
 
-            usuarioRepository.save(dadosProfissionais)
+            usuarioRepository.save(novoUsuario)
             return ResponseEntity.status(201).body("Dados profissionais cadastrados com sucesso!")
         }
-    }
 
 }
