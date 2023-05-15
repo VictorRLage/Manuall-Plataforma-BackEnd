@@ -12,12 +12,6 @@ class Chat {
     @Column(name = "id")
     var id: Int = 0
 
-    @ManyToOne
-    var contratanteUsuario: Usuario = Usuario()
-
-    @ManyToOne
-    var prestadorUsuario: Usuario = Usuario()
-
     @Column(name = "mensagem", length = 150)
     var mensagem: String? = null
 
@@ -26,5 +20,4 @@ class Chat {
 
     @OneToOne
     var solicitacao: Solicitacao = Solicitacao()
-
 }

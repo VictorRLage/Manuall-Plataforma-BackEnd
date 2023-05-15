@@ -28,6 +28,10 @@ class Solicitacao {
 
     @Column(name = "status")
     var status: Int? = null
+    // 1: Proposta Pendente
+    // 2: Proposta Aprovada
+    // 3: Proposta finalizada
+    // 4: Proposta recusada
 
     @ManyToOne
     var tipoServico: TipoServico = TipoServico()

@@ -33,7 +33,7 @@ class JwtTokenManager (
     }
 
     fun validarToken(token: String): Boolean {
-        return tokenBlacklistRepository.findByToken(token).isPresent
+        return tokenBlacklistRepository.findByToken(token).isEmpty
     }
 
     fun expirarToken(token: String) {
