@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface AreaUsuarioRepository: JpaRepository<AreaUsuario, Int> {
     fun deleteByUsuarioId(id: Int)
+
+    fun findByUsuarioId(id: Int): List<AreaUsuario>
 }

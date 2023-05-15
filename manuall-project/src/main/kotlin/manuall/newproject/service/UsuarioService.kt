@@ -1,5 +1,6 @@
 package manuall.newproject.service
 
+import manuall.newproject.domain.AreaUsuario
 import manuall.newproject.domain.DadosEndereco
 import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
@@ -163,6 +164,7 @@ class UsuarioService (
     }
 
     fun cadastrar1(cadastrar1DTO: Cadastrar1DTO): ResponseEntity<Int> {
+        var acessos = 0
         val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, cadastrar1DTO.tipoUsuario)
         if (emailExistente.isPresent) {
             return ResponseEntity.status(409).body(null)
@@ -179,6 +181,7 @@ class UsuarioService (
             usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
             usuario.tipoUsuario = cadastrar1DTO.tipoUsuario
             usuario.canal = canal
+            usuario.acessos = acessos
 
             val usuarioAtual = usuarioRepository.save(usuario).id
 
@@ -209,4 +212,28 @@ class UsuarioService (
             return ResponseEntity.status(201).body("Endereço cadastrado com sucesso!")
         }
     }
+
+    fun cadastrar2Prest(id:Int, cadastrar2PrestDTO:Cadastrar2PrestDTO):ResponseEntity<String> {
+        val usuario = usuarioRepository.findById(id)
+        if (usuario.isEmpty) {
+            return ResponseEntity.status(404).body("Usuário não encontrado!")
+        }
+        val areaUsuario = areaUsuarioRepository.findByUsuarioId(id)
+        if (!areaUsuario.isEmpty()) {
+            return ResponseEntity.status(409).body("Área de atuação já cadastrada!")
+        } else {
+            val areaUsuario = AreaUsuario()
+            areaUsuario.usuario = usuario.get() // definição de fk da areaUsuario
+
+            areaUsuarioRepository.save(areaUsuario)
+
+            val dadosProfissionais = Usuario()
+            dadosProfissionais.orcamentoMin = cadastrar2PrestDTO.orcamentoMin
+            dadosProfissionais.orcamentoMax = cadastrar2PrestDTO.orcamentoMax
+
+            usuarioRepository.save(dadosProfissionais)
+            return ResponseEntity.status(201).body("Dados profissionais cadastrados com sucesso!")
+        }
+    }
+
 }
