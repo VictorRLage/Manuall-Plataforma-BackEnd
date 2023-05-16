@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.cors.CorsConfiguration
 import java.util.*
 
@@ -43,7 +44,8 @@ class SecurityConfig (
             AntPathRequestMatcher("/usuarios/cadastrar/1"),
             AntPathRequestMatcher("/usuarios/cadastrar/2/contratante/{id}"),
             AntPathRequestMatcher("/usuarios/cadastrar/2/prestador/{id}"),
-            AntPathRequestMatcher("/usuarios/cadastrar/3/prestador/areas")
+            AntPathRequestMatcher("/usuarios/cadastrar/3/prestador/areas"),
+            AntPathRequestMatcher( "/usuarios/cadastrar/3/prestador/servicos/{id}")
         )
     }
 

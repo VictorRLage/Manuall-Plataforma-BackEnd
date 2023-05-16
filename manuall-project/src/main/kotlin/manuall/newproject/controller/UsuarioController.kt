@@ -68,7 +68,7 @@ class UsuarioController (
         return usuarioService.buscarArea()
     }
 
-    @GetMapping("/cadastrar/3/prestador/servicos")
+    @GetMapping("/cadastrar/3/prestador/servicos/{id}")
     fun buscarTiposServico(@PathVariable id:Int): List<TipoServico> {
         return usuarioService.buscarTiposServico(id)
     }

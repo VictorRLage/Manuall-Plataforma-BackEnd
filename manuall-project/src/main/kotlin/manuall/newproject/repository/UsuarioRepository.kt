@@ -23,11 +23,6 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         tipoUsuario: Int?
     ): Optional<Usuario>
 
-//    fun findByTipoUsuarioOrderByPlano(
-//        tipoUsuario: Int?,
-//        plano: Int?
-//    ): Optional<Usuario>
-
 
 //    @Query("""
 //        select u from Usuario u where u.tipo_usuario = 2
