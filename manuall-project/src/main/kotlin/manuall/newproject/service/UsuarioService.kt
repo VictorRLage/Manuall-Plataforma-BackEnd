@@ -1,9 +1,6 @@
 package manuall.newproject.service
 
-import manuall.newproject.domain.Area
-import manuall.newproject.domain.AreaUsuario
-import manuall.newproject.domain.DadosEndereco
-import manuall.newproject.domain.Usuario
+import manuall.newproject.domain.*
 import manuall.newproject.dto.*
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
@@ -13,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.PathVariable
 import java.util.*
 
 @Service
@@ -25,7 +23,8 @@ class UsuarioService (
     val areaUsuarioRepository: AreaUsuarioRepository,
     val descServicosRepository: DescServicosRepository,
     val prospectRepository: ProspectRepository,
-    val areaRepository: AreaRepository
+    val areaRepository: AreaRepository,
+    val tipoServicoRepository: TipoServicoRepository
 ) {
 
     fun login(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
@@ -235,5 +234,15 @@ class UsuarioService (
             usuarioRepository.save(novoUsuario)
             return ResponseEntity.status(201).body("Dados profissionais cadastrados com sucesso!")
         }
+
+    fun buscarArea():List<Area> {
+        var areas = areaRepository.findAll()
+        return areas
+    }
+
+    fun buscarTiposServico(@PathVariable id:Int): List<TipoServico> {
+        var servico = tipoServicoRepository.findAllByAreaId(id)
+        return servico
+    }
 
 }

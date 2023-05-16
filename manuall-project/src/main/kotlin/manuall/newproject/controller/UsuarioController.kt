@@ -2,6 +2,8 @@ package manuall.newproject.controller
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
+import manuall.newproject.domain.Area
+import manuall.newproject.domain.TipoServico
 import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
 import manuall.newproject.repository.*
@@ -67,13 +69,17 @@ class UsuarioController (
     }
 
     @GetMapping("/cadastrar/3/prestador/areas")
-    fun buscarArea() {
-
+    fun buscarArea(): List<Area> {
+        return usuarioService.buscarArea()
     }
-//    @GetMapping("/cadastrar/3/prestador/servicos")
-//    fun buscarTiposServico {
+
+    @GetMapping("/cadastrar/3/prestador/servicos")
+    fun buscarTiposServico(@PathVariable id:Int): List<TipoServico> {
+        return usuarioService.buscarTiposServico(id)
+    }
+//    @PutMapping("/cadastrar/3/prestador/{id}")
+//    fun cadastrar3Prest(@PathVariable id:Int,@RequestBody) {
 //
 //    }
-//    @PutMapping("/cadastrar/3/prestador/{id}")
-//    fun cadastrar3Prest(@PathVariable id:Int,@RequestBody)
+
 }

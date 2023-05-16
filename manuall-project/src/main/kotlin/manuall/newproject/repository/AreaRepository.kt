@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 interface AreaRepository: JpaRepository<Area, Int> {
 
 
+
 }
