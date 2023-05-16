@@ -49,6 +49,12 @@ class Usuario {
     @Column(name = "presta_aula")
     var prestaAula: Boolean? = null
 
+    @Column(name = "plano")
+    var plano: Int? = null
+    // 1: Plano Básico
+    // 2: Plano Advanced
+    // 3: Plano Premium
+
     @Column(name = "status")
     var status: Int? = null
     // 1: Aprovação pendente

@@ -70,10 +70,10 @@ class UsuarioController (
     fun buscarArea() {
 
     }
-    @GetMapping("/cadastrar/3/prestador/servicos")
-    fun buscarTiposServico {
-
-    }
-    @PutMapping("/cadastrar/3/prestador/{id}")
-    fun cadastrar3Prest(@PathVariable id:Int,@RequestBody)
+//    @GetMapping("/cadastrar/3/prestador/servicos")
+//    fun buscarTiposServico {
+//
+//    }
+//    @PutMapping("/cadastrar/3/prestador/{id}")
+//    fun cadastrar3Prest(@PathVariable id:Int,@RequestBody)
 }

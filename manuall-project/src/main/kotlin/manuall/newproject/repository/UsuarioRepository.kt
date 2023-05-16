@@ -2,6 +2,7 @@ package manuall.newproject.repository
 
 import manuall.newproject.domain.Usuario
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import java.util.*
 
@@ -22,9 +23,15 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         tipoUsuario: Int?
     ): Optional<Usuario>
 
-    // fun findByTipoUsuarioAndPlano(
+//    fun findByTipoUsuarioOrderByPlano(
+//        tipoUsuario: Int?,
+//        plano: Int?
+//    ): Optional<Usuario>
 
-    // )
 
-
+    @Query("""
+        select u from Usuario u where u.tipo_usuario = 2
+        and u.plano = ?1
+    """)
+    fun findTipoUsuarioOrderByPlano(plano:Int): List<Usuario>
 }
