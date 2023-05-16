@@ -29,11 +29,6 @@ class UsuarioController (
         return usuarioService.logoff(token)
     }
 
-    @PostMapping("/cadastrar")
-    fun criar(@RequestBody cadastroRequest: CadastroRequest): ResponseEntity<Void> {
-        return usuarioService.criar(cadastroRequest)
-    }
-
     @SecurityRequirement(name = "Bearer")
     @PatchMapping("/alterar/senha")
     fun atualizarSenha(@RequestHeader("Authorization") token: String, @RequestBody alterSenhaRequest: AlterSenhaRequest): ResponseEntity<Usuario> {

@@ -77,4 +77,7 @@ class Usuario {
     // 2: Pesquisa
     // 3: Indicação
     // 4: Tela de contato (no Website)
+
+    @ManyToOne
+    var area: Area? = null
 }

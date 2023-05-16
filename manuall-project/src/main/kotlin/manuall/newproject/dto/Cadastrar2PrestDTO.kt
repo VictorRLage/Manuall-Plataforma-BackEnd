@@ -1,7 +1,7 @@
 package manuall.newproject.dto
 
 data class Cadastrar2PrestDTO (
-    val areaUsuario:List<Int>,
+    val area:Int,
     //val fotoPerfil:String, // string pq url
     val orcamentoMin:Double,
     val orcamentoMax:Double,

@@ -20,7 +20,6 @@ class UsuarioService (
     val authenticationManager: AuthenticationManager,
     val usuarioRepository: UsuarioRepository,
     val dadosEnderecoRepository: DadosEnderecoRepository,
-    val areaUsuarioRepository: AreaUsuarioRepository,
     val descServicosRepository: DescServicosRepository,
     val prospectRepository: ProspectRepository,
     val areaRepository: AreaRepository,
@@ -78,41 +77,6 @@ class UsuarioService (
         return ResponseEntity.status(200).build()
     }
 
-    fun criar(cadastroRequest: CadastroRequest): ResponseEntity<Void> {
-
-        val usuarioCheck: Optional<Usuario> = usuarioRepository.findByEmailAndTipoUsuario(cadastroRequest.usuario.email, cadastroRequest.usuario.tipoUsuario)
-
-        return if (usuarioCheck.isEmpty) {
-
-            // Codificando a senha do usuário para enviar a senha encriptada ao banco
-            cadastroRequest.usuario.senha = passwordEncoder.encode(cadastroRequest.usuario.senha.toString())
-
-            // Inserindo usuário e pegando seu id para usar nos próximos inserts
-            val usuarioAtual: Int = usuarioRepository.save(cadastroRequest.usuario).id
-
-            // Inserindo vários dados na tabela area_usuario
-            cadastroRequest.areaUsuario.forEach {
-                it.usuario.id = usuarioAtual
-                areaUsuarioRepository.save(it)
-            }
-
-            // Inserindo dados na tabela dados_endereco
-            cadastroRequest.dadosEndereco.usuario.id = usuarioAtual
-            dadosEnderecoRepository.save(cadastroRequest.dadosEndereco)
-
-            // Inserindo vários dados na tabela desc_servicos
-            cadastroRequest.descServicos.forEach {
-                it.usuario.id = usuarioAtual
-                descServicosRepository.save(it)
-            }
-
-            ResponseEntity.status(201).build()
-        } else {
-            ResponseEntity.status(409).build()
-        }
-
-    }
-
     fun atualizarSenha(token: String, alterSenhaRequest: AlterSenhaRequest): ResponseEntity<Usuario> {
 
         // Checando se token foi expirado e então encontrando usuário por token
@@ -157,7 +121,6 @@ class UsuarioService (
         }
 
         descServicosRepository.deleteByUsuarioId(usuarioEncontrado.id)
-        areaUsuarioRepository.deleteByUsuarioId(usuarioEncontrado.id)
         dadosEnderecoRepository.deleteByUsuarioId(usuarioEncontrado.id)
         usuarioRepository.deleteById(usuarioEncontrado.id)
         return ResponseEntity.status(200).body(null)
@@ -219,21 +182,15 @@ class UsuarioService (
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
-        cadastrar2PrestDTO.areaUsuario.forEach{
-            val areaUsuario = AreaUsuario()
-            areaUsuario.usuario = usuario.get() // definição de fk da areaUsuario
-            areaUsuario.area = areaRepository.findById(it).get() // definição de fk da areaUsuario
-
-            areaUsuarioRepository.save(areaUsuario)
-        }
 
         val novoUsuario = usuario.get()
-            novoUsuario.orcamentoMin = cadastrar2PrestDTO.orcamentoMin
-            novoUsuario.orcamentoMax = cadastrar2PrestDTO.orcamentoMax
+        novoUsuario.orcamentoMin = cadastrar2PrestDTO.orcamentoMin
+        novoUsuario.orcamentoMax = cadastrar2PrestDTO.orcamentoMax
+        novoUsuario.area = areaRepository.findById(cadastrar2PrestDTO.area).get()
 
-            usuarioRepository.save(novoUsuario)
-            return ResponseEntity.status(201).body("Dados profissionais cadastrados com sucesso!")
-        }
+        usuarioRepository.save(novoUsuario)
+        return ResponseEntity.status(201).body("Dados profissionais cadastrados com sucesso!")
+    }
 
     fun buscarArea():List<Area> {
         var areas = areaRepository.findAll()
