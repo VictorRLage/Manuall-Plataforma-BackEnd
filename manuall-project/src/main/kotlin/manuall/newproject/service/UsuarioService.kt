@@ -166,15 +166,10 @@ class UsuarioService (
     }
 
     fun cadastrar1(cadastrar1DTO: Cadastrar1DTO): ResponseEntity<Int> {
-        var acessos = 0
-        var status = 2
         val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, cadastrar1DTO.tipoUsuario)
         if (emailExistente.isPresent) {
             return ResponseEntity.status(409).body(null)
         } else {
-            if (emailExistente.get().tipoUsuario == 2) {
-                status = 1
-            }
             val usuarioVisitante = prospectRepository.findByEmail(cadastrar1DTO.email)
             var canal: Int? = 0
             if (usuarioVisitante != null) {
@@ -187,7 +182,8 @@ class UsuarioService (
             usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
             usuario.tipoUsuario = cadastrar1DTO.tipoUsuario
             usuario.canal = canal
-            usuario.acessos = acessos
+            usuario.acessos = 0
+            usuario.status = if (cadastrar1DTO.tipoUsuario == 2) 1 else 2
 
             val usuarioAtual = usuarioRepository.save(usuario).id
 

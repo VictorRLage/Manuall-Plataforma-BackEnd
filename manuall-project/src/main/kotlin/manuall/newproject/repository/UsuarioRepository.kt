@@ -22,9 +22,9 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         tipoUsuario: Int?
     ): Optional<Usuario>
 
-    fun findByTipoUsuarioAndPlano(
+    // fun findByTipoUsuarioAndPlano(
 
-    )
+    // )
 
 
 }
