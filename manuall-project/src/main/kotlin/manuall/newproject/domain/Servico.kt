@@ -3,8 +3,8 @@ package manuall.newproject.domain
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "tipo_servico")
-class TipoServico {
+@Table(name = "servico")
+class Servico {
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)

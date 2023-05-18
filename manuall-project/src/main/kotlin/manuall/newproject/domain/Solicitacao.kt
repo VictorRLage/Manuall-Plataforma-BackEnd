@@ -34,6 +34,9 @@ class Solicitacao {
     // 4: Proposta recusada
 
     @ManyToOne
-    var tipoServico: TipoServico = TipoServico()
+    var servico: Servico = Servico()
+
+    @OneToOne
+    var avaliacao: Avaliacao? = null
 
 }

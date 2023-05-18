@@ -11,19 +11,15 @@ class Avaliacao {
     @Column(name = "id")
     var id: Int = 0
 
-    @OneToOne
-    var solicitacao: Solicitacao = Solicitacao()
+    @ManyToOne
+    var contratanteUsuario: Usuario = Usuario()
 
-    @OneToOne
-    var solicitacaoContratanteUsuario: Solicitacao = Solicitacao()
-
-    @OneToOne
-    var solicitacaoPrestadorUsuario: Solicitacao = Solicitacao()
+    @ManyToOne
+    var prestadorUsuario: Usuario = Usuario()
 
     @Column(name = "nota")
     var nota: Int? = null
 
     @Column(name = "descricao", length = 75)
     var descricao: String? = null
-
 }

@@ -3,7 +3,7 @@ package manuall.newproject.controller
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
 import manuall.newproject.domain.Area
-import manuall.newproject.domain.TipoServico
+import manuall.newproject.domain.Servico
 import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
 import manuall.newproject.repository.*
@@ -69,7 +69,7 @@ class UsuarioController (
     }
 
     @GetMapping("/cadastrar/3/prestador/servicos/{id}")
-    fun buscarTiposServico(@PathVariable id:Int): List<TipoServico> {
+    fun buscarTiposServico(@PathVariable id:Int): List<Servico> {
         return usuarioService.buscarTiposServico(id)
     }
     @PutMapping("/cadastrar/3/prestador/{id}")

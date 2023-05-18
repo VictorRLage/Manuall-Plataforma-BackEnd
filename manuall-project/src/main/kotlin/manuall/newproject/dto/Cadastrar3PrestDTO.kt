@@ -1,9 +1,9 @@
 package manuall.newproject.dto
 
-import manuall.newproject.domain.TipoServico
+import manuall.newproject.domain.Servico
 
 class Cadastrar3PrestDTO(
     val area:Int,
-    val tipoServico:List<TipoServico>
+    val servico:List<Servico>
 ) {
 }

@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
-import java.util.*
 
 @Service
 class UsuarioService (
@@ -24,7 +23,7 @@ class UsuarioService (
     val descServicosRepository: DescServicosRepository,
     val prospectRepository: ProspectRepository,
     val areaRepository: AreaRepository,
-    val tipoServicoRepository: TipoServicoRepository
+    val servicoRepository: ServicoRepository
 ) {
 
     fun login(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
@@ -198,8 +197,8 @@ class UsuarioService (
         return areas
     }
 
-    fun buscarTiposServico(@PathVariable id:Int): List<TipoServico> {
-        var servico = tipoServicoRepository.findAllByAreaId(id)
+    fun buscarTiposServico(@PathVariable id:Int): List<Servico> {
+        var servico = servicoRepository.findAllByAreaId(id)
         return servico
     }
 
@@ -208,7 +207,6 @@ class UsuarioService (
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
-
 
     }
 
