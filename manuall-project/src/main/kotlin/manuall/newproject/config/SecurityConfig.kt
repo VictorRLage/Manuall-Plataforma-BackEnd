@@ -45,7 +45,8 @@ class SecurityConfig (
             AntPathRequestMatcher("/usuarios/cadastrar/2/contratante/{id}"),
             AntPathRequestMatcher("/usuarios/cadastrar/2/prestador/{id}"),
             AntPathRequestMatcher("/usuarios/cadastrar/3/prestador/areas"),
-            AntPathRequestMatcher( "/usuarios/cadastrar/3/prestador/servicos/{id}")
+            AntPathRequestMatcher( "/usuarios/cadastrar/3/prestador/servicos/{id}"),
+            AntPathRequestMatcher("/usuarios/cadastrar/3/prestador/{id}")
         )
     }
 

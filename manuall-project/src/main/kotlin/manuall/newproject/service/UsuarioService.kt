@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
 import java.util.*
 
 @Service
@@ -201,5 +202,15 @@ class UsuarioService (
         var servico = tipoServicoRepository.findAllByAreaId(id)
         return servico
     }
+
+    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO):ResponseEntity<String> {
+        val usuario = usuarioRepository.findById(id)
+        if (usuario.isEmpty) {
+            return ResponseEntity.status(404).body("Usuário não encontrado!")
+        }
+
+
+    }
+
 
 }

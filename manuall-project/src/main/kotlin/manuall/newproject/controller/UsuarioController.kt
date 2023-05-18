@@ -72,9 +72,10 @@ class UsuarioController (
     fun buscarTiposServico(@PathVariable id:Int): List<TipoServico> {
         return usuarioService.buscarTiposServico(id)
     }
-//    @PutMapping("/cadastrar/3/prestador/{id}")
-//    fun cadastrar3Prest(@PathVariable id:Int,@RequestBody) {
-//
-//    }
+    @PutMapping("/cadastrar/3/prestador/{id}")
+    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO): ResponseEntity<String> {
+        // dto de Area e TipoServico (list)
+        return usuarioService.cadastrar3Prest(id)
+    }
 
 }
