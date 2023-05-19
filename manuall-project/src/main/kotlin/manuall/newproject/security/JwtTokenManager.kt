@@ -3,10 +3,13 @@ package manuall.newproject.security
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
+import io.jsonwebtoken.security.SignatureException
+import manuall.newproject.domain.TokenBlacklist
 import manuall.newproject.domain.Usuario
 import manuall.newproject.repository.TokenBlacklistRepository
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -27,9 +30,17 @@ class JwtTokenManager (
     @Value("\${jwt.validity}")
     private val jwtTokenValidity: Long = 0
 
-    fun getUserFromToken(token: String): Usuario {
-        val decriptacaoToken = getUsernameFromToken(token.substring(7))
-        return usuarioRepository.findByEmailAndTipoUsuario(decriptacaoToken.substring(1), decriptacaoToken.substring(0,1).toInt()).get()
+    fun getUserFromToken(token: String): Usuario? {
+        return try {
+            val decriptacaoToken = getUsernameFromToken(token.substring(7))
+            if (decriptacaoToken == null) {
+                null
+            } else {
+                usuarioRepository.findByEmailAndTipoUsuario(decriptacaoToken.substring(1), decriptacaoToken.substring(0,1).toInt()).get()
+            }
+        } catch (e: StringIndexOutOfBoundsException) {
+            null
+        }
     }
 
     fun validarToken(token: String): Boolean {
@@ -37,11 +48,17 @@ class JwtTokenManager (
     }
 
     fun expirarToken(token: String) {
-        tokenBlacklistRepository.delete(tokenBlacklistRepository.findByToken(token).get())
+        val tokenBlacklist = TokenBlacklist()
+        tokenBlacklist.token = token
+        tokenBlacklistRepository.save(tokenBlacklist)
     }
 
-    fun getUsernameFromToken(token: String): String {
-        return getClaimForToken(token) { obj: Claims -> obj.subject }
+    fun getUsernameFromToken(token: String): String? {
+        return try {
+            getClaimForToken(token) { obj: Claims -> obj.subject }
+        } catch (e: SignatureException) {
+            null
+        }
     }
 
     private fun getExpirationDateFromToken(token: String?): Date {

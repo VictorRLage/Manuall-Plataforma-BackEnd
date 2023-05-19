@@ -18,10 +18,9 @@ class JwtAuthenticationEntryPoint: AuthenticationEntryPoint {
         response: HttpServletResponse,
         authException: AuthenticationException
     ) {
-        if (authException.javaClass == BadCredentialsException::class.java) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+        when (authException) {
+            is BadCredentialsException -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credenciais inválidas")
+            else -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Não autorizado")
         }
     }
 }

@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
   `acessos` INT NULL,
   `tipo_usuario` INT NULL,
   `canal` INT NULL,
-  `area_id` INT NOT NULL,
+  `area_id` INT,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   INDEX `fk_usuario_area1_idx` (`area_id` ASC) VISIBLE,

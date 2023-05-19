@@ -2,6 +2,7 @@ package manuall.newproject.controller
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
+import jakarta.validation.Valid
 import manuall.newproject.domain.Area
 import manuall.newproject.domain.Servico
 import manuall.newproject.domain.Usuario
@@ -14,6 +15,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin("http://localhost:3000")
 class UsuarioController (
     val usuarioService: UsuarioService
 ) {
@@ -49,7 +51,7 @@ class UsuarioController (
     }
 
     @PostMapping("/cadastrar/1")
-    fun cadastrar1(@RequestBody cadastrar1DTO: Cadastrar1DTO ): ResponseEntity<Int> {
+    fun cadastrar1(@RequestBody @Valid cadastrar1DTO: Cadastrar1DTO ): ResponseEntity<Int> {
         return usuarioService.cadastrar1(cadastrar1DTO)
     }
 
@@ -72,10 +74,10 @@ class UsuarioController (
     fun buscarTiposServico(@PathVariable id:Int): List<Servico> {
         return usuarioService.buscarTiposServico(id)
     }
-    @PutMapping("/cadastrar/3/prestador/{id}")
-    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO): ResponseEntity<String> {
-        // dto de Area e TipoServico (list)
-        return usuarioService.cadastrar3Prest(id)
-    }
+//    @PutMapping("/cadastrar/3/prestador/{id}")
+//    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO): ResponseEntity<String> {
+//        // dto de Area e TipoServico (list)
+//        return usuarioService.cadastrar3Prest(id)
+//    }
 
 }

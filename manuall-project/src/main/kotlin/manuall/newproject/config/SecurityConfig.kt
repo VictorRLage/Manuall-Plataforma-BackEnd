@@ -32,24 +32,6 @@ class SecurityConfig (
     val tokenBlacklistRepository: TokenBlacklistRepository
 ) {
 
-    companion object {
-        private val URLS_PERMITIDAS = arrayOf(
-            AntPathRequestMatcher("/swagger-ui/**"),
-            AntPathRequestMatcher("/swagger-ui.html"),
-            AntPathRequestMatcher("/swagger-resources"),
-            AntPathRequestMatcher("/swagger-resources/**"),
-            AntPathRequestMatcher("/v3/api-docs/**"),
-            AntPathRequestMatcher("/usuarios/login"),
-            AntPathRequestMatcher("/usuarios/cadastrar"),
-            AntPathRequestMatcher("/usuarios/cadastrar/1"),
-            AntPathRequestMatcher("/usuarios/cadastrar/2/contratante/{id}"),
-            AntPathRequestMatcher("/usuarios/cadastrar/2/prestador/{id}"),
-            AntPathRequestMatcher("/usuarios/cadastrar/3/prestador/areas"),
-            AntPathRequestMatcher( "/usuarios/cadastrar/3/prestador/servicos/{id}"),
-            AntPathRequestMatcher("/usuarios/cadastrar/3/prestador/{id}")
-        )
-    }
-
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -62,7 +44,7 @@ class SecurityConfig (
             .csrf()
             .disable()
             .authorizeHttpRequests { authorize ->
-                authorize.requestMatchers(*URLS_PERMITIDAS)
+                authorize.requestMatchers(*arrayOf(AntPathRequestMatcher("/**")))
                     .permitAll()
                     .anyRequest()
                     .authenticated()

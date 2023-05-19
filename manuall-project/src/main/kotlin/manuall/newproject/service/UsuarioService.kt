@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
 
 @Service
 class UsuarioService (
@@ -81,14 +80,14 @@ class UsuarioService (
 
         // Checando se token foi expirado e então encontrando usuário por token
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token)
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
-            return ResponseEntity.status(401).build()
+            return ResponseEntity.status(480).build()
         }
 
-        return if (alterSenhaRequest.senhaAntiga == usuarioEncontrado.senha) {
+        return if (passwordEncoder.matches(alterSenhaRequest.senhaAntiga, usuarioEncontrado.senha)) {
 
-            usuarioEncontrado.senha = alterSenhaRequest.senhaNova
+            usuarioEncontrado.senha = passwordEncoder.encode(alterSenhaRequest.senhaNova)
             ResponseEntity.status(200).body(usuarioRepository.save(usuarioEncontrado))
 
         } else {
@@ -101,9 +100,9 @@ class UsuarioService (
 
         // Checando se token foi expirado e então encontrando usuário por token
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token)
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
-            return ResponseEntity.status(401).build()
+            return ResponseEntity.status(480).build()
         }
 
         usuarioEncontrado.descricao = alterDescRequest.descricao
@@ -115,9 +114,9 @@ class UsuarioService (
 
         // Checando se token foi expirado e então encontrando usuário por token
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token)
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
-            return ResponseEntity.status(401).body("Token expirado")
+            return ResponseEntity.status(480).body("Token expirado")
         }
 
         descServicosRepository.deleteByUsuarioId(usuarioEncontrado.id)
@@ -202,13 +201,12 @@ class UsuarioService (
         return servico
     }
 
-    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO):ResponseEntity<String> {
-        val usuario = usuarioRepository.findById(id)
-        if (usuario.isEmpty) {
-            return ResponseEntity.status(404).body("Usuário não encontrado!")
-        }
-
-    }
-
+//    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO):ResponseEntity<String> {
+//        val usuario = usuarioRepository.findById(id)
+//        if (usuario.isEmpty) {
+//            return ResponseEntity.status(404).body("Usuário não encontrado!")
+//        }
+//
+//    }
 
 }

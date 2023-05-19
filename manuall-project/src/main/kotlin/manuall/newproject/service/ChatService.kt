@@ -18,9 +18,9 @@ class ChatService (
     fun getChats(token: String): ResponseEntity<List<ChatPegarDadosDestinatariosDto>> {
 
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token)
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
-            return ResponseEntity.status(401).build()
+            return ResponseEntity.status(480).build()
         }
 
         val chats = when (usuarioEncontrado.tipoUsuario) {
@@ -36,9 +36,9 @@ class ChatService (
     fun getChatsByIdSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<ChatMensagensResponse> {
 
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token)
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
-            return ResponseEntity.status(401).build()
+            return ResponseEntity.status(480).build()
         }
 
         val destinatario = if (usuarioEncontrado.tipoUsuario == 1) {
