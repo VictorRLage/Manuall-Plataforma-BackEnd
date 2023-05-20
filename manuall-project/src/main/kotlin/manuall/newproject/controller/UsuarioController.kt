@@ -86,7 +86,7 @@ class UsuarioController (
     }
 
     @SecurityRequirement(name = "Bearer")
-    @PostMapping("/cadastrar/4/prestador/{idPlano}")
+    @PutMapping("/cadastrar/4/prestador/{idPlano}")
     fun cadastrar4Prest(@RequestHeader("Authorization") token: String, @PathVariable idPlano:Int): ResponseEntity<String> {
         return usuarioService.cadastrar4Prest(token, idPlano)
     }

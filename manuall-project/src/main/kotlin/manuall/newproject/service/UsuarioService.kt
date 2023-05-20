@@ -243,7 +243,7 @@ class UsuarioService (
         return servicoRepository.findAllByAreaId(id)
     }
 
-    fun cadastrar4Prest(token: String, @PathVariable idPlano:Int): ResponseEntity<String> {
+    fun cadastrar4Prest(token: String, idPlano:Int): ResponseEntity<String> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
