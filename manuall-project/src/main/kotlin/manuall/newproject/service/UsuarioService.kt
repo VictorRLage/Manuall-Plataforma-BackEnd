@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
 
 @Service
 class UsuarioService (
@@ -193,7 +192,7 @@ class UsuarioService (
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
         val enderecoCadastrado = dadosEnderecoRepository.findByUsuarioId(id)
-        if (!enderecoCadastrado.isEmpty()) {
+        if (enderecoCadastrado.isNotEmpty()) {
             return ResponseEntity.status(409).body("Endereço já cadastrado!")
         } else {
             val dadosEndereco = DadosEndereco()
@@ -220,11 +219,9 @@ class UsuarioService (
         cadastrar3PrestDTO.servico.forEach {
             val usuarioServico = UsuarioServico()
             usuarioServico.usuario = usuario.get()
-            usuarioServico.servico = it
+            usuarioServico.servico = servicoRepository.findById(it).get()
             usuarioServicoRepository.save(usuarioServico)
         }
-
-
 
         val novoUsuario = usuario.get()
         novoUsuario.area = areaRepository.findById(cadastrar3PrestDTO.area).get()
@@ -242,9 +239,8 @@ class UsuarioService (
         return areas
     }
 
-    fun buscarTiposServico(@PathVariable id:Int): List<Servico> {
-        val servico = servicoRepository.findAllByAreaId(id)
-        return servico
+    fun buscarTiposServico(@PathVariable id: Int): List<Servico> {
+        return servicoRepository.findAllByAreaId(id)
     }
 
     fun cadastrar4Prest(token: String, @PathVariable idPlano:Int): ResponseEntity<String> {

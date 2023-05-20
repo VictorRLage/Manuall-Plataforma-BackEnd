@@ -1,10 +1,7 @@
 package manuall.newproject.domain
 
 import jakarta.persistence.*
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.PositiveOrZero
-import jakarta.validation.constraints.Size
+import jakarta.validation.constraints.*
 import org.hibernate.validator.constraints.br.CPF
 
 @Entity
@@ -27,7 +24,7 @@ class Usuario {
 
     @Column(name = "senha", length = 60)
     @field:NotBlank
-    @Size(min = 60, max = 60)
+    @field:Size(min = 60, max = 60)
     var senha: String? = null
 
     @Column(name = "cpf")
@@ -72,6 +69,9 @@ class Usuario {
     var acessos: Int? = null
 
     @Column(name = "tipo_usuario")
+    @field:NotNull
+    @field:Min(1)
+    @field:Max(3)
     var tipoUsuario: Int? = null
     // 1: Contratante
     // 2: Prestador

@@ -8,5 +8,4 @@ data class Cadastrar2DTO (
     val rua:String,
     val numero:Int,
     val complemento:String
-    ) {
-}
+)
