@@ -211,7 +211,7 @@ class UsuarioService (
         }
     }
 
-    fun cadastrar3Prest(id:Int, @RequestBody cadastrar3PrestDTO:Cadastrar3PrestDTO):ResponseEntity<String> {
+    fun cadastrar3Prest(id:Int, cadastrar3PrestDTO:Cadastrar3PrestDTO):ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")

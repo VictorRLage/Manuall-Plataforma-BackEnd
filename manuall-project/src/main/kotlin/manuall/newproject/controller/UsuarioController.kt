@@ -81,7 +81,7 @@ class UsuarioController (
     }
 
     @PutMapping("/cadastrar/3/prestador/{id}")
-    fun cadastrar3Prest(id:Int, @RequestBody cadastrar3PrestDTO:Cadastrar3PrestDTO):ResponseEntity<String> {
+    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO:Cadastrar3PrestDTO):ResponseEntity<String> {
         return usuarioService.cadastrar3Prest(id, cadastrar3PrestDTO)
     }
 
