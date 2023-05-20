@@ -173,6 +173,7 @@ class UsuarioService (
             usuario.nome = cadastrar1DTO.nome
             usuario.email = cadastrar1DTO.email
             usuario.cpf = cadastrar1DTO.cpf
+            usuario.telefone = cadastrar1DTO.telefone
             usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
             usuario.tipoUsuario = cadastrar1DTO.tipoUsuario
             usuario.canal = canal
@@ -233,13 +234,25 @@ class UsuarioService (
     }
 
     fun buscarArea():List<Area> {
-        var areas = areaRepository.findAll()
+        val areas = areaRepository.findAll()
         return areas
     }
 
     fun buscarTiposServico(@PathVariable id:Int): List<Servico> {
-        var servico = servicoRepository.findAllByAreaId(id)
+        val servico = servicoRepository.findAllByAreaId(id)
         return servico
+    }
+
+    fun cadastrar4Prest(token: String, @PathVariable idPlano:Int): ResponseEntity<String> {
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        usuarioEncontrado.plano = idPlano
+        usuarioRepository.save(usuarioEncontrado)
+        return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
     }
 
 

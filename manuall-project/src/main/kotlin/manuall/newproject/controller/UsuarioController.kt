@@ -65,7 +65,7 @@ class UsuarioController (
         return usuarioService.cadastrar1(cadastrar1DTO)
     }
 
-    @PutMapping("/cadastrar/2/contratante/{id}")
+    @PutMapping("/cadastrar/2/{id}")
     fun cadastrar2(@PathVariable id: Int, @RequestBody cadastrar2DTO: Cadastrar2DTO): ResponseEntity<String> {
         return usuarioService.cadastrar2(id, cadastrar2DTO)
     }
@@ -79,10 +79,11 @@ class UsuarioController (
     fun buscarTiposServico(@PathVariable id:Int): List<Servico> {
         return usuarioService.buscarTiposServico(id)
     }
-//    @PutMapping("/cadastrar/3/prestador/{id}")
-//    fun cadastrar3Prest(@PathVariable id:Int, @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO): ResponseEntity<String> {
-//        // dto de Area e TipoServico (list)
-//        return usuarioService.cadastrar3Prest(id)
-//    }
+
+    @SecurityRequirement(name = "Bearer")
+    @PostMapping("/cadastrar/4/prestador/{idPlano}")
+    fun cadastrar4Prest(@RequestHeader("Authorization") token: String, @PathVariable idPlano:Int): ResponseEntity<String> {
+        return usuarioService.cadastrar4Prest(token, idPlano)
+    }
 
 }
