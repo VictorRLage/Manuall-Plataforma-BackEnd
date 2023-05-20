@@ -37,14 +37,14 @@ class UsuarioService (
         }
     }
 
-    fun loginEfetuar(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
+    fun loginEfetuar(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<String> {
 
         // Pegando os usuários com o email requisitado em uma lista, já que podem
         // existir 2 usuários com o mesmo email e tipo_usuario diferentes
         val possivelUsuario = usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, usuarioLoginRequest.tipoUsuario)
 
         return if (possivelUsuario.isEmpty) {
-            ResponseEntity.status(204).body("Email não encontrado")
+            ResponseEntity.status(401).body("Credenciais inválidas")
         } else {
             // Tendo em vista que existe apenas 1 usuário nesta lista, vamos simplificar e chamá-lo de "usuario"
             val usuario = possivelUsuario.get()
@@ -67,13 +67,10 @@ class UsuarioService (
                 )
 
                 SecurityContextHolder.getContext().authentication = authentication
-                ResponseEntity.status(200).body(UsuarioLoginResponse(
-                    usuario.tipoUsuario!!,
-                    jwtTokenManager.generateToken(authentication)
-                ))
+                ResponseEntity.status(200).body(jwtTokenManager.generateToken(authentication))
 
             } else {
-                ResponseEntity.status(401).body("Senha incorreta")
+                ResponseEntity.status(401).body("Credenciais inválidas")
             }
 
         }

@@ -21,12 +21,12 @@ class UsuarioController (
 ) {
 
     @PostMapping("/login/checar")
-    fun loginChecar(@RequestBody email: String): ResponseEntity<Int> {
-        return usuarioService.loginChecar(email)
+    fun loginChecar(@RequestBody usuarioLoginCheckRequest: UsuarioLoginCheckRequest): ResponseEntity<Int> {
+        return usuarioService.loginChecar(usuarioLoginCheckRequest.email)
     }
 
     @PostMapping("/login/efetuar")
-    fun loginEfetuar(@RequestBody usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
+    fun loginEfetuar(@RequestBody usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<String> {
         return usuarioService.loginEfetuar(usuarioLoginRequest)
     }
 
