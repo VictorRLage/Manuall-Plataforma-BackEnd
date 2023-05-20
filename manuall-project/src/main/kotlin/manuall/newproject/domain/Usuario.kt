@@ -34,6 +34,10 @@ class Usuario {
     @field:CPF
     var cpf: String? = null
 
+    @Column(name="telefone", length = 11)
+    @field:NotBlank
+    var telefone: String? = null
+
     @Column(name = "orcamento_min")
     @field:PositiveOrZero
     var orcamentoMin: Double? = null

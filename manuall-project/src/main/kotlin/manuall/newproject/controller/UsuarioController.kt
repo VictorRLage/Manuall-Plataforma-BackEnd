@@ -55,19 +55,19 @@ class UsuarioController (
         return usuarioService.deletar(token)
     }
 
+
+    @GetMapping("/cadastrar/prospect")
+    fun checarProspect(@RequestBody prospectDTO: ProspectDTO): ResponseEntity<PipefyReturnDTO>{ //DTO com todos os campos do Pipefy que precisam ser retornados
+        return usuarioService.checarProspect(prospectDTO)
+    }
     @PostMapping("/cadastrar/1")
     fun cadastrar1(@RequestBody @Valid cadastrar1DTO: Cadastrar1DTO ): ResponseEntity<Int> {
         return usuarioService.cadastrar1(cadastrar1DTO)
     }
 
     @PutMapping("/cadastrar/2/contratante/{id}")
-    fun cadastrar2Cont(@PathVariable id: Int, @RequestBody cadastrar2ContDTO: Cadastrar2ContDTO): ResponseEntity<String> {
-        return usuarioService.cadastrar2Cont(id, cadastrar2ContDTO)
-    }
-
-    @PutMapping("/cadastrar/2/prestador/{id}")
-    fun cadastrar2Prest(@PathVariable id: Int, @RequestBody cadastrar2PrestDTO: Cadastrar2PrestDTO): ResponseEntity<String> {
-        return usuarioService.cadastrar2Prest(id, cadastrar2PrestDTO)
+    fun cadastrar2(@PathVariable id: Int, @RequestBody cadastrar2DTO: Cadastrar2DTO): ResponseEntity<String> {
+        return usuarioService.cadastrar2(id, cadastrar2DTO)
     }
 
     @GetMapping("/cadastrar/3/prestador/areas")

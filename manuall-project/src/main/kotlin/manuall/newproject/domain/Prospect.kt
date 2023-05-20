@@ -30,6 +30,9 @@ class Prospect {
         @Column(name = "dt_nascimento")
         var dtNascimento: Date? = null
 
+        @Column(name = "opt_cidade")
+        var optCidade:Int? = null
+
         @Column(name = "opt_reside")
         var optReside: Int? = null
 
