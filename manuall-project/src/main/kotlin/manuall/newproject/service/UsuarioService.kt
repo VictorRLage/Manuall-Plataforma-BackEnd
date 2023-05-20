@@ -224,11 +224,14 @@ class UsuarioService (
             usuarioServicoRepository.save(usuarioServico)
         }
 
+
+
         val novoUsuario = usuario.get()
         novoUsuario.area = areaRepository.findById(cadastrar3PrestDTO.area).get()
         novoUsuario.prestaAula = cadastrar3PrestDTO.prestaAula
         novoUsuario.orcamentoMin = cadastrar3PrestDTO.orcamentoMin
         novoUsuario.orcamentoMax = cadastrar3PrestDTO.orcamentoMax
+        novoUsuario.status = if (novoUsuario.tipoUsuario == 2) 1 else 2
 
         usuarioRepository.save(novoUsuario)
         return ResponseEntity.status(201).body("Serviços cadastrados com sucesso!")
