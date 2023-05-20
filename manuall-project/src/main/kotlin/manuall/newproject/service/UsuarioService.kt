@@ -25,28 +25,37 @@ class UsuarioService (
     val servicoRepository: ServicoRepository
 ) {
 
-    fun login(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
-
-        // Pegando os usuários com o email requisitado em uma lista, já que podem
-        // existir 2 usuários com o mesmo email e tipo_usuario diferentes
-        val possiveisUsuarios = usuarioRepository.findByEmail(usuarioLoginRequest.email)
+    fun loginChecar(email: String): ResponseEntity<Int> {
+        val possiveisUsuarios = usuarioRepository.findByEmail(email)
 
         return if (possiveisUsuarios.isEmpty()) {
             ResponseEntity.status(204).build()
         } else if (possiveisUsuarios.size > 1) {
-            ResponseEntity.status(409).body("Dois valores encontrados")
+            ResponseEntity.status(409).build()
         } else {
+            ResponseEntity.status(200).body(possiveisUsuarios[0].get().tipoUsuario)
+        }
+    }
 
+    fun loginEfetuar(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
+
+        // Pegando os usuários com o email requisitado em uma lista, já que podem
+        // existir 2 usuários com o mesmo email e tipo_usuario diferentes
+        val possivelUsuario = usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, usuarioLoginRequest.tipoUsuario)
+
+        return if (possivelUsuario.isEmpty) {
+            ResponseEntity.status(204).body("Email não encontrado")
+        } else {
             // Tendo em vista que existe apenas 1 usuário nesta lista, vamos simplificar e chamá-lo de "usuario"
-            val usuario = possiveisUsuarios[0].get()
+            val usuario = possivelUsuario.get()
 
             // Autenticando sua senha, essa função decripta a senha do banco e a compara com a recebida
             if (passwordEncoder.matches(usuarioLoginRequest.senha, usuario.senha)) {
 
-                if (usuario.status!! == 4) {
-                    ResponseEntity.status(403).body("Aprovação negada")
-                } else if (usuario.status == 1) {
-                    ResponseEntity.status(403).body("Aprovação pendente")
+                when (usuario.status) {
+                    null -> ResponseEntity.status(403).body("Usuário não finalizou o cadastro")
+                    4 -> ResponseEntity.status(403).body("Aprovação negada")
+                    1 -> ResponseEntity.status(403).body("Aprovação pendente")
                 }
 
                 // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login

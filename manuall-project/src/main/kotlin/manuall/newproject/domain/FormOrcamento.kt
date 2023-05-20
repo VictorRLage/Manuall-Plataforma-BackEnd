@@ -3,8 +3,7 @@ package manuall.newproject.domain
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "desc_servicos")
-class DescServicos {
+class FormOrcamento {
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +13,9 @@ class DescServicos {
     @OneToOne
     var usuario: Usuario = Usuario()
 
-    @Column(name = "topico", length = 30)
-    var topico: String? = null
+    @Column(name = "mensagem", length = 135)
+    var mensagem: String? = null
+
+    @Column(name = "orcamento")
+    var orcamento: Double? = 0.0
 }

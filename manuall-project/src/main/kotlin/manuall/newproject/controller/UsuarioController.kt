@@ -20,9 +20,14 @@ class UsuarioController (
     val usuarioService: UsuarioService
 ) {
 
-    @PostMapping("/login")
-    fun login(@RequestBody usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
-        return usuarioService.login(usuarioLoginRequest)
+    @PostMapping("/login/checar")
+    fun loginChecar(@RequestBody email: String): ResponseEntity<Int> {
+        return usuarioService.loginChecar(email)
+    }
+
+    @PostMapping("/login/efetuar")
+    fun loginEfetuar(@RequestBody usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<Any> {
+        return usuarioService.loginEfetuar(usuarioLoginRequest)
     }
 
     @SecurityRequirement(name = "Bearer")

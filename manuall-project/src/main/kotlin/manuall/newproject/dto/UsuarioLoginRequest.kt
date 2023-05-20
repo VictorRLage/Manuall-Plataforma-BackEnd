@@ -9,4 +9,7 @@ class UsuarioLoginRequest {
 
     @Schema(description = "Senha do usuário", example = "senha123")
     var senha: String? = null
+
+    @Schema(description = "Tipo do usuário", example = "0")
+    val tipoUsuario: Int = 0
 }
