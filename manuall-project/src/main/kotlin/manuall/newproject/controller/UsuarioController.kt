@@ -75,9 +75,14 @@ class UsuarioController (
         return usuarioService.buscarArea()
     }
 
-    @GetMapping("/cadastrar/3/prestador/servicos/{id}")
+    @GetMapping("/cadastrar/3/prestador/buscarServicos/{id}")
     fun buscarTiposServico(@PathVariable id:Int): List<Servico> {
         return usuarioService.buscarTiposServico(id)
+    }
+
+    @PutMapping("/cadastrar/3/prestador/{id}")
+    fun cadastrar3Prest(id:Int, cadastrar3PrestDTO:Cadastrar3PrestDTO):ResponseEntity<String> {
+        return usuarioService.cadastrar3Prest(id, cadastrar3PrestDTO)
     }
 
     @SecurityRequirement(name = "Bearer")
