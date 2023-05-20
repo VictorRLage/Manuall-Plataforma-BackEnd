@@ -61,6 +61,9 @@ class Usuario {
     // 2: Inscrição aprovada
     // 4: Inscrição recusada
 
+    @Column(name = "anexo_pfp", length = 90)
+    var anexoPfp: String? = ""
+
     @Column(name = "acessos")
     var acessos: Int? = null
 

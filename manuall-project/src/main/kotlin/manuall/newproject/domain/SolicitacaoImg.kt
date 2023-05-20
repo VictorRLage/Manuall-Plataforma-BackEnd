@@ -1,25 +1,18 @@
 package manuall.newproject.domain
 
-import java.util.Date
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "chat")
-class Chat {
+@Table(name = "solicitacao_img")
+class SolicitacaoImg {
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Int = 0
 
-    @OneToOne
+    @ManyToOne
     var solicitacao: Solicitacao = Solicitacao()
-
-    @Column(name = "mensagem", length = 150)
-    var mensagem: String? = null
-
-    @Column(name = "horario")
-    var horario: Date? = null
 
     @Column(name = "anexo", length = 90)
     var anexo: String? = ""
