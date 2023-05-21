@@ -121,4 +121,9 @@ class UsuarioController (
         return usuarioService.cadastrar4Prest(token, idPlano)
     }
 
+    @SecurityRequirement(name = "Bearer")
+    @GetMapping("/perfil/prestador/checar")
+    fun checarPrestador(@RequestHeader("Authorization") token: String): ResponseEntity<Usuario> {
+        return usuarioService.checarPrestador(token)
+    }
 }

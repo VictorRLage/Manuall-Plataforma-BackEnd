@@ -200,6 +200,7 @@ class UsuarioService (
             usuario.tipoUsuario = cadastrar1DTO.tipoUsuario
             usuario.canal = canal
             usuario.acessos = 0
+            usuario.status = null
 
             val usuarioAtual = usuarioRepository.save(usuario).id
 
@@ -286,6 +287,15 @@ class UsuarioService (
         usuarioEncontrado.plano = idPlano
         usuarioRepository.save(usuarioEncontrado)
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
+    }
+
+    fun checarPrestador(token: String): ResponseEntity<Usuario> {
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+        return ResponseEntity.status(200).body(usuarioEncontrado)
     }
 
 }
