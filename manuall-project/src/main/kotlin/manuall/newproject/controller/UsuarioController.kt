@@ -131,7 +131,7 @@ class UsuarioController (
     }
 
     @SecurityRequirement(name = "Bearer")
-    @GetMapping("/perfil/prestador/checar")
+    @GetMapping("/perfil/prestador")
     fun checarPrestador(@RequestHeader("Authorization") @Schema(hidden = true) token: String): ResponseEntity<PerfilDTO> {
         return usuarioService.checarPrestador(token)
     }
