@@ -6,11 +6,11 @@ import org.hibernate.validator.constraints.br.CPF
 
 data class Cadastrar1DTO (
 
-    @Schema(example = "urubu")
+    @Schema(example = "Fulano de Tal")
     @field:NotBlank
     val nome:String,
 
-    @Schema(example = "joaquim.pires@sptech.school")
+    @Schema(example = "fulano@example.com")
     @field:NotBlank
     @field:Email
     val email:String,
@@ -23,7 +23,7 @@ data class Cadastrar1DTO (
     @field:NotBlank
     val telefone:String,
 
-    @Schema(example = "senha123")
+    @Schema(example = "urubu100")
     @field:NotBlank
     @field:Size(min = 8, max = 24)
     val senha:String,

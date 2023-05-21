@@ -27,7 +27,6 @@ class SolicitacaoService (
 
     fun enviarSolicitacao(token: String, solicitacaoDto: SolicitacaoDto): ResponseEntity<Void> {
 
-        // Checando se token foi expirado e então encontrando usuário por token
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
@@ -46,5 +45,39 @@ class SolicitacaoService (
         solicitacaoRepository.save(solicitacao)
 
         return ResponseEntity.status(201).build()
+    }
+
+    fun responderSolicitacao(token: String, idSolicitacao: Int, aceitar: Boolean): ResponseEntity<Void> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        val solicitacao = solicitacaoRepository.findById(idSolicitacao).get()
+
+        solicitacao.status = if (aceitar) 2 else 4
+
+        solicitacaoRepository.save(solicitacao)
+
+        return ResponseEntity.status(200).build()
+    }
+
+    fun cancelarSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<Void> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        val solicitacao = solicitacaoRepository.findById(idSolicitacao).get()
+
+        solicitacao.status = 3
+
+        solicitacaoRepository.save(solicitacao)
+
+        return ResponseEntity.status(200).build()
     }
 }

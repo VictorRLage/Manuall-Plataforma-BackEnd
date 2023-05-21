@@ -1,5 +1,6 @@
 package manuall.newproject.controller
 
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import manuall.newproject.dto.ChatMensagensResponse
 import manuall.newproject.dto.ChatPegarDadosDestinatariosDto
@@ -16,19 +17,28 @@ class ChatController (
 
     @GetMapping
     @SecurityRequirement(name = "Bearer")
-    fun getChats(@RequestHeader("Authorization") token: String): ResponseEntity<List<ChatPegarDadosDestinatariosDto>> {
+    fun getChats(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+    ): ResponseEntity<List<ChatPegarDadosDestinatariosDto>> {
         return chatService.getChats(token)
     }
 
     @GetMapping("/{idSolicitacao}")
     @SecurityRequirement(name = "Bearer")
-    fun getChatsByIdSolicitacao(@RequestHeader("Authorization") token: String, @PathVariable idSolicitacao: Int): ResponseEntity<ChatMensagensResponse> {
+    fun getChatsByIdSolicitacao(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @PathVariable idSolicitacao: Int
+    ): ResponseEntity<ChatMensagensResponse> {
         return chatService.getChatsByIdSolicitacao(token, idSolicitacao)
     }
 
     @GetMapping("/{idSolicitacao}/{idUltimaMensagem}")
     @SecurityRequirement(name = "Bearer")
-    fun getChatsByIdSolicitacaoIdUltimaMensagem(@RequestHeader("Authorization") token: String, @PathVariable idSolicitacao: Int, @PathVariable idUltimaMensagem: Int): ResponseEntity<ChatMensagensResponse> {
+    fun getChatsByIdSolicitacaoIdUltimaMensagem(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @PathVariable idSolicitacao: Int,
+        @PathVariable idUltimaMensagem: Int
+    ): ResponseEntity<ChatMensagensResponse> {
         TODO()
     }
 }

@@ -2,6 +2,7 @@ package manuall.newproject.security
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SignatureException
 import manuall.newproject.domain.TokenBlacklist
@@ -57,6 +58,8 @@ class JwtTokenManager (
         return try {
             getClaimForToken(token) { obj: Claims -> obj.subject }
         } catch (e: SignatureException) {
+            null
+        } catch (e: MalformedJwtException) {
             null
         }
     }
