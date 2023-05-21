@@ -123,7 +123,7 @@ class UsuarioController (
 
     @SecurityRequirement(name = "Bearer")
     @GetMapping("/perfil/prestador/checar")
-    fun checarPrestador(@RequestHeader("Authorization") token: String): ResponseEntity<Usuario> {
+    fun checarPrestador(@RequestHeader("Authorization") @Schema(hidden = true) token: String): ResponseEntity<PerfilDTO> {
         return usuarioService.checarPrestador(token)
     }
 }

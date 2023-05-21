@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
 
 @Service
-class UsuarioService (
+class UsuarioService(
     val passwordEncoder: PasswordEncoder,
     val jwtTokenManager: JwtTokenManager,
     val authenticationManager: AuthenticationManager,
@@ -23,7 +23,8 @@ class UsuarioService (
     val prospectRepository: ProspectRepository,
     val areaRepository: AreaRepository,
     val servicoRepository: ServicoRepository,
-    val usuarioServicoRepository: UsuarioServicoRepository
+    val usuarioServicoRepository: UsuarioServicoRepository,
+    val avaliacaoRepository: AvaliacaoRepository
 ) {
 
     fun loginChecar(email: String): ResponseEntity<Int> {
@@ -42,7 +43,8 @@ class UsuarioService (
 
         // Pegando os usuários com o email requisitado em uma lista, já que podem
         // existir 2 usuários com o mesmo email e tipo_usuario diferentes
-        val possivelUsuario = usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, usuarioLoginRequest.tipoUsuario)
+        val possivelUsuario =
+            usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, usuarioLoginRequest.tipoUsuario)
 
         return if (possivelUsuario.isEmpty) {
             ResponseEntity.status(401).body("Credenciais inválidas")
@@ -75,6 +77,7 @@ class UsuarioService (
                         }
 
                     }
+
                     4 -> ResponseEntity.status(403).body("Aprovação negada")
                     1 -> ResponseEntity.status(403).body("Aprovação pendente")
                 }
@@ -82,7 +85,7 @@ class UsuarioService (
                 // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login
                 val authentication = authenticationManager.authenticate(
                     UsernamePasswordAuthenticationToken(
-                        usuario.tipoUsuario.toString()+usuario.email,
+                        usuario.tipoUsuario.toString() + usuario.email,
                         usuarioLoginRequest.senha
                     )
                 )
@@ -90,7 +93,8 @@ class UsuarioService (
                 SecurityContextHolder.getContext().authentication = authentication
                 // Token + 200 = Cadastro 100% concluído
                 // Token + 403 = Parou na escolha de plano
-                ResponseEntity.status(if (usuario.plano == null) 206 else 200).body(jwtTokenManager.generateToken(authentication))
+                ResponseEntity.status(if (usuario.plano == null) 206 else 200)
+                    .body(jwtTokenManager.generateToken(authentication))
 
             } else {
                 ResponseEntity.status(401).body("Credenciais inválidas")
@@ -155,7 +159,7 @@ class UsuarioService (
 
     }
 
-    fun checarProspect(prospectDTO:ProspectDTO): ResponseEntity<PipefyReturnDTO> { // dto do retorno do pipefy
+    fun checarProspect(prospectDTO: ProspectDTO): ResponseEntity<PipefyReturnDTO> { // dto do retorno do pipefy
         val usuario = prospectRepository.findByEmailAndTipoUsuario(prospectDTO.email, prospectDTO.tipoUsuario)
         if (usuario.isPresent) {
             val pipefyReturnDTO = PipefyReturnDTO()
@@ -208,7 +212,7 @@ class UsuarioService (
         }
     }
 
-    fun cadastrar2(id:Int, cadastrar2DTO: Cadastrar2DTO): ResponseEntity<String> {
+    fun cadastrar2(id: Int, cadastrar2DTO: Cadastrar2DTO): ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
@@ -238,7 +242,7 @@ class UsuarioService (
         }
     }
 
-    fun cadastrar3Prest(id:Int, cadastrar3PrestDTO:Cadastrar3PrestDTO):ResponseEntity<String> {
+    fun cadastrar3Prest(id: Int, cadastrar3PrestDTO: Cadastrar3PrestDTO): ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
@@ -277,7 +281,7 @@ class UsuarioService (
         return servicoRepository.findAllByAreaId(id)
     }
 
-    fun cadastrar4Prest(token: String, idPlano:Int): ResponseEntity<String> {
+    fun cadastrar4Prest(token: String, idPlano: Int): ResponseEntity<String> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
@@ -289,13 +293,26 @@ class UsuarioService (
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
     }
 
-    fun checarPrestador(token: String): ResponseEntity<Usuario> {
+    fun checarPrestador(token: String): ResponseEntity<PerfilDTO> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
         }
-        return ResponseEntity.status(200).body(usuarioEncontrado)
+
+        val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuarioEncontrado.id).get()
+        val dadosAvaliacao = avaliacaoRepository.findByPrestadorUsuarioId(usuarioEncontrado.id)
+
+        val perfilDTO = PerfilDTO(
+            usuarioEncontrado.nome!!,
+            usuarioEncontrado.orcamentoMin!!,
+            usuarioEncontrado.orcamentoMax!!,
+            usuarioEncontrado.prestaAula!!,
+            dadosEndereco.estado!!,
+            dadosEndereco.cidade!!,
+            dadosAvaliacao
+        )
+        return ResponseEntity.status(200).body(perfilDTO)
     }
 
 }
