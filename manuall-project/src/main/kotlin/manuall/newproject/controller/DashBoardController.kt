@@ -1,6 +1,7 @@
 package manuall.newproject.controller
 
 import manuall.newproject.domain.Usuario
+import manuall.newproject.repository.DashboardComplitudeCadastroDto
 import manuall.newproject.service.DashboardService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -25,7 +26,7 @@ class DashBoardController(
     }
 
     @GetMapping("/geral/complitudeCadastro")
-    fun taxaComplitudeCadastro(): ResponseEntity<ComplitudeCadastroDto> {
+    fun taxaComplitudeCadastro(): ResponseEntity<DashboardComplitudeCadastroDto> {
         return dashboardService.taxaComplitudeCadastro()
     }
 

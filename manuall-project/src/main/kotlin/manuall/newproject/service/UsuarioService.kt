@@ -23,7 +23,8 @@ class UsuarioService (
     val prospectRepository: ProspectRepository,
     val areaRepository: AreaRepository,
     val servicoRepository: ServicoRepository,
-    val usuarioServicoRepository: UsuarioServicoRepository
+    val usuarioServicoRepository: UsuarioServicoRepository,
+    val avaliacaoRepository: AvaliacaoRepository
 ) {
 
     fun loginChecar(email: String): ResponseEntity<Int> {
@@ -155,7 +156,7 @@ class UsuarioService (
 
     }
 
-    fun checarProspect(prospectDTO:ProspectDTO): ResponseEntity<PipefyReturnDTO> { // dto do retorno do pipefy
+    fun checarProspect(prospectDTO: ProspectDTO): ResponseEntity<PipefyReturnDTO> { // dto do retorno do pipefy
         val usuario = prospectRepository.findByEmailAndTipoUsuario(prospectDTO.email, prospectDTO.tipoUsuario)
         if (usuario.isPresent) {
             val pipefyReturnDTO = PipefyReturnDTO()
@@ -208,7 +209,7 @@ class UsuarioService (
         }
     }
 
-    fun cadastrar2(id:Int, cadastrar2DTO: Cadastrar2DTO): ResponseEntity<String> {
+    fun cadastrar2(id: Int, cadastrar2DTO: Cadastrar2DTO): ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
@@ -238,7 +239,7 @@ class UsuarioService (
         }
     }
 
-    fun cadastrar3Prest(id:Int, cadastrar3PrestDTO:Cadastrar3PrestDTO):ResponseEntity<String> {
+    fun cadastrar3Prest(id: Int, cadastrar3PrestDTO: Cadastrar3PrestDTO): ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
@@ -277,7 +278,7 @@ class UsuarioService (
         return servicoRepository.findAllByAreaId(id)
     }
 
-    fun cadastrar4Prest(token: String, idPlano:Int): ResponseEntity<String> {
+    fun cadastrar4Prest(token: String, idPlano: Int): ResponseEntity<String> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
@@ -310,13 +311,26 @@ class UsuarioService (
 
     }
 
-    fun checarPrestador(token: String): ResponseEntity<Usuario> {
+    fun checarPrestador(token: String): ResponseEntity<PerfilDTO> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
         }
-        return ResponseEntity.status(200).body(usuarioEncontrado)
+
+        val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuarioEncontrado.id).get()
+        val dadosAvaliacao = avaliacaoRepository.findByPrestadorUsuarioId(usuarioEncontrado.id)
+
+        val perfilDTO = PerfilDTO(
+            usuarioEncontrado.nome!!,
+            usuarioEncontrado.orcamentoMin!!,
+            usuarioEncontrado.orcamentoMax!!,
+            usuarioEncontrado.prestaAula!!,
+            dadosEndereco.estado!!,
+            dadosEndereco.cidade!!,
+            dadosAvaliacao
+        )
+        return ResponseEntity.status(200).body(perfilDTO)
     }
 
 }

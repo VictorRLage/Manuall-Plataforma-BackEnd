@@ -1,7 +1,8 @@
 package manuall.newproject.service
 
-import manuall.newproject.domain.Usuario
+import manuall.newproject.repository.DashboardComplitudeCadastroDto
 import manuall.newproject.repository.UsuarioRepository
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.text.DecimalFormat
 
@@ -11,7 +12,7 @@ class DashboardService(
 ) {
 
     fun usuariosCanal(tipoUsuario:Int): List<String> {
-        var usuario = usuarioRepository.countByTipoUsuarioGroupByCanal(tipoUsuario)
+        val usuario = usuarioRepository.countByTipoUsuarioGroupByCanal(tipoUsuario)
 
         val totalUsuarios = usuario.sum().toDouble()
         val porcentagem = mutableListOf<String>()
@@ -25,10 +26,10 @@ class DashboardService(
 
 
     fun pegarRegiao() {
-
+        TODO()
     }
 
-    fun taxaComplitudeCadastro() {
-
+    fun taxaComplitudeCadastro(): ResponseEntity<DashboardComplitudeCadastroDto> {
+        TODO()
     }
 }
