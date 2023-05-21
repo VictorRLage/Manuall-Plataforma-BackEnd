@@ -4,10 +4,7 @@ import manuall.newproject.domain.Servico
 import manuall.newproject.domain.Solicitacao
 import manuall.newproject.domain.UsuarioServico
 import manuall.newproject.dto.SolicitacaoDto
-import manuall.newproject.repository.ServicoRepository
-import manuall.newproject.repository.SolicitacaoRepository
-import manuall.newproject.repository.UsuarioRepository
-import manuall.newproject.repository.UsuarioServicoRepository
+import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -18,7 +15,9 @@ class SolicitacaoService (
     val solicitacaoRepository: SolicitacaoRepository,
     val usuarioServicoRepository: UsuarioServicoRepository,
     val usuarioRepository: UsuarioRepository,
-    val servicoRepository: ServicoRepository
+    val servicoRepository: ServicoRepository,
+    val solicitacaoImgRepository: SolicitacaoImgRepository,
+    val chatRepository: ChatRepository
 ) {
 
     fun getServicosPrestadorPorPrestador(idPrestador: Int): ResponseEntity<List<Int>> {
@@ -77,6 +76,21 @@ class SolicitacaoService (
         solicitacao.status = 3
 
         solicitacaoRepository.save(solicitacao)
+
+        return ResponseEntity.status(200).build()
+    }
+
+    fun deletarSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<Void> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        solicitacaoImgRepository.deleteBySolicitacaoId(idSolicitacao)
+        chatRepository.deleteBySolicitacaoId(idSolicitacao)
+        solicitacaoRepository.deleteById(idSolicitacao)
 
         return ResponseEntity.status(200).build()
     }

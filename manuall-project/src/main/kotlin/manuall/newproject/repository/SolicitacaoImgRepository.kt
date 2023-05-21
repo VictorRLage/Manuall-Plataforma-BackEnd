@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface SolicitacaoImgRepository: JpaRepository<SolicitacaoImg, Int> {
+
+    fun deleteBySolicitacaoId(id: Int)
 }

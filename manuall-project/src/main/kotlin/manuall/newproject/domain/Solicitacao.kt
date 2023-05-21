@@ -30,7 +30,6 @@ class Solicitacao {
     var status: Int? = null
     // 1: Proposta enviada
     // 2: Proposta aprovada
-    // 3: Proposta finalizada
     // 4: Proposta recusada
 
     @ManyToOne

@@ -1,7 +1,7 @@
 package manuall.newproject.service
 
-import manuall.newproject.dto.ChatMensagensResponse
-import manuall.newproject.dto.ChatPegarDadosDestinatariosDto
+import manuall.newproject.domain.Chat
+import manuall.newproject.dto.*
 import manuall.newproject.repository.ChatRepository
 import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.security.JwtTokenManager
@@ -41,17 +41,63 @@ class ChatService (
             return ResponseEntity.status(480).build()
         }
 
-        val destinatario = if (usuarioEncontrado.tipoUsuario == 1) {
-            solicitacaoRepository.getDadosPrestadorById(idSolicitacao).get()
-        } else {
-            solicitacaoRepository.getDadosContratanteById(idSolicitacao).get()
-        }
+        val destinatario: ChatPegarDadosDestinatarioDto
+        val mensagens: List<ChatMensagemResponse>
 
-        val mensagens = chatRepository.getBySolicitacaoId(idSolicitacao)
+        if (usuarioEncontrado.tipoUsuario == 1) {
+            destinatario = solicitacaoRepository.getDadosPrestadorById(idSolicitacao).get()
+            mensagens = chatRepository.getMsgsByUsuarioIdAndSolicitacaoIdContratante(usuarioEncontrado.id, idSolicitacao)
+        } else {
+            destinatario = solicitacaoRepository.getDadosContratanteById(idSolicitacao).get()
+            mensagens = chatRepository.getMsgsByUsuarioIdAndSolicitacaoIdPrestador(usuarioEncontrado.id, idSolicitacao)
+        }
 
         return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(ChatMensagensResponse(
             destinatario,
             mensagens
         ))
+    }
+
+    fun getBySolicitacaoIdWhereSolicitacaoIdHigherThan(token: String, idSolicitacao: Int, idUltimaMensagem: Int): ResponseEntity<ChatMensagensResponse> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        val destinatario: ChatPegarDadosDestinatarioDto
+        val mensagens: List<ChatMensagemResponse>
+
+        if (usuarioEncontrado.tipoUsuario == 1) {
+            destinatario = solicitacaoRepository.getDadosPrestadorById(idSolicitacao).get()
+            mensagens = chatRepository.getBySolicitacaoIdWhereSolicitacaoIdHigherThanContratante(usuarioEncontrado.id, idSolicitacao, idUltimaMensagem)
+        } else {
+            destinatario = solicitacaoRepository.getDadosContratanteById(idSolicitacao).get()
+            mensagens = chatRepository.getBySolicitacaoIdWhereSolicitacaoIdHigherThanPrestador(usuarioEncontrado.id, idSolicitacao, idUltimaMensagem)
+        }
+
+        return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(ChatMensagensResponse(
+            destinatario,
+            mensagens
+        ))
+    }
+
+    fun mandarMensagem(token: String, chatMensagemRequest: ChatMensagemRequest): ResponseEntity<Int> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        val mensagem = Chat()
+        mensagem.solicitacao = solicitacaoRepository.findById(chatMensagemRequest.idSolicitacao).get()
+        mensagem.mensagem = chatMensagemRequest.mensagem
+        mensagem.horario = chatMensagemRequest.horario
+        mensagem.anexo = chatMensagemRequest.anexo
+        mensagem.idRemetente = usuarioEncontrado.id
+
+        return ResponseEntity.status(201).body(chatRepository.save(mensagem).id)
     }
 }

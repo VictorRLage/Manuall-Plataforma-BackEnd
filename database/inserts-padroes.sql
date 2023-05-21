@@ -39,4 +39,13 @@ VALUES
 ('Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'anexo14.jpg', 0, 2, 3, 4),
 ('Matheus Ferreira', 'matheus.ferreira@example.com', '$2a$10$KRIagtT591nRBgkGCXJoFOiTIaztE/GhqlNkTyVETiYvWfn3VeqDm', '56789012345', '11943210987', 3000.00, 4000.00, 'Descrição do usuário 15', 1, 2, 2, 'anexo15.jpg', 0, 1, 4, 5);
 
+insert into chat
+(solicitacao_id, id_remetente, mensagem, horario)
+values
+(1, 1, "opa", '2023-05-21 14:30:00'),
+(1, 2, "eai, td bem??", '2023-05-21 14:30:00');
+
 select * from usuario;
+select * from servico;
+select * from solicitacao;
+select * from chat;

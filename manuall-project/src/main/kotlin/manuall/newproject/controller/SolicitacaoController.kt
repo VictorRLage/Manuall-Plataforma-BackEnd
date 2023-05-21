@@ -2,6 +2,7 @@ package manuall.newproject.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import jakarta.transaction.Transactional
 import manuall.newproject.domain.UsuarioServico
 import manuall.newproject.dto.SolicitacaoDto
 import manuall.newproject.service.SolicitacaoService
@@ -49,4 +50,15 @@ data class SolicitacaoController (
     ): ResponseEntity<Void> {
         return solicitacaoService.cancelarSolicitacao(token, idSolicitacao)
     }
+
+    @Transactional
+    @DeleteMapping("/{idSolicitacao}")
+    @SecurityRequirement(name = "Bearer")
+    fun deletarSolicitacao(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @PathVariable idSolicitacao: Int
+    ): ResponseEntity<Void> {
+        return solicitacaoService.deletarSolicitacao(token, idSolicitacao)
+    }
+
 }

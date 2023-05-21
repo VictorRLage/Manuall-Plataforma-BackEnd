@@ -17,6 +17,9 @@ class Chat {
     @OneToOne
     var solicitacao: Solicitacao = Solicitacao()
 
+    @Column(name = "id_remetente")
+    var idRemetente: Int = 0
+
     @Column(name = "mensagem", length = 150)
     @field:NotBlank
     var mensagem: String? = null
@@ -26,6 +29,5 @@ class Chat {
 
     @Column(name = "anexo", length = 90)
     @field:URL
-    @field:NotBlank
     var anexo: String? = ""
 }
