@@ -28,8 +28,8 @@ class Solicitacao {
 
     @Column(name = "status")
     var status: Int? = null
-    // 1: Proposta Pendente
-    // 2: Proposta Aprovada
+    // 1: Proposta enviada
+    // 2: Proposta aprovada
     // 3: Proposta finalizada
     // 4: Proposta recusada
 

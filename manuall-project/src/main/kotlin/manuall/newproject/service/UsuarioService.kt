@@ -54,7 +54,27 @@ class UsuarioService (
             if (passwordEncoder.matches(usuarioLoginRequest.senha, usuario.senha)) {
 
                 when (usuario.status) {
-                    null -> ResponseEntity.status(403).body("Usuário não finalizou o cadastro")
+                    null -> {
+
+                        if (dadosEnderecoRepository.findByUsuarioId(usuario.id).isEmpty) {
+                            // Parou o cadastro na fase 2
+                            ResponseEntity.status(403).body(
+                                LoginResponse(
+                                    usuario.id,
+                                    2
+                                )
+                            )
+                        } else {
+                            // Parou o cadastro na fase 3
+                            ResponseEntity.status(403).body(
+                                LoginResponse(
+                                    usuario.id,
+                                    3
+                                )
+                            )
+                        }
+
+                    }
                     4 -> ResponseEntity.status(403).body("Aprovação negada")
                     1 -> ResponseEntity.status(403).body("Aprovação pendente")
                 }
@@ -68,7 +88,9 @@ class UsuarioService (
                 )
 
                 SecurityContextHolder.getContext().authentication = authentication
-                ResponseEntity.status(200).body(jwtTokenManager.generateToken(authentication))
+                // Token + 200 = Cadastro 100% concluído
+                // Token + 403 = Parou na escolha de plano
+                ResponseEntity.status(if (usuario.plano == null) 403 else 200).body(jwtTokenManager.generateToken(authentication))
 
             } else {
                 ResponseEntity.status(401).body("Credenciais inválidas")
@@ -136,7 +158,7 @@ class UsuarioService (
     fun checarProspect(prospectDTO:ProspectDTO): ResponseEntity<PipefyReturnDTO> { // dto do retorno do pipefy
         val usuario = prospectRepository.findByEmailAndTipoUsuario(prospectDTO.email, prospectDTO.tipoUsuario)
         if (usuario.isPresent) {
-            var pipefyReturnDTO = PipefyReturnDTO()
+            val pipefyReturnDTO = PipefyReturnDTO()
             pipefyReturnDTO.optCidade = when (usuario.get().optCidade) {
                 1 -> "São Paulo"
                 2 -> "São Bernardo do Campo"
@@ -178,7 +200,6 @@ class UsuarioService (
             usuario.tipoUsuario = cadastrar1DTO.tipoUsuario
             usuario.canal = canal
             usuario.acessos = 0
-            usuario.status = null
 
             val usuarioAtual = usuarioRepository.save(usuario).id
 
@@ -192,7 +213,7 @@ class UsuarioService (
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
         val enderecoCadastrado = dadosEnderecoRepository.findByUsuarioId(id)
-        if (enderecoCadastrado.isNotEmpty()) {
+        if (enderecoCadastrado.isPresent) {
             return ResponseEntity.status(409).body("Endereço já cadastrado!")
         } else {
             val dadosEndereco = DadosEndereco()
@@ -205,6 +226,12 @@ class UsuarioService (
             dadosEndereco.numero = cadastrar2DTO.numero
             dadosEndereco.complemento = cadastrar2DTO.complemento
 
+            if (usuario.get().tipoUsuario == 1) {
+                val usuario = usuario.get()
+                usuario.status = 2
+                usuarioRepository.save(usuario)
+            }
+
             dadosEnderecoRepository.save(dadosEndereco)
             return ResponseEntity.status(201).body("Endereço cadastrado com sucesso!")
         }
@@ -216,6 +243,14 @@ class UsuarioService (
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
 
+        val novoUsuario = usuario.get()
+
+        if (novoUsuario.tipoUsuario != 2) {
+            return ResponseEntity.status(403).body("Usuário é um contratante")
+        } else if (novoUsuario.area != null) {
+            return ResponseEntity.status(409).body("Campos já cadastrados!")
+        }
+
         cadastrar3PrestDTO.servico.forEach {
             val usuarioServico = UsuarioServico()
             usuarioServico.usuario = usuario.get()
@@ -223,7 +258,6 @@ class UsuarioService (
             usuarioServicoRepository.save(usuarioServico)
         }
 
-        val novoUsuario = usuario.get()
         novoUsuario.area = areaRepository.findById(cadastrar3PrestDTO.area).get()
         novoUsuario.prestaAula = cadastrar3PrestDTO.prestaAula
         novoUsuario.orcamentoMin = cadastrar3PrestDTO.orcamentoMin
@@ -234,9 +268,8 @@ class UsuarioService (
         return ResponseEntity.status(201).body("Serviços cadastrados com sucesso!")
     }
 
-    fun buscarArea():List<Area> {
-        val areas = areaRepository.findAll()
-        return areas
+    fun buscarArea(): List<Area> {
+        return areaRepository.findAll()
     }
 
     fun buscarTiposServico(@PathVariable id: Int): List<Servico> {
@@ -254,6 +287,5 @@ class UsuarioService (
         usuarioRepository.save(usuarioEncontrado)
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
     }
-
 
 }

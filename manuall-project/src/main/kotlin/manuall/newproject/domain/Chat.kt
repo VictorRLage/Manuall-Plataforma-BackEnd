@@ -2,6 +2,8 @@ package manuall.newproject.domain
 
 import java.util.Date
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotBlank
+import org.hibernate.validator.constraints.URL
 
 @Entity
 @Table(name = "chat")
@@ -16,11 +18,14 @@ class Chat {
     var solicitacao: Solicitacao = Solicitacao()
 
     @Column(name = "mensagem", length = 150)
+    @field:NotBlank
     var mensagem: String? = null
 
     @Column(name = "horario")
     var horario: Date? = null
 
     @Column(name = "anexo", length = 90)
+    @field:URL
+    @field:NotBlank
     var anexo: String? = ""
 }

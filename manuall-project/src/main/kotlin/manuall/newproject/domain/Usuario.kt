@@ -2,6 +2,7 @@ package manuall.newproject.domain
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.*
+import org.hibernate.validator.constraints.URL
 import org.hibernate.validator.constraints.br.CPF
 
 @Entity
@@ -63,6 +64,7 @@ class Usuario {
     // 4: Inscrição recusada
 
     @Column(name = "anexo_pfp", length = 90)
+    @field:URL
     var anexoPfp: String? = ""
 
     @Column(name = "acessos")
