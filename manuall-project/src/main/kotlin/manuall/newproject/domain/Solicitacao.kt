@@ -18,10 +18,10 @@ class Solicitacao {
     var prestadorUsuario: Usuario = Usuario()
 
     @Column(name = "tamanho")
-    var tamanho: Int? = null
+    var tamanho: Double? = null
 
-    @Column(name="unidade_medida", length = 20)
-    var unidadeMedida:String? = null
+    @Column(name="medida", length = 10)
+    var medida:String? = null
 
     @Column(name = "descricao", length = 120)
     var descricao: String? = null

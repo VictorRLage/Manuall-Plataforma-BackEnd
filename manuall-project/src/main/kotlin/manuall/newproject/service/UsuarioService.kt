@@ -90,7 +90,7 @@ class UsuarioService (
                 SecurityContextHolder.getContext().authentication = authentication
                 // Token + 200 = Cadastro 100% concluído
                 // Token + 403 = Parou na escolha de plano
-                ResponseEntity.status(if (usuario.plano == null) 403 else 200).body(jwtTokenManager.generateToken(authentication))
+                ResponseEntity.status(if (usuario.plano == null) 206 else 200).body(jwtTokenManager.generateToken(authentication))
 
             } else {
                 ResponseEntity.status(401).body("Credenciais inválidas")
