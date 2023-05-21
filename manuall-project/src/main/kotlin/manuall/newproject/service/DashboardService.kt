@@ -27,4 +27,8 @@ class DashboardService(
     fun pegarRegiao() {
 
     }
+
+    fun taxaComplitudeCadastro() {
+
+    }
 }

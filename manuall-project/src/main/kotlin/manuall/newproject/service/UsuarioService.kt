@@ -306,6 +306,8 @@ class UsuarioService (
             "apenasServico" -> ""
         }
 
+        TODO()
+
     }
 
     fun checarPrestador(token: String): ResponseEntity<Usuario> {

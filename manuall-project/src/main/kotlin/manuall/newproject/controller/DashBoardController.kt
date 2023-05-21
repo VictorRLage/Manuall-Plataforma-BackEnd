@@ -2,6 +2,7 @@ package manuall.newproject.controller
 
 import manuall.newproject.domain.Usuario
 import manuall.newproject.service.DashboardService
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
@@ -18,10 +19,14 @@ class DashBoardController(
         return dashboardService.usuariosCanal(tipoUsuario)
     }
 
-
     @GetMapping("/geral/regiao")
     fun pegarRegiao() {
         return dashboardService.pegarRegiao()
+    }
+
+    @GetMapping("/geral/complitudeCadastro")
+    fun taxaComplitudeCadastro(): ResponseEntity<ComplitudeCadastroDto> {
+        return dashboardService.taxaComplitudeCadastro()
     }
 
 }
