@@ -41,6 +41,10 @@ class ChatService (
             return ResponseEntity.status(480).build()
         }
 
+        if (solicitacaoRepository.findById(idSolicitacao).isEmpty) {
+            return ResponseEntity.status(404).build()
+        }
+
         val destinatario: ChatPegarDadosDestinatarioDto
         val mensagens: List<ChatMensagemResponse>
 
@@ -66,6 +70,10 @@ class ChatService (
             return ResponseEntity.status(480).build()
         }
 
+        if (solicitacaoRepository.findById(idSolicitacao).isEmpty) {
+            return ResponseEntity.status(404).build()
+        }
+
         val destinatario: ChatPegarDadosDestinatarioDto
         val mensagens: List<ChatMensagemResponse>
 
@@ -89,6 +97,10 @@ class ChatService (
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
+        }
+
+        if (solicitacaoRepository.findById(chatMensagemRequest.idSolicitacao).isEmpty) {
+            return ResponseEntity.status(404).build()
         }
 
         val mensagem = Chat()

@@ -14,7 +14,7 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
     // perguntar pro reis sobre essa rota
 //    @Query("""
 //        select
-//        new manuall.newproject.dto.ChatPegarDadosDestinatarioDto(CASE ?2 WHEN 1 THEN s.contratanteUsuario.id ELSE s.prestadorUsuario.id END, u.nome)
+//        new manuall.newproject.dto.ChatPegarDadosDestinatarioDto(CASE ?2 WHEN 1 THEN (s.contratanteUsuario.id) ELSE (s.prestadorUsuario.id) END, u.nome)
 //        from Solicitacao s, Usuario u
 //        where u.id = s.contratanteUsuario.id
 //        and s.id = ?1

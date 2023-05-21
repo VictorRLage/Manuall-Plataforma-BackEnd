@@ -228,9 +228,9 @@ class UsuarioService (
             dadosEndereco.complemento = cadastrar2DTO.complemento
 
             if (usuario.get().tipoUsuario == 1) {
-                val usuario = usuario.get()
-                usuario.status = 2
-                usuarioRepository.save(usuario)
+                val novoUsuario: Usuario = usuario.get()
+                novoUsuario.status = 2
+                usuarioRepository.save(novoUsuario)
             }
 
             dadosEnderecoRepository.save(dadosEndereco)
@@ -287,6 +287,25 @@ class UsuarioService (
         usuarioEncontrado.plano = idPlano
         usuarioRepository.save(usuarioEncontrado)
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
+    }
+
+    fun getPrestadoresFiltrado(idArea: Int, filtro: String, crescente: Boolean): ResponseEntity<List<Usuario>> {
+
+        if (areaRepository.findById(idArea).isEmpty) {
+            return ResponseEntity.status(404).build()
+        }
+
+        when (filtro) {
+            "nota" -> {
+                //avaliacaoRepository.findById()
+            }
+            "preco" -> ""
+            "precoMax" -> ""
+            "precoMin" -> ""
+            "alfabetica" -> ""
+            "apenasServico" -> ""
+        }
+
     }
 
     fun checarPrestador(token: String): ResponseEntity<Usuario> {

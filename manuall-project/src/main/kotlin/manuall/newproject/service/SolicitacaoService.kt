@@ -48,7 +48,7 @@ class SolicitacaoService (
 
     fun responderSolicitacao(token: String, idSolicitacao: Int, aceitar: Boolean): ResponseEntity<Void> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+        if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
@@ -65,7 +65,7 @@ class SolicitacaoService (
 
     fun cancelarSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<Void> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+        if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
@@ -82,7 +82,7 @@ class SolicitacaoService (
 
     fun deletarSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<Void> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+        if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()

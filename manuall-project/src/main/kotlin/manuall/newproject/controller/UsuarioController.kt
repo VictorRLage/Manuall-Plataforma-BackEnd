@@ -121,6 +121,15 @@ class UsuarioController (
         return usuarioService.cadastrar4Prest(token, idPlano)
     }
 
+    @GetMapping("/prestadores/{idArea}/{filtro}/{crescente}")
+    fun getPrestadoresFiltrado(
+        @PathVariable idArea: Int,
+        @PathVariable filtro: String,
+        @PathVariable crescente: Boolean
+    ): ResponseEntity<List<Usuario>> {
+        return usuarioService.getPrestadoresFiltrado(idArea, filtro, crescente)
+    }
+
     @SecurityRequirement(name = "Bearer")
     @GetMapping("/perfil/prestador/checar")
     fun checarPrestador(@RequestHeader("Authorization") token: String): ResponseEntity<Usuario> {
