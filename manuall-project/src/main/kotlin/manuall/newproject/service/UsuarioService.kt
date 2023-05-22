@@ -341,4 +341,18 @@ class UsuarioService (
         return ResponseEntity.status(200).body(perfilDTO)
     }
 
+    fun acessarPerfilPrestador(idPrestador: Int): ResponseEntity<Void> {
+        val prestador = usuarioRepository.findById(idPrestador)
+        if (prestador.isEmpty) {
+            return ResponseEntity.status(404).build()
+        }
+        val prestadorEncontrado = prestador.get()
+
+        prestadorEncontrado.acessos = prestadorEncontrado.acessos!! + 1
+
+        usuarioRepository.save(prestadorEncontrado)
+
+        return ResponseEntity.status(200).build()
+    }
+
 }

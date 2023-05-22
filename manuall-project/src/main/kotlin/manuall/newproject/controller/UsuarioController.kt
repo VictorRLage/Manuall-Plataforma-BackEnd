@@ -135,4 +135,9 @@ class UsuarioController (
     fun checarPrestador(@RequestHeader("Authorization") @Schema(hidden = true) token: String): ResponseEntity<PerfilDTO> {
         return usuarioService.checarPrestador(token)
     }
+
+    @PostMapping("/perfil/{idPrestador}/acessoConfirmado")
+    fun acessarPerfilPrestador(@PathVariable idPrestador: Int): ResponseEntity<Void> {
+        return usuarioService.acessarPerfilPrestador(idPrestador)
+    }
 }

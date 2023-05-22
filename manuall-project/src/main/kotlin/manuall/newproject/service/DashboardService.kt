@@ -1,6 +1,9 @@
 package manuall.newproject.service
 
-import manuall.newproject.repository.DashboardComplitudeCadastroDto
+import manuall.newproject.dto.DashboardComplitudeCadastroContratanteDto
+import manuall.newproject.dto.DashboardComplitudeCadastroDto
+import manuall.newproject.dto.DashboardComplitudeCadastroPrestadorDto
+import manuall.newproject.dto.LoginResponse
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -30,6 +33,20 @@ class DashboardService(
     }
 
     fun taxaComplitudeCadastro(): ResponseEntity<DashboardComplitudeCadastroDto> {
-        TODO()
+
+        usuarioRepository
+
+        return ResponseEntity.status(200).body(DashboardComplitudeCadastroDto(
+            DashboardComplitudeCadastroContratanteDto(
+                2,
+                3
+            ),
+            DashboardComplitudeCadastroPrestadorDto(
+                5,
+                4,
+                3,
+                1
+            )
+        ))
     }
 }
