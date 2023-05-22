@@ -290,26 +290,25 @@ class UsuarioService (
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
     }
 
-    fun getPrestadoresFiltrado(idArea: Int, filtro: String, crescente: Boolean): ResponseEntity<List<Usuario>> {
-
-        if (areaRepository.findById(idArea).isEmpty) {
-            return ResponseEntity.status(404).build()
-        }
-
-        when (filtro) {
-            "nota" -> {
-                //avaliacaoRepository.findById()
-            }
-            "preco" -> ""
-            "precoMax" -> ""
-            "precoMin" -> ""
-            "alfabetica" -> ""
-            "apenasServico" -> ""
-        }
-
-        TODO()
-
-    }
+//    fun getPrestadoresFiltrado(/*idArea: Int, filtro: String, crescente: String*/): ResponseEntity<Any/*List<UsuariosFilteredList>*/> {
+//
+////        if (areaRepository.findById(idArea).isEmpty) {
+////            return ResponseEntity.status(404).build()
+////        }
+//
+//        return ResponseEntity.status(200).body(usuarioRepository.orderByNotaAsc())
+//
+////        return when (filtro) {
+////            "nota" -> ResponseEntity.status(404).build()
+////            "preco" -> ResponseEntity.status(404).build()
+////            "precoMax" -> ResponseEntity.status(404).build()
+////            "precoMin" -> ResponseEntity.status(404).build()
+////            "alfabetica" -> ResponseEntity.status(404).build()
+////            "apenasServico" -> ResponseEntity.status(404).build()
+////            else -> ResponseEntity.status(404).build()
+////        }
+//
+//    }
 
     fun checarPrestador(token: String): ResponseEntity<PerfilDTO> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {

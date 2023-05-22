@@ -121,14 +121,14 @@ class UsuarioController (
         return usuarioService.cadastrar4Prest(token, idPlano)
     }
 
-    @GetMapping("/prestadores/{idArea}/{filtro}/{crescente}")
-    fun getPrestadoresFiltrado(
-        @PathVariable idArea: Int,
-        @PathVariable filtro: String,
-        @PathVariable crescente: Boolean
-    ): ResponseEntity<List<Usuario>> {
-        return usuarioService.getPrestadoresFiltrado(idArea, filtro, crescente)
-    }
+//    @GetMapping("/prestadores")///prestadores/{idArea}/{filtro}/{crescente}
+//    fun getPrestadoresFiltrado(
+////        @PathVariable idArea: Int,
+////        @PathVariable filtro: String,
+////        @PathVariable crescente: Boolean
+//    ): ResponseEntity<Any/*List<UsuariosFilteredList>*/> {
+//        return usuarioService.getPrestadoresFiltrado(/*idArea, filtro, if (crescente) "Asc" else "Desc"*/)
+//    }
 
     @SecurityRequirement(name = "Bearer")
     @GetMapping("/perfil/prestador/checar")
