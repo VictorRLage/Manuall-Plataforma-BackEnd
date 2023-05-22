@@ -23,6 +23,7 @@ class UsuarioService (
     val prospectRepository: ProspectRepository,
     val areaRepository: AreaRepository,
     val servicoRepository: ServicoRepository,
+    val usuarioImgRepository: UsuarioImgRepository,
     val usuarioServicoRepository: UsuarioServicoRepository,
     val avaliacaoRepository: AvaliacaoRepository
 ) {
@@ -319,14 +320,22 @@ class UsuarioService (
 
         val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuarioEncontrado.id).get()
         val dadosAvaliacao = avaliacaoRepository.findByPrestadorUsuarioId(usuarioEncontrado.id)
+        val nomeArea = areaRepository.findAreaNomeByUsuarioId(usuarioEncontrado.id)
+        val urls = usuarioImgRepository.findUrlsByUsuarioId(usuarioEncontrado.id)
+        val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(usuarioEncontrado.id)
 
         val perfilDTO = PerfilDTO(
+            nomeArea!!,
+            usuarioEncontrado.descricao!!,
+            usuarioEncontrado.anexoPfp!!,
             usuarioEncontrado.nome!!,
             usuarioEncontrado.orcamentoMin!!,
             usuarioEncontrado.orcamentoMax!!,
             usuarioEncontrado.prestaAula!!,
             dadosEndereco.estado!!,
             dadosEndereco.cidade!!,
+            urls,
+            servicos,
             dadosAvaliacao
         )
         return ResponseEntity.status(200).body(perfilDTO)
