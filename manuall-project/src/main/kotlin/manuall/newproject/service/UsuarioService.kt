@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
+import java.util.*
 
 @Service
 class UsuarioService (
@@ -220,7 +221,7 @@ class UsuarioService (
             return ResponseEntity.status(409).body("Endereço já cadastrado!")
         } else {
             val dadosEndereco = DadosEndereco()
-            dadosEndereco.usuario = usuario.get() // definição de fk da dadosEndereco
+            dadosEndereco.usuario = usuario.get()
             dadosEndereco.cep = cadastrar2DTO.cep
             dadosEndereco.cidade = cadastrar2DTO.cidade
             dadosEndereco.estado = cadastrar2DTO.estado
@@ -291,25 +292,81 @@ class UsuarioService (
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
     }
 
-//    fun getPrestadoresFiltrado(/*idArea: Int, filtro: String, crescente: String*/): ResponseEntity<Any/*List<UsuariosFilteredList>*/> {
-//
-////        if (areaRepository.findById(idArea).isEmpty) {
-////            return ResponseEntity.status(404).build()
-////        }
-//
-//        return ResponseEntity.status(200).body(usuarioRepository.orderByNotaAsc())
-//
-////        return when (filtro) {
-////            "nota" -> ResponseEntity.status(404).build()
-////            "preco" -> ResponseEntity.status(404).build()
-////            "precoMax" -> ResponseEntity.status(404).build()
-////            "precoMin" -> ResponseEntity.status(404).build()
-////            "alfabetica" -> ResponseEntity.status(404).build()
-////            "apenasServico" -> ResponseEntity.status(404).build()
-////            else -> ResponseEntity.status(404).build()
-////        }
-//
-//    }
+    fun getPrestadoresFiltrado(idArea: String, filtro: String, crescente: Boolean): ResponseEntity<List<UsuariosFilteredList>> {
+
+        val a = when (filtro) {
+            "Nota" ->
+                if (crescente)
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByNotaAsc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByNotaAsc(idArea.toInt())
+                else
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByNotaDesc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByNotaDesc(idArea.toInt())
+            "PrecoMax" ->
+                if (crescente)
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByPrecoMaxAsc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByPrecoMaxAsc(idArea.toInt())
+                else
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByPrecoMaxDesc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByPrecoMaxDesc(idArea.toInt())
+            "PrecoMin" ->
+                if (crescente)
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByPrecoMinAsc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByPrecoMinAsc(idArea.toInt())
+                else
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByPrecoMinDesc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByPrecoMinDesc(idArea.toInt())
+            "Alfabetica" ->
+                if (crescente)
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByAlfabeticaAsc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByAlfabeticaAsc(idArea.toInt())
+                else
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByAlfabeticaDesc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByAlfabeticaDesc(idArea.toInt())
+            "Servico" ->
+                if (crescente)
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByServicoAsc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByServicoAsc(idArea.toInt())
+                else
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByServicoDesc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByServicoDesc(idArea.toInt())
+            "ServicoAula" ->
+                if (crescente)
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByServicoAulaAsc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByServicoAulaAsc(idArea.toInt())
+                else
+                    if (idArea == "null")
+                        usuarioRepository.findAllOrderByServicoAulaDesc()
+                    else
+                        usuarioRepository.findByAreaIdOrderByServicoAulaDesc(idArea.toInt())
+            else -> return ResponseEntity.status(404).build()
+        }
+
+        return ResponseEntity.status(200).body(a)
+
+    }
 
     fun checarPrestador(token: String): ResponseEntity<PerfilDTO> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
