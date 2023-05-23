@@ -1,6 +1,7 @@
 package manuall.newproject.controller
 
 import manuall.newproject.dto.DashboardComplitudeCadastroDto
+import manuall.newproject.dto.PegarRegiaoDTO
 import manuall.newproject.service.DashboardService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -20,7 +21,7 @@ class DashBoardController(
     }
 
     @GetMapping("/geral/regiao")
-    fun pegarRegiao() {
+    fun pegarRegiao():List<PegarRegiaoDTO> {
         return dashboardService.pegarRegiao()
     }
 

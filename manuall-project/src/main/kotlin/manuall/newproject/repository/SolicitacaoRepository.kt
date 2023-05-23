@@ -1,8 +1,10 @@
 package manuall.newproject.repository
 
 import manuall.newproject.domain.Solicitacao
+import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.ChatPegarDadosDestinatarioDto
 import manuall.newproject.dto.ChatPegarDadosDestinatariosDto
+import manuall.newproject.dto.PegarRegiaoDTO
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -58,4 +60,14 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
         and s.status = 2
     """)
     fun getContratantesByPrestadorUsuarioId(id: Int): List<ChatPegarDadosDestinatariosDto>
+
+
+    @Query("""
+        select
+        new manuall.newproject.dto.PegarRegiaoDTO(e.cidade, e.estado)
+        from Solicitacao s, Usuario u, DadosEndereco e
+        where u.id = s.contratanteUsuario.id and u.id = e.usuario.id
+        and s.status = 2
+    """)
+    fun findByContratanteUsuarioId():List<PegarRegiaoDTO>
 }

@@ -1,9 +1,8 @@
 package manuall.newproject.service
 
-import manuall.newproject.dto.DashboardComplitudeCadastroContratanteDto
-import manuall.newproject.dto.DashboardComplitudeCadastroDto
-import manuall.newproject.dto.DashboardComplitudeCadastroPrestadorDto
-import manuall.newproject.dto.LoginResponse
+import manuall.newproject.domain.Usuario
+import manuall.newproject.dto.*
+import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -11,7 +10,8 @@ import java.text.DecimalFormat
 
 @Service
 class DashboardService(
-    val usuarioRepository: UsuarioRepository
+    val usuarioRepository: UsuarioRepository,
+    val solicitacaoRepository: SolicitacaoRepository
 ) {
 
     fun usuariosCanal(tipoUsuario:Int): List<String> {
@@ -28,8 +28,10 @@ class DashboardService(
     }
 
 
-    fun pegarRegiao() {
-        TODO()
+    fun pegarRegiao():List<PegarRegiaoDTO> {
+        val usuario = solicitacaoRepository.findByContratanteUsuarioId()
+        return usuario
+
     }
 
     fun taxaComplitudeCadastro(): ResponseEntity<DashboardComplitudeCadastroDto> {
