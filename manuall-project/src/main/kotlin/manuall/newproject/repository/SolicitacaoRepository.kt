@@ -73,6 +73,6 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
     fun findByContratanteUsuarioId():List<PegarRegiaoDTO>
 
 
-    @Query("SELECT s FROM Solicitacao s WHERE s.contratanteUsuario.id = :usuarioId OR s.prestadorUsuario.id = :usuarioId")
+    @Query("SELECT new manuall.newproject.dto.SolicitacaoDto(s.contratanteUsuario.id, s.prestadorUsuario.id, s.tamanho, s.medida, s.descricao, s.status, s.servico.id, s.avaliacao.id) FROM Solicitacao s WHERE s.contratanteUsuario.id = ?1 OR s.prestadorUsuario.id = ?1")
     fun findAllByUsuarioId(usuarioId: Int): List<SolicitacaoDto>
 }
