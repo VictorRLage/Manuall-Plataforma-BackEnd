@@ -60,7 +60,6 @@ class UsuarioService (
 
                 when (usuario.status) {
                     null -> {
-
                         if (dadosEnderecoRepository.findByUsuarioId(usuario.id).isEmpty) {
                             // Parou o cadastro na fase 2
                             ResponseEntity.status(403).body(
@@ -302,7 +301,7 @@ class UsuarioService (
         crescente: Boolean
     ): ResponseEntity<List<UsuariosFilteredList>> {
 
-        val a = when (filtro) {
+        val filtragem = when (filtro) {
             "Nota" ->
                 if (crescente)
                     if (idArea == "null")
@@ -314,7 +313,6 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByNotaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByNotaDesc(idArea.toInt())
-
             "PrecoMax" ->
                 if (crescente)
                     if (idArea == "null")
@@ -326,7 +324,6 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByPrecoMaxDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMaxDesc(idArea.toInt())
-
             "PrecoMin" ->
                 if (crescente)
                     if (idArea == "null")
@@ -338,7 +335,6 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByPrecoMinDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMinDesc(idArea.toInt())
-
             "Alfabetica" ->
                 if (crescente)
                     if (idArea == "null")
@@ -350,7 +346,6 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByAlfabeticaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByAlfabeticaDesc(idArea.toInt())
-
             "Servico" ->
                 if (crescente)
                     if (idArea == "null")
@@ -362,7 +357,6 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByServicoDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByServicoDesc(idArea.toInt())
-
             "ServicoAula" ->
                 if (crescente)
                     if (idArea == "null")
@@ -378,7 +372,7 @@ class UsuarioService (
             else -> return ResponseEntity.status(404).build()
         }
 
-        return ResponseEntity.status(200).body(a)
+        return ResponseEntity.status(200).body(filtragem)
 
     }
 

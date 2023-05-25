@@ -1,6 +1,5 @@
 package manuall.newproject.service
 
-import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
 import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.repository.UsuarioRepository

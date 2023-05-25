@@ -1,7 +1,6 @@
 package manuall.newproject.repository
 
 import manuall.newproject.domain.Solicitacao
-import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.ChatPegarDadosDestinatarioDto
 import manuall.newproject.dto.ChatPegarDadosDestinatariosDto
 import manuall.newproject.dto.PegarRegiaoDTO
@@ -72,7 +71,16 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
     """)
     fun findByContratanteUsuarioId():List<PegarRegiaoDTO>
 
-
-    @Query("SELECT new manuall.newproject.dto.SolicitacaoDto(s.contratanteUsuario.id, s.prestadorUsuario.id, s.tamanho, s.medida, s.descricao, s.status, s.servico.id, s.avaliacao.id) FROM Solicitacao s WHERE s.contratanteUsuario.id = ?1 OR s.prestadorUsuario.id = ?1")
+    @Query("""
+        SELECT
+        new manuall.newproject.dto.SolicitacaoDto(
+        s.contratanteUsuario.id,
+        s.prestadorUsuario.id,
+        s.tamanho,
+        s.medida,
+        s.descricao
+        )
+        FROM Solicitacao s WHERE s.contratanteUsuario.id = ?1 OR s.prestadorUsuario.id = ?1
+    """)
     fun findAllByUsuarioId(usuarioId: Int): List<SolicitacaoDto>
 }

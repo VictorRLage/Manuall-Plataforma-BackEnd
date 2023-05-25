@@ -1,8 +1,6 @@
 package manuall.newproject.service
 
-import manuall.newproject.domain.Servico
 import manuall.newproject.domain.Solicitacao
-import manuall.newproject.domain.UsuarioServico
 import manuall.newproject.dto.SolicitacaoDto
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
