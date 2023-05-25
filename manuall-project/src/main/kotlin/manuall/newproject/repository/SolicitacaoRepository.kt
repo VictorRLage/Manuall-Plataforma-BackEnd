@@ -5,6 +5,7 @@ import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.ChatPegarDadosDestinatarioDto
 import manuall.newproject.dto.ChatPegarDadosDestinatariosDto
 import manuall.newproject.dto.PegarRegiaoDTO
+import manuall.newproject.dto.SolicitacaoDto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -70,4 +71,8 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
         and s.status = 2
     """)
     fun findByContratanteUsuarioId():List<PegarRegiaoDTO>
+
+
+    @Query("SELECT s FROM Solicitacao s WHERE s.contratanteUsuario.id = :usuarioId OR s.prestadorUsuario.id = :usuarioId")
+    fun findAllByUsuarioId(usuarioId: Int): List<SolicitacaoDto>
 }

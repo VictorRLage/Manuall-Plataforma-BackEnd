@@ -19,6 +19,7 @@ class UsuarioService (
     val jwtTokenManager: JwtTokenManager,
     val authenticationManager: AuthenticationManager,
     val usuarioRepository: UsuarioRepository,
+    val solicitacaoRepository: SolicitacaoRepository,
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val descServicosRepository: DescServicosRepository,
     val prospectRepository: ProspectRepository,
@@ -45,7 +46,8 @@ class UsuarioService (
 
         // Pegando os usuários com o email requisitado em uma lista, já que podem
         // existir 2 usuários com o mesmo email e tipo_usuario diferentes
-        val possivelUsuario = usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, usuarioLoginRequest.tipoUsuario)
+        val possivelUsuario =
+            usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, usuarioLoginRequest.tipoUsuario)
 
         return if (possivelUsuario.isEmpty) {
             ResponseEntity.status(401).body("Credenciais inválidas")
@@ -78,6 +80,7 @@ class UsuarioService (
                         }
 
                     }
+
                     4 -> ResponseEntity.status(403).body("Aprovação negada")
                     1 -> ResponseEntity.status(403).body("Aprovação pendente")
                 }
@@ -85,7 +88,7 @@ class UsuarioService (
                 // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login
                 val authentication = authenticationManager.authenticate(
                     UsernamePasswordAuthenticationToken(
-                        usuario.tipoUsuario.toString()+usuario.email,
+                        usuario.tipoUsuario.toString() + usuario.email,
                         usuarioLoginRequest.senha
                     )
                 )
@@ -93,7 +96,8 @@ class UsuarioService (
                 SecurityContextHolder.getContext().authentication = authentication
                 // Token + 200 = Cadastro 100% concluído
                 // Token + 403 = Parou na escolha de plano
-                ResponseEntity.status(if (usuario.plano == null) 206 else 200).body(jwtTokenManager.generateToken(authentication))
+                ResponseEntity.status(if (usuario.plano == null) 206 else 200)
+                    .body(jwtTokenManager.generateToken(authentication))
 
             } else {
                 ResponseEntity.status(401).body("Credenciais inválidas")
@@ -292,7 +296,11 @@ class UsuarioService (
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
     }
 
-    fun getPrestadoresFiltrado(idArea: String, filtro: String, crescente: Boolean): ResponseEntity<List<UsuariosFilteredList>> {
+    fun getPrestadoresFiltrado(
+        idArea: String,
+        filtro: String,
+        crescente: Boolean
+    ): ResponseEntity<List<UsuariosFilteredList>> {
 
         val a = when (filtro) {
             "Nota" ->
@@ -306,6 +314,7 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByNotaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByNotaDesc(idArea.toInt())
+
             "PrecoMax" ->
                 if (crescente)
                     if (idArea == "null")
@@ -317,6 +326,7 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByPrecoMaxDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMaxDesc(idArea.toInt())
+
             "PrecoMin" ->
                 if (crescente)
                     if (idArea == "null")
@@ -328,6 +338,7 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByPrecoMinDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMinDesc(idArea.toInt())
+
             "Alfabetica" ->
                 if (crescente)
                     if (idArea == "null")
@@ -339,6 +350,7 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByAlfabeticaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByAlfabeticaDesc(idArea.toInt())
+
             "Servico" ->
                 if (crescente)
                     if (idArea == "null")
@@ -350,6 +362,7 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByServicoDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByServicoDesc(idArea.toInt())
+
             "ServicoAula" ->
                 if (crescente)
                     if (idArea == "null")
@@ -361,6 +374,7 @@ class UsuarioService (
                         usuarioRepository.findAllOrderByServicoAulaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByServicoAulaDesc(idArea.toInt())
+
             else -> return ResponseEntity.status(404).build()
         }
 
@@ -377,6 +391,7 @@ class UsuarioService (
 
         val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuarioEncontrado.id).get()
         val dadosAvaliacao = avaliacaoRepository.findByPrestadorUsuarioId(usuarioEncontrado.id)
+        val notificacoes = solicitacaoRepository.findAllByUsuarioId(usuarioEncontrado.id)
         val nomeArea = areaRepository.findAreaNomeByUsuarioId(usuarioEncontrado.id)
         val urls = usuarioImgRepository.findUrlsByUsuarioId(usuarioEncontrado.id)
         val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(usuarioEncontrado.id)
@@ -393,10 +408,22 @@ class UsuarioService (
             dadosEndereco.cidade!!,
             urls,
             servicos,
-            dadosAvaliacao
+            dadosAvaliacao,
+            notificacoes
         )
         return ResponseEntity.status(200).body(perfilDTO)
     }
+
+//    fun checarNotificacoes(token: String): ResponseEntity<PerfilDTO> {
+//        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+//            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+//        } else {
+//            return ResponseEntity.status(480).build()
+//        }
+//
+//
+//        return ResponseEntity.status(200).build()
+//    }
 
     fun acessarPerfilPrestador(idPrestador: Int): ResponseEntity<Void> {
         val prestador = usuarioRepository.findById(idPrestador)

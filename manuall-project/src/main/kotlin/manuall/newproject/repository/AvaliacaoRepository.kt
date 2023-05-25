@@ -11,5 +11,4 @@ interface AvaliacaoRepository: JpaRepository<Avaliacao, Int> {
 
     @Query("SELECT new manuall.newproject.dto.AvaliacaoDTO(a.contratanteUsuario.nome, a.contratanteUsuario.anexoPfp, a.nota, a.descricao) FROM Avaliacao a WHERE a.prestadorUsuario.id = ?1")
     fun findByPrestadorUsuarioId(prestadorId: Int): List<AvaliacaoDTO>
-
 }
