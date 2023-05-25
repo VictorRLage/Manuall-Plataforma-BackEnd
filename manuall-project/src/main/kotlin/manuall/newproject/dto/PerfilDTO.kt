@@ -14,5 +14,5 @@ data class PerfilDTO(
     val imagens: List<String>,
     val servicos: List<String>,
     val avaliacoes: List<AvaliacaoDTO>,
-    val notificacoes: List<SolicitacaoDto>
+    val notificacoes: List<NotificacaoDTO>
 )
