@@ -408,17 +408,6 @@ class UsuarioService (
         return ResponseEntity.status(200).body(perfilDTO)
     }
 
-//    fun checarNotificacoes(token: String): ResponseEntity<PerfilDTO> {
-//        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-//            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-//        } else {
-//            return ResponseEntity.status(480).build()
-//        }
-//
-//
-//        return ResponseEntity.status(200).build()
-//    }
-
     fun acessarPerfilPrestador(idPrestador: Int): ResponseEntity<Void> {
         val prestador = usuarioRepository.findById(idPrestador)
         if (prestador.isEmpty) {
@@ -431,6 +420,27 @@ class UsuarioService (
         usuarioRepository.save(prestadorEncontrado)
 
         return ResponseEntity.status(200).build()
+    }
+
+    fun alterarPerfil(token: String, alterarPerfilDTO: AlterarPerfilDTO): ResponseEntity<String> {
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+
+        usuarioEncontrado.area = alterarPerfilDTO.area
+        usuarioEncontrado.descricao = alterarPerfilDTO.descricao
+        usuarioEncontrado.anexoPfp = alterarPerfilDTO.profile
+        usuarioEncontrado.nome = alterarPerfilDTO.nome
+        usuarioEncontrado.orcamentoMin = alterarPerfilDTO.orcamento_min
+        usuarioEncontrado.orcamentoMax = alterarPerfilDTO.orcamento_max
+        usuarioEncontrado.prestaAula = alterarPerfilDTO.presta_aula
+
+        usuarioRepository.save(usuarioEncontrado)
+
+        return ResponseEntity.ok("Perfil do usuário atualizado com sucesso")
     }
 
 }

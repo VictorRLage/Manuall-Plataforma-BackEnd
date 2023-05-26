@@ -2,10 +2,7 @@ package manuall.newproject.repository
 
 import manuall.newproject.domain.Solicitacao
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.ChatPegarDadosDestinatarioDto
-import manuall.newproject.dto.ChatPegarDadosDestinatariosDto
-import manuall.newproject.dto.PegarRegiaoDTO
-import manuall.newproject.dto.SolicitacaoDto
+import manuall.newproject.dto.*
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

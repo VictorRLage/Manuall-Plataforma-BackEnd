@@ -17,7 +17,7 @@ import java.util.*
 @RestController
 @RequestMapping("/usuarios")
 @CrossOrigin("http://localhost:3000")
-class UsuarioController (
+class UsuarioController(
     val usuarioService: UsuarioService
 ) {
 
@@ -73,7 +73,7 @@ class UsuarioController (
     @GetMapping("/cadastrar/prospect")
     fun checarProspect(
         @RequestBody prospectDTO: ProspectDTO
-    ): ResponseEntity<PipefyReturnDTO>{ //DTO com todos os campos do Pipefy que precisam ser retornados
+    ): ResponseEntity<PipefyReturnDTO> { //DTO com todos os campos do Pipefy que precisam ser retornados
         return usuarioService.checarProspect(prospectDTO)
     }
 
@@ -99,15 +99,15 @@ class UsuarioController (
 
     @GetMapping("/cadastrar/3/prestador/buscarServicos/{id}")
     fun buscarTiposServico(
-        @PathVariable id:Int
+        @PathVariable id: Int
     ): List<Servico> {
         return usuarioService.buscarTiposServico(id)
     }
 
     @PutMapping("/cadastrar/3/prestador/{id}")
     fun cadastrar3Prest(
-        @PathVariable @Schema(example = "1") id:Int,
-        @RequestBody cadastrar3PrestDTO:Cadastrar3PrestDTO
+        @PathVariable @Schema(example = "1") id: Int,
+        @RequestBody cadastrar3PrestDTO: Cadastrar3PrestDTO
     ): ResponseEntity<String> {
         return usuarioService.cadastrar3Prest(id, cadastrar3PrestDTO)
     }
@@ -116,7 +116,7 @@ class UsuarioController (
     @PutMapping("/cadastrar/4/prestador/{idPlano}")
     fun cadastrar4Prest(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
-        @PathVariable idPlano:Int
+        @PathVariable idPlano: Int
     ): ResponseEntity<String> {
         return usuarioService.cadastrar4Prest(token, idPlano)
     }
@@ -131,7 +131,7 @@ class UsuarioController (
     }
 
     @SecurityRequirement(name = "Bearer")
-    @GetMapping("/perfil/prestador")
+    @GetMapping("/perfil")
     fun checarPrestador(@RequestHeader("Authorization") @Schema(hidden = true) token: String): ResponseEntity<PerfilDTO> {
         return usuarioService.checarPrestador(token)
     }
@@ -139,5 +139,14 @@ class UsuarioController (
     @PostMapping("/perfil/{idPrestador}/acessoConfirmado")
     fun acessarPerfilPrestador(@PathVariable idPrestador: Int): ResponseEntity<Void> {
         return usuarioService.acessarPerfilPrestador(idPrestador)
+    }
+
+    @SecurityRequirement(name = "Bearer")
+    @PutMapping("/perfil/alterar")
+    fun alterarPerfil(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestBody alterarPerfilDTO: AlterarPerfilDTO
+    ): ResponseEntity<String> {
+        return usuarioService.alterarPerfil(token, alterarPerfilDTO)
     }
 }
