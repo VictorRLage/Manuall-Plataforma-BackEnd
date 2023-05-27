@@ -23,6 +23,27 @@ class UsuarioController(
     val usuarioService: UsuarioService
 ) {
 
+    @GetMapping("/prestadores")
+    fun getPrestadoresOrderByPlano(): ResponseEntity<List<UsuariosFilteredList>> {
+        return usuarioService.getPrestadoresOrderByPlano()
+    }
+
+    @GetMapping("/prestadores/{idArea}")
+    fun getPrestadoresByAreaIdOrderByPlano(
+        @PathVariable idArea: Int
+    ): ResponseEntity<List<UsuariosFilteredList>> {
+        return usuarioService.getPrestadoresByAreaIdOrderByPlano(idArea)
+    }
+
+    @GetMapping("prestadores/{idArea}/{filtro}/{crescente}")
+    fun getPrestadoresFiltrado(
+        @PathVariable idArea: String,
+        @PathVariable filtro: String,
+        @PathVariable crescente: Boolean
+    ): ResponseEntity<List<UsuariosFilteredList>> {
+        return usuarioService.getPrestadoresFiltrado(idArea, filtro, crescente)
+    }
+
     @GetMapping("/areas")
     fun buscarArea(): List<Area> {
         return usuarioService.buscarArea()
@@ -57,12 +78,4 @@ class UsuarioController(
         return usuarioService.logoff(token)
     }
 
-    @GetMapping("prestadores/{idArea}/{filtro}/{crescente}")
-    fun getPrestadoresFiltrado(
-        @PathVariable idArea: String,
-        @PathVariable filtro: String,
-        @PathVariable crescente: Boolean
-    ): ResponseEntity<List<UsuariosFilteredList>> {
-        return usuarioService.getPrestadoresFiltrado(idArea, filtro, crescente)
-    }
 }

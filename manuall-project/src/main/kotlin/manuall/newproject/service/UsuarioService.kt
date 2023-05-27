@@ -24,6 +24,14 @@ class UsuarioService (
     val servicoRepository: ServicoRepository
 ) {
 
+    fun getPrestadoresOrderByPlano(): ResponseEntity<List<UsuariosFilteredList>> {
+        return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadores())
+    }
+
+    fun getPrestadoresByAreaIdOrderByPlano(idArea: Int): ResponseEntity<List<UsuariosFilteredList>> {
+        return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadoresByArea(idArea))
+    }
+
     fun buscarArea(): List<Area> {
         return areaRepository.findAll()
     }

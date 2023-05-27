@@ -349,9 +349,24 @@ INSERT INTO servico (area_id, nome) VALUES
 (1, "Poda"),
 (1, "Controle de Pragas"),
 (1, "Adubagem"),
+(2, "Pintura de paredes"),
+(2, "Pintura de portas e janelas"),
+(2, "Pintura de móveis"),
 (3, "Conserto de resistência de chuveiro"),
 (3, "Troca de fiação"),
-(3, "Troca de lâmpada");
+(3, "Troca de lâmpada"),
+(4, "Desentupimento de pia"),
+(4, "Reparo de vazamentos"),
+(4, "Instalação de tubulações"),
+(5, "Fabricação de móveis sob medida"),
+(5, "Reforma de móveis"),
+(5, "Instalação de armários"),
+(6, "Montagem de móveis"),
+(6, "Montagem de estantes"),
+(6, "Montagem de mesas e cadeiras"),
+(7, "Instalação de gesso no teto"),
+(7, "Reparo de acabamento em gesso"),
+(7, "Sanca de gesso");
 
 INSERT INTO usuario
 (`nome`, `email`, `senha`, `cpf`, `telefone`, `orcamento_min`, `orcamento_max`, `descricao`, `presta_aula`, `plano`, `status`, `anexo_pfp`, `acessos`, `tipo_usuario`, `canal`, `area_id`)
@@ -378,34 +393,54 @@ VALUES
 ('Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'anexo14.jpg', 0, 2, 3, 4),
 ('Matheus Ferreira', 'matheus.ferreira@example.com', '$2a$10$KRIagtT591nRBgkGCXJoFOiTIaztE/GhqlNkTyVETiYvWfn3VeqDm', '56789012345', '11943210987', 3000.00, 4000.00, 'Descrição do usuário 15', 1, 2, 2, 'anexo15.jpg', 0, 1, 4, 5);
 
+INSERT INTO dados_endereco (estado, cidade, cep, bairro, rua, numero, complemento, usuario_id) VALUES
+("Minas Gerais", "Belo Horizonte", "31015170", "São Pedro", "Avenida do Contorno", "789", "Sala 502", 1),
+("Rio de Janeiro", "Rio de Janeiro", "22041001", "Copacabana", "Avenida Atlântica", "1500", "Apto 501", 2),
+("Minas Gerais", "Belo Horizonte", "30110070", "Savassi", "Rua Pernambuco", "1000", "Sala 202", 3),
+("Bahia", "Salvador", "40140110", "Barra", "Avenida Oceânica", "500", null, 4),
+("Santa Catarina", "Florianópolis", "88036250", "Centro", "Rua Felipe Schmidt", "800", "Sala 301", 5),
+("Rio Grande do Sul", "Porto Alegre", "90010140", "Centro Histórico", "Rua dos Andradas", "1234", "Apto 1001", 6),
+("São Paulo", "São Paulo", "04545000", "Itaim Bibi", "Rua João Cachoeira", "789", "Conjunto 502", 7),
+("Rio de Janeiro", "Rio de Janeiro", "22231100", "Botafogo", "Rua Voluntários da Pátria", "123", "Apto 301", 8),
+("Minas Gerais", "Belo Horizonte", "30240180", "Santa Efigênia", "Rua dos Timbiras", "456", "Sala 101", 9),
+("Bahia", "Salvador", "41740330", "Stiep", "Avenida Tancredo Neves", "789", null, 10),
+("Santa Catarina", "Florianópolis", "88036110", "Trindade", "Rua Lauro Linhares", "987", "Apto 601", 11),
+("Rio Grande do Sul", "Porto Alegre", "90430060", "Moinhos de Vento", "Rua Padre Chagas", "321", null, 12),
+("São Paulo", "São Paulo", "04004003", "Vila Mariana", "Avenida Paulista", "999", "Conjunto 1503", 13),
+("Rio de Janeiro", "Rio de Janeiro", "22260101", "Leblon", "Avenida Ataulfo de Paiva", "456", "Sala 201", 14),
+("Minas Gerais", "Belo Horizonte", "30330040", "Santo Antônio", "Rua Sergipe", "789", null, 15),
+("Bahia", "Salvador", "40290440", "Rio Vermelho", "Avenida Oceânica", "123", "Apto 401", 16),
+("Santa Catarina", "Florianópolis", "88034400", "Lagoa da Conceição", "Rua das Rendeiras", "456", "Loja 10", 17),
+("Rio Grande do Sul", "Porto Alegre", "90430130", "Auxiliadora", "Rua Marquês do Pombal", "321", "Sala 501", 18),
+("São Paulo", "São Paulo", "05676000", "Morumbi", "Avenida Giovanni Gronchi", "9999", "Conjunto 2004", 19),
+("Rio de Janeiro", "Rio de Janeiro", "22640100", "Ipanema", "Rua Visconde de Pirajá", "456", "Apto 901", 20),
+("Bahia", "Salvador", "41770180", "Pituba", "Rua das Rosas", "123", null, 21);
 
-INSERT INTO dados_endereco VALUES (null, "São Paulo", "São Paulo", "03077000", "Tatuapé", "Rua Ulisses Cruz", "668", null, 1);
+INSERT INTO avaliacao (contratante_usuario_id, prestador_usuario_id, nota, descricao) VALUES
+(1, 2, 4, "Muito bom o serviço, mas demorou mais que o esperado"),
+(1, 2, 5, "Sensacional! Serviço impecável");
 
-INSERT INTO avaliacao VALUES (null, 1, 2, 4, "Muito bom o serviço, mas demorou mais que o esperado"),
-							 (null, 2, 1, 5, "Sensacional! Serviço impecável");
+INSERT INTO solicitacao (contratante_usuario_id, prestador_usuario_id, tamanho, medida, descricao, status, servico_id, avaliacao_id) VALUES
+(1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 1, 1, 1),
+(1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 2, 1, 1),
+(1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 3, 1, 1);
 
-INSERT INTO solicitacao VALUES (null, 1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 1, 1, 1),
-								(null, 1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 2, 1, 1),
-                                (null, 1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 3, 1, 1);
-
-INSERT INTO chat
-(solicitacao_id, id_remetente, mensagem, horario)
-values
+INSERT INTO chat (solicitacao_id, id_remetente, mensagem, horario) values
 (1, 1, "opa", '2023-05-21 14:30:00'),
 (1, 2, "eai, td bem??", '2023-05-21 14:30:00');
 
-INSERT INTO usuario_img VALUES (null, 1, "https://www.youtube.com"),
-							   (null, 1, "https://www.google.com"),
-                               (null, 1, "https://www.facebook.com");
+INSERT INTO usuario_img (usuario_id, anexo) VALUES
+(1, "https://www.youtube.com"),
+(1, "https://www.google.com"),
+(1, "https://www.facebook.com");
 
-INSERT INTO usuario_servico VALUES (null, 1, 1),
-								   (null, 1, 2),
-                                   (null, 1, 3);
-                                   
+INSERT INTO usuario_servico (usuario_id, servico_id) VALUES
+(1, 1),
+(1, 2),
+(1, 3);
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 select * from usuario;
-select * from solicitacao;
-select * from chat;
