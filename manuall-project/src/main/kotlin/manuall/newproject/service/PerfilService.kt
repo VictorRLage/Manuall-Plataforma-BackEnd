@@ -165,8 +165,8 @@ class PerfilService (
             solicitacoes.forEach {
                 algo.add(
                     NotificacaoDto(
-                    it.contratanteUsuario.nome!!,
-                    if (it.status == 1) "Você recebeu uma solicitação de "  else if (it.status == 2) "Você aceitou a solicitação de " else "Você recusou a solicitação de ",
+                    it.prestadorUsuario.nome!!,
+                    if (it.status == 1) "Você enviou uma solicitação para "  else if (it.status == 2) "Sua solicitação foi aceita por " else "Sua solicitação foi recusada por ",
                     it.contratanteUsuario.anexoPfp!!
                 ))
             }
@@ -178,7 +178,7 @@ class PerfilService (
                 algo.add(
                     NotificacaoDto(
                         it.contratanteUsuario.nome!!,
-                        if (it.status == 1) "Você enviou uma solicitação para "  else if (it.status == 2) "Sua solicitação foi aceita por " else "Sua solicitação foi recusada por ",
+                        if (it.status == 1) "Você recebeu uma solicitação de "  else if (it.status == 2) "Você aceitou a solicitação de " else "Você recusou a solicitação de ",
                         it.contratanteUsuario.anexoPfp!!
                     ))
             }

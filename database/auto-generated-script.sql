@@ -384,8 +384,9 @@ INSERT INTO dados_endereco VALUES (null, "São Paulo", "São Paulo", "03077000",
 INSERT INTO avaliacao VALUES (null, 1, 2, 4, "Muito bom o serviço, mas demorou mais que o esperado"),
 							 (null, 2, 1, 5, "Sensacional! Serviço impecável");
 
-INSERT INTO solicitacao VALUES (null, 1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 2, 1, 1),
-							   (null, 2, 1, 25.00, "m2", "Quebrar minha cozinha inteira", 2, 2, 2);
+INSERT INTO solicitacao VALUES (null, 1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 1, 1, 1),
+								(null, 1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 2, 1, 1),
+                                (null, 1, 2, 50.000, "m2", "Quebar meu banheiro inteiro", 3, 1, 1);
 
 INSERT INTO chat
 (solicitacao_id, id_remetente, mensagem, horario)
@@ -404,3 +405,6 @@ INSERT INTO usuario_servico VALUES (null, 1, 1),
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+select * from usuario;
+select * from solicitacao;
