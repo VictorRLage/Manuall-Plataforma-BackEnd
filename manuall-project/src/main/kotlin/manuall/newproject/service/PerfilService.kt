@@ -2,10 +2,7 @@ package manuall.newproject.service
 
 import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
-import manuall.newproject.dto.perfil.AlterDescRequest
-import manuall.newproject.dto.perfil.AlterSenhaRequest
-import manuall.newproject.dto.perfil.AlterarPerfilDto
-import manuall.newproject.dto.perfil.PerfilDto
+import manuall.newproject.dto.perfil.*
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -152,5 +149,40 @@ class PerfilService (
 
         usuarioEncontrado.anexoPfp = alterPfpRequest.novaUrl
         return ResponseEntity.status(200).body(usuarioRepository.save(usuarioEncontrado))
+    }
+
+    fun getSolicitacoes(token: String): ResponseEntity<List<NotificacaoDto>> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        if (usuarioEncontrado.tipoUsuario == 1) {
+            val solicitacoes = solicitacaoRepository.findByContratanteUsuarioIdOrderByIdDesc(usuarioEncontrado.id)
+            val algo = mutableListOf<NotificacaoDto>()
+            solicitacoes.forEach {
+                algo.add(
+                    NotificacaoDto(
+                    it.contratanteUsuario.nome!!,
+                    if (it.status == 1) "Você recebeu uma solicitação de "  else if (it.status == 2) "Você aceitou a solicitação de " else "Você recusou a solicitação de ",
+                    it.contratanteUsuario.anexoPfp!!
+                ))
+            }
+            return ResponseEntity.status(200).body(algo)
+        } else {
+            val solicitacoes = solicitacaoRepository.findByPrestadorUsuarioIdOrderByIdDesc(usuarioEncontrado.id)
+            val algo = mutableListOf<NotificacaoDto>()
+            solicitacoes.forEach {
+                algo.add(
+                    NotificacaoDto(
+                        it.contratanteUsuario.nome!!,
+                        if (it.status == 1) "Você enviou uma solicitação para "  else if (it.status == 2) "Sua solicitação foi aceita por " else "Sua solicitação foi recusada por ",
+                        it.contratanteUsuario.anexoPfp!!
+                    ))
+            }
+            return ResponseEntity.status(200).body(algo)
+        }
     }
 }

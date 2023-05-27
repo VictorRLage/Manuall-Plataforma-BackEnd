@@ -12,40 +12,42 @@ class Usuario {
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+//    @field:NotNull
     var id: Int = 0
 
     @Column(name = "nome", length = 60)
-    @field:NotBlank
+//    @field:NotBlank
+//    @field:Size(max = 60)
     var nome: String? = null
 
     @Column(name = "email", length = 256)
-    @field:NotBlank
-    @field:Email
+//    @field:NotBlank
+//    @field:Email
     var email: String? = null
 
     @Column(name = "senha", length = 60)
-    @field:NotBlank
-    @field:Size(min = 60, max = 60)
+//    @field:NotBlank
+//    @field:Size(min = 60, max = 60)
     var senha: String? = null
 
     @Column(name = "cpf")
-    @field:CPF
+//    @field:CPF
     var cpf: String? = null
 
     @Column(name="telefone", length = 11)
-    @field:NotBlank
+//    @field:NotBlank
     var telefone: String? = null
 
     @Column(name = "orcamento_min")
-    @field:PositiveOrZero
+//    @field:PositiveOrZero
     var orcamentoMin: Double? = null
 
     @Column(name = "orcamento_max")
-    @field:PositiveOrZero
+//    @field:PositiveOrZero
     var orcamentoMax: Double? = null
 
     @Column(name = "descricao", length = 270)
-    @Size(max = 270)
+//    @field:Size(max = 270)
     var descricao: String? = null
 
     @Column(name = "presta_aula")
@@ -64,16 +66,18 @@ class Usuario {
     // 4: Inscrição recusada
 
     @Column(name = "anexo_pfp", length = 90)
-    @field:URL
+//    @field:NotBlank
+//    @field:Size(max = 90)
+//    @field:URL
     var anexoPfp: String? = ""
 
     @Column(name = "acessos")
     var acessos: Int? = null
 
     @Column(name = "tipo_usuario")
-    @field:NotNull
-    @field:Min(1)
-    @field:Max(3)
+//    @field:NotNull
+//    @field:Min(1)
+//    @field:Max(3)
     var tipoUsuario: Int? = null
     // 1: Contratante
     // 2: Prestador

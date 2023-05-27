@@ -14,7 +14,9 @@ class DashboardController(
 ) {
 
     @GetMapping("/geral/canal/{tipoUsuario}")
-    fun usuariosCanal(@PathVariable tipoUsuario:Int):List<String> {
+    fun usuariosCanal(
+        @PathVariable tipoUsuario: Int
+    ): List<String> {
         return dashboardService.usuariosCanal(tipoUsuario)
     }
 

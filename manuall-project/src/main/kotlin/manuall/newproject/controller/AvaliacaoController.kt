@@ -17,7 +17,7 @@ class AvaliacaoController(
 
     @SecurityRequirement(name = "Bearer")
     @PostMapping
-    fun loginChecar(
+    fun postarAvaliacao(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
         @RequestBody postarAvaliacaoDTO: PostarAvaliacaoDto
     ): ResponseEntity<Int> {

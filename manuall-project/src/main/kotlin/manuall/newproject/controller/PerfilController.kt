@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
 import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
-import manuall.newproject.dto.perfil.AlterDescRequest
-import manuall.newproject.dto.perfil.AlterSenhaRequest
-import manuall.newproject.dto.perfil.AlterarPerfilDto
-import manuall.newproject.dto.perfil.PerfilDto
+import manuall.newproject.dto.perfil.*
 import manuall.newproject.service.PerfilService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -78,5 +75,13 @@ class PerfilController (
         @RequestBody alterPfpRequest: AlterPfpRequest
     ): ResponseEntity<Usuario> {
         return perfilService.atualizarPFP(token, alterPfpRequest)
+    }
+
+    @SecurityRequirement(name = "Bearer")
+    @GetMapping("/solicitacoes")
+    fun getSolicitacoes(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+    ): ResponseEntity<List<NotificacaoDto>> {
+        return perfilService.getSolicitacoes(token)
     }
 }

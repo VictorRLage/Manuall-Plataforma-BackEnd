@@ -1,9 +1,11 @@
 package manuall.newproject.controller
 
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import manuall.newproject.domain.Area
 import manuall.newproject.domain.Servico
+import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
 import manuall.newproject.dto.usuario.UsuarioLoginCheckRequest
 import manuall.newproject.dto.usuario.UsuarioLoginRequest
@@ -50,7 +52,7 @@ class UsuarioController(
     @SecurityRequirement(name = "Bearer")
     @PostMapping("/logoff")
     fun logoff(
-        @RequestHeader("Authorization") token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String
     ): ResponseEntity<Void> {
         return usuarioService.logoff(token)
     }
