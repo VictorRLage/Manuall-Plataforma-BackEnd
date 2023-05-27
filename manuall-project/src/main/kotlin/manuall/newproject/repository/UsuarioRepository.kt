@@ -24,7 +24,6 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         tipoUsuario: Int?
     ): Optional<Usuario>
 
-
     @Query("""
         select count(u) from Usuario u where u.tipoUsuario =?1
         group by u.canal
@@ -32,12 +31,6 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
     fun countByTipoUsuarioGroupByCanal(
         tipoUsuario: Int?
     ): List<Int>
-
-    // lembrar de perguntar ao reis
-
-
-
-
 
     // QUERIES DA LISTAGEM DE PRESTADORES
 

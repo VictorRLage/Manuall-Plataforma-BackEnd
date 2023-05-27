@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/servicos")
+@RequestMapping("/servico")
 @CrossOrigin("http://localhost:3000")
 class ServicoController (
     val servicoService: ServicoService

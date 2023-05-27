@@ -6,15 +6,13 @@ import manuall.newproject.service.DashboardService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-
 @RestController
 @RequestMapping("/dashboard")
 @CrossOrigin("http://localhost:3000")
-class DashBoardController(
+class DashboardController(
     val dashboardService: DashboardService
 ) {
 
-    // dashboard geral
     @GetMapping("/geral/canal/{tipoUsuario}")
     fun usuariosCanal(@PathVariable tipoUsuario:Int):List<String> {
         return dashboardService.usuariosCanal(tipoUsuario)
@@ -29,5 +27,4 @@ class DashBoardController(
     fun taxaComplitudeCadastro(): ResponseEntity<DashboardComplitudeCadastroDto> {
         return dashboardService.taxaComplitudeCadastro()
     }
-
 }

@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/chats")
+@RequestMapping("/chat")
 @CrossOrigin("http://localhost:3000")
 class ChatController (
     val chatService: ChatService
