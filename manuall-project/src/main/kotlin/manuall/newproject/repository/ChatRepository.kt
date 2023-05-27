@@ -11,7 +11,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
 
     @Query("""
         select
-        new manuall.newproject.dto.chat.ChatMensagemResponse(CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
+        new manuall.newproject.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
         where c.solicitacao.contratanteUsuario.id = ?1
         and c.solicitacao.id = ?2
@@ -20,7 +20,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
 
     @Query("""
         select
-        new manuall.newproject.dto.chat.ChatMensagemResponse(CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
+        new manuall.newproject.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
         where c.solicitacao.prestadorUsuario.id = ?1
         and c.solicitacao.id = ?2
@@ -29,7 +29,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
 
     @Query("""
         select
-        new manuall.newproject.dto.chat.ChatMensagemResponse(CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
+        new manuall.newproject.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
         where c.solicitacao.contratanteUsuario.id = ?1
         and c.solicitacao.id = ?2
@@ -39,7 +39,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
 
     @Query("""
         select
-        new manuall.newproject.dto.chat.ChatMensagemResponse(CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
+        new manuall.newproject.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
         where c.solicitacao.prestadorUsuario.id = ?1
         and c.solicitacao.id = ?2

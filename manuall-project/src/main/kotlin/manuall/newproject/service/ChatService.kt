@@ -58,9 +58,9 @@ class ChatService (
 
         return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(
             ChatMensagensResponse(
-            destinatario,
-            mensagens
-        )
+                destinatario,
+                mensagens
+            )
         )
     }
 

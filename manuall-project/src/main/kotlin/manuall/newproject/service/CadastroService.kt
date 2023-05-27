@@ -22,11 +22,15 @@ class CadastroService (
     val jwtTokenManager: JwtTokenManager
 ) {
 
-    fun checarProspect(prospectDTO: ProspectDto): ResponseEntity<PipefyReturnDto> { // dto do retorno do pipefy
+    fun checarProspect(prospectDTO: ProspectDto): ResponseEntity<PipefyReturnDto> {
         val usuario = prospectRepository.findByEmailAndTipoUsuario(prospectDTO.email, prospectDTO.tipoUsuario)
-        if (usuario.isPresent) {
+        return if (usuario.isPresent) {
             val pipefyReturnDTO = PipefyReturnDto()
-            pipefyReturnDTO.optCidade = when (usuario.get().optCidade) {
+            val usuarioAtual = usuario.get()
+
+            pipefyReturnDTO.nome = usuarioAtual.nome
+            pipefyReturnDTO.telefone = usuarioAtual.fone
+            pipefyReturnDTO.optCidade = when (usuarioAtual.optCidade) {
                 1 -> "São Paulo"
                 2 -> "São Bernardo do Campo"
                 3 -> "São Caetano do Sul"
@@ -35,15 +39,12 @@ class CadastroService (
                 6 -> "Bauru"
                 else -> null
             }
-            pipefyReturnDTO.nome = usuario.get().nome
-            pipefyReturnDTO.telefone = usuario.get().fone
-            // pipefyReturnDTO.area =
-            pipefyReturnDTO.blnInteresseEnsinar = usuario.get().blnInteresseEnsinar
+            pipefyReturnDTO.optArea = usuarioAtual.area!!.id
+            pipefyReturnDTO.blnInteresseEnsinar = usuarioAtual.blnInteresseEnsinar
 
-            return ResponseEntity.status(200).body(pipefyReturnDTO)
-            TODO("fazerAreaDepoisDeAttPipefy")
+            ResponseEntity.status(200).body(pipefyReturnDTO)
         } else {
-            return ResponseEntity.status(204).build()
+            ResponseEntity.status(204).build()
         }
 
     }

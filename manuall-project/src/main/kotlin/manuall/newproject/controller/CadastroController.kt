@@ -16,10 +16,10 @@ class CadastroController (
     val cadastroService: CadastroService
 ) {
 
-    @GetMapping("/prospect")
+    @PostMapping("/prospect")
     fun checarProspect(
         @RequestBody prospectDTO: ProspectDto
-    ): ResponseEntity<PipefyReturnDto> { //DTO com todos os campos do Pipefy que precisam ser retornados
+    ): ResponseEntity<PipefyReturnDto> {
         return cadastroService.checarProspect(prospectDTO)
     }
 
