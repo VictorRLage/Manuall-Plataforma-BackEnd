@@ -408,3 +408,4 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 select * from usuario;
 select * from solicitacao;
+select * from chat;
