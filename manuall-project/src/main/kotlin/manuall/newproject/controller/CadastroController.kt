@@ -50,7 +50,7 @@ class CadastroController (
     @PutMapping("/4/{idPlano}")
     fun cadastrar4Prest(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
-        @PathVariable idPlano: Int
+        @PathVariable @Schema(example = "1") idPlano: Int
     ): ResponseEntity<String> {
         return cadastroService.cadastrar4Prest(token, idPlano)
     }
