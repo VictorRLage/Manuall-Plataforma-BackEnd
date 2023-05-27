@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.usuario
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.*

@@ -4,10 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.AlterDescRequest
-import manuall.newproject.dto.AlterSenhaRequest
-import manuall.newproject.dto.AlterarPerfilDTO
-import manuall.newproject.dto.PerfilDTO
+import manuall.newproject.dto.perfil.AlterDescRequest
+import manuall.newproject.dto.perfil.AlterSenhaRequest
+import manuall.newproject.dto.perfil.AlterarPerfilDto
+import manuall.newproject.dto.perfil.PerfilDTO
 import manuall.newproject.service.PerfilService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -30,7 +30,7 @@ class PerfilController (
     @PutMapping("/alterar")
     fun alterarPerfil(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
-        @RequestBody alterarPerfilDTO: AlterarPerfilDTO
+        @RequestBody alterarPerfilDTO: AlterarPerfilDto
     ): ResponseEntity<String> {
         return perfilService.alterarPerfil(token, alterarPerfilDTO)
     }

@@ -1,10 +1,10 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.cadastro
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.*
 import org.hibernate.validator.constraints.br.CPF
 
-data class Cadastrar1DTO (
+data class Cadastrar1Dto (
 
     @Schema(example = "Fulano de Tal")
     @field:NotBlank

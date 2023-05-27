@@ -1,7 +1,7 @@
 package manuall.newproject.controller
 
-import manuall.newproject.dto.DashboardComplitudeCadastroDto
-import manuall.newproject.dto.PegarRegiaoDTO
+import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroDto
+import manuall.newproject.dto.dashboard.PegarRegiaoDTO
 import manuall.newproject.service.DashboardService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

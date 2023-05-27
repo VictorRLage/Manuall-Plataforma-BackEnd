@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.solicitacao
 
 import io.swagger.v3.oas.annotations.media.Schema
 

@@ -1,15 +1,15 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.perfil
 
 import manuall.newproject.domain.Area
 
-data class AlterarPerfilDTO(
+data class AlterarPerfilDto(
     val area: Area,
     val descricao: String,
     val profile: String,
     val nome: String,
-    val orcamento_min: Double,
-    val orcamento_max: Double,
-    val presta_aula: Boolean,
+    val orcamentoMin: Double,
+    val orcamentoMax: Double,
+    val prestaAula: Boolean,
     val estado: String,
     val cidade: String,
     val imagens: List<String>,

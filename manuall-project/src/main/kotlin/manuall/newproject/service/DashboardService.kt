@@ -1,6 +1,9 @@
 package manuall.newproject.service
 
-import manuall.newproject.dto.*
+import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroContratanteDto
+import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroDto
+import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroPrestadorDto
+import manuall.newproject.dto.dashboard.PegarRegiaoDTO
 import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.http.ResponseEntity
@@ -37,7 +40,8 @@ class DashboardService(
 
         usuarioRepository
 
-        return ResponseEntity.status(200).body(DashboardComplitudeCadastroDto(
+        return ResponseEntity.status(200).body(
+            DashboardComplitudeCadastroDto(
             DashboardComplitudeCadastroContratanteDto(
                 2,
                 3
@@ -48,6 +52,7 @@ class DashboardService(
                 3,
                 1
             )
-        ))
+        )
+        )
     }
 }

@@ -1,7 +1,7 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.Solicitacao
-import manuall.newproject.dto.SolicitacaoDto
+import manuall.newproject.dto.solicitacao.SolicitacaoDto
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity

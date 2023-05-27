@@ -2,9 +2,9 @@ package manuall.newproject.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import manuall.newproject.dto.ChatMensagemRequest
-import manuall.newproject.dto.ChatMensagensResponse
-import manuall.newproject.dto.ChatPegarDadosDestinatariosDto
+import manuall.newproject.dto.chat.ChatMensagemRequest
+import manuall.newproject.dto.chat.ChatMensagensResponse
+import manuall.newproject.dto.chat.ChatPegarDadosDestinatariosDto
 import manuall.newproject.service.ChatService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

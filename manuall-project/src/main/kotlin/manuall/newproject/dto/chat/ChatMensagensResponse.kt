@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.chat
 
 data class ChatMensagensResponse (
     val destinatario: ChatPegarDadosDestinatarioDto,

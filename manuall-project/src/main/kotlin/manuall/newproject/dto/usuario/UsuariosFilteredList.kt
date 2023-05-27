@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.usuario
 
 data class UsuariosFilteredList (
     val id: Int,

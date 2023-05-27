@@ -3,7 +3,7 @@ package manuall.newproject.service
 import manuall.newproject.domain.DadosEndereco
 import manuall.newproject.domain.Usuario
 import manuall.newproject.domain.UsuarioServico
-import manuall.newproject.dto.*
+import manuall.newproject.dto.cadastro.*
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -48,7 +48,7 @@ class CadastroService (
 
     }
 
-    fun cadastrar1(cadastrar1DTO: Cadastrar1DTO): ResponseEntity<Int> {
+    fun cadastrar1(cadastrar1DTO: Cadastrar1Dto): ResponseEntity<Int> {
         val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, cadastrar1DTO.tipoUsuario)
         if (emailExistente.isPresent) {
             return ResponseEntity.status(409).body(null)
@@ -75,7 +75,7 @@ class CadastroService (
         }
     }
 
-    fun cadastrar2(id: Int, cadastrar2DTO: Cadastrar2DTO): ResponseEntity<String> {
+    fun cadastrar2(id: Int, cadastrar2DTO: Cadastrar2Dto): ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
@@ -105,7 +105,7 @@ class CadastroService (
         }
     }
 
-    fun cadastrar3Prest(id: Int, cadastrar3PrestDTO: Cadastrar3PrestDTO): ResponseEntity<String> {
+    fun cadastrar3Prest(id: Int, cadastrar3Dto: Cadastrar3Dto): ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
@@ -119,17 +119,17 @@ class CadastroService (
             return ResponseEntity.status(409).body("Campos já cadastrados!")
         }
 
-        cadastrar3PrestDTO.servico.forEach {
+        cadastrar3Dto.servico.forEach {
             val usuarioServico = UsuarioServico()
             usuarioServico.usuario = usuario.get()
             usuarioServico.servico = servicoRepository.findById(it).get()
             usuarioServicoRepository.save(usuarioServico)
         }
 
-        novoUsuario.area = areaRepository.findById(cadastrar3PrestDTO.area).get()
-        novoUsuario.prestaAula = cadastrar3PrestDTO.prestaAula
-        novoUsuario.orcamentoMin = cadastrar3PrestDTO.orcamentoMin
-        novoUsuario.orcamentoMax = cadastrar3PrestDTO.orcamentoMax
+        novoUsuario.area = areaRepository.findById(cadastrar3Dto.area).get()
+        novoUsuario.prestaAula = cadastrar3Dto.prestaAula
+        novoUsuario.orcamentoMin = cadastrar3Dto.orcamentoMin
+        novoUsuario.orcamentoMax = cadastrar3Dto.orcamentoMax
         novoUsuario.status = if (novoUsuario.tipoUsuario == 2) 1 else 2
 
         usuarioRepository.save(novoUsuario)

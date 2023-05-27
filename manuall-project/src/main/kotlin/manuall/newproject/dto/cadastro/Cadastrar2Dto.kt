@@ -1,6 +1,6 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.cadastro
 
-data class Cadastrar2DTO (
+data class Cadastrar2Dto (
     val cep:String,
     val estado:String,
     val cidade:String,

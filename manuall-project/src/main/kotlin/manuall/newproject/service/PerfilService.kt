@@ -1,10 +1,10 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.AlterDescRequest
-import manuall.newproject.dto.AlterSenhaRequest
-import manuall.newproject.dto.AlterarPerfilDTO
-import manuall.newproject.dto.PerfilDTO
+import manuall.newproject.dto.perfil.AlterDescRequest
+import manuall.newproject.dto.perfil.AlterSenhaRequest
+import manuall.newproject.dto.perfil.AlterarPerfilDto
+import manuall.newproject.dto.perfil.PerfilDTO
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -40,7 +40,7 @@ class PerfilService (
         return ResponseEntity.status(200).build()
     }
 
-    fun alterarPerfil(token: String, alterarPerfilDTO: AlterarPerfilDTO): ResponseEntity<String> {
+    fun alterarPerfil(token: String, alterarPerfilDTO: AlterarPerfilDto): ResponseEntity<String> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
@@ -51,9 +51,9 @@ class PerfilService (
         usuarioEncontrado.descricao = alterarPerfilDTO.descricao
         usuarioEncontrado.anexoPfp = alterarPerfilDTO.profile
         usuarioEncontrado.nome = alterarPerfilDTO.nome
-        usuarioEncontrado.orcamentoMin = alterarPerfilDTO.orcamento_min
-        usuarioEncontrado.orcamentoMax = alterarPerfilDTO.orcamento_max
-        usuarioEncontrado.prestaAula = alterarPerfilDTO.presta_aula
+        usuarioEncontrado.orcamentoMin = alterarPerfilDTO.orcamentoMin
+        usuarioEncontrado.orcamentoMax = alterarPerfilDTO.orcamentoMax
+        usuarioEncontrado.prestaAula = alterarPerfilDTO.prestaAula
 
         usuarioRepository.save(usuarioEncontrado)
 

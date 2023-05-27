@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.dashboard
 
 data class DashboardComplitudeCadastroPrestadorDto (
     val `1`: Int,

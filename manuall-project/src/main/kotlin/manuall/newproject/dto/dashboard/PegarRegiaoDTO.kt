@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.dashboard
 
 class PegarRegiaoDTO(
     val cidade:String,

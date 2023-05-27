@@ -1,7 +1,9 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.*
-import manuall.newproject.dto.*
+import manuall.newproject.dto.usuario.LoginResponse
+import manuall.newproject.dto.usuario.UsuarioLoginRequest
+import manuall.newproject.dto.usuario.UsuariosFilteredList
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity

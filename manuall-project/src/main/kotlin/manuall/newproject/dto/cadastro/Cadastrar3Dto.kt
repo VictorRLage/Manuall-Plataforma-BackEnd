@@ -1,6 +1,6 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.cadastro
 
-class Cadastrar3PrestDTO(
+data class Cadastrar3Dto (
     val area:Int,
     val servico:List<Int>,
     val prestaAula: Boolean,

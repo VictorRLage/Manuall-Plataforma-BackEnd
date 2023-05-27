@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.chat
 
 import java.util.*
 

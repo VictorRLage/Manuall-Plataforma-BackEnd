@@ -1,7 +1,7 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.Chat
-import manuall.newproject.dto.*
+import manuall.newproject.dto.chat.*
 import manuall.newproject.repository.ChatRepository
 import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.security.JwtTokenManager
@@ -56,10 +56,12 @@ class ChatService (
             mensagens = chatRepository.getMsgsByUsuarioIdAndSolicitacaoIdPrestador(usuarioEncontrado.id, idSolicitacao)
         }
 
-        return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(ChatMensagensResponse(
+        return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(
+            ChatMensagensResponse(
             destinatario,
             mensagens
-        ))
+        )
+        )
     }
 
     fun getBySolicitacaoIdWhereSolicitacaoIdHigherThan(token: String, idSolicitacao: Int, idUltimaMensagem: Int): ResponseEntity<ChatMensagensResponse> {
@@ -85,10 +87,12 @@ class ChatService (
             mensagens = chatRepository.getBySolicitacaoIdWhereSolicitacaoIdHigherThanPrestador(usuarioEncontrado.id, idSolicitacao, idUltimaMensagem)
         }
 
-        return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(ChatMensagensResponse(
+        return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(
+            ChatMensagensResponse(
             destinatario,
             mensagens
-        ))
+        )
+        )
     }
 
     fun mandarMensagem(token: String, chatMensagemRequest: ChatMensagemRequest): ResponseEntity<Int> {

@@ -1,4 +1,4 @@
-package manuall.newproject.dto
+package manuall.newproject.dto.avaliacao
 
 data class PostarAvaliacaoDTO (
     val idSolicitacao: Int,

@@ -3,7 +3,7 @@ package manuall.newproject.controller
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
-import manuall.newproject.dto.SolicitacaoDto
+import manuall.newproject.dto.solicitacao.SolicitacaoDto
 import manuall.newproject.service.SolicitacaoService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
