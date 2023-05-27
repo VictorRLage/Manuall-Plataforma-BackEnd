@@ -7,7 +7,7 @@ import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.perfil.AlterDescRequest
 import manuall.newproject.dto.perfil.AlterSenhaRequest
 import manuall.newproject.dto.perfil.AlterarPerfilDto
-import manuall.newproject.dto.perfil.PerfilDTO
+import manuall.newproject.dto.perfil.PerfilDto
 import manuall.newproject.service.PerfilService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -39,7 +39,7 @@ class PerfilController (
     @GetMapping
     fun checarPrestador(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String
-    ): ResponseEntity<PerfilDTO> {
+    ): ResponseEntity<PerfilDto> {
         return perfilService.checarPrestador(token)
     }
 

@@ -2,7 +2,7 @@ package manuall.newproject.dto.cadastro
 
 import manuall.newproject.domain.Area
 
-class PipefyReturnDTO {
+class PipefyReturnDto {
     var nome:String? = null
     var telefone:String? = null
     var optCidade:String? = null

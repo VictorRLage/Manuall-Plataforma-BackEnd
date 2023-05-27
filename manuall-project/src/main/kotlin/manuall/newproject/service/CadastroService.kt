@@ -22,10 +22,10 @@ class CadastroService (
     val jwtTokenManager: JwtTokenManager
 ) {
 
-    fun checarProspect(prospectDTO: ProspectDTO): ResponseEntity<PipefyReturnDTO> { // dto do retorno do pipefy
+    fun checarProspect(prospectDTO: ProspectDto): ResponseEntity<PipefyReturnDto> { // dto do retorno do pipefy
         val usuario = prospectRepository.findByEmailAndTipoUsuario(prospectDTO.email, prospectDTO.tipoUsuario)
         if (usuario.isPresent) {
-            val pipefyReturnDTO = PipefyReturnDTO()
+            val pipefyReturnDTO = PipefyReturnDto()
             pipefyReturnDTO.optCidade = when (usuario.get().optCidade) {
                 1 -> "São Paulo"
                 2 -> "São Bernardo do Campo"

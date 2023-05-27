@@ -18,8 +18,8 @@ class CadastroController (
 
     @GetMapping("/prospect")
     fun checarProspect(
-        @RequestBody prospectDTO: ProspectDTO
-    ): ResponseEntity<PipefyReturnDTO> { //DTO com todos os campos do Pipefy que precisam ser retornados
+        @RequestBody prospectDTO: ProspectDto
+    ): ResponseEntity<PipefyReturnDto> { //DTO com todos os campos do Pipefy que precisam ser retornados
         return cadastroService.checarProspect(prospectDTO)
     }
 

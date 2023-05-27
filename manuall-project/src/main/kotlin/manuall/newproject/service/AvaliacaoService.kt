@@ -1,7 +1,7 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.Avaliacao
-import manuall.newproject.dto.avaliacao.PostarAvaliacaoDTO
+import manuall.newproject.dto.avaliacao.PostarAvaliacaoDto
 import manuall.newproject.repository.AvaliacaoRepository
 import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.repository.UsuarioRepository
@@ -17,7 +17,7 @@ class AvaliacaoService(
     val avaliacaoRepository: AvaliacaoRepository
 ) {
 
-    fun postarAvaliacao(token: String, postarAvaliacaoDTO: PostarAvaliacaoDTO): ResponseEntity<Int> {
+    fun postarAvaliacao(token: String, postarAvaliacaoDTO: PostarAvaliacaoDto): ResponseEntity<Int> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
@@ -27,8 +27,7 @@ class AvaliacaoService(
         val avaliacao = Avaliacao()
 
         avaliacao.contratanteUsuario = usuarioRepository.findById(usuarioEncontrado.id).get()
-        avaliacao.prestadorUsuario =
-            solicitacaoRepository.findById(postarAvaliacaoDTO.idSolicitacao).get().prestadorUsuario
+        avaliacao.prestadorUsuario = solicitacaoRepository.findById(postarAvaliacaoDTO.idSolicitacao).get().prestadorUsuario
         avaliacao.descricao = postarAvaliacaoDTO.descricao
         avaliacao.nota = postarAvaliacaoDTO.nota
 

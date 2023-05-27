@@ -5,7 +5,7 @@ import manuall.newproject.dto.*
 import manuall.newproject.dto.avaliacao.NotificacaoDto
 import manuall.newproject.dto.chat.ChatPegarDadosDestinatarioDto
 import manuall.newproject.dto.chat.ChatPegarDadosDestinatariosDto
-import manuall.newproject.dto.dashboard.PegarRegiaoDTO
+import manuall.newproject.dto.dashboard.PegarRegiaoDto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -65,14 +65,14 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
 
     @Query("""
         select
-        new manuall.newproject.dto.dashboard.PegarRegiaoDTO(e.cidade, e.estado)
+        new manuall.newproject.dto.dashboard.PegarRegiaoDto(e.cidade, e.estado)
         from Solicitacao s, Usuario u, DadosEndereco e
         where u.id = s.contratanteUsuario.id and u.id = e.usuario.id
         and s.status = 2
     """)
-    fun findByContratanteUsuarioId():List<PegarRegiaoDTO>
+    fun findByContratanteUsuarioId():List<PegarRegiaoDto>
 
 
-    @Query("SELECT new manuall.newproject.dto.avaliacao.NotificacaoDTO(s.id, s.prestadorUsuario.nome, s.descricao) FROM Solicitacao s WHERE s.prestadorUsuario.id = ?1")
+    @Query("SELECT new manuall.newproject.dto.avaliacao.NotificacaoDto(s.id, s.prestadorUsuario.nome, s.descricao) FROM Solicitacao s WHERE s.prestadorUsuario.id = ?1")
     fun findAllByUsuarioId(usuarioId: Int): List<NotificacaoDto>
 }

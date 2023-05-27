@@ -4,7 +4,7 @@ import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.perfil.AlterDescRequest
 import manuall.newproject.dto.perfil.AlterSenhaRequest
 import manuall.newproject.dto.perfil.AlterarPerfilDto
-import manuall.newproject.dto.perfil.PerfilDTO
+import manuall.newproject.dto.perfil.PerfilDto
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -60,7 +60,7 @@ class PerfilService (
         return ResponseEntity.ok("Perfil do usuário atualizado com sucesso")
     }
 
-    fun checarPrestador(token: String): ResponseEntity<PerfilDTO> {
+    fun checarPrestador(token: String): ResponseEntity<PerfilDto> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
@@ -74,7 +74,7 @@ class PerfilService (
         val urls = usuarioImgRepository.findUrlsByUsuarioId(usuarioEncontrado.id)
         val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(usuarioEncontrado.id)
 
-        val perfilDTO = PerfilDTO(
+        val perfilDTO = PerfilDto(
             nomeArea!!,
             usuarioEncontrado.descricao!!,
             usuarioEncontrado.anexoPfp!!,

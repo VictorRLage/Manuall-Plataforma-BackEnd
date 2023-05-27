@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface AvaliacaoRepository: JpaRepository<Avaliacao, Int> {
 
-    @Query("SELECT new manuall.newproject.dto.avaliacao.AvaliacaoDTO(a.contratanteUsuario.nome, a.contratanteUsuario.anexoPfp, a.nota, a.descricao) FROM Avaliacao a WHERE a.prestadorUsuario.id = ?1")
+    @Query("SELECT new manuall.newproject.dto.avaliacao.AvaliacaoDto(a.contratanteUsuario.nome, a.contratanteUsuario.anexoPfp, a.nota, a.descricao) FROM Avaliacao a WHERE a.prestadorUsuario.id = ?1")
     fun findByPrestadorUsuarioId(prestadorId: Int): List<AvaliacaoDto>
 }

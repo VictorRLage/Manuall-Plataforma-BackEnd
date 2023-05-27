@@ -2,11 +2,11 @@ package manuall.newproject.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import jakarta.validation.Valid
-import manuall.newproject.dto.avaliacao.PostarAvaliacaoDTO
+import manuall.newproject.dto.avaliacao.PostarAvaliacaoDto
 import manuall.newproject.service.AvaliacaoService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+
 
 @RestController
 @RequestMapping("/avaliacao")
@@ -19,7 +19,7 @@ class AvaliacaoController(
     @PostMapping
     fun loginChecar(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
-        @RequestBody @Valid postarAvaliacaoDTO: PostarAvaliacaoDTO
+        @RequestBody postarAvaliacaoDTO: PostarAvaliacaoDto
     ): ResponseEntity<Int> {
         return avaliacaoService.postarAvaliacao(token, postarAvaliacaoDTO)
     }

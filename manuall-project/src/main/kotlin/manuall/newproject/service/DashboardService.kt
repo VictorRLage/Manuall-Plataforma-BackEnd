@@ -3,7 +3,7 @@ package manuall.newproject.service
 import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroContratanteDto
 import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroDto
 import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroPrestadorDto
-import manuall.newproject.dto.dashboard.PegarRegiaoDTO
+import manuall.newproject.dto.dashboard.PegarRegiaoDto
 import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.http.ResponseEntity
@@ -30,7 +30,7 @@ class DashboardService(
     }
 
 
-    fun pegarRegiao():List<PegarRegiaoDTO> {
+    fun pegarRegiao():List<PegarRegiaoDto> {
         val usuario = solicitacaoRepository.findByContratanteUsuarioId()
         return usuario
         // TODO: count da quantidade de cont em cada região 

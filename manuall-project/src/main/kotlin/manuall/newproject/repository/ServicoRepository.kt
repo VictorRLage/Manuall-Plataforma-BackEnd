@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable
 @Repository
 interface ServicoRepository: JpaRepository<Servico, Int> {
 
-    fun findAllByAreaId(@PathVariable id:Int):List<Servico>
+    fun findAllByAreaId(id:Int):List<Servico>
 }

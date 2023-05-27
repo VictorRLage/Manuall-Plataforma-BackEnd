@@ -1,6 +1,6 @@
 package manuall.newproject.dto.dashboard
 
-class PegarRegiaoDTO(
+class PegarRegiaoDto(
     val cidade:String,
     val estado:String,
     val contador: Long

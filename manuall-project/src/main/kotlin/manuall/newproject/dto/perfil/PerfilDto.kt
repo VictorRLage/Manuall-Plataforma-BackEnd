@@ -3,7 +3,7 @@ package manuall.newproject.dto.perfil
 import manuall.newproject.dto.avaliacao.AvaliacaoDto
 import manuall.newproject.dto.avaliacao.NotificacaoDto
 
-data class PerfilDTO(
+data class PerfilDto(
     val area: String,
     val descricao: String,
     val profile: String,
