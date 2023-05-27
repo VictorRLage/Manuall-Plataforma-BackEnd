@@ -1,6 +1,7 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.Usuario
+import manuall.newproject.dto.*
 import manuall.newproject.dto.perfil.AlterDescRequest
 import manuall.newproject.dto.perfil.AlterSenhaRequest
 import manuall.newproject.dto.perfil.AlterarPerfilDto
@@ -138,5 +139,18 @@ class PerfilService (
         usuarioRepository.deleteById(usuarioEncontrado.id)
         return ResponseEntity.status(200).body(null)
 
+    }
+
+    fun atualizarPFP(token: String, alterPfpRequest: AlterPfpRequest): ResponseEntity<Usuario> {
+
+        // Checando se token foi expirado e então encontrando usuário por token
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        usuarioEncontrado.anexoPfp = alterPfpRequest.novaUrl
+        return ResponseEntity.status(200).body(usuarioRepository.save(usuarioEncontrado))
     }
 }
