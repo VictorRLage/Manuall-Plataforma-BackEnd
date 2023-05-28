@@ -1,8 +1,9 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.*
+import manuall.newproject.domain.UsuarioImg
 import manuall.newproject.dto.perfil.*
+import manuall.newproject.dto.usuario.AlterPfpRequest
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -184,5 +185,24 @@ class PerfilService (
             }
             return ResponseEntity.status(200).body(algo)
         }
+    }
+
+    fun postarUrl(token: String, urlPerfilDto: urlPerfilDto): ResponseEntity<List<String>> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        urlPerfilDto.imagens.forEach{
+            val usuarioImg = UsuarioImg()
+
+            usuarioImg.usuario = usuarioRepository.findById(usuarioEncontrado.id).get()
+            usuarioImg.anexo = it
+
+            usuarioImgRepository.save(usuarioImg)
+        }
+        return ResponseEntity.status(201).build()
     }
 }

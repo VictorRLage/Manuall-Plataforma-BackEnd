@@ -3,6 +3,7 @@ package manuall.newproject.controller
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
+import manuall.newproject.dto.solicitacao.OrcamentoDto
 import manuall.newproject.dto.solicitacao.SolicitacaoDto
 import manuall.newproject.service.SolicitacaoService
 import org.springframework.http.ResponseEntity
@@ -58,5 +59,14 @@ class SolicitacaoController (
         @PathVariable idSolicitacao: Int
     ): ResponseEntity<Void> {
         return solicitacaoService.deletarSolicitacao(token, idSolicitacao)
+    }
+
+    @PostMapping("/postarOrcamento")
+    @SecurityRequirement(name = "Bearer")
+    fun postarOrcamento(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestBody orcamentoDto: OrcamentoDto
+    ): ResponseEntity<Int> {
+        return solicitacaoService.enviarOrcamento(token, orcamentoDto)
     }
 }
