@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional
 import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
 import manuall.newproject.dto.perfil.*
+import manuall.newproject.dto.usuario.AlterPfpRequest
 import manuall.newproject.service.PerfilService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/perfil")
 @CrossOrigin("http://localhost:3000")
-class PerfilController (
+class PerfilController(
     val perfilService: PerfilService
 ) {
 
@@ -83,5 +84,15 @@ class PerfilController (
         @RequestHeader("Authorization") @Schema(hidden = true) token: String
     ): ResponseEntity<List<NotificacaoDto>> {
         return perfilService.getSolicitacoes(token)
+    }
+
+    @SecurityRequirement(name = "Bearer")
+    @PostMapping("/postarUrl")
+    fun postarUrl(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestBody urlPerfilDto: urlPerfilDto
+    ): ResponseEntity<List<String>> {
+
+        return perfilService.postarUrl(token, urlPerfilDto)
     }
 }

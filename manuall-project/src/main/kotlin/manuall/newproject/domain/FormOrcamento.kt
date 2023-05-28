@@ -10,8 +10,11 @@ class FormOrcamento {
     @Column(name = "id")
     var id: Int = 0
 
-    @OneToOne
-    var usuario: Usuario = Usuario()
+    @ManyToOne
+    var contratanteUsuario: Usuario = Usuario()
+
+    @ManyToOne
+    var prestadorUsuario: Usuario = Usuario()
 
     @Column(name = "mensagem", length = 135)
     var mensagem: String? = null
