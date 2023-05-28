@@ -409,6 +409,7 @@ INSERT INTO usuario_servico VALUES (null, 1, 1),
 								   (null, 1, 2),
                                    (null, 1, 3);
 
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
