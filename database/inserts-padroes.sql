@@ -55,6 +55,14 @@ VALUES
 ('Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'anexo14.jpg', 0, 2, 3, 4),
 ('Matheus Ferreira', 'matheus.ferreira@example.com', '$2a$10$KRIagtT591nRBgkGCXJoFOiTIaztE/GhqlNkTyVETiYvWfn3VeqDm', '56789012345', '11943210987', 3000.00, 4000.00, 'Descrição do usuário 15', 1, 2, 2, 'anexo15.jpg', 0, 1, 4, 5);
 
+#LOGIN ADMINISTRATIVO
+# Email:
+# manuall.services@outlook.com
+# Senha:
+# #GfManuall
+insert into usuario (nome, email, senha, tipo_usuario) values
+("ManuallAdm", "manuall.services@outlook.com", "$2a$10$Q3ZNczM5qGAGf.qWtPHVnuVlwhlNjWBSQR9aiyunaQ6rty2bYtayK", 3);
+
 INSERT INTO dados_endereco (estado, cidade, cep, bairro, rua, numero, complemento, usuario_id) VALUES
 ("Minas Gerais", "Belo Horizonte", "31015170", "São Pedro", "Avenida do Contorno", "789", "Sala 502", 1),
 ("Rio de Janeiro", "Rio de Janeiro", "22041001", "Copacabana", "Avenida Atlântica", "1500", "Apto 501", 2),

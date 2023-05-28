@@ -7,5 +7,5 @@ data class Cadastrar2Dto (
     val bairro:String,
     val rua:String,
     val numero:Int,
-    val complemento:String
+    val complemento:String?
 )

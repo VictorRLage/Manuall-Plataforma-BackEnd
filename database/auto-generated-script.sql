@@ -367,7 +367,6 @@ INSERT INTO servico (area_id, nome) VALUES
 (7, "Instalação de gesso no teto"),
 (7, "Reparo de acabamento em gesso"),
 (7, "Sanca de gesso");
-
 INSERT INTO usuario
 (`nome`, `email`, `senha`, `cpf`, `telefone`, `orcamento_min`, `orcamento_max`, `descricao`, `presta_aula`, `plano`, `status`, `anexo_pfp`, `acessos`, `tipo_usuario`, `canal`, `area_id`)
 VALUES
@@ -402,6 +401,13 @@ VALUES
 ('Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'https://picsum.photos/200/300', 0, 2, 3, 4),
 ('Matheus Ferreira', 'matheus.ferreira@example.com', '$2a$10$KRIagtT591nRBgkGCXJoFOiTIaztE/GhqlNkTyVETiYvWfn3VeqDm', '56789012345', '11943210987', 3000.00, 4000.00, 'Descrição do usuário 15', 1, 2, 2, 'https://placekitten.com/300/300', 0, 1, 4, 5);
 
+#LOGIN ADMINISTRATIVO
+# Email:
+# manuall.services@outlook.com
+# Senha:
+# #GfManuall
+insert into usuario (nome, email, senha, tipo_usuario) values
+("ManuallAdm", "manuall.services@outlook.com", "$2a$10$Q3ZNczM5qGAGf.qWtPHVnuVlwhlNjWBSQR9aiyunaQ6rty2bYtayK", 3);
 
 INSERT INTO dados_endereco (estado, cidade, cep, bairro, rua, numero, complemento, usuario_id) VALUES
 ("Minas Gerais", "Belo Horizonte", "31015170", "São Pedro", "Avenida do Contorno", "789", "Sala 502", 1),
@@ -498,6 +504,6 @@ INSERT INTO usuario_servico (usuario_id, servico_id) VALUES
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
+use mydb;
 select * from usuario;
 SELECT id FROM usuario WHERE tipo_usuario = 2;

@@ -39,7 +39,7 @@ class CadastroService (
                 6 -> "Bauru"
                 else -> null
             }
-            pipefyReturnDTO.optArea = usuarioAtual.area!!.id
+            pipefyReturnDTO.optArea = usuarioAtual.area?.id
             pipefyReturnDTO.blnInteresseEnsinar = usuarioAtual.blnInteresseEnsinar
 
             ResponseEntity.status(200).body(pipefyReturnDTO)
