@@ -1,6 +1,8 @@
 package manuall.newproject.repository
 
 import manuall.newproject.domain.Usuario
+import manuall.newproject.dto.usuario.AprovacaoDto
+import manuall.newproject.dto.usuario.AprovacaoSubDto
 import manuall.newproject.dto.usuario.UsuariosFilteredList
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -26,6 +28,19 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
     fun countByTipoUsuarioGroupByCanal(
         tipoUsuario: Int?
     ): List<Int>
+
+    @Query("""
+        select
+        new manuall.newproject.dto.usuario.AprovacaoSubDto(
+        u.id, u.nome, u.anexoPfp, u.email, u.telefone, u.cpf, de.cidade, de.estado, de.cep, de.bairro, de.rua, de.numero, de.complemento, u.area.nome, u.prestaAula, u.orcamentoMin, u.orcamentoMax
+        )
+        from Usuario u
+        join DadosEndereco de
+        on u.id = de.usuario.id
+        where u.prestaAula IS NOT NULL
+        and u.status = 1
+    """)
+    fun aprovacoesPendentes(): List<AprovacaoSubDto>
 
     // QUERIES DA LISTAGEM DE PRESTADORES
 

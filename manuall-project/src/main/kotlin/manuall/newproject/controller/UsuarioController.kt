@@ -7,6 +7,7 @@ import manuall.newproject.domain.Area
 import manuall.newproject.domain.Servico
 import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
+import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.UsuarioLoginCheckRequest
 import manuall.newproject.dto.usuario.UsuarioLoginRequest
 import manuall.newproject.dto.usuario.UsuariosFilteredList
@@ -76,6 +77,32 @@ class UsuarioController(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String
     ): ResponseEntity<Void> {
         return usuarioService.logoff(token)
+    }
+
+    @SecurityRequirement(name = "Bearer")
+    @GetMapping("/login/checar/validade")
+    fun checarValidadeLogin(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+    ): ResponseEntity<Int> {
+        return usuarioService.checarValidadeLogin(token)
+    }
+
+    @SecurityRequirement(name = "Bearer")
+    @GetMapping("/aprovacoesPendentes")
+    fun aprovacoesPendentes(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+    ): ResponseEntity<List<AprovacaoDto>> {
+        return usuarioService.aprovacoesPendentes(token)
+    }
+
+    @SecurityRequirement(name = "Bearer")
+    @GetMapping("/aprovacoesPendentes/{idPrestador}/{aprovar}")
+    fun aprovar(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @PathVariable idPrestador: Int,
+        @PathVariable aprovar: Boolean
+    ): ResponseEntity<Void> {
+        return usuarioService.aprovar(token, idPrestador, aprovar)
     }
 
 }

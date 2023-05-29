@@ -1,6 +1,7 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.*
+import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.LoginResponse
 import manuall.newproject.dto.usuario.UsuarioLoginRequest
 import manuall.newproject.dto.usuario.UsuariosFilteredList
@@ -22,7 +23,8 @@ class UsuarioService (
     val usuarioRepository: UsuarioRepository,
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val areaRepository: AreaRepository,
-    val servicoRepository: ServicoRepository
+    val servicoRepository: ServicoRepository,
+    val usuarioServicoRepository: UsuarioServicoRepository
 ) {
 
     fun getPrestadoresOrderByPlano(): ResponseEntity<List<UsuariosFilteredList>> {
@@ -119,6 +121,58 @@ class UsuarioService (
 
     fun logoff(token: String): ResponseEntity<Void> {
         jwtTokenManager.expirarToken(token)
+        return ResponseEntity.status(200).build()
+    }
+
+    fun checarValidadeLogin(token: String): ResponseEntity<Int> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        return ResponseEntity.status(200).body(usuarioEncontrado.tipoUsuario)
+    }
+
+    fun aprovacoesPendentes(token: String): ResponseEntity<List<AprovacaoDto>> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        if (usuarioEncontrado.tipoUsuario != 3) {
+            return ResponseEntity.status(403).build()
+        }
+
+        val usuarios = usuarioRepository.aprovacoesPendentes()
+        val listaPendentes = mutableListOf<AprovacaoDto>()
+        usuarios.forEach {
+            listaPendentes.add(AprovacaoDto(
+                it,
+                usuarioServicoRepository.findServicosNomeByUsuarioId(it.id)
+            ))
+        }
+
+        return ResponseEntity.status(200).body(listaPendentes)
+    }
+
+    fun aprovar(token: String, idPrestador: Int, aprovar: Boolean): ResponseEntity<Void> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        val usuario = usuarioRepository.findById(idPrestador).get()
+
+        usuario.status = if (aprovar) 2 else 4
+
+        usuarioRepository.save(usuario)
+
         return ResponseEntity.status(200).build()
     }
 
