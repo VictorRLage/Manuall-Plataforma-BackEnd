@@ -95,4 +95,14 @@ class PerfilController(
 
         return perfilService.postarUrl(token, urlPerfilDto)
     }
+
+    @SecurityRequirement(name = "Bearer")
+    @DeleteMapping("/excluirUrl")
+    fun excluirUrl(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestBody urlPerfilDto: urlPerfilDto
+    ): ResponseEntity<Int> {
+
+        return perfilService.excluirUrls(token, urlPerfilDto)
+    }
 }

@@ -1,5 +1,6 @@
 package manuall.newproject.service
 
+import jakarta.transaction.Transactional
 import manuall.newproject.domain.Usuario
 import manuall.newproject.domain.UsuarioImg
 import manuall.newproject.dto.perfil.*
@@ -11,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class PerfilService (
+class PerfilService(
     val jwtTokenManager: JwtTokenManager,
     val passwordEncoder: PasswordEncoder,
     val usuarioRepository: UsuarioRepository,
@@ -166,10 +167,11 @@ class PerfilService (
             solicitacoes.forEach {
                 algo.add(
                     NotificacaoDto(
-                    it.prestadorUsuario.nome!!,
-                    if (it.status == 1) "Você enviou uma solicitação para "  else if (it.status == 2) "Sua solicitação foi aceita por " else "Sua solicitação foi recusada por ",
-                    it.contratanteUsuario.anexoPfp!!
-                ))
+                        it.prestadorUsuario.nome!!,
+                        if (it.status == 1) "Você enviou uma solicitação para " else if (it.status == 2) "Sua solicitação foi aceita por " else "Sua solicitação foi recusada por ",
+                        it.contratanteUsuario.anexoPfp!!
+                    )
+                )
             }
             return ResponseEntity.status(200).body(algo)
         } else {
@@ -179,9 +181,10 @@ class PerfilService (
                 algo.add(
                     NotificacaoDto(
                         it.contratanteUsuario.nome!!,
-                        if (it.status == 1) "Você recebeu uma solicitação de "  else if (it.status == 2) "Você aceitou a solicitação de " else "Você recusou a solicitação de ",
+                        if (it.status == 1) "Você recebeu uma solicitação de " else if (it.status == 2) "Você aceitou a solicitação de " else "Você recusou a solicitação de ",
                         it.contratanteUsuario.anexoPfp!!
-                    ))
+                    )
+                )
             }
             return ResponseEntity.status(200).body(algo)
         }
@@ -195,13 +198,32 @@ class PerfilService (
             return ResponseEntity.status(480).build()
         }
 
-        urlPerfilDto.imagens.forEach{
+        urlPerfilDto.imagens.forEach {
             val usuarioImg = UsuarioImg()
 
             usuarioImg.usuario = usuarioRepository.findById(usuarioEncontrado.id).get()
             usuarioImg.anexo = it
 
             usuarioImgRepository.save(usuarioImg)
+        }
+        return ResponseEntity.status(201).build()
+    }
+
+    fun excluirUrls(token: String, urlPerfilDto: urlPerfilDto): ResponseEntity<Int> {
+
+        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
+        } else {
+            return ResponseEntity.status(480).build()
+        }
+
+        urlPerfilDto.imagens.forEach {
+
+            val teste = usuarioImgRepository.findByAnexoAndUsuarioId(
+                it,
+                usuarioRepository.findById(usuarioEncontrado.id).get().id
+            )
+            usuarioImgRepository.delete(teste.get())
         }
         return ResponseEntity.status(201).build()
     }
