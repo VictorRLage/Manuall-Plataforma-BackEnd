@@ -19,5 +19,5 @@ class UsuarioLoginRequest {
     @field:NotNull
     @field:Min(1)
     @field:Max(3)
-    val tipoUsuario: Int = 0
+    var tipoUsuario: Int = 0
 }
