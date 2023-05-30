@@ -93,8 +93,8 @@ class UsuarioService (
 
                     }
 
-                    4 -> ResponseEntity.status(403).body("Aprovação negada")
-                    1 -> ResponseEntity.status(403).body("Aprovação pendente")
+                    4 -> return ResponseEntity.status(403).body("Aprovação negada")
+                    1 -> return ResponseEntity.status(403).body("Aprovação pendente")
                 }
 
                 // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login
