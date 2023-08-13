@@ -63,7 +63,7 @@ VALUES
 ('Amanda Oliveira', 'amanda.oliveira@example.com', '$2a$10$DiZnbfv.2Zz/YkwAmfnvtOnF8TMTIKiD29gyEAhySsHPGN7UAGwIW', '23456789012', '11976543210', 1500.00, 2500.00, 'Descrição do usuário 12', 0, 2, 2, 'https://source.unsplash.com/random/800x600', 0, 1, 1, 2),
 ('Gabriel Rodrigues', 'gabriel.rodrigues@example.com', '$2a$10$UdS5.K.yHjQjbeBv0RsVvel3bo.KFdaV0KOZWPa/R60T8ZjLqXkDm', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://loremflickr.com/320/240', 0, 2, 2, 3),
 ('Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'https://picsum.photos/200/300', 0, 2, 3, 4),
-('ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Q3ZNczM5qGAGf.qWtPHVnuVlwhlNjWBSQR9aiyunaQ6rty2bYtayK', 3);
+('ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Q3ZNczM5qGAGf.qWtPHVnuVlwhlNjWBSQR9aiyunaQ6rty2bYtayK', null, null, null, null, null, null, null, null, null, null, 3, null, null);
 
 INSERT INTO dados_endereco
 (estado, cidade, cep, bairro, rua, numero, complemento, usuario_id)
@@ -104,7 +104,7 @@ VALUES
 (1, 9, 0, 'Horrível! Nunca mais contratarei'),
 (1, 23, 3, 'Médio, nem bom nem ruim'),
 (1, 14, 2, 'Serviço ruim, poderia ser melhor'),
-(1, 28, 5, 'Serviço excepcional, superou minhas expectativas'),
+(1, 26, 5, 'Serviço excepcional, superou minhas expectativas'),
 (1, 17, 2, 'Apenas ok, esperava mais'),
 (1, 8, 4, 'Serviço acima da média, mas com pequenos problemas'),
 (1, 10, 5, 'Excelente serviço, recomendo'),
@@ -119,7 +119,7 @@ VALUES
 (1, 22, 4, 'Bom serviço, dentro das expectativas'),
 (1, 14, 2, 'Insatisfatório, poderia ter sido melhor'),
 (1, 5, 1, 'Decepcionante, não voltarei a contratar'),
-(1, 28, 5, 'Serviço excelente, superou minhas expectativas'),
+(1, 26, 5, 'Serviço excelente, superou minhas expectativas'),
 (1, 9, 1, 'Serviço abaixo das expectativas'),
 (1, 2, 5, 'Sensacional! Serviço impecável'),
 (1, 13, 4, 'Bom serviço, com pequenos problemas'),
@@ -130,7 +130,7 @@ VALUES
 (1, 13, 3, 'Serviço satisfatório, mas com algumas falhas'),
 (1, 14, 2, 'Simplesmente ok, nada demais'),
 (1, 5, 1, 'Péssimo atendimento, não recomendo'),
-(1, 28, 4, 'Bom serviço, dentro das expectativas'),
+(1, 26, 4, 'Bom serviço, dentro das expectativas'),
 (1, 2, 4, 'Muito bom o serviço, mas demorou mais que o esperado'),
 (1, 23, 2, 'Serviço ruim, poderia ser melhor'),
 (1, 10, 1, 'Decepcionante, não voltarei a contratar'),
@@ -141,7 +141,7 @@ VALUES
 (1, 8, 5, 'Ótimo atendimento, recomendo'),
 (1, 10, 4, 'Bom atendimento, com algumas ressalvas'),
 (1, 5, 1, 'Decepcionante, não voltarei a contratar'),
-(1, 28, 5, 'Serviço excepcional, superou minhas expectativas');
+(1, 26, 5, 'Serviço excepcional, superou minhas expectativas');
 
 INSERT INTO solicitacao
 (contratante_usuario_id, prestador_usuario_id, tamanho, medida, descricao, status, servico_id, avaliacao_id)
@@ -152,7 +152,7 @@ VALUES
 
 INSERT INTO chat
 (solicitacao_id, id_remetente, mensagem, horario)
-values
+VALUES
 (1, 1, 'opa', '2023-05-21 14:30:00'),
 (1, 2, 'eai, td bem??', '2023-05-21 14:30:00');
 
