@@ -1,8 +1,7 @@
 package manuall.newproject.dto.avaliacao
 
 data class PostarAvaliacaoDto (
-    val idSolicitacao: Int,
-    var idContratante: Int,
+    val solicitacaoId: Int,
     val nota: Int,
     val descricao: String
 )

@@ -7,7 +7,6 @@ import manuall.newproject.dto.usuario.UsuarioLoginRequest
 import manuall.newproject.dto.usuario.UsuariosFilteredList
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

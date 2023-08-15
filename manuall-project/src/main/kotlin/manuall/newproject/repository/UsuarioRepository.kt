@@ -1,7 +1,6 @@
 package manuall.newproject.repository
 
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.AprovacaoSubDto
 import manuall.newproject.dto.usuario.UsuariosFilteredList
 import org.springframework.data.jpa.repository.JpaRepository

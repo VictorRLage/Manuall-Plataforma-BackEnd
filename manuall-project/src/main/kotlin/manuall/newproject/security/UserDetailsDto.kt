@@ -8,31 +8,17 @@ class UserDetailsDto (
     private val usuario: Usuario
 ): UserDetails {
 
-    override fun getAuthorities(): Collection<GrantedAuthority>? {
-        return null
-    }
+    override fun getAuthorities(): Collection<GrantedAuthority>? = null
 
-    override fun getPassword(): String? {
-        return usuario.senha
-    }
+    override fun getPassword(): String? = usuario.senha
 
-    override fun getUsername(): String {
-        return usuario.tipoUsuario.toString()+usuario.email
-    }
+    override fun getUsername(): String = usuario.tipoUsuario.toString()+usuario.email
 
-    override fun isAccountNonExpired(): Boolean {
-        return true
-    }
+    override fun isAccountNonExpired(): Boolean  = true
 
-    override fun isAccountNonLocked(): Boolean {
-        return true
-    }
+    override fun isAccountNonLocked(): Boolean = true
 
-    override fun isCredentialsNonExpired(): Boolean {
-        return true
-    }
+    override fun isCredentialsNonExpired(): Boolean = true
 
-    override fun isEnabled(): Boolean {
-        return true
-    }
+    override fun isEnabled(): Boolean = true
 }

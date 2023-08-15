@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import manuall.newproject.domain.Area
 import manuall.newproject.domain.Servico
-import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
 import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.UsuarioLoginCheckRequest

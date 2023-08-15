@@ -36,6 +36,4 @@ data class AlterarPerfilDto(
 
     @Schema(example = "Pintura")
     val servicos: List<String>
-
-
 )

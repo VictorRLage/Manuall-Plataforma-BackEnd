@@ -11,10 +11,10 @@ class Servico {
     @Column(name = "id")
     var id: Int = 0
 
-    @Column(name = "nome", length = 90)
-    var nome: String? = null
-
     @ManyToOne
     var area: Area = Area()
+
+    @Column(name = "nome", length = 90)
+    var nome: String? = null
 
 }

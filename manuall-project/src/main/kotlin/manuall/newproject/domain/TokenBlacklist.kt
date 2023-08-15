@@ -11,6 +11,6 @@ class TokenBlacklist {
     @Column(name = "id")
     var id: Int = 0
 
-    @Column(name = "token")
+    @Column(name = "token", length = 512)
     var token: String? = null
 }

@@ -1,6 +1,5 @@
 package manuall.newproject.service
 
-import jakarta.transaction.Transactional
 import manuall.newproject.domain.Usuario
 import manuall.newproject.domain.UsuarioImg
 import manuall.newproject.dto.perfil.*
@@ -16,7 +15,6 @@ class PerfilService(
     val jwtTokenManager: JwtTokenManager,
     val passwordEncoder: PasswordEncoder,
     val usuarioRepository: UsuarioRepository,
-    val descServicosRepository: DescServicosRepository,
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val avaliacaoRepository: AvaliacaoRepository,
     val solicitacaoRepository: SolicitacaoRepository,
@@ -133,7 +131,6 @@ class PerfilService(
             return ResponseEntity.status(480).body("Token expirado")
         }
 
-        descServicosRepository.deleteByUsuarioId(usuarioEncontrado.id)
         dadosEnderecoRepository.deleteByUsuarioId(usuarioEncontrado.id)
         usuarioRepository.deleteById(usuarioEncontrado.id)
         return ResponseEntity.status(200).body(null)
@@ -190,7 +187,7 @@ class PerfilService(
         }
     }
 
-    fun postarUrl(token: String, urlPerfilDto: urlPerfilDto): ResponseEntity<List<String>> {
+    fun postarUrl(token: String, urlPerfilDto: UrlPerfilDto): ResponseEntity<List<String>> {
 
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
@@ -209,7 +206,7 @@ class PerfilService(
         return ResponseEntity.status(201).build()
     }
 
-    fun excluirUrls(token: String, urlPerfilDto: urlPerfilDto): ResponseEntity<Int> {
+    fun excluirUrls(token: String, urlPerfilDto: UrlPerfilDto): ResponseEntity<Int> {
 
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()

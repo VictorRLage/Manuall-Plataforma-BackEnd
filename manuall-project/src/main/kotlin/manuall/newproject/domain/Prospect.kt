@@ -14,9 +14,6 @@ class Prospect {
         @Column(name = "id_cliente")
         var idCliente: Int = 0
 
-        @Column(name = "opt_canal")
-        var optCanal: Int? = null
-
         @Column(name = "nome", length = 60)
         var nome: String? = null
 
@@ -25,6 +22,9 @@ class Prospect {
 
         @Column(name = "fone", length = 13)
         var fone: String? = null
+
+        @Column(name = "opt_canal")
+        var optCanal: Int? = null
 
         @Column(name = "opt_cidade")
         var optCidade:Int? = null
@@ -40,9 +40,6 @@ class Prospect {
 
         @Column(name = "bln_interesse_ensinar")
         var blnInteresseEnsinar: Boolean? = null
-
-        @Column(name = "bln_conhece_semelhante")
-        var blnConheceSemelhante: Boolean? = null
 
         @Column(name = "bln_cupom")
         var blnCupom: Boolean? = null
