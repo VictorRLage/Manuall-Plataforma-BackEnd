@@ -6,7 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero
 import jakarta.validation.constraints.Size
 import org.hibernate.validator.constraints.URL
 
-data class UsuariosFilteredList (
+data class FilteredUsuario (
 
     @field:NotNull
     val id: Int,

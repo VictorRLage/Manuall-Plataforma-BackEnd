@@ -4,7 +4,7 @@ import manuall.newproject.domain.*
 import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.LoginResponse
 import manuall.newproject.dto.usuario.UsuarioLoginRequest
-import manuall.newproject.dto.usuario.UsuariosFilteredList
+import manuall.newproject.dto.usuario.FilteredUsuario
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -26,11 +26,11 @@ class UsuarioService (
     val usuarioServicoRepository: UsuarioServicoRepository
 ) {
 
-    fun getPrestadoresOrderByPlano(): ResponseEntity<List<UsuariosFilteredList>> {
+    fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
         return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadores())
     }
 
-    fun getPrestadoresByAreaIdOrderByPlano(idArea: Int): ResponseEntity<List<UsuariosFilteredList>> {
+    fun getPrestadoresByAreaIdOrderByPlano(idArea: Int): ResponseEntity<List<FilteredUsuario>> {
         return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadoresByArea(idArea))
     }
 
@@ -179,7 +179,7 @@ class UsuarioService (
         idArea: String,
         filtro: String,
         crescente: Boolean
-    ): ResponseEntity<List<UsuariosFilteredList>> {
+    ): ResponseEntity<List<FilteredUsuario>> {
 
         val filtragem = when (filtro) {
             "Nota" ->
