@@ -3,8 +3,8 @@ package manuall.newproject.dto.solicitacao
 import io.swagger.v3.oas.annotations.media.Schema
 
 data class OrcamentoDto (
-    @Schema(example = "2")
-    var prestadorUsuario: Int,
+    @Schema(example = "1")
+    var solicitacaoId: Int,
 
     @Schema(example = "Quero que você pinte toda a parede do meu banheiro")
     var mensagem: String,

@@ -90,7 +90,7 @@ class PerfilController(
     @PostMapping("/postarUrl")
     fun postarUrl(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
-        @RequestBody urlPerfilDto: urlPerfilDto
+        @RequestBody urlPerfilDto: UrlPerfilDto
     ): ResponseEntity<List<String>> {
 
         return perfilService.postarUrl(token, urlPerfilDto)
@@ -100,7 +100,7 @@ class PerfilController(
     @DeleteMapping("/excluirUrl")
     fun excluirUrl(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
-        @RequestBody urlPerfilDto: urlPerfilDto
+        @RequestBody urlPerfilDto: UrlPerfilDto
     ): ResponseEntity<Int> {
 
         return perfilService.excluirUrls(token, urlPerfilDto)

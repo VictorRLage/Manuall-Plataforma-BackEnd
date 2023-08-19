@@ -5,12 +5,11 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import manuall.newproject.domain.Area
 import manuall.newproject.domain.Servico
-import manuall.newproject.domain.Usuario
 import manuall.newproject.dto.*
 import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.UsuarioLoginCheckRequest
 import manuall.newproject.dto.usuario.UsuarioLoginRequest
-import manuall.newproject.dto.usuario.UsuariosFilteredList
+import manuall.newproject.dto.usuario.FilteredUsuario
 import manuall.newproject.repository.*
 import manuall.newproject.service.UsuarioService
 import org.springframework.http.ResponseEntity
@@ -25,14 +24,14 @@ class UsuarioController(
 ) {
 
     @GetMapping("/prestadores")
-    fun getPrestadoresOrderByPlano(): ResponseEntity<List<UsuariosFilteredList>> {
+    fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
         return usuarioService.getPrestadoresOrderByPlano()
     }
 
     @GetMapping("/prestadores/{idArea}")
     fun getPrestadoresByAreaIdOrderByPlano(
         @PathVariable idArea: Int
-    ): ResponseEntity<List<UsuariosFilteredList>> {
+    ): ResponseEntity<List<FilteredUsuario>> {
         return usuarioService.getPrestadoresByAreaIdOrderByPlano(idArea)
     }
 
@@ -41,7 +40,7 @@ class UsuarioController(
         @PathVariable idArea: String,
         @PathVariable filtro: String,
         @PathVariable crescente: Boolean
-    ): ResponseEntity<List<UsuariosFilteredList>> {
+    ): ResponseEntity<List<FilteredUsuario>> {
         return usuarioService.getPrestadoresFiltrado(idArea, filtro, crescente)
     }
 

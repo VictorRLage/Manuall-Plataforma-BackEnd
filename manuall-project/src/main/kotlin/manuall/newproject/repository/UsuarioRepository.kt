@@ -1,9 +1,8 @@
 package manuall.newproject.repository
 
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.AprovacaoSubDto
-import manuall.newproject.dto.usuario.UsuariosFilteredList
+import manuall.newproject.dto.usuario.FilteredUsuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -38,307 +37,216 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         join DadosEndereco de
         on u.id = de.usuario.id
         where u.prestaAula IS NOT NULL
-        and u.status = 1
+        AND u.status = 1
     """)
     fun aprovacoesPendentes(): List<AprovacaoSubDto>
 
     // QUERIES DA LISTAGEM DE PRESTADORES
 
-    @Query("""
-        select
-        new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        ORDER BY u.plano
-    """)
-    fun findAllPrestadores(): List<UsuariosFilteredList>
+    companion object {
+        const val STARTING_QUERY = """
+            select
+            new manuall.newproject.dto.usuario.FilteredUsuario(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
+            from Usuario u
+            LEFT JOIN Solicitacao s ON u.id = s.prestadorUsuario.id
+            JOIN Avaliacao a ON a.id = s.avaliacao.id
+            JOIN DadosEndereco d ON u.id = d.usuario.id
+            WHERE u.tipoUsuario = 2
+        """
+        const val GROUP_BY = """
+            GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
+        """
+     }
 
     @Query("""
-        select
-        new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.tipoUsuario = 2
-        and u.area.id = ?1
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
+        $STARTING_QUERY
+        $GROUP_BY
         ORDER BY u.plano
     """)
-    fun findAllPrestadoresByArea(idArea: Int): List<UsuariosFilteredList>
+    fun findAllPrestadores(): List<FilteredUsuario>
+
+    @Query("""
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.plano
+    """)
+    fun findAllPrestadoresByArea(idArea: Int): List<FilteredUsuario>
 
     // Listar por nota
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by a.nota asc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY a.nota asc
     """)
-    fun findAllOrderByNotaAsc(): List<UsuariosFilteredList>
+    fun findAllOrderByNotaAsc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by a.nota desc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY a.nota desc
     """)
-    fun findAllOrderByNotaDesc(): List<UsuariosFilteredList>
+    fun findAllOrderByNotaDesc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by a.nota asc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY a.nota asc
     """)
-    fun findByAreaIdOrderByNotaAsc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByNotaAsc(areaId: Int): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by a.nota desc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY a.nota desc
     """)
-    fun findByAreaIdOrderByNotaDesc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByNotaDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por preço máximo
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMax asc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY u.orcamentoMax asc
     """)
-    fun findAllOrderByPrecoMaxAsc(): List<UsuariosFilteredList>
+    fun findAllOrderByPrecoMaxAsc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMax desc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY u.orcamentoMax desc
     """)
-    fun findAllOrderByPrecoMaxDesc(): List<UsuariosFilteredList>
+    fun findAllOrderByPrecoMaxDesc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMax asc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.orcamentoMax asc
     """)
-    fun findByAreaIdOrderByPrecoMaxAsc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByPrecoMaxAsc(areaId: Int): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMax desc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.orcamentoMax desc
     """)
-    fun findByAreaIdOrderByPrecoMaxDesc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByPrecoMaxDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por preço mínimo
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMin asc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY u.orcamentoMin asc
     """)
-    fun findAllOrderByPrecoMinAsc(): List<UsuariosFilteredList>
+    fun findAllOrderByPrecoMinAsc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMin desc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY u.orcamentoMin desc
     """)
-    fun findAllOrderByPrecoMinDesc(): List<UsuariosFilteredList>
+    fun findAllOrderByPrecoMinDesc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMin asc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.orcamentoMin asc
     """)
-    fun findByAreaIdOrderByPrecoMinAsc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByPrecoMinAsc(areaId: Int): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.orcamentoMin desc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.orcamentoMin desc
     """)
-    fun findByAreaIdOrderByPrecoMinDesc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByPrecoMinDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por Alfabetica
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome asc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY u.nome asc
     """)
-    fun findAllOrderByAlfabeticaAsc(): List<UsuariosFilteredList>
+    fun findAllOrderByAlfabeticaAsc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        where u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome desc
+        $STARTING_QUERY
+        $GROUP_BY
+        ORDER BY u.nome desc
     """)
-    fun findAllOrderByAlfabeticaDesc(): List<UsuariosFilteredList>
+    fun findAllOrderByAlfabeticaDesc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome asc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.nome asc
     """)
-    fun findByAreaIdOrderByAlfabeticaAsc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByAlfabeticaAsc(areaId: Int): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome desc
+        $STARTING_QUERY
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.nome desc
     """)
-    fun findByAreaIdOrderByAlfabeticaDesc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByAlfabeticaDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por Servico
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = false
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome asc
+        $STARTING_QUERY
+        AND u.prestaAula = false
+        $GROUP_BY
+        ORDER BY u.nome asc
     """)
-    fun findAllOrderByServicoAsc(): List<UsuariosFilteredList>
+    fun findAllOrderByServicoAsc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = false
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome desc
+        $STARTING_QUERY
+        AND u.prestaAula = false
+        $GROUP_BY
+        ORDER BY u.nome desc
     """)
-    fun findAllOrderByServicoDesc(): List<UsuariosFilteredList>
+    fun findAllOrderByServicoDesc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = false
-        and u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome asc
+        $STARTING_QUERY
+        AND u.prestaAula = false
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.nome asc
     """)
-    fun findByAreaIdOrderByServicoAsc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByServicoAsc(areaId: Int): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = false
-        and u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome desc
+        $STARTING_QUERY
+        AND u.prestaAula = false
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.nome desc
     """)
-    fun findByAreaIdOrderByServicoDesc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByServicoDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por ServicoAula
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = true
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome asc
+        $STARTING_QUERY
+        AND u.prestaAula = true
+        $GROUP_BY
+        ORDER BY u.nome asc
     """)
-    fun findAllOrderByServicoAulaAsc(): List<UsuariosFilteredList>
+    fun findAllOrderByServicoAulaAsc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = true
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome desc
+        $STARTING_QUERY
+        AND u.prestaAula = true
+        $GROUP_BY
+        ORDER BY u.nome desc
     """)
-    fun findAllOrderByServicoAulaDesc(): List<UsuariosFilteredList>
+    fun findAllOrderByServicoAulaDesc(): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = true
-        and u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome asc
+        $STARTING_QUERY
+        AND u.prestaAula = true
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.nome asc
     """)
-    fun findByAreaIdOrderByServicoAulaAsc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByServicoAulaAsc(areaId: Int): List<FilteredUsuario>
     @Query("""
-        select new manuall.newproject.dto.usuario.UsuariosFilteredList(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
-        from Usuario u
-        LEFT JOIN Avaliacao a ON u.id = a.prestadorUsuario.id
-        JOIN DadosEndereco d ON u.id = d.usuario.id
-        WHERE u.prestaAula = true
-        and u.area.id = ?1
-        and u.tipoUsuario = 2
-        GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula
-        order by u.nome desc
+        $STARTING_QUERY
+        AND u.prestaAula = true
+        AND u.area.id = ?1
+        $GROUP_BY
+        ORDER BY u.nome desc
     """)
-    fun findByAreaIdOrderByServicoAulaDesc(areaId: Int): List<UsuariosFilteredList>
+    fun findByAreaIdOrderByServicoAulaDesc(areaId: Int): List<FilteredUsuario>
 
 }

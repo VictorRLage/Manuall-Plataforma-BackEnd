@@ -38,4 +38,7 @@ class Solicitacao {
     @OneToOne
     var avaliacao: Avaliacao? = null
 
+    @OneToOne
+    var formOrcamento: FormOrcamento? = null
+
 }

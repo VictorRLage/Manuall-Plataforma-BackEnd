@@ -1,11 +1,8 @@
 package manuall.newproject.repository
 
-import manuall.newproject.domain.DescServicos
+import manuall.newproject.domain.CrmLog
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface DescServicosRepository: JpaRepository<DescServicos, Int> {
-
-    fun deleteByUsuarioId(id: Int)
-}
+interface CrmLogRepository: JpaRepository<CrmLog, Int>

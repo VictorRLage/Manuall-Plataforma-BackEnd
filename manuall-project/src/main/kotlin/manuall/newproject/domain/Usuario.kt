@@ -30,7 +30,7 @@ class Usuario {
 //    @field:Size(min = 60, max = 60)
     var senha: String? = null
 
-    @Column(name = "cpf")
+    @Column(name = "cpf", length = 11)
 //    @field:CPF
     var cpf: String? = null
 
@@ -65,7 +65,8 @@ class Usuario {
     // 2: Inscrição aprovada
     // 4: Inscrição recusada
 
-    @Column(name = "anexo_pfp", length = 90)
+    @Column(name = "anexo_pfp", length = 150)
+    @field:URL
 //    @field:NotBlank
 //    @field:Size(max = 90)
 //    @field:URL

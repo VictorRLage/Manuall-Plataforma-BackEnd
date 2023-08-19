@@ -18,7 +18,7 @@ class AvaliacaoService(
 ) {
 
     fun postarAvaliacao(token: String, postarAvaliacaoDTO: PostarAvaliacaoDto): ResponseEntity<Int> {
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+        if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
@@ -26,12 +26,13 @@ class AvaliacaoService(
 
         val avaliacao = Avaliacao()
 
-        avaliacao.contratanteUsuario = usuarioRepository.findById(usuarioEncontrado.id).get()
-        avaliacao.prestadorUsuario = solicitacaoRepository.findById(postarAvaliacaoDTO.idSolicitacao).get().prestadorUsuario
         avaliacao.descricao = postarAvaliacaoDTO.descricao
         avaliacao.nota = postarAvaliacaoDTO.nota
-
         avaliacaoRepository.save(avaliacao)
+
+        val solicitacao = solicitacaoRepository.findById(postarAvaliacaoDTO.solicitacaoId).get()
+        solicitacao.avaliacao = avaliacao
+        solicitacaoRepository.save(solicitacao)
 
         return ResponseEntity.status(201).build()
 

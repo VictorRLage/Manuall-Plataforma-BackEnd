@@ -16,7 +16,7 @@ class UsuarioImg {
     @ManyToOne
     var usuario: Usuario = Usuario()
 
-    @Column(name = "anexo", length = 90)
+    @Column(name = "anexo", length = 150)
     @field:URL
     @field:NotBlank
     var anexo: String? = ""

@@ -10,7 +10,6 @@ import manuall.newproject.domain.Usuario
 import manuall.newproject.repository.TokenBlacklistRepository
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

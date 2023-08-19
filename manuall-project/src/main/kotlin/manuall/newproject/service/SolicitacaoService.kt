@@ -1,6 +1,5 @@
 package manuall.newproject.service
 
-import manuall.newproject.domain.Avaliacao
 import manuall.newproject.domain.FormOrcamento
 import manuall.newproject.domain.Solicitacao
 import manuall.newproject.dto.solicitacao.OrcamentoDto
@@ -98,20 +97,21 @@ class SolicitacaoService(
     }
 
     fun enviarOrcamento(token: String, orcamentoDto: OrcamentoDto): ResponseEntity<Int> {
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+        if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
         }
 
-        val solicitacao = FormOrcamento()
+        val formOrcamento = FormOrcamento()
 
-        solicitacao.contratanteUsuario = usuarioRepository.findById(usuarioEncontrado.id).get()
-        solicitacao.prestadorUsuario = usuarioRepository.findById(orcamentoDto.prestadorUsuario).get()
-        solicitacao.mensagem = orcamentoDto.mensagem
-        solicitacao.orcamento = orcamentoDto.orcamento
+        formOrcamento.mensagem = orcamentoDto.mensagem
+        formOrcamento.orcamento = orcamentoDto.orcamento
+        formOrcamentoRepository.save(formOrcamento)
 
-        formOrcamentoRepository.save(solicitacao)
+        val solicitacao = solicitacaoRepository.findById(orcamentoDto.solicitacaoId).get()
+        solicitacao.formOrcamento = formOrcamento
+        solicitacaoRepository.save(solicitacao)
 
         return ResponseEntity.status(201).build()
     }

@@ -7,7 +7,6 @@ import manuall.newproject.service.AvaliacaoService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-
 @RestController
 @RequestMapping("/avaliacao")
 @CrossOrigin("http://localhost:3000")

@@ -11,12 +11,6 @@ class Avaliacao {
     @Column(name = "id")
     var id: Int = 0
 
-    @ManyToOne
-    var contratanteUsuario: Usuario = Usuario()
-
-    @ManyToOne
-    var prestadorUsuario: Usuario = Usuario()
-
     @Column(name = "nota")
     var nota: Int? = null
 
