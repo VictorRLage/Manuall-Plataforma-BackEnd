@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/dashboard")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:5173")
 class DashboardController(
     val dashboardService: DashboardService
 ) {

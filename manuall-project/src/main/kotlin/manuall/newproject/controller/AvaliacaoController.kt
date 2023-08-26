@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/avaliacao")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:5173")
 class AvaliacaoController(
     val avaliacaoService: AvaliacaoService
 ) {

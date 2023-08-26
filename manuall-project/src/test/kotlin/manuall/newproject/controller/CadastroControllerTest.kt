@@ -25,12 +25,12 @@ class CadastroControllerTest {
         assertEquals("/cadastrar", annotation.value[0])
     }
     @Test
-    fun `classe deve estar anotada com @CrossOrigin e se referenciando ao IP localhost na porta 3000`() {
+    fun `classe deve estar anotada com @CrossOrigin e se referenciando ao IP localhost na porta 5173`() {
         val classe = CadastroController::class.java
         val annotation = classe.getAnnotation(org.springframework.web.bind.annotation.CrossOrigin::class.java)
 
         assertNotNull(annotation)
-        assertEquals("http://localhost:3000", annotation.value[0])
+        assertEquals("http://localhost:5173", annotation.value[0])
     }
 
     @Test

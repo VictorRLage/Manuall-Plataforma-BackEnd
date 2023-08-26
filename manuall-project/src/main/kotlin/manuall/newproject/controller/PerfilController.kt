@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/perfil")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:5173")
 class PerfilController(
     val perfilService: PerfilService
 ) {

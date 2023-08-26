@@ -23,12 +23,12 @@ class UsuarioControllerTest {
         assertEquals("/usuario", annotation.value[0])
     }
     @Test
-    fun `classe deve estar anotada com @CrossOrigin e se referenciando ao IP localhost na porta 3000`() {
+    fun `classe deve estar anotada com @CrossOrigin e se referenciando ao IP localhost na porta 5173`() {
         val classe = UsuarioController::class.java
         val annotation = classe.getAnnotation(CrossOrigin::class.java)
 
         assertNotNull(annotation)
-        assertEquals("http://localhost:3000", annotation.value[0])
+        assertEquals("http://localhost:5173", annotation.value[0])
     }
 
     @Test

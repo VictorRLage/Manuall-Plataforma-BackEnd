@@ -18,7 +18,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/usuario")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:5173")
 class UsuarioController(
     val usuarioService: UsuarioService
 ) {
