@@ -1,6 +1,7 @@
 package manuall.newproject.security
 
 import io.jsonwebtoken.Claims
+import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.security.Keys
@@ -32,13 +33,14 @@ class JwtTokenManager (
 
     fun getUserFromToken(token: String): Usuario? {
         return try {
-            val decriptacaoToken = getUsernameFromToken(token.substring(7))
-            if (decriptacaoToken == null) {
-                null
-            } else {
-                usuarioRepository.findByEmailAndTipoUsuario(decriptacaoToken.substring(1), decriptacaoToken.substring(0,1).toInt()).get()
-            }
+            val decriptacaoToken = getUsernameFromToken(token.substring(7)) ?: return null
+            usuarioRepository.findByEmailAndTipoUsuario(
+                decriptacaoToken.substring(1),
+                decriptacaoToken.substring(0,1).toInt()
+            ).get()
         } catch (e: StringIndexOutOfBoundsException) {
+            null
+        } catch (e: ExpiredJwtException) {
             null
         }
     }
