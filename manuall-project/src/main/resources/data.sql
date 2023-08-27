@@ -12,27 +12,27 @@ VALUES
 INSERT INTO servico
 (area_id, nome)
 VALUES
-(1, 'Poda'), 
-(1, 'Controle de Pragas'), 
-(1, 'Projeto e paisagismo de jardins'), 
-(2, 'Pintura de paredes internas e externas'), 
-(2, 'Pintura de portas, janelas e portões'), 
-(2, 'Restauração e repintura de fachadas'), 
-(3, 'Instalação e manutenção elétrica residencial'), 
-(3, 'Troca de fiação elétrica'), 
-(3, 'Troca de lâmpada'), 
-(4, 'Reparos e manutenção de encanamentos'), 
-(4, 'Instalação de torneiras, chuveiros e pias'),    
-(4, 'Detecção e reparos de vazamentos'), 
-(5, 'Fabricação e montagem de móveis sob medida'), 
-(5, 'Restauração e reparo de móveis de madeira'), 
-(5, 'Criação de projetos personalizados em madeira'), 
-(6, 'Montagem de móveis pré-fabricados'), 
-(6, 'Montagem de estruturas metálicas'), 
-(6, 'Instalação de sistemas modulares'), 
-(7, 'Molduras e sancas de gesso'), 
-(7, 'Decoração em gesso 3D'), 
-(7, 'Reparos e manutenção em elementos de gesso'); 
+(1, 'Poda'),
+(1, 'Controle de Pragas'),
+(1, 'Projeto e paisagismo de jardins'),
+(2, 'Pintura de paredes internas e externas'),
+(2, 'Pintura de portas, janelas e portões'),
+(2, 'Restauração e repintura de fachadas'),
+(3, 'Instalação e manutenção elétrica residencial'),
+(3, 'Troca de fiação elétrica'),
+(3, 'Troca de lâmpada'),
+(4, 'Reparos e manutenção de encanamentos'),
+(4, 'Instalação de torneiras, chuveiros e pias'),
+(4, 'Detecção e reparos de vazamentos'),
+(5, 'Fabricação e montagem de móveis sob medida'),
+(5, 'Restauração e reparo de móveis de madeira'),
+(5, 'Criação de projetos personalizados em madeira'),
+(6, 'Montagem de móveis pré-fabricados'),
+(6, 'Montagem de estruturas metálicas'),
+(6, 'Instalação de sistemas modulares'),
+(7, 'Molduras e sancas de gesso'),
+(7, 'Decoração em gesso 3D'),
+(7, 'Reparos e manutenção em elementos de gesso');
 
 INSERT INTO usuario
 (nome, email, senha, cpf, telefone, orcamento_min, orcamento_max, descricao, presta_aula, plano, status, anexo_pfp, acessos, tipo_usuario, canal, area_id)
@@ -227,3 +227,12 @@ VALUES
 (25, 19),
 (25, 20),
 (26, 21);
+
+INSERT INTO crm_log
+(acessou_url, hist_msgs, inicio_contato, processo_finalizado, usuario_id)
+VALUES
+(0, '0', '2023-08-12 14:17:00', 0, 1),
+(0, '0', '2023-08-15 11:23:45', 0, 2),
+(0, '0', '2023-09-01 10:15:30', 0, 3),
+(0, '0', '2023-09-02 17:47:20', 0, 4),
+(0, '0', '2023-08-19 09:34:50', 0, 5);
