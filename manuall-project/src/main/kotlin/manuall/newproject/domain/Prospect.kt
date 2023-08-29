@@ -1,6 +1,7 @@
 package manuall.newproject.domain
 
 import jakarta.persistence.*
+import java.util.*
 
 @Entity
 @Table(name = "prospect")
@@ -46,6 +47,9 @@ class Prospect {
 
         @Column(name = "msg_desistencia", length = 90)
         var msgDesistencia: String? = null
+
+        @Column(name = "data_tornou_lead")
+        var dataTornouLead: Date? = null
 
         @Column(name = "status")
         var status: Int? = null

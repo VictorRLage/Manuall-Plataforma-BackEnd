@@ -1,6 +1,7 @@
 package manuall.newproject.domain
 
 import jakarta.persistence.*
+import java.util.*
 
 @Entity
 @Table(name = "solicitacao")
@@ -31,6 +32,12 @@ class Solicitacao {
     // 1: Proposta enviada
     // 2: Proposta aprovada
     // 4: Proposta recusada
+
+    @Column(name = "data_inicio")
+    var dataInicio: Date? = null
+
+    @Column(name = "data_fim")
+    var dataFim: Date? = null
 
     @ManyToOne
     var servico: Servico = Servico()
