@@ -6,8 +6,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SignatureException
-import manuall.newproject.domain.TokenBlacklist
-import manuall.newproject.domain.Usuario
+import manuall.newproject.domain.*
 import manuall.newproject.repository.TokenBlacklistRepository
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Value
@@ -34,9 +33,15 @@ class JwtTokenManager (
     fun getUserFromToken(token: String): Usuario? {
         return try {
             val decriptacaoToken = getUsernameFromToken(token.substring(7)) ?: return null
+            val classeUsuario = when (decriptacaoToken.substring(0,1)) {
+                "1" -> Contratante::class.java
+                "2" -> Prestador::class.java
+                "3" -> Administrador::class.java
+                else -> Contratante::class.java
+            }
             usuarioRepository.findByEmailAndTipoUsuario(
                 decriptacaoToken.substring(1),
-                decriptacaoToken.substring(0,1).toInt()
+                classeUsuario
             ).get()
         } catch (e: StringIndexOutOfBoundsException) {
             null

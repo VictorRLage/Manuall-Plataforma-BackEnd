@@ -1,5 +1,7 @@
 package manuall.newproject.service
 
+import manuall.newproject.domain.Contratante
+import manuall.newproject.domain.Prestador
 import manuall.newproject.domain.Usuario
 import manuall.newproject.domain.UsuarioImg
 import manuall.newproject.dto.perfil.*
@@ -158,7 +160,7 @@ class PerfilService(
             return ResponseEntity.status(480).build()
         }
 
-        if (usuarioEncontrado.tipoUsuario == 1) {
+        if (usuarioEncontrado is Contratante) {
             val solicitacoes = solicitacaoRepository.findByContratanteUsuarioIdOrderByIdDesc(usuarioEncontrado.id)
             val algo = mutableListOf<NotificacaoDto>()
             solicitacoes.forEach {
@@ -198,7 +200,7 @@ class PerfilService(
         urlPerfilDto.imagens.forEach {
             val usuarioImg = UsuarioImg()
 
-            usuarioImg.usuario = usuarioRepository.findById(usuarioEncontrado.id).get()
+            usuarioImg.usuario = usuarioRepository.findById(usuarioEncontrado.id).get() as Prestador
             usuarioImg.anexo = it
 
             usuarioImgRepository.save(usuarioImg)

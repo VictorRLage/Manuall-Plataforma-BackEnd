@@ -1,5 +1,8 @@
 package manuall.newproject.security
 
+import manuall.newproject.domain.Administrador
+import manuall.newproject.domain.Contratante
+import manuall.newproject.domain.Prestador
 import manuall.newproject.domain.Usuario
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -12,7 +15,15 @@ class UserDetailsDto (
 
     override fun getPassword(): String? = usuario.senha
 
-    override fun getUsername(): String = usuario.tipoUsuario.toString()+usuario.email
+    override fun getUsername(): String {
+        val tipoUsuario = when (usuario) {
+            is Contratante -> "1"
+            is Prestador -> "2"
+            is Administrador -> "3"
+            else -> ""
+        }
+        return "$tipoUsuario${usuario.email}"
+    }
 
     override fun isAccountNonExpired(): Boolean  = true
 

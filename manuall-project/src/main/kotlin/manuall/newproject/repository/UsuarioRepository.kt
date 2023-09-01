@@ -15,17 +15,20 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         email: String?
     ): List<Optional<Usuario>>
 
+    @Query("""
+        select u from from Usuario u where u.email = ?1 and TYPE(u) = ?2
+    """)
     fun findByEmailAndTipoUsuario(
         email: String?,
-        tipoUsuario: Int?
+        tipoUsuario: Class<out Usuario>
     ): Optional<Usuario>
 
     @Query("""
-        select count(u) from Usuario u where u.tipoUsuario =?1
+        select count(u) from Usuario u where TYPE(u) =?1
         group by u.canal
     """)
     fun countByTipoUsuarioGroupByCanal(
-        tipoUsuario: Int?
+        tipoUsuario: Class<out Usuario>
     ): List<Int>
 
     @Query("""
@@ -51,7 +54,7 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
             LEFT JOIN Solicitacao s ON u.id = s.prestadorUsuario.id
             JOIN Avaliacao a ON a.id = s.avaliacao.id
             JOIN DadosEndereco d ON u.id = d.usuario.id
-            WHERE u.tipoUsuario = 2
+            WHERE TYPE(u) = Prestador
         """
         const val GROUP_BY = """
             GROUP BY u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula

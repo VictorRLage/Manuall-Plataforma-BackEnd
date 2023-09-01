@@ -1,13 +1,13 @@
 package manuall.newproject.domain
 
 import jakarta.persistence.*
-import jakarta.validation.constraints.*
 import org.hibernate.validator.constraints.URL
-import org.hibernate.validator.constraints.br.CPF
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.INTEGER)
 @Table(name = "usuario")
-class Usuario {
+abstract class Usuario {
 
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,15 +74,6 @@ class Usuario {
 
     @Column(name = "acessos")
     var acessos: Int? = null
-
-    @Column(name = "tipo_usuario")
-//    @field:NotNull
-//    @field:Min(1)
-//    @field:Max(3)
-    var tipoUsuario: Int? = null
-    // 1: Contratante
-    // 2: Prestador
-    // 3: Administrador
 
     @Column(name = "canal")
     var canal: Int? = null

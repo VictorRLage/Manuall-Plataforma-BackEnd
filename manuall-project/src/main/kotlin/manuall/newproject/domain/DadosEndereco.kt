@@ -33,5 +33,5 @@ class DadosEndereco {
     var complemento: String? = null
 
     @ManyToOne
-    var usuario: Usuario = Usuario()
+    var usuario: Usuario? = null
 }

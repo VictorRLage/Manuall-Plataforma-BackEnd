@@ -50,7 +50,14 @@ class UsuarioService (
         } else if (possiveisUsuarios.size > 1) {
             ResponseEntity.status(409).build()
         } else {
-            ResponseEntity.status(200).body(possiveisUsuarios[0].get().tipoUsuario)
+            ResponseEntity.status(200).body(
+                when (possiveisUsuarios[0].get()) {
+                    is Contratante -> 1
+                    is Prestador -> 2
+                    is Administrador -> 3
+                    else -> 0
+                }
+            )
         }
     }
 
@@ -58,8 +65,14 @@ class UsuarioService (
 
         // Pegando os usuários com o email requisitado em uma lista, já que podem
         // existir 2 usuários com o mesmo email e tipo_usuario diferentes
+        val classeUsuario = when (usuarioLoginRequest.tipoUsuario) {
+            1 -> Contratante::class.java
+            2 -> Prestador::class.java
+            3 -> Administrador::class.java
+            else -> Contratante::class.java
+        }
         val possivelUsuario =
-            usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, usuarioLoginRequest.tipoUsuario)
+            usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, classeUsuario)
 
         return if (possivelUsuario.isEmpty) {
             ResponseEntity.status(401).body("Credenciais inválidas")
@@ -97,9 +110,15 @@ class UsuarioService (
                 }
 
                 // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login
+                val tipoUsuario = when (usuario) {
+                    is Contratante -> "1"
+                    is Prestador -> "2"
+                    is Administrador -> "3"
+                    else -> ""
+                }
                 val authentication = authenticationManager.authenticate(
                     UsernamePasswordAuthenticationToken(
-                        usuario.tipoUsuario.toString() + usuario.email,
+                        tipoUsuario + usuario.email,
                         usuarioLoginRequest.senha
                     )
                 )
@@ -131,7 +150,14 @@ class UsuarioService (
             return ResponseEntity.status(480).build()
         }
 
-        return ResponseEntity.status(200).body(usuarioEncontrado.tipoUsuario)
+        return ResponseEntity.status(200).body(
+            when (usuarioEncontrado) {
+                is Contratante -> 1
+                is Prestador -> 2
+                is Administrador -> 3
+                else -> 0
+            }
+        )
     }
 
     fun aprovacoesPendentes(token: String): ResponseEntity<List<AprovacaoDto>> {
@@ -142,7 +168,7 @@ class UsuarioService (
             return ResponseEntity.status(480).build()
         }
 
-        if (usuarioEncontrado.tipoUsuario != 3) {
+        if (usuarioEncontrado !is Administrador) {
             return ResponseEntity.status(403).build()
         }
 

@@ -14,7 +14,7 @@ class UsuarioImg {
     var id: Int = 0
 
     @ManyToOne
-    var usuario: Usuario = Usuario()
+    var usuario: Prestador = Prestador()
 
     @Column(name = "anexo", length = 150)
     @field:URL
