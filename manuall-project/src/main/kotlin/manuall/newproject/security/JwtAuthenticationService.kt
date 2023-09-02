@@ -1,9 +1,6 @@
 package manuall.newproject.security
 
-import manuall.newproject.domain.Administrador
-import manuall.newproject.domain.Contratante
-import manuall.newproject.domain.Prestador
-import manuall.newproject.domain.Usuario
+import manuall.newproject.enums.TipoUsuario
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -22,12 +19,7 @@ class JwtAuthenticationService (
         return UserDetailsDto(
             usuarioRepository.findByEmailAndTipoUsuario(
                 username.substring(1),
-                when (username.substring(0,1)) {
-                    "1" -> Contratante::class.java
-                    "2" -> Prestador::class.java
-                    "3" -> Administrador::class.java
-                    else -> Contratante::class.java
-                }
+                TipoUsuario.fromStringToClass(username.substring(0,1))
             ).orElseThrow { UsernameNotFoundException("Usuário $username não encontrado") }
         )
     }

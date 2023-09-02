@@ -61,195 +61,70 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         """
      }
 
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY u.plano
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY u.plano")
     fun findAllPrestadores(): List<FilteredUsuario>
 
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.plano
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY u.plano")
     fun findAllPrestadoresByArea(idArea: Int): List<FilteredUsuario>
 
     // Listar por nota
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY a.nota asc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY a.nota asc")
     fun findAllOrderByNotaAsc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY a.nota desc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY a.nota desc")
     fun findAllOrderByNotaDesc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY a.nota asc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY a.nota asc")
     fun findByAreaIdOrderByNotaAsc(areaId: Int): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY a.nota desc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY a.nota desc")
     fun findByAreaIdOrderByNotaDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por preço máximo
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY u.orcamentoMax asc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY u.orcamentoMax asc")
     fun findAllOrderByPrecoMaxAsc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY u.orcamentoMax desc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY u.orcamentoMax desc")
     fun findAllOrderByPrecoMaxDesc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.orcamentoMax asc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY u.orcamentoMax asc")
     fun findByAreaIdOrderByPrecoMaxAsc(areaId: Int): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.orcamentoMax desc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY u.orcamentoMax desc")
     fun findByAreaIdOrderByPrecoMaxDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por preço mínimo
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY u.orcamentoMin asc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY u.orcamentoMin asc")
     fun findAllOrderByPrecoMinAsc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY u.orcamentoMin desc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY u.orcamentoMin desc")
     fun findAllOrderByPrecoMinDesc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.orcamentoMin asc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY u.orcamentoMin asc")
     fun findByAreaIdOrderByPrecoMinAsc(areaId: Int): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.orcamentoMin desc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY u.orcamentoMin desc")
     fun findByAreaIdOrderByPrecoMinDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por Alfabetica
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY u.nome asc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY u.nome asc")
     fun findAllOrderByAlfabeticaAsc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        $GROUP_BY
-        ORDER BY u.nome desc
-    """)
+    @Query("$STARTING_QUERY $GROUP_BY ORDER BY u.nome desc")
     fun findAllOrderByAlfabeticaDesc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.nome asc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY u.nome asc")
     fun findByAreaIdOrderByAlfabeticaAsc(areaId: Int): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.nome desc
-    """)
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY u.nome desc")
     fun findByAreaIdOrderByAlfabeticaDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por Servico
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = false
-        $GROUP_BY
-        ORDER BY u.nome asc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = false $GROUP_BY ORDER BY u.nome asc")
     fun findAllOrderByServicoAsc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = false
-        $GROUP_BY
-        ORDER BY u.nome desc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = false $GROUP_BY ORDER BY u.nome desc")
     fun findAllOrderByServicoDesc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = false
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.nome asc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = false AND u.area.id = ?1 $GROUP_BY ORDER BY u.nome asc")
     fun findByAreaIdOrderByServicoAsc(areaId: Int): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = false
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.nome desc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = false AND u.area.id = ?1 $GROUP_BY ORDER BY u.nome desc")
     fun findByAreaIdOrderByServicoDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por ServicoAula
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = true
-        $GROUP_BY
-        ORDER BY u.nome asc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = true $GROUP_BY ORDER BY u.nome asc")
     fun findAllOrderByServicoAulaAsc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = true
-        $GROUP_BY
-        ORDER BY u.nome desc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = true $GROUP_BY ORDER BY u.nome desc")
     fun findAllOrderByServicoAulaDesc(): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = true
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.nome asc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = true AND u.area.id = ?1 $GROUP_BY ORDER BY u.nome asc")
     fun findByAreaIdOrderByServicoAulaAsc(areaId: Int): List<FilteredUsuario>
-    @Query("""
-        $STARTING_QUERY
-        AND u.prestaAula = true
-        AND u.area.id = ?1
-        $GROUP_BY
-        ORDER BY u.nome desc
-    """)
+    @Query("$STARTING_QUERY AND u.prestaAula = true AND u.area.id = ?1 $GROUP_BY ORDER BY u.nome desc")
     fun findByAreaIdOrderByServicoAulaDesc(areaId: Int): List<FilteredUsuario>
 
 }

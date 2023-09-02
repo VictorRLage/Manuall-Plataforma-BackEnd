@@ -49,7 +49,7 @@ class UsuarioControllerTest {
 
     @Test
     fun getPrestadoresFiltrado() {
-        val method = UsuarioController::getPrestadoresFiltrado
+        val method = UsuarioController::getPrestadoresFiltrados
         assertTrue(method.hasAnnotation<GetMapping>())
         val annotation = method.findAnnotation<GetMapping>()
         assertEquals("prestadores/{idArea}/{filtro}/{crescente}", annotation!!.value[0])

@@ -33,12 +33,12 @@ class UsuarioController(
     }
 
     @GetMapping("prestadores/{idArea}/{filtro}/{crescente}")
-    fun getPrestadoresFiltrado(
+    fun getPrestadoresFiltrados(
         @PathVariable idArea: String,
         @PathVariable filtro: String,
         @PathVariable crescente: Boolean
     ): ResponseEntity<List<FilteredUsuario>> {
-        return usuarioService.getPrestadoresFiltrado(idArea, filtro, crescente)
+        return usuarioService.getPrestadoresFiltrados(idArea.toInt(), filtro, crescente)
     }
 
     @GetMapping("/areas")

@@ -5,6 +5,7 @@ import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.LoginResponse
 import manuall.newproject.dto.usuario.UsuarioLoginRequest
 import manuall.newproject.dto.usuario.FilteredUsuario
+import manuall.newproject.enums.TipoUsuario
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -51,12 +52,7 @@ class UsuarioService (
             ResponseEntity.status(409).build()
         } else {
             ResponseEntity.status(200).body(
-                when (possiveisUsuarios[0].get()) {
-                    is Contratante -> 1
-                    is Prestador -> 2
-                    is Administrador -> 3
-                    else -> 0
-                }
+                TipoUsuario.fromObjectToInt(possiveisUsuarios[0].get())
             )
         }
     }
@@ -65,14 +61,11 @@ class UsuarioService (
 
         // Pegando os usuários com o email requisitado em uma lista, já que podem
         // existir 2 usuários com o mesmo email e tipo_usuario diferentes
-        val classeUsuario = when (usuarioLoginRequest.tipoUsuario) {
-            1 -> Contratante::class.java
-            2 -> Prestador::class.java
-            3 -> Administrador::class.java
-            else -> Contratante::class.java
-        }
         val possivelUsuario =
-            usuarioRepository.findByEmailAndTipoUsuario(usuarioLoginRequest.email, classeUsuario)
+            usuarioRepository.findByEmailAndTipoUsuario(
+                usuarioLoginRequest.email,
+                TipoUsuario.fromIntToClass(usuarioLoginRequest.tipoUsuario)
+            )
 
         return if (possivelUsuario.isEmpty) {
             ResponseEntity.status(401).body("Credenciais inválidas")
@@ -110,15 +103,9 @@ class UsuarioService (
                 }
 
                 // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login
-                val tipoUsuario = when (usuario) {
-                    is Contratante -> "1"
-                    is Prestador -> "2"
-                    is Administrador -> "3"
-                    else -> ""
-                }
                 val authentication = authenticationManager.authenticate(
                     UsernamePasswordAuthenticationToken(
-                        tipoUsuario + usuario.email,
+                        TipoUsuario.fromObjectToString(usuario) + usuario.email,
                         usuarioLoginRequest.senha
                     )
                 )
@@ -149,12 +136,7 @@ class UsuarioService (
             ?: return ResponseEntity.status(480).build()
 
         return ResponseEntity.status(200).body(
-            when (usuarioEncontrado) {
-                is Contratante -> 1
-                is Prestador -> 2
-                is Administrador -> 3
-                else -> 0
-            }
+            TipoUsuario.fromObjectToInt(usuarioEncontrado)
         )
     }
 
@@ -197,85 +179,35 @@ class UsuarioService (
         return ResponseEntity.status(200).build()
     }
 
-    fun getPrestadoresFiltrado(
-        idArea: String,
+    fun getPrestadoresFiltrados(
+        idArea: Int,
         filtro: String,
         crescente: Boolean
     ): ResponseEntity<List<FilteredUsuario>> {
 
-        val filtragem = when (filtro) {
-            "Nota" ->
+        val filtroCompleto = """
+            find${
+                if (idArea == 0) "All" else "ByAreaId"
+            }OrderBy$filtro${
+                if (crescente) "Asc" else "Desc"
+            }
+        """.trimIndent()
 
-                if (crescente)
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByNotaAsc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByNotaAsc(idArea.toInt())
-                else
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByNotaDesc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByNotaDesc(idArea.toInt())
-            "PrecoMax" ->
-                if (crescente)
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByPrecoMaxAsc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByPrecoMaxAsc(idArea.toInt())
-                else
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByPrecoMaxDesc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByPrecoMaxDesc(idArea.toInt())
-            "PrecoMin" ->
-                if (crescente)
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByPrecoMinAsc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByPrecoMinAsc(idArea.toInt())
-                else
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByPrecoMinDesc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByPrecoMinDesc(idArea.toInt())
-            "Alfabetica" ->
-                if (crescente)
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByAlfabeticaAsc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByAlfabeticaAsc(idArea.toInt())
-                else
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByAlfabeticaDesc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByAlfabeticaDesc(idArea.toInt())
-            "Servico" ->
-                if (crescente)
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByServicoAsc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByServicoAsc(idArea.toInt())
-                else
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByServicoDesc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByServicoDesc(idArea.toInt())
-            "ServicoAula" ->
-                if (crescente)
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByServicoAulaAsc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByServicoAulaAsc(idArea.toInt())
-                else
-                    if (idArea == "0")
-                        usuarioRepository.findAllOrderByServicoAulaDesc()
-                    else
-                        usuarioRepository.findByAreaIdOrderByServicoAulaDesc(idArea.toInt())
-
-            else -> return ResponseEntity.status(404).build()
+        val method = try {
+            usuarioRepository::class.java
+                .getMethod(filtroCompleto, idArea::class.java)
+        } catch (e: NoSuchMethodException) {
+            return ResponseEntity.status(404).build()
         }
 
-        return ResponseEntity.status(200).body(filtragem)
+        val filtragem = runCatching {
+            if (idArea == 0)
+                method.invoke(usuarioRepository)
+            else
+                method.invoke(usuarioRepository, idArea)
+        }.getOrElse { _ -> return ResponseEntity.status(404).build() }
+
+        return ResponseEntity.status(200).body(filtragem as List<FilteredUsuario>)
 
     }
 

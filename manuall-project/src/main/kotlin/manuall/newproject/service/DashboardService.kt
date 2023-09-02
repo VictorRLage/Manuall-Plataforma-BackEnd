@@ -7,6 +7,7 @@ import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroContratanteDt
 import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroDto
 import manuall.newproject.dto.dashboard.DashboardComplitudeCadastroPrestadorDto
 import manuall.newproject.dto.dashboard.PegarRegiaoDto
+import manuall.newproject.enums.TipoUsuario
 import manuall.newproject.repository.SolicitacaoRepository
 import manuall.newproject.repository.UsuarioRepository
 import org.springframework.http.ResponseEntity
@@ -21,12 +22,7 @@ class DashboardService(
 
     fun usuariosCanal(tipoUsuario: Int): List<String> {
         val usuario = usuarioRepository.countByTipoUsuarioGroupByCanal(
-            when (tipoUsuario) {
-                1 -> Contratante::class.java
-                2 -> Prestador::class.java
-                3 -> Administrador::class.java
-                else -> Contratante::class.java
-            }
+            TipoUsuario.fromIntToClass(tipoUsuario)
         )
 
         val totalUsuarios = usuario.sum().toDouble()

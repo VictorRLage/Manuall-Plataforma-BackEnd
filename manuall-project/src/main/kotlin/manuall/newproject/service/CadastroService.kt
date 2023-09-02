@@ -2,6 +2,7 @@ package manuall.newproject.service
 
 import manuall.newproject.domain.*
 import manuall.newproject.dto.cadastro.*
+import manuall.newproject.enums.TipoUsuario
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
@@ -48,13 +49,11 @@ class CadastroService (
     }
 
     fun cadastrar1(cadastrar1DTO: Cadastrar1Dto): ResponseEntity<Int> {
-        val classeUsuario = when (cadastrar1DTO.tipoUsuario) {
-            1 -> Contratante::class.java
-            2 -> Prestador::class.java
-            3 -> Administrador::class.java
-            else -> Contratante::class.java
-        }
-        val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, classeUsuario)
+
+        val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(
+            cadastrar1DTO.email,
+            TipoUsuario.fromIntToClass(cadastrar1DTO.tipoUsuario)
+        )
         if (emailExistente.isPresent) {
             return ResponseEntity.status(409).body(null)
         } else {
