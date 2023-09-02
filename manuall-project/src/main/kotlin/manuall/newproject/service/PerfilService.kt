@@ -1,6 +1,5 @@
 package manuall.newproject.service
 
-import manuall.newproject.domain.Contratante
 import manuall.newproject.domain.Prestador
 import manuall.newproject.domain.Usuario
 import manuall.newproject.domain.UsuarioImg
@@ -33,6 +32,9 @@ class PerfilService(
 
         val prestadorEncontrado = prestador.get()
 
+        if (prestadorEncontrado !is Prestador)
+            return ResponseEntity.status(403).build()
+
         prestadorEncontrado.acessos = prestadorEncontrado.acessos!! + 1
 
         usuarioRepository.save(prestadorEncontrado)
@@ -46,6 +48,8 @@ class PerfilService(
         } else {
             return ResponseEntity.status(480).build()
         }
+        if (usuarioEncontrado !is Prestador)
+            return ResponseEntity.status(403).body("Usuário não é um prestador")
 
         usuarioEncontrado.area = alterarPerfilDTO.area
         usuarioEncontrado.descricao = alterarPerfilDTO.descricao
@@ -66,6 +70,8 @@ class PerfilService(
         } else {
             return ResponseEntity.status(480).build()
         }
+        if (usuarioEncontrado !is Prestador)
+            return ResponseEntity.status(403).build()
 
         val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuarioEncontrado.id).get()
         val dadosAvaliacao = avaliacaoRepository.findByPrestadorUsuarioId(usuarioEncontrado.id)
@@ -119,6 +125,8 @@ class PerfilService(
         } else {
             return ResponseEntity.status(480).build()
         }
+        if (usuarioEncontrado !is Prestador)
+            return ResponseEntity.status(403).build()
 
         usuarioEncontrado.descricao = alterDescRequest.descricao
         return ResponseEntity.status(200).body(usuarioRepository.save(usuarioEncontrado))
@@ -147,6 +155,8 @@ class PerfilService(
         } else {
             return ResponseEntity.status(480).build()
         }
+        if (usuarioEncontrado !is Prestador)
+            return ResponseEntity.status(403).build()
 
         usuarioEncontrado.anexoPfp = alterPfpRequest.novaUrl
         return ResponseEntity.status(200).body(usuarioRepository.save(usuarioEncontrado))
@@ -160,32 +170,32 @@ class PerfilService(
             return ResponseEntity.status(480).build()
         }
 
-        if (usuarioEncontrado is Contratante) {
-            val solicitacoes = solicitacaoRepository.findByContratanteUsuarioIdOrderByIdDesc(usuarioEncontrado.id)
-            val algo = mutableListOf<NotificacaoDto>()
-            solicitacoes.forEach {
-                algo.add(
-                    NotificacaoDto(
-                        it.prestadorUsuario.nome!!,
-                        if (it.status == 1) "Você enviou uma solicitação para " else if (it.status == 2) "Sua solicitação foi aceita por " else "Sua solicitação foi recusada por ",
-                        it.contratanteUsuario.anexoPfp!!
-                    )
-                )
-            }
-            return ResponseEntity.status(200).body(algo)
-        } else {
+        if (usuarioEncontrado is Prestador) {
             val solicitacoes = solicitacaoRepository.findByPrestadorUsuarioIdOrderByIdDesc(usuarioEncontrado.id)
-            val algo = mutableListOf<NotificacaoDto>()
-            solicitacoes.forEach {
-                algo.add(
-                    NotificacaoDto(
-                        it.contratanteUsuario.nome!!,
-                        if (it.status == 1) "Você recebeu uma solicitação de " else if (it.status == 2) "Você aceitou a solicitação de " else "Você recusou a solicitação de ",
-                        it.contratanteUsuario.anexoPfp!!
-                    )
+            return ResponseEntity.status(200).body(solicitacoes.map {
+                NotificacaoDto(
+                    it.contratanteUsuario.nome,
+                    when (it.status) {
+                        1 -> "Você recebeu uma solicitação de "
+                        2 -> "Você aceitou a solicitação de "
+                        else -> "Você recusou a solicitação de "
+                    },
+                    null
                 )
-            }
-            return ResponseEntity.status(200).body(algo)
+            })
+        } else {
+            val solicitacoes = solicitacaoRepository.findByContratanteUsuarioIdOrderByIdDesc(usuarioEncontrado.id)
+            return ResponseEntity.status(200).body(solicitacoes.map {
+                NotificacaoDto(
+                    it.prestadorUsuario.nome,
+                    when (it.status) {
+                        1 -> "Você enviou uma solicitação para "
+                        2 -> "Sua solicitação foi aceita por "
+                        else -> "Sua solicitação foi recusada por "
+                    },
+                    it.prestadorUsuario.anexoPfp
+                )
+            })
         }
     }
 

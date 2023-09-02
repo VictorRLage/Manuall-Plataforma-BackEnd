@@ -13,7 +13,6 @@ interface AvaliacaoRepository: JpaRepository<Avaliacao, Int> {
         SELECT
         new manuall.newproject.dto.avaliacao.AvaliacaoDto(
         s.contratanteUsuario.nome,
-        s.contratanteUsuario.anexoPfp,
         a.nota,
         a.descricao
         )

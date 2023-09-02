@@ -3,7 +3,6 @@ package manuall.newproject.controller
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
-import manuall.newproject.dto.*
 import manuall.newproject.dto.cadastro.*
 import manuall.newproject.service.CadastroService
 import org.springframework.http.ResponseEntity

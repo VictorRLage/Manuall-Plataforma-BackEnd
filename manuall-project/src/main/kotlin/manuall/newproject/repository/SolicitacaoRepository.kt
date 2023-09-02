@@ -1,7 +1,6 @@
 package manuall.newproject.repository
 
 import manuall.newproject.domain.Solicitacao
-import manuall.newproject.dto.*
 import manuall.newproject.dto.avaliacao.NotificacaoDto
 import manuall.newproject.dto.chat.ChatPegarDadosDestinatarioDto
 import manuall.newproject.dto.chat.ChatPegarDadosDestinatariosDto

@@ -40,7 +40,7 @@ class PerfilControllerTest {
     }
 
     @Test
-    fun `alterarPerfil`() {
+    fun alterarPerfil() {
         val method = PerfilController::alterarPerfil
         assertTrue(method.hasAnnotation<PutMapping>())
         val annotation = method.findAnnotation<PutMapping>()

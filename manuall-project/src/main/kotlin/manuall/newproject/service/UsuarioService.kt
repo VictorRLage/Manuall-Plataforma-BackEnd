@@ -126,7 +126,7 @@ class UsuarioService (
                 SecurityContextHolder.getContext().authentication = authentication
                 // Token + 200 = Cadastro 100% concluído
                 // Token + 403 = Parou na escolha de plano
-                ResponseEntity.status(if (usuario.plano == null) 206 else 200)
+                ResponseEntity.status(if (usuario is Prestador && usuario.plano == null) 206 else 200)
                     .body(jwtTokenManager.generateToken(authentication))
 
             } else {
@@ -186,7 +186,7 @@ class UsuarioService (
 
     fun aprovar(token: String, idPrestador: Int, aprovar: Boolean): ResponseEntity<Void> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
+        if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()

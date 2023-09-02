@@ -64,14 +64,19 @@ class CadastroService (
                 canal = usuarioVisitante.optCanal
             }
 
-            val usuario = if(cadastrar1DTO.tipoUsuario == 1) Contratante() else Prestador()
+            val usuario = if(cadastrar1DTO.tipoUsuario == 1) {
+                Contratante()
+            } else {
+                val temporaryPrestador = Prestador()
+                temporaryPrestador.acessos = 0
+                temporaryPrestador
+            }
             usuario.nome = cadastrar1DTO.nome
             usuario.email = cadastrar1DTO.email
             usuario.cpf = cadastrar1DTO.cpf
             usuario.telefone = cadastrar1DTO.telefone
             usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
             usuario.canal = canal
-            usuario.acessos = 0
             usuario.status = null
 
             val usuarioAtual = usuarioRepository.save(usuario).id
@@ -145,6 +150,8 @@ class CadastroService (
         } else {
             return ResponseEntity.status(480).build()
         }
+        if (usuarioEncontrado !is Prestador)
+            return ResponseEntity.status(403).body("Usuário não é um prestador")
 
         usuarioEncontrado.plano = idPlano
         usuarioRepository.save(usuarioEncontrado)
