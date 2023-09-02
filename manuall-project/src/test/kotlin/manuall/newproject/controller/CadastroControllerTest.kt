@@ -59,7 +59,7 @@ class CadastroControllerTest {
 
     @Test
     fun `método cadastrar3Prest() deve estar anotado com @PutMapping e ('3')`() {
-        val method = CadastroController::cadastrar3Prest
+        val method = CadastroController::cadastrar3
         assertTrue(method.hasAnnotation<PutMapping>())
         val annotation = method.annotations[0] as PutMapping
         assertEquals("/3/{id}", annotation.value[0])
@@ -67,14 +67,14 @@ class CadastroControllerTest {
 
     @Test
     fun `método cadastrar4Prest() deve estar anotado com @PutMapping e ('4''{idPlano}')`() {
-        val method = CadastroController::cadastrar4Prest
+        val method = CadastroController::cadastrar4
         assertTrue(method.hasAnnotation<PutMapping>())
         val annotation = method.findAnnotation<PutMapping>()
         assertEquals("/4/{idPlano}", annotation!!.value[0])
     }
     @Test
     fun `verificar se o método cadastrarPrest4() possui a anotação SecurityRequirement e name = 'Bearer'`() {
-        val method = CadastroController::cadastrar4Prest
+        val method = CadastroController::cadastrar4
         assertTrue(method.hasAnnotation<SecurityRequirement>())
         val annotation = method.annotations[0] as SecurityRequirement
         assertEquals("Bearer", annotation.name)

@@ -13,7 +13,7 @@ class CrmLog {
     var id: Int = 0
 
     @ManyToOne
-    var usuario: Usuario = Usuario()
+    var usuario: Usuario? = null
 
     @Column(name = "inicio_contato")
     var inicioContato: Date? = null

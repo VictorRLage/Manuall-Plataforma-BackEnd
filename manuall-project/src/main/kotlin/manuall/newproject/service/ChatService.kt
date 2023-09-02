@@ -1,6 +1,8 @@
 package manuall.newproject.service
 
 import manuall.newproject.domain.Chat
+import manuall.newproject.domain.Contratante
+import manuall.newproject.domain.Prestador
 import manuall.newproject.dto.chat.*
 import manuall.newproject.repository.ChatRepository
 import manuall.newproject.repository.SolicitacaoRepository
@@ -23,9 +25,9 @@ class ChatService (
             return ResponseEntity.status(480).build()
         }
 
-        val chats = when (usuarioEncontrado.tipoUsuario) {
-            1 -> solicitacaoRepository.getPrestadoresByContratanteUsuarioId(usuarioEncontrado.id)
-            2 -> solicitacaoRepository.getContratantesByPrestadorUsuarioId(usuarioEncontrado.id)
+        val chats = when (usuarioEncontrado) {
+            is Contratante -> solicitacaoRepository.getPrestadoresByContratanteUsuarioId(usuarioEncontrado.id)
+            is Prestador -> solicitacaoRepository.getContratantesByPrestadorUsuarioId(usuarioEncontrado.id)
             else -> arrayListOf()
         }
 
@@ -48,7 +50,7 @@ class ChatService (
         val destinatario: ChatPegarDadosDestinatarioDto
         val mensagens: List<ChatMensagemResponse>
 
-        if (usuarioEncontrado.tipoUsuario == 1) {
+        if (usuarioEncontrado is Contratante) {
             destinatario = solicitacaoRepository.getDadosPrestadorById(idSolicitacao).get()
             mensagens = chatRepository.getMsgsByUsuarioIdAndSolicitacaoIdContratante(usuarioEncontrado.id, idSolicitacao)
         } else {
@@ -79,7 +81,7 @@ class ChatService (
         val destinatario: ChatPegarDadosDestinatarioDto
         val mensagens: List<ChatMensagemResponse>
 
-        if (usuarioEncontrado.tipoUsuario == 1) {
+        if (usuarioEncontrado is Contratante) {
             destinatario = solicitacaoRepository.getDadosPrestadorById(idSolicitacao).get()
             mensagens = chatRepository.getBySolicitacaoIdWhereSolicitacaoIdHigherThanContratante(usuarioEncontrado.id, idSolicitacao, idUltimaMensagem)
         } else {

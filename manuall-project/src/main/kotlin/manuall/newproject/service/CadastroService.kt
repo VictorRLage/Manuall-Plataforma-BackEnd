@@ -1,8 +1,6 @@
 package manuall.newproject.service
 
-import manuall.newproject.domain.DadosEndereco
-import manuall.newproject.domain.Usuario
-import manuall.newproject.domain.UsuarioServico
+import manuall.newproject.domain.*
 import manuall.newproject.dto.cadastro.*
 import manuall.newproject.repository.*
 import manuall.newproject.security.JwtTokenManager
@@ -50,7 +48,13 @@ class CadastroService (
     }
 
     fun cadastrar1(cadastrar1DTO: Cadastrar1Dto): ResponseEntity<Int> {
-        val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, cadastrar1DTO.tipoUsuario)
+        val classeUsuario = when (cadastrar1DTO.tipoUsuario) {
+            1 -> Contratante::class.java
+            2 -> Prestador::class.java
+            3 -> Administrador::class.java
+            else -> Contratante::class.java
+        }
+        val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(cadastrar1DTO.email, classeUsuario)
         if (emailExistente.isPresent) {
             return ResponseEntity.status(409).body(null)
         } else {
@@ -59,15 +63,20 @@ class CadastroService (
             if (usuarioVisitante != null) {
                 canal = usuarioVisitante.optCanal
             }
-            val usuario = Usuario()
+
+            val usuario = if(cadastrar1DTO.tipoUsuario == 1) {
+                Contratante()
+            } else {
+                val temporaryPrestador = Prestador()
+                temporaryPrestador.acessos = 0
+                temporaryPrestador
+            }
             usuario.nome = cadastrar1DTO.nome
             usuario.email = cadastrar1DTO.email
             usuario.cpf = cadastrar1DTO.cpf
             usuario.telefone = cadastrar1DTO.telefone
             usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
-            usuario.tipoUsuario = cadastrar1DTO.tipoUsuario
             usuario.canal = canal
-            usuario.acessos = 0
             usuario.status = null
 
             val usuarioAtual = usuarioRepository.save(usuario).id
@@ -95,7 +104,7 @@ class CadastroService (
             dadosEndereco.numero = cadastrar2DTO.numero
             dadosEndereco.complemento = cadastrar2DTO.complemento
 
-            if (usuario.get().tipoUsuario == 1) {
+            if (usuario.get() is Contratante) {
                 val novoUsuario: Usuario = usuario.get()
                 novoUsuario.status = 2
                 usuarioRepository.save(novoUsuario)
@@ -106,43 +115,43 @@ class CadastroService (
         }
     }
 
-    fun cadastrar3Prest(id: Int, cadastrar3Dto: Cadastrar3Dto): ResponseEntity<String> {
+    fun cadastrar3(id: Int, cadastrar3Dto: Cadastrar3Dto): ResponseEntity<String> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
+        val prestador = usuario.get() as? Prestador
+            ?: return ResponseEntity.status(403).body("Usuário é um contratante")
 
-        val novoUsuario = usuario.get()
-
-        if (novoUsuario.tipoUsuario != 2) {
-            return ResponseEntity.status(403).body("Usuário é um contratante")
-        } else if (novoUsuario.area != null) {
+        if (prestador.area != null) {
             return ResponseEntity.status(409).body("Campos já cadastrados!")
         }
 
         cadastrar3Dto.servico.forEach {
             val usuarioServico = UsuarioServico()
-            usuarioServico.usuario = usuario.get()
+            usuarioServico.usuario = prestador
             usuarioServico.servico = servicoRepository.findById(it).get()
             usuarioServicoRepository.save(usuarioServico)
         }
 
-        novoUsuario.area = areaRepository.findById(cadastrar3Dto.area).get()
-        novoUsuario.prestaAula = cadastrar3Dto.prestaAula
-        novoUsuario.orcamentoMin = cadastrar3Dto.orcamentoMin
-        novoUsuario.orcamentoMax = cadastrar3Dto.orcamentoMax
-        novoUsuario.status = if (novoUsuario.tipoUsuario == 2) 1 else 2
+        prestador.area = areaRepository.findById(cadastrar3Dto.area).get()
+        prestador.prestaAula = cadastrar3Dto.prestaAula
+        prestador.orcamentoMin = cadastrar3Dto.orcamentoMin
+        prestador.orcamentoMax = cadastrar3Dto.orcamentoMax
+        prestador.status = 1
 
-        usuarioRepository.save(novoUsuario)
+        usuarioRepository.save(prestador)
         return ResponseEntity.status(201).body("Serviços cadastrados com sucesso!")
     }
 
-    fun cadastrar4Prest(token: String, idPlano: Int): ResponseEntity<String> {
+    fun cadastrar4(token: String, idPlano: Int): ResponseEntity<String> {
         val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
         } else {
             return ResponseEntity.status(480).build()
         }
+        if (usuarioEncontrado !is Prestador)
+            return ResponseEntity.status(403).body("Usuário não é um prestador")
 
         usuarioEncontrado.plano = idPlano
         usuarioRepository.save(usuarioEncontrado)

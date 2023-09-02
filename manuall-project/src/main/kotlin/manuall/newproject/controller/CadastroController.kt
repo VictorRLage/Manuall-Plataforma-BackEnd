@@ -3,7 +3,6 @@ package manuall.newproject.controller
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
-import manuall.newproject.dto.*
 import manuall.newproject.dto.cadastro.*
 import manuall.newproject.service.CadastroService
 import org.springframework.http.ResponseEntity
@@ -39,19 +38,19 @@ class CadastroController (
     }
 
     @PutMapping("/3/{id}")
-    fun cadastrar3Prest(
+    fun cadastrar3(
         @PathVariable @Schema(example = "1") id: Int,
         @RequestBody cadastrar3Dto: Cadastrar3Dto
     ): ResponseEntity<String> {
-        return cadastroService.cadastrar3Prest(id, cadastrar3Dto)
+        return cadastroService.cadastrar3(id, cadastrar3Dto)
     }
 
     @SecurityRequirement(name = "Bearer")
     @PutMapping("/4/{idPlano}")
-    fun cadastrar4Prest(
+    fun cadastrar4(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
         @PathVariable @Schema(example = "1") idPlano: Int
     ): ResponseEntity<String> {
-        return cadastroService.cadastrar4Prest(token, idPlano)
+        return cadastroService.cadastrar4(token, idPlano)
     }
 }

@@ -47,7 +47,7 @@ class DashboardControllerTest {
     }
 
     @Test
-    fun `taxaComplitudeCadastro`() {
+    fun taxaComplitudeCadastro() {
         val method = DashboardController::taxaComplitudeCadastro
         assertTrue(method.hasAnnotation<GetMapping>())
         val annotation = method.findAnnotation<GetMapping>()

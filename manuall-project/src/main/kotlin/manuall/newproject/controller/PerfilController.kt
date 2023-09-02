@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
 import manuall.newproject.domain.Usuario
-import manuall.newproject.dto.*
 import manuall.newproject.dto.perfil.*
 import manuall.newproject.dto.usuario.AlterPfpRequest
 import manuall.newproject.service.PerfilService

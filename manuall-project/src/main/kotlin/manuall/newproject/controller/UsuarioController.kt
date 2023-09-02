@@ -5,16 +5,13 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import manuall.newproject.domain.Area
 import manuall.newproject.domain.Servico
-import manuall.newproject.dto.*
 import manuall.newproject.dto.usuario.AprovacaoDto
 import manuall.newproject.dto.usuario.UsuarioLoginCheckRequest
 import manuall.newproject.dto.usuario.UsuarioLoginRequest
 import manuall.newproject.dto.usuario.FilteredUsuario
-import manuall.newproject.repository.*
 import manuall.newproject.service.UsuarioService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
 @RequestMapping("/usuario")

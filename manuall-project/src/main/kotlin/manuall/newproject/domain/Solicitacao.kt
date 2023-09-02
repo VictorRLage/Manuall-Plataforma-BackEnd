@@ -13,10 +13,10 @@ class Solicitacao {
     var id: Int = 0
 
     @ManyToOne
-    var contratanteUsuario: Usuario = Usuario()
+    var contratanteUsuario: Contratante = Contratante()
 
     @ManyToOne
-    var prestadorUsuario: Usuario = Usuario()
+    var prestadorUsuario: Prestador = Prestador()
 
     @Column(name = "tamanho")
     var tamanho: Double? = null

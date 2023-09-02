@@ -1,6 +1,8 @@
 package manuall.newproject.service
 
+import manuall.newproject.domain.Contratante
 import manuall.newproject.domain.FormOrcamento
+import manuall.newproject.domain.Prestador
 import manuall.newproject.domain.Solicitacao
 import manuall.newproject.dto.solicitacao.OrcamentoDto
 import manuall.newproject.dto.solicitacao.SolicitacaoDto
@@ -34,8 +36,8 @@ class SolicitacaoService(
         }
 
         val solicitacao = Solicitacao()
-        solicitacao.contratanteUsuario = usuarioEncontrado
-        solicitacao.prestadorUsuario = usuarioRepository.findById(solicitacaoDto.idPrestador).get()
+        solicitacao.contratanteUsuario = usuarioEncontrado as Contratante
+        solicitacao.prestadorUsuario = usuarioRepository.findById(solicitacaoDto.idPrestador).get() as Prestador
         solicitacao.tamanho = solicitacaoDto.tamanho
         solicitacao.medida = solicitacaoDto.medida
         solicitacao.descricao = solicitacaoDto.descricao
