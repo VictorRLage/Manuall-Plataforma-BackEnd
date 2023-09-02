@@ -183,68 +183,69 @@ class UsuarioService (
 
         val filtragem = when (filtro) {
             "Nota" ->
+
                 if (crescente)
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByNotaAsc()
                     else
                         usuarioRepository.findByAreaIdOrderByNotaAsc(idArea.toInt())
                 else
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByNotaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByNotaDesc(idArea.toInt())
             "PrecoMax" ->
                 if (crescente)
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByPrecoMaxAsc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMaxAsc(idArea.toInt())
                 else
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByPrecoMaxDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMaxDesc(idArea.toInt())
             "PrecoMin" ->
                 if (crescente)
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByPrecoMinAsc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMinAsc(idArea.toInt())
                 else
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByPrecoMinDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByPrecoMinDesc(idArea.toInt())
             "Alfabetica" ->
                 if (crescente)
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByAlfabeticaAsc()
                     else
                         usuarioRepository.findByAreaIdOrderByAlfabeticaAsc(idArea.toInt())
                 else
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByAlfabeticaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByAlfabeticaDesc(idArea.toInt())
             "Servico" ->
                 if (crescente)
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByServicoAsc()
                     else
                         usuarioRepository.findByAreaIdOrderByServicoAsc(idArea.toInt())
                 else
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByServicoDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByServicoDesc(idArea.toInt())
             "ServicoAula" ->
                 if (crescente)
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByServicoAulaAsc()
                     else
                         usuarioRepository.findByAreaIdOrderByServicoAulaAsc(idArea.toInt())
                 else
-                    if (idArea == "null")
+                    if (idArea == "0")
                         usuarioRepository.findAllOrderByServicoAulaDesc()
                     else
                         usuarioRepository.findByAreaIdOrderByServicoAulaDesc(idArea.toInt())
