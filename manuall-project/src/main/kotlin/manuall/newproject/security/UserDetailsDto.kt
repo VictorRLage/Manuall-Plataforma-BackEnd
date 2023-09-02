@@ -16,13 +16,14 @@ class UserDetailsDto (
     override fun getPassword(): String? = usuario.senha
 
     override fun getUsername(): String {
-        val tipoUsuario = when (usuario) {
-            is Contratante -> "1"
-            is Prestador -> "2"
-            is Administrador -> "3"
-            else -> ""
-        }
-        return "$tipoUsuario${usuario.email}"
+        return "${
+            when (usuario) {
+                is Contratante -> "1"
+                is Prestador -> "2"
+                is Administrador -> "3"
+                else -> ""
+            }
+        }${usuario.email}"
     }
 
     override fun isAccountNonExpired(): Boolean  = true

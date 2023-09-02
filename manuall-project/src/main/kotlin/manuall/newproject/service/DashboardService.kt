@@ -38,7 +38,6 @@ class DashboardService(
         return porcentagem
     }
 
-
     fun pegarRegiao():List<PegarRegiaoDto> {
         val usuario = solicitacaoRepository.findByContratanteUsuario()
         return usuario

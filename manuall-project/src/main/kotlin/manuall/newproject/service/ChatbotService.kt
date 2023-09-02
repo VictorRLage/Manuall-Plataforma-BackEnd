@@ -14,21 +14,19 @@ class ChatbotService (
 ) {
 
     fun buscarMensagensManuel(token: String): ResponseEntity<String> {
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         return ResponseEntity.status(200).body(crmLogRepository.findMsgsByUsuarioId(usuarioEncontrado.id))
     }
 
     fun postarMensagemManuel(token: String, novoCrmLog: NovoCrmLog): ResponseEntity<Unit> {
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         val crmLog: CrmLog = crmLogRepository.findByUsuarioId(usuarioEncontrado.id)
 

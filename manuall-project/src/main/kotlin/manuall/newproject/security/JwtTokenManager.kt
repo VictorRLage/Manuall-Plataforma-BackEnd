@@ -32,16 +32,17 @@ class JwtTokenManager (
 
     fun getUserFromToken(token: String): Usuario? {
         return try {
+
             val decriptacaoToken = getUsernameFromToken(token.substring(7)) ?: return null
-            val classeUsuario = when (decriptacaoToken.substring(0,1)) {
-                "1" -> Contratante::class.java
-                "2" -> Prestador::class.java
-                "3" -> Administrador::class.java
-                else -> Contratante::class.java
-            }
+
             usuarioRepository.findByEmailAndTipoUsuario(
                 decriptacaoToken.substring(1),
-                classeUsuario
+                when (decriptacaoToken.substring(0,1)) {
+                    "1" -> Contratante::class.java
+                    "2" -> Prestador::class.java
+                    "3" -> Administrador::class.java
+                    else -> Contratante::class.java
+                }
             ).get()
         } catch (e: StringIndexOutOfBoundsException) {
             null

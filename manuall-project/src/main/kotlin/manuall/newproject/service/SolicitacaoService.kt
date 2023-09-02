@@ -29,11 +29,9 @@ class SolicitacaoService(
 
     fun enviarSolicitacao(token: String, solicitacaoDto: SolicitacaoDto): ResponseEntity<Void> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         val solicitacao = Solicitacao()
         solicitacao.contratanteUsuario = usuarioEncontrado as Contratante

@@ -18,11 +18,10 @@ class AvaliacaoService(
 ) {
 
     fun postarAvaliacao(token: String, postarAvaliacaoDTO: PostarAvaliacaoDto): ResponseEntity<Int> {
-        if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+
+        jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         val avaliacao = Avaliacao()
 

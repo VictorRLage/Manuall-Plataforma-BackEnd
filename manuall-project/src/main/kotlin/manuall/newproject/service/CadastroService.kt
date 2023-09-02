@@ -79,9 +79,7 @@ class CadastroService (
             usuario.canal = canal
             usuario.status = null
 
-            val usuarioAtual = usuarioRepository.save(usuario).id
-
-            return ResponseEntity.status(201).body(usuarioAtual)
+            return ResponseEntity.status(201).body(usuarioRepository.save(usuario).id)
         }
     }
 
@@ -145,11 +143,11 @@ class CadastroService (
     }
 
     fun cadastrar4(token: String, idPlano: Int): ResponseEntity<String> {
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
+
         if (usuarioEncontrado !is Prestador)
             return ResponseEntity.status(403).body("Usuário não é um prestador")
 

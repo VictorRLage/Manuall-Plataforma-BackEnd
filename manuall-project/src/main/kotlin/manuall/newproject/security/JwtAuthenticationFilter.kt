@@ -34,10 +34,10 @@ class JwtAuthenticationFilter(
                 username = jwtTokenManager.getUsernameFromToken(jwtToken)
             } catch (exception: ExpiredJwtException) {
                 LOGGER.info(
-                    "[FALHA AUTENTICACAO] - Token expirado, usuario: {} - {}",
+                    "[FALHA NA AUTENTICAÇÃO] - Token expirado, usuario: {} - {}",
                     exception.claims.subject, exception.message
                 )
-                LOGGER.trace("[FALHA AUTENTICACAO] - stack trace: %s", exception)
+                LOGGER.trace("[FALHA NA AUTENTICAÇÃO] - stack trace: %s", exception)
                 response.status = HttpServletResponse.SC_UNAUTHORIZED
             }
         }

@@ -144,11 +144,9 @@ class UsuarioService (
 
     fun checarValidadeLogin(token: String): ResponseEntity<Int> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         return ResponseEntity.status(200).body(
             when (usuarioEncontrado) {
@@ -162,11 +160,9 @@ class UsuarioService (
 
     fun aprovacoesPendentes(token: String): ResponseEntity<List<AprovacaoDto>> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         if (usuarioEncontrado !is Administrador) {
             return ResponseEntity.status(403).build()

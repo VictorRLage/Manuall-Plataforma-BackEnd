@@ -19,11 +19,9 @@ class ChatService (
 
     fun getChats(token: String): ResponseEntity<List<ChatPegarDadosDestinatariosDto>> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         val chats = when (usuarioEncontrado) {
             is Contratante -> solicitacaoRepository.getPrestadoresByContratanteUsuarioId(usuarioEncontrado.id)
@@ -37,11 +35,9 @@ class ChatService (
 
     fun getChatsByIdSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<ChatMensagensResponse> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         if (solicitacaoRepository.findById(idSolicitacao).isEmpty) {
             return ResponseEntity.status(404).build()
@@ -68,11 +64,9 @@ class ChatService (
 
     fun getBySolicitacaoIdWhereSolicitacaoIdHigherThan(token: String, idSolicitacao: Int, idUltimaMensagem: Int): ResponseEntity<ChatMensagensResponse> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         if (solicitacaoRepository.findById(idSolicitacao).isEmpty) {
             return ResponseEntity.status(404).build()
@@ -99,11 +93,9 @@ class ChatService (
 
     fun mandarMensagem(token: String, chatMensagemRequest: ChatMensagemRequest): ResponseEntity<Int> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         if (solicitacaoRepository.findById(chatMensagemRequest.idSolicitacao).isEmpty) {
             return ResponseEntity.status(404).build()

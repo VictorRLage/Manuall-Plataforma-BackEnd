@@ -43,11 +43,11 @@ class PerfilService(
     }
 
     fun alterarPerfil(token: String, alterarPerfilDTO: AlterarPerfilDto): ResponseEntity<String> {
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
+
         if (usuarioEncontrado !is Prestador)
             return ResponseEntity.status(403).body("Usuário não é um prestador")
 
@@ -65,11 +65,11 @@ class PerfilService(
     }
 
     fun checarPrestador(token: String): ResponseEntity<PerfilDto> {
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
+
         if (usuarioEncontrado !is Prestador)
             return ResponseEntity.status(403).build()
 
@@ -101,11 +101,9 @@ class PerfilService(
     fun atualizarSenha(token: String, alterSenhaRequest: AlterSenhaRequest): ResponseEntity<Usuario> {
 
         // Checando se token foi expirado e então encontrando usuário por token
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         return if (passwordEncoder.matches(alterSenhaRequest.senhaAntiga, usuarioEncontrado.senha)) {
 
@@ -120,11 +118,10 @@ class PerfilService(
     fun atualizarDesc(token: String, alterDescRequest: AlterDescRequest): ResponseEntity<Usuario> {
 
         // Checando se token foi expirado e então encontrando usuário por token
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
+
         if (usuarioEncontrado !is Prestador)
             return ResponseEntity.status(403).build()
 
@@ -135,11 +132,9 @@ class PerfilService(
     fun deletar(token: String): ResponseEntity<String> {
 
         // Checando se token foi expirado e então encontrando usuário por token
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).body("Token expirado")
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         dadosEnderecoRepository.deleteByUsuarioId(usuarioEncontrado.id)
         usuarioRepository.deleteById(usuarioEncontrado.id)
@@ -150,11 +145,10 @@ class PerfilService(
     fun atualizarPFP(token: String, alterPfpRequest: AlterPfpRequest): ResponseEntity<Usuario> {
 
         // Checando se token foi expirado e então encontrando usuário por token
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
+
         if (usuarioEncontrado !is Prestador)
             return ResponseEntity.status(403).build()
 
@@ -164,11 +158,9 @@ class PerfilService(
 
     fun getSolicitacoes(token: String): ResponseEntity<List<NotificacaoDto>> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         if (usuarioEncontrado is Prestador) {
             val solicitacoes = solicitacaoRepository.findByPrestadorUsuarioIdOrderByIdDesc(usuarioEncontrado.id)
@@ -201,11 +193,9 @@ class PerfilService(
 
     fun postarUrl(token: String, urlPerfilDto: UrlPerfilDto): ResponseEntity<List<String>> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         urlPerfilDto.imagens.forEach {
             val usuarioImg = UsuarioImg()
@@ -220,11 +210,9 @@ class PerfilService(
 
     fun excluirUrls(token: String, urlPerfilDto: UrlPerfilDto): ResponseEntity<Int> {
 
-        val usuarioEncontrado = if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
-            return ResponseEntity.status(480).build()
-        }
+        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
 
         urlPerfilDto.imagens.forEach {
 

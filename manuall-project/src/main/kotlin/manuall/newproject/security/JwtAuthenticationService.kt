@@ -18,16 +18,17 @@ class JwtAuthenticationService (
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val classeUsuario = when (username.substring(0,1)) {
-            "1" -> Contratante::class.java
-            "2" -> Prestador::class.java
-            "3" -> Administrador::class.java
-            else -> Contratante::class.java
-        }
-        val usuarioOpt: Optional<Usuario> = usuarioRepository.findByEmailAndTipoUsuario(username.substring(1), classeUsuario)
-        if (usuarioOpt.isEmpty) {
-            throw UsernameNotFoundException(String.format("usuario: %s nao encontrado", username))
-        }
-        return UserDetailsDto(usuarioOpt.get())
+
+        return UserDetailsDto(
+            usuarioRepository.findByEmailAndTipoUsuario(
+                username.substring(1),
+                when (username.substring(0,1)) {
+                    "1" -> Contratante::class.java
+                    "2" -> Prestador::class.java
+                    "3" -> Administrador::class.java
+                    else -> Contratante::class.java
+                }
+            ).orElseThrow { UsernameNotFoundException("Usuário $username não encontrado") }
+        )
     }
 }
