@@ -5,6 +5,7 @@ import manuall.api.dto.usuario.AprovacaoSubDto
 import manuall.api.dto.usuario.FilteredUsuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.util.*
 
@@ -15,20 +16,15 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         email: String?
     ): List<Optional<Usuario>>
 
-    @Query("""
-        select u from from Usuario u where u.email = ?1 and TYPE(u) = ?2
-    """)
+    @Query("select u from Usuario u where u.email = ?1 and TYPE(u) = ?2")
     fun findByEmailAndTipoUsuario(
         email: String?,
-        tipoUsuario: Class<out Usuario>
+        @Param("tipoUsuario") tipoUsuario: Class<out Usuario>
     ): Optional<Usuario>
 
-    @Query("""
-        select count(u) from Usuario u where TYPE(u) =?1
-        group by u.canal
-    """)
+    @Query("select count(u) from Usuario u where TYPE(u) = ?1 group by u.canal")
     fun countByTipoUsuarioGroupByCanal(
-        tipoUsuario: Class<out Usuario>
+        @Param("tipoUsuario") tipoUsuario: Class<out Usuario>
     ): List<Int>
 
     @Query("""
