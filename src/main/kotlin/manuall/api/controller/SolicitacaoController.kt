@@ -3,6 +3,7 @@ package manuall.api.controller
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
+import manuall.api.dto.solicitacao.PostarAvaliacaoDto
 import manuall.api.dto.solicitacao.OrcamentoDto
 import manuall.api.dto.solicitacao.SolicitacaoDto
 import manuall.api.service.SolicitacaoService
@@ -68,5 +69,14 @@ class SolicitacaoController (
         @RequestBody orcamentoDto: OrcamentoDto
     ): ResponseEntity<Int> {
         return solicitacaoService.enviarOrcamento(token, orcamentoDto)
+    }
+
+    @PostMapping("/postarAvaliacao")
+    @SecurityRequirement(name = "Bearer")
+    fun postarAvaliacao(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestBody postarAvaliacaoDTO: PostarAvaliacaoDto
+    ): ResponseEntity<Int> {
+        return solicitacaoService.enviarAvaliacao(token, postarAvaliacaoDTO)
     }
 }

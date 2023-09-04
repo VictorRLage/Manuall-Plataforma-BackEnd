@@ -1,15 +1,14 @@
 package manuall.api.service
 
-import manuall.api.domain.Contratante
-import manuall.api.domain.FormOrcamento
-import manuall.api.domain.Prestador
-import manuall.api.domain.Solicitacao
+import manuall.api.domain.*
+import manuall.api.dto.solicitacao.PostarAvaliacaoDto
 import manuall.api.dto.solicitacao.OrcamentoDto
 import manuall.api.dto.solicitacao.SolicitacaoDto
 import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import java.util.Date
 
 @Service
 class SolicitacaoService(
@@ -20,7 +19,8 @@ class SolicitacaoService(
     val servicoRepository: ServicoRepository,
     val solicitacaoImgRepository: SolicitacaoImgRepository,
     val chatRepository: ChatRepository,
-    val formOrcamentoRepository: FormOrcamentoRepository
+    val formOrcamentoRepository: FormOrcamentoRepository,
+    val avaliacaoRepository: AvaliacaoRepository
 ) {
 
     fun getServicosPrestadorPorPrestador(idPrestador: Int): ResponseEntity<List<Int>> {
@@ -33,14 +33,18 @@ class SolicitacaoService(
             ?.getUserFromToken(token)
             ?: return ResponseEntity.status(480).build()
 
+        usuarioEncontrado as Contratante
+
         val solicitacao = Solicitacao()
-        solicitacao.contratanteUsuario = usuarioEncontrado as Contratante
+        solicitacao.contratanteUsuario = usuarioEncontrado
         solicitacao.prestadorUsuario = usuarioRepository.findById(solicitacaoDto.idPrestador).get() as Prestador
         solicitacao.tamanho = solicitacaoDto.tamanho
         solicitacao.medida = solicitacaoDto.medida
         solicitacao.descricao = solicitacaoDto.descricao
         solicitacao.status = 1
+        solicitacao.incluiAula = solicitacaoDto.incluiAula
         solicitacao.servico = servicoRepository.findById(solicitacaoDto.idServico).get()
+        solicitacao.dataInicio = Date()
 
         solicitacaoRepository.save(solicitacao)
 
@@ -104,15 +108,40 @@ class SolicitacaoService(
         }
 
         val formOrcamento = FormOrcamento()
+        val solicitacao = solicitacaoRepository.findById(orcamentoDto.solicitacaoId).get()
 
         formOrcamento.mensagem = orcamentoDto.mensagem
         formOrcamento.orcamento = orcamentoDto.orcamento
         formOrcamentoRepository.save(formOrcamento)
 
-        val solicitacao = solicitacaoRepository.findById(orcamentoDto.solicitacaoId).get()
         solicitacao.formOrcamento = formOrcamento
+        if (solicitacao.dataFim == null) solicitacao.dataFim = Date()
+
         solicitacaoRepository.save(solicitacao)
 
         return ResponseEntity.status(201).build()
+    }
+
+    fun enviarAvaliacao(token: String, postarAvaliacaoDTO: PostarAvaliacaoDto): ResponseEntity<Int> {
+
+        jwtTokenManager.takeIf { it.validarToken(token) }
+            ?.getUserFromToken(token)
+            ?: return ResponseEntity.status(480).build()
+
+        val avaliacao = Avaliacao()
+
+        avaliacao.descricao = postarAvaliacaoDTO.descricao
+        avaliacao.nota = postarAvaliacaoDTO.nota
+        avaliacaoRepository.save(avaliacao)
+
+        val solicitacao = solicitacaoRepository.findById(postarAvaliacaoDTO.solicitacaoId).get()
+        solicitacao.avaliacao = avaliacao
+        if (solicitacao.dataFim == null) {
+            solicitacao.dataFim = java.util.Date()
+        }
+        solicitacaoRepository.save(solicitacao)
+
+        return ResponseEntity.status(201).build()
+
     }
 }

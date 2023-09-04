@@ -1,4 +1,4 @@
-package manuall.api.dto.avaliacao
+package manuall.api.dto.solicitacao
 
 data class PostarAvaliacaoDto (
     val solicitacaoId: Int,

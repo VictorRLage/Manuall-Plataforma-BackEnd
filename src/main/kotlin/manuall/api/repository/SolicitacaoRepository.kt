@@ -1,7 +1,7 @@
 package manuall.api.repository
 
 import manuall.api.domain.Solicitacao
-import manuall.api.dto.avaliacao.NotificacaoDto
+import manuall.api.dto.solicitacao.NotificacaoDto
 import manuall.api.dto.chat.ChatPegarDadosDestinatarioDto
 import manuall.api.dto.chat.ChatPegarDadosDestinatariosDto
 import manuall.api.dto.dashboard.PegarRegiaoDto
@@ -12,16 +12,6 @@ import java.util.*
 
 @Repository
 interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
-
-    // perguntar pro reis sobre essa rota
-//    @Query("""
-//        select
-//        new manuall.api.dto.chat.ChatPegarDadosDestinatarioDto(CASE ?2 WHEN 1 THEN (s.contratanteUsuario.id) ELSE (s.prestadorUsuario.id) END, u.nome)
-//        from Solicitacao s, Usuario u
-//        where u.id = s.contratanteUsuario.id
-//        and s.id = ?1
-//    """)
-//    fun getDadosById(id: Int, tipoUsuario: Int): Optional<ChatPegarDadosDestinatarioDto>
 
     @Query("""
         select
@@ -75,6 +65,6 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
 
     fun findByPrestadorUsuarioIdOrderByIdDesc(id: Int): List<Solicitacao>
 
-    @Query("SELECT new manuall.api.dto.avaliacao.NotificacaoDto(s.id, s.prestadorUsuario.nome, s.descricao) FROM Solicitacao s WHERE s.prestadorUsuario.id = ?1")
+    @Query("SELECT new manuall.api.dto.solicitacao.NotificacaoDto(s.id, s.prestadorUsuario.nome, s.descricao) FROM Solicitacao s WHERE s.prestadorUsuario.id = ?1")
     fun findAllByUsuarioId(usuarioId: Int): List<NotificacaoDto>
 }

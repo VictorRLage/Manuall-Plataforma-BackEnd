@@ -1,7 +1,7 @@
 package manuall.api.repository
 
 import manuall.api.domain.Avaliacao
-import manuall.api.dto.avaliacao.AvaliacaoDto
+import manuall.api.dto.solicitacao.AvaliacaoDto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -11,7 +11,7 @@ interface AvaliacaoRepository: JpaRepository<Avaliacao, Int> {
 
     @Query("""
         SELECT
-        new manuall.api.dto.avaliacao.AvaliacaoDto(
+        new manuall.api.dto.solicitacao.AvaliacaoDto(
         s.contratanteUsuario.nome,
         a.nota,
         a.descricao

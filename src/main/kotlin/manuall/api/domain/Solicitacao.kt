@@ -33,6 +33,9 @@ class Solicitacao {
     // 2: Proposta aprovada
     // 4: Proposta recusada
 
+    @Column(name = "inclui_aula")
+    var incluiAula: Boolean? = null
+
     @Column(name = "data_inicio")
     var dataInicio: Date? = null
 

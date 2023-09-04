@@ -1,4 +1,4 @@
-package manuall.api.dto.avaliacao
+package manuall.api.dto.solicitacao
 
 data class NotificacaoDto (
     val id: Int,

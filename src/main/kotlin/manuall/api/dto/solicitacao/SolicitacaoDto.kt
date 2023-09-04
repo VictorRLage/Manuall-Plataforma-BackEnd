@@ -19,6 +19,9 @@ data class SolicitacaoDto (
     @Schema(example = "pode trocar uma lâmpada aqui amigo? ta complicado :/")
     val descricao: String,
 
+    @Schema(example = "false")
+    val incluiAula: Boolean,
+
     @Schema(example = """
         [
             "meuTeto.png"

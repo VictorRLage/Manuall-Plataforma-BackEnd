@@ -1,7 +1,7 @@
 package manuall.api.dto.perfil
 
-import manuall.api.dto.avaliacao.AvaliacaoDto
-import manuall.api.dto.avaliacao.NotificacaoDto
+import manuall.api.dto.solicitacao.AvaliacaoDto
+import manuall.api.dto.solicitacao.NotificacaoDto
 
 data class PerfilDto(
     val area: String,
