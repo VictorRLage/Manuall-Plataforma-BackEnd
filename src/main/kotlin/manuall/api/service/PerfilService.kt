@@ -24,7 +24,7 @@ class PerfilService(
     val usuarioServicoRepository: UsuarioServicoRepository
 ) {
 
-    fun acessarPerfilPrestador(idPrestador: Int): ResponseEntity<Void> {
+    fun acessarPerfilPrestador(idPrestador: Int): ResponseEntity<Unit> {
         val prestador = usuarioRepository.findById(idPrestador)
         if (prestador.isEmpty) {
             return ResponseEntity.status(404).build()

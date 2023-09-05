@@ -29,7 +29,7 @@ class SolicitacaoController (
     fun enviarSolicitacao(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
         @RequestBody solicitacaoDto: SolicitacaoDto
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         return solicitacaoService.enviarSolicitacao(token, solicitacaoDto)
     }
 
@@ -39,7 +39,7 @@ class SolicitacaoController (
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
         @PathVariable idSolicitacao: Int,
         @PathVariable @Schema(example = "true") aceitar: Boolean
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         return solicitacaoService.responderSolicitacao(token, idSolicitacao, aceitar)
     }
 
@@ -48,7 +48,7 @@ class SolicitacaoController (
     fun cancelarSolicitacao(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
         @PathVariable idSolicitacao: Int
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         return solicitacaoService.cancelarSolicitacao(token, idSolicitacao)
     }
 
@@ -58,7 +58,7 @@ class SolicitacaoController (
     fun deletarSolicitacao(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
         @PathVariable idSolicitacao: Int
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         return solicitacaoService.deletarSolicitacao(token, idSolicitacao)
     }
 

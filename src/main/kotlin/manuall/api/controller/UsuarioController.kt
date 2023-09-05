@@ -71,7 +71,7 @@ class UsuarioController(
     @PostMapping("/logoff")
     fun logoff(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         return usuarioService.logoff(token)
     }
 
@@ -97,7 +97,7 @@ class UsuarioController(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String,
         @PathVariable idPrestador: Int,
         @PathVariable aprovar: Boolean
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         return usuarioService.aprovar(token, idPrestador, aprovar)
     }
 

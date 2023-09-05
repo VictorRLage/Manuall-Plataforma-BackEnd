@@ -20,7 +20,7 @@ class PerfilController(
     @PostMapping("/acessar/{idPrestador}")
     fun acessarPerfilPrestador(
         @PathVariable idPrestador: Int
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         return perfilService.acessarPerfilPrestador(idPrestador)
     }
 

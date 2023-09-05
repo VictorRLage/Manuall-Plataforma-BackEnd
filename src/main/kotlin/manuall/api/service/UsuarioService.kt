@@ -124,7 +124,7 @@ class UsuarioService (
 
     }
 
-    fun logoff(token: String): ResponseEntity<Void> {
+    fun logoff(token: String): ResponseEntity<Unit> {
         jwtTokenManager.expirarToken(token)
         return ResponseEntity.status(200).build()
     }
@@ -162,7 +162,7 @@ class UsuarioService (
         return ResponseEntity.status(200).body(listaPendentes)
     }
 
-    fun aprovar(token: String, idPrestador: Int, aprovar: Boolean): ResponseEntity<Void> {
+    fun aprovar(token: String, idPrestador: Int, aprovar: Boolean): ResponseEntity<Unit> {
 
         if (jwtTokenManager.validarToken(token)) {
             jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
