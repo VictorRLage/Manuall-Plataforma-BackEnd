@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class CrmController (
     val crmService: CrmService
-) {
+): DominiosBuscaveis {
+
+    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+        return crmService.buscarTodos(token)
+    }
 
     @GetMapping
     @SecurityRequirement(name = "Bearer")
     fun buscarMensagensManuel(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
     ): ResponseEntity<String> {
         return crmService.buscarMensagensManuel(token)
     }
@@ -26,7 +30,7 @@ class CrmController (
     @GetMapping("/dados")
     @SecurityRequirement(name = "Bearer")
     fun buscarDadosCliente(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<DadosClienteCrm> {
         return crmService.buscarDadosCliente(token)
     }
@@ -34,7 +38,7 @@ class CrmController (
     @PostMapping
     @SecurityRequirement(name = "Bearer")
     fun postarMensagemManuel(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody novoCrmLog: NovoCrmLog
     ): ResponseEntity<Unit> {
         return crmService.postarMensagemManuel(token, novoCrmLog)

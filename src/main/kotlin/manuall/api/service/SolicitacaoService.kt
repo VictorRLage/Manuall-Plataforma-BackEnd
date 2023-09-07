@@ -23,20 +23,29 @@ class SolicitacaoService(
     val avaliacaoRepository: AvaliacaoRepository
 ) {
 
+    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+
+        val usuario = jwtTokenManager.validateToken(token)
+            ?: return ResponseEntity.status(480).build()
+
+        if (usuario !is Administrador) return ResponseEntity.status(480).build()
+
+        return ResponseEntity.status(200).body(solicitacaoRepository.findAll())
+    }
+
     fun getServicosPrestadorPorPrestador(idPrestador: Int): ResponseEntity<List<Int>> {
         return ResponseEntity.status(200).body(usuarioServicoRepository.findServicosByUsuarioId(idPrestador))
     }
 
-    fun enviarSolicitacao(token: String, solicitacaoDto: SolicitacaoDto): ResponseEntity<Unit> {
+    fun enviarSolicitacao(token: String?, solicitacaoDto: SolicitacaoDto): ResponseEntity<Unit> {
 
-        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
-            ?.getUserFromToken(token)
+        val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        usuarioEncontrado as Contratante
+        usuario as Contratante
 
         val solicitacao = Solicitacao()
-        solicitacao.contratanteUsuario = usuarioEncontrado
+        solicitacao.contratanteUsuario = usuario
         solicitacao.prestadorUsuario = usuarioRepository.findById(solicitacaoDto.idPrestador).get() as Prestador
         solicitacao.tamanho = solicitacaoDto.tamanho
         solicitacao.medida = solicitacaoDto.medida
@@ -51,13 +60,10 @@ class SolicitacaoService(
         return ResponseEntity.status(201).build()
     }
 
-    fun responderSolicitacao(token: String, idSolicitacao: Int, aceitar: Boolean): ResponseEntity<Unit> {
+    fun responderSolicitacao(token: String?, idSolicitacao: Int, aceitar: Boolean): ResponseEntity<Unit> {
 
-        if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
+        if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()
-        }
 
         val solicitacao = solicitacaoRepository.findById(idSolicitacao).get()
 
@@ -68,13 +74,10 @@ class SolicitacaoService(
         return ResponseEntity.status(200).build()
     }
 
-    fun cancelarSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<Unit> {
+    fun cancelarSolicitacao(token: String?, idSolicitacao: Int): ResponseEntity<Unit> {
 
-        if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
+        if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()
-        }
 
         val solicitacao = solicitacaoRepository.findById(idSolicitacao).get()
 
@@ -85,13 +88,10 @@ class SolicitacaoService(
         return ResponseEntity.status(200).build()
     }
 
-    fun deletarSolicitacao(token: String, idSolicitacao: Int): ResponseEntity<Unit> {
+    fun deletarSolicitacao(token: String?, idSolicitacao: Int): ResponseEntity<Unit> {
 
-        if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
+        if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()
-        }
 
         solicitacaoImgRepository.deleteBySolicitacaoId(idSolicitacao)
         chatRepository.deleteBySolicitacaoId(idSolicitacao)
@@ -100,12 +100,10 @@ class SolicitacaoService(
         return ResponseEntity.status(200).build()
     }
 
-    fun enviarOrcamento(token: String, orcamentoDto: OrcamentoDto): ResponseEntity<Int> {
-        if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
+    fun enviarOrcamento(token: String?, orcamentoDto: OrcamentoDto): ResponseEntity<Int> {
+
+        if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()
-        }
 
         val formOrcamento = FormOrcamento()
         val solicitacao = solicitacaoRepository.findById(orcamentoDto.solicitacaoId).get()
@@ -122,11 +120,10 @@ class SolicitacaoService(
         return ResponseEntity.status(201).build()
     }
 
-    fun enviarAvaliacao(token: String, postarAvaliacaoDTO: PostarAvaliacaoDto): ResponseEntity<Int> {
+    fun enviarAvaliacao(token: String?, postarAvaliacaoDTO: PostarAvaliacaoDto): ResponseEntity<Int> {
 
-        jwtTokenManager.takeIf { it.validarToken(token) }
-            ?.getUserFromToken(token)
-            ?: return ResponseEntity.status(480).build()
+        if (jwtTokenManager.validateToken(token) == null)
+            return ResponseEntity.status(480).build()
 
         val avaliacao = Avaliacao()
 

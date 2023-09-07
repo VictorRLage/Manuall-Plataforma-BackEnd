@@ -45,10 +45,10 @@ class CadastroController (
         return cadastroService.cadastrar3(id, cadastrar3Dto)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @PutMapping("/4/{idPlano}")
+    @SecurityRequirement(name = "Bearer")
     fun cadastrar4(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable @Schema(example = "1") idPlano: Int
     ): ResponseEntity<String> {
         return cadastroService.cadastrar4(token, idPlano)

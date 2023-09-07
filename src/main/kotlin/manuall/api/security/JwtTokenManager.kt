@@ -11,6 +11,7 @@ import manuall.api.enums.TipoUsuario
 import manuall.api.repository.TokenBlacklistRepository
 import manuall.api.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -31,10 +32,13 @@ class JwtTokenManager (
     @Value("\${jwt.validity}")
     private val jwtTokenValidity: Long = 0
 
-    fun getUserFromToken(token: String): Usuario? {
+    fun validateToken(token: String?): Usuario? {
         return try {
+            if (token == null) return null
 
             val decriptacaoToken = getUsernameFromToken(token.substring(7)) ?: return null
+
+            if (!validarToken(token)) return null
 
             usuarioRepository.findByEmailAndTipoUsuario(
                 decriptacaoToken.substring(1),

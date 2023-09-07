@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class SolicitacaoController (
     val solicitacaoService: SolicitacaoService
-) {
+): DominiosBuscaveis {
+
+    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+        return solicitacaoService.buscarTodos(token)
+    }
 
     @GetMapping("/servicos/{idPrestador}")
     fun getServicosPrestadorPorPrestador(
@@ -27,7 +31,7 @@ class SolicitacaoController (
     @PostMapping
     @SecurityRequirement(name = "Bearer")
     fun enviarSolicitacao(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody solicitacaoDto: SolicitacaoDto
     ): ResponseEntity<Unit> {
         return solicitacaoService.enviarSolicitacao(token, solicitacaoDto)
@@ -36,7 +40,7 @@ class SolicitacaoController (
     @PostMapping("/{idSolicitacao}/{aceitar}")
     @SecurityRequirement(name = "Bearer")
     fun responderSolicitacao(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable idSolicitacao: Int,
         @PathVariable @Schema(example = "true") aceitar: Boolean
     ): ResponseEntity<Unit> {
@@ -46,7 +50,7 @@ class SolicitacaoController (
     @PostMapping("/{idSolicitacao}/cancelar")
     @SecurityRequirement(name = "Bearer")
     fun cancelarSolicitacao(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable idSolicitacao: Int
     ): ResponseEntity<Unit> {
         return solicitacaoService.cancelarSolicitacao(token, idSolicitacao)
@@ -56,7 +60,7 @@ class SolicitacaoController (
     @DeleteMapping("/{idSolicitacao}")
     @SecurityRequirement(name = "Bearer")
     fun deletarSolicitacao(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable idSolicitacao: Int
     ): ResponseEntity<Unit> {
         return solicitacaoService.deletarSolicitacao(token, idSolicitacao)
@@ -65,7 +69,7 @@ class SolicitacaoController (
     @PostMapping("/postarOrcamento")
     @SecurityRequirement(name = "Bearer")
     fun postarOrcamento(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody orcamentoDto: OrcamentoDto
     ): ResponseEntity<Int> {
         return solicitacaoService.enviarOrcamento(token, orcamentoDto)
@@ -74,7 +78,7 @@ class SolicitacaoController (
     @PostMapping("/postarAvaliacao")
     @SecurityRequirement(name = "Bearer")
     fun postarAvaliacao(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody postarAvaliacaoDTO: PostarAvaliacaoDto
     ): ResponseEntity<Int> {
         return solicitacaoService.enviarAvaliacao(token, postarAvaliacaoDTO)

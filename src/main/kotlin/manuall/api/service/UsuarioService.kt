@@ -124,29 +124,31 @@ class UsuarioService (
 
     }
 
-    fun logoff(token: String): ResponseEntity<Unit> {
-        jwtTokenManager.expirarToken(token)
+    fun logoff(token: String?): ResponseEntity<Unit> {
+
+        if (jwtTokenManager.validateToken(token) == null)
+            return ResponseEntity.status(480).build()
+
+        jwtTokenManager.expirarToken(token!!)
         return ResponseEntity.status(200).build()
     }
 
-    fun checarValidadeLogin(token: String): ResponseEntity<Int> {
+    fun checarValidadeLogin(token: String?): ResponseEntity<Int> {
 
-        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
-            ?.getUserFromToken(token)
+        val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
         return ResponseEntity.status(200).body(
-            TipoUsuario.fromObjectToInt(usuarioEncontrado)
+            TipoUsuario.fromObjectToInt(usuario)
         )
     }
 
-    fun aprovacoesPendentes(token: String): ResponseEntity<List<AprovacaoDto>> {
+    fun aprovacoesPendentes(token: String?): ResponseEntity<List<AprovacaoDto>> {
 
-        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
-            ?.getUserFromToken(token)
+        val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        if (usuarioEncontrado !is Administrador) {
+        if (usuario !is Administrador) {
             return ResponseEntity.status(403).build()
         }
 
@@ -162,13 +164,10 @@ class UsuarioService (
         return ResponseEntity.status(200).body(listaPendentes)
     }
 
-    fun aprovar(token: String, idPrestador: Int, aprovar: Boolean): ResponseEntity<Unit> {
+    fun aprovar(token: String?, idPrestador: Int, aprovar: Boolean): ResponseEntity<Unit> {
 
-        if (jwtTokenManager.validarToken(token)) {
-            jwtTokenManager.getUserFromToken(token) ?: return ResponseEntity.status(480).build()
-        } else {
+        if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()
-        }
 
         val usuario = usuarioRepository.findById(idPrestador).get()
 

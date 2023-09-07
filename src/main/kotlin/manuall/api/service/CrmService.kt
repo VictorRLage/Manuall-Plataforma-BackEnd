@@ -1,46 +1,54 @@
 package manuall.api.service
 
+import manuall.api.domain.Administrador
 import manuall.api.domain.CrmLog
 import manuall.api.dto.crm.DadosClienteCrm
 import manuall.api.dto.crm.NovoCrmLog
 import manuall.api.repository.CrmLogRepository
+import manuall.api.repository.ProspectRepository
 import manuall.api.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
 class CrmService (
+    val prospectRepository: ProspectRepository,
     val crmLogRepository: CrmLogRepository,
     val jwtTokenManager: JwtTokenManager
 ) {
 
-    fun buscarMensagensManuel(token: String): ResponseEntity<String> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
 
-        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
-            ?.getUserFromToken(token)
+        val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        return ResponseEntity.status(200).body(crmLogRepository.findMsgsByUsuarioId(usuarioEncontrado.id))
+        if (usuario !is Administrador) return ResponseEntity.status(480).build()
+
+        return ResponseEntity.status(200).body(prospectRepository.findAll())
     }
 
-    fun buscarDadosCliente(token: String): ResponseEntity<DadosClienteCrm> {
+    fun buscarMensagensManuel(token: String?): ResponseEntity<String> {
 
-        jwtTokenManager.takeIf { it.validarToken(token) }
-            ?.getUserFromToken(token)
+        val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        
+        return ResponseEntity.status(200).body(crmLogRepository.findMsgsByUsuarioId(usuario.id))
+    }
+
+    fun buscarDadosCliente(token: String?): ResponseEntity<DadosClienteCrm> {
+
+        if (jwtTokenManager.validateToken(token) == null)
+            return ResponseEntity.status(480).build()
 
         return ResponseEntity.status(200).build()
     }
 
-    fun postarMensagemManuel(token: String, novoCrmLog: NovoCrmLog): ResponseEntity<Unit> {
+    fun postarMensagemManuel(token: String?, novoCrmLog: NovoCrmLog): ResponseEntity<Unit> {
 
-        val usuarioEncontrado = jwtTokenManager.takeIf { it.validarToken(token) }
-            ?.getUserFromToken(token)
+        val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        val crmLog: CrmLog = crmLogRepository.findByUsuarioId(usuarioEncontrado.id)
+        val crmLog: CrmLog = crmLogRepository.findByUsuarioId(usuario.id)
 
         crmLog.histMsgs = novoCrmLog.log
         crmLogRepository.save(crmLog)

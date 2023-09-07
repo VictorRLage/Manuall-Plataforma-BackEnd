@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class ChatController (
     val chatService: ChatService
-) {
+): DominiosBuscaveis {
+
+    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+        return chatService.buscarTodos(token)
+    }
 
     @GetMapping
     @SecurityRequirement(name = "Bearer")
     fun getChats(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<List<ChatPegarDadosDestinatariosDto>> {
         return chatService.getChats(token)
     }
@@ -27,7 +31,7 @@ class ChatController (
     @GetMapping("/{idSolicitacao}")
     @SecurityRequirement(name = "Bearer")
     fun getMensagensByIdSolicitacao(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable idSolicitacao: Int
     ): ResponseEntity<ChatMensagensResponse> {
         return chatService.getChatsByIdSolicitacao(token, idSolicitacao)
@@ -36,7 +40,7 @@ class ChatController (
     @GetMapping("/{idSolicitacao}/buscar/{idUltimaMensagem}")
     @SecurityRequirement(name = "Bearer")
     fun getChatsByIdSolicitacaoIdUltimaMensagem(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable idSolicitacao: Int,
         @PathVariable idUltimaMensagem: Int
     ): ResponseEntity<ChatMensagensResponse> {
@@ -46,7 +50,7 @@ class ChatController (
     @PostMapping
     @SecurityRequirement(name = "Bearer")
     fun mandarMensagem(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody chatMensagemRequest: ChatMensagemRequest
     ): ResponseEntity<Int> {
         return chatService.mandarMensagem(token, chatMensagemRequest)

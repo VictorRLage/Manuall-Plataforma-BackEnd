@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class PerfilController(
     val perfilService: PerfilService
-) {
+): DominiosBuscaveis {
+
+    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+        return perfilService.buscarTodos(token)
+    }
 
     @PostMapping("/acessar/{idPrestador}")
     fun acessarPerfilPrestador(
@@ -24,81 +28,81 @@ class PerfilController(
         return perfilService.acessarPerfilPrestador(idPrestador)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @PutMapping("/alterar")
+    @SecurityRequirement(name = "Bearer")
     fun alterarPerfil(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody alterarPerfilDTO: AlterarPerfilDto
     ): ResponseEntity<String> {
         return perfilService.alterarPerfil(token, alterarPerfilDTO)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @GetMapping
+    @SecurityRequirement(name = "Bearer")
     fun checarPrestador(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<PerfilDto> {
         return perfilService.checarPrestador(token)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @PatchMapping("/alterar/senha")
+    @SecurityRequirement(name = "Bearer")
     fun atualizarSenha(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody alterSenhaRequest: AlterSenhaRequest
     ): ResponseEntity<Usuario> {
         return perfilService.atualizarSenha(token, alterSenhaRequest)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @PatchMapping("/alterar/desc")
+    @SecurityRequirement(name = "Bearer")
     fun atualizarDesc(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody alterDescRequest: AlterDescRequest
     ): ResponseEntity<Usuario> {
         return perfilService.atualizarDesc(token, alterDescRequest)
     }
 
     @Transactional
-    @SecurityRequirement(name = "Bearer")
     @DeleteMapping
+    @SecurityRequirement(name = "Bearer")
     fun deletar(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<String> {
         return perfilService.deletar(token)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @PatchMapping("/alterar/fotoPerfil")
+    @SecurityRequirement(name = "Bearer")
     fun atualizarFotoPerfil(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody alterPfpRequest: AlterPfpRequest
     ): ResponseEntity<Usuario> {
         return perfilService.atualizarPFP(token, alterPfpRequest)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @GetMapping("/solicitacoes")
+    @SecurityRequirement(name = "Bearer")
     fun getSolicitacoes(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<List<NotificacaoDto>> {
         return perfilService.getSolicitacoes(token)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @PostMapping("/postarUrl")
+    @SecurityRequirement(name = "Bearer")
     fun postarUrl(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody urlPerfilDto: UrlPerfilDto
     ): ResponseEntity<List<String>> {
 
         return perfilService.postarUrl(token, urlPerfilDto)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @DeleteMapping("/excluirUrl")
+    @SecurityRequirement(name = "Bearer")
     fun excluirUrl(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody urlPerfilDto: UrlPerfilDto
     ): ResponseEntity<Int> {
 

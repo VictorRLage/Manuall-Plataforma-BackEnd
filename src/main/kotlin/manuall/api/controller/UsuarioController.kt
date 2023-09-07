@@ -67,34 +67,34 @@ class UsuarioController(
         return usuarioService.loginEfetuar(usuarioLoginRequest)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @PostMapping("/logoff")
+    @SecurityRequirement(name = "Bearer")
     fun logoff(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<Unit> {
         return usuarioService.logoff(token)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @GetMapping("/login/checar/validade")
+    @SecurityRequirement(name = "Bearer")
     fun checarValidadeLogin(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<Int> {
         return usuarioService.checarValidadeLogin(token)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @GetMapping("/aprovacoesPendentes")
+    @SecurityRequirement(name = "Bearer")
     fun aprovacoesPendentes(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<List<AprovacaoDto>> {
         return usuarioService.aprovacoesPendentes(token)
     }
 
-    @SecurityRequirement(name = "Bearer")
     @GetMapping("/aprovacoesPendentes/{idPrestador}/{aprovar}")
+    @SecurityRequirement(name = "Bearer")
     fun aprovar(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String,
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable idPrestador: Int,
         @PathVariable aprovar: Boolean
     ): ResponseEntity<Unit> {
