@@ -64,13 +64,13 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
     fun findAllPrestadoresByArea(idArea: Int): List<FilteredUsuario>
 
     // Listar por nota
-    @Query("$STARTING_QUERY $GROUP_BY ORDER BY a.nota asc")
+    @Query("$STARTING_QUERY $GROUP_BY, a.nota ORDER BY a.nota asc")
     fun findAllOrderByNotaAsc(): List<FilteredUsuario>
-    @Query("$STARTING_QUERY $GROUP_BY ORDER BY a.nota desc")
+    @Query("$STARTING_QUERY $GROUP_BY, a.nota ORDER BY a.nota desc")
     fun findAllOrderByNotaDesc(): List<FilteredUsuario>
-    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY a.nota asc")
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY, a.nota ORDER BY a.nota asc")
     fun findByAreaIdOrderByNotaAsc(areaId: Int): List<FilteredUsuario>
-    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY ORDER BY a.nota desc")
+    @Query("$STARTING_QUERY AND u.area.id = ?1 $GROUP_BY, a.nota ORDER BY a.nota desc")
     fun findByAreaIdOrderByNotaDesc(areaId: Int): List<FilteredUsuario>
 
     // Listar por preço máximo

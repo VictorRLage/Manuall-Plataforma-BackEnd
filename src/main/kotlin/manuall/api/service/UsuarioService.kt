@@ -192,9 +192,15 @@ class UsuarioService (
             }
         """.trimIndent()
 
+        println(filtroCompleto)
+
         val method = try {
-            usuarioRepository::class.java
-                .getMethod(filtroCompleto, idArea::class.java)
+            if (idArea == 0)
+                usuarioRepository::class.java
+                    .getMethod(filtroCompleto)
+            else
+                usuarioRepository::class.java
+                    .getMethod(filtroCompleto, idArea::class.java)
         } catch (e: NoSuchMethodException) {
             return ResponseEntity.status(404).build()
         }
