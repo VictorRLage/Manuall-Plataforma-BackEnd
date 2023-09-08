@@ -42,7 +42,14 @@ class PerfilController(
     fun checarPrestador(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<PerfilDto> {
-        return perfilService.checarPrestador(token)
+        return perfilService.checarPrestadorByToken(token)
+    }
+
+    @GetMapping("/{id}")
+    fun checarPrestador(
+        @PathVariable id: Int
+    ): ResponseEntity<PerfilDto> {
+        return perfilService.checarPrestadorById(id)
     }
 
     @PatchMapping("/alterar/senha")

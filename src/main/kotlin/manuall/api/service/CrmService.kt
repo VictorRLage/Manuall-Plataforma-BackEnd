@@ -2,7 +2,7 @@ package manuall.api.service
 
 import manuall.api.domain.Administrador
 import manuall.api.domain.CrmLog
-import manuall.api.dto.crm.DadosClienteCrm
+import manuall.api.dto.crm.DadosContratanteCrm
 import manuall.api.dto.crm.NovoCrmLog
 import manuall.api.repository.CrmLogRepository
 import manuall.api.repository.ProspectRepository
@@ -35,7 +35,7 @@ class CrmService (
         return ResponseEntity.status(200).body(crmLogRepository.findMsgsByUsuarioId(usuario.id))
     }
 
-    fun buscarDadosCliente(token: String?): ResponseEntity<DadosClienteCrm> {
+    fun buscarDadosCliente(token: String?): ResponseEntity<DadosContratanteCrm> {
 
         if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()

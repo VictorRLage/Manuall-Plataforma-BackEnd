@@ -74,13 +74,30 @@ class PerfilService(
         return ResponseEntity.ok("Perfil do usuário atualizado com sucesso")
     }
 
-    fun checarPrestador(token: String?): ResponseEntity<PerfilDto> {
+    fun checarPrestadorByToken(token: String?): ResponseEntity<PerfilDto> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
         if (usuario !is Prestador)
             return ResponseEntity.status(403).build()
+
+        return checarPrestador(usuario)
+    }
+
+    fun checarPrestadorById(id: Int): ResponseEntity<PerfilDto> {
+
+        val usuario = usuarioRepository.findById(id)
+            .orElse(null)
+            ?: return ResponseEntity.status(404).build()
+
+        if (usuario !is Prestador)
+            return ResponseEntity.status(404).build()
+
+        return checarPrestador(usuario)
+    }
+
+    fun checarPrestador(usuario: Prestador): ResponseEntity<PerfilDto> {
 
         val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuario.id).get()
         val dadosAvaliacao = avaliacaoRepository.findByPrestadorUsuarioId(usuario.id)

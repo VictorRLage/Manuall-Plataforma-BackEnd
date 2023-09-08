@@ -6,7 +6,7 @@ import manuall.api.dto.solicitacao.NotificacaoDto
 data class PerfilDto(
     val area: String,
     val descricao: String,
-    val profile: String,
+    val pfp: String,
     val nome: String,
     val orcamentoMin: Double,
     val orcamentoMax: Double,
