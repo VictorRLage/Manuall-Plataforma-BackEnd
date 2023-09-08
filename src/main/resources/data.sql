@@ -1,13 +1,13 @@
 INSERT INTO area
 (nome)
 VALUES
-('Jardineiro'),
-('Pintor'),
+('Jardineiro(a)'),
+('Pintor(a)'),
 ('Eletricista'),
-('Encanador'),
-('Marceneiro'),
-('Montador'),
-('Gesseiro');
+('Encanador(a)'),
+('Marceneiro(a)'),
+('Montador(a)'),
+('Gesseiro(a)');
 
 INSERT INTO servico
 (area_id, nome)
