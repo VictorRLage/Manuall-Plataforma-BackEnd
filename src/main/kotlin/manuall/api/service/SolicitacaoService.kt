@@ -39,10 +39,10 @@ class SolicitacaoService(
 
     fun enviarSolicitacao(token: String?, solicitacaoDto: SolicitacaoDto): ResponseEntity<Unit> {
 
-        val usuario = jwtTokenManager.validateToken(token)
-            ?: return ResponseEntity.status(480).build()
-
-        usuario as Contratante
+        val usuario = (
+                jwtTokenManager.validateToken(token)
+                    ?: return ResponseEntity.status(480).build()
+                ) as Contratante
 
         val solicitacao = Solicitacao()
         solicitacao.contratanteUsuario = usuario

@@ -2,9 +2,8 @@ package manuall.api.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import manuall.api.domain.CrmLogMensagem
 import manuall.api.dto.crm.DadosContratanteCrm
-import manuall.api.dto.crm.NovoCrmLog
+import manuall.api.dto.crm.DadosPrestadorCrm
 import manuall.api.service.CrmService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -28,14 +27,6 @@ class CrmController (
         return crmService.buscarMensagensManuel(token)
     }
 
-    @GetMapping("/dados")
-    @SecurityRequirement(name = "Bearer")
-    fun buscarDadosCliente(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
-    ): ResponseEntity<DadosContratanteCrm> {
-        return crmService.buscarDadosCliente(token)
-    }
-
     @PostMapping
     @SecurityRequirement(name = "Bearer")
     fun postarMensagemManuel(
@@ -43,5 +34,21 @@ class CrmController (
         @RequestBody crmMsgs: List<Int>
     ): ResponseEntity<Unit> {
         return crmService.postarMensagemManuel(token, crmMsgs)
+    }
+
+    @GetMapping("/dados/1")
+    @SecurityRequirement(name = "Bearer")
+    fun buscarDadosContratante(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<DadosContratanteCrm> {
+        return crmService.buscarDadosContratante(token)
+    }
+
+    @GetMapping("/dados/2")
+    @SecurityRequirement(name = "Bearer")
+    fun buscarDadosPrestador(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<DadosPrestadorCrm> {
+        return crmService.buscarDadosPrestador(token)
     }
 }

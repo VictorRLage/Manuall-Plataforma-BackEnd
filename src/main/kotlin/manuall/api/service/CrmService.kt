@@ -1,10 +1,12 @@
 package manuall.api.service
 
 import manuall.api.domain.Administrador
-import manuall.api.domain.CrmLog
+import manuall.api.domain.Contratante
 import manuall.api.domain.CrmLogMensagem
+import manuall.api.domain.Prestador
 import manuall.api.dto.crm.DadosContratanteCrm
-import manuall.api.dto.crm.NovoCrmLog
+import manuall.api.dto.crm.DadosPrestadorCrm
+import manuall.api.enums.Plano
 import manuall.api.repository.CrmLogMensagemRepository
 import manuall.api.repository.CrmLogRepository
 import manuall.api.repository.ProspectRepository
@@ -42,14 +44,6 @@ class CrmService (
         )
     }
 
-    fun buscarDadosCliente(token: String?): ResponseEntity<DadosContratanteCrm> {
-
-        if (jwtTokenManager.validateToken(token) == null)
-            return ResponseEntity.status(480).build()
-
-        return ResponseEntity.status(200).build()
-    }
-
     fun postarMensagemManuel(token: String?, crmMsgs: List<Int>): ResponseEntity<Unit> {
 
         val usuario = jwtTokenManager.validateToken(token)
@@ -80,5 +74,34 @@ class CrmService (
         }
 
         return ResponseEntity.status(201).build()
+    }
+
+    fun buscarDadosContratante(token: String?): ResponseEntity<DadosContratanteCrm> {
+
+        val usuario = (
+                jwtTokenManager.validateToken(token)
+                    ?: return ResponseEntity.status(480).build()
+                ) as Contratante
+
+        return ResponseEntity.status(200).body(
+            DadosContratanteCrm(
+                usuario.nome!!,
+            )
+        )
+    }
+
+    fun buscarDadosPrestador(token: String?): ResponseEntity<DadosPrestadorCrm> {
+
+        val usuario = (
+                jwtTokenManager.validateToken(token)
+                    ?: return ResponseEntity.status(480).build()
+                ) as Prestador
+
+        return ResponseEntity.status(200).body(
+            DadosPrestadorCrm(
+                usuario.nome!!,
+                usuario.plano!!
+            )
+        )
     }
 }
