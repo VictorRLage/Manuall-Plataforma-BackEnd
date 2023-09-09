@@ -2,6 +2,7 @@ package manuall.api.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import manuall.api.domain.CrmLogMensagem
 import manuall.api.dto.crm.DadosContratanteCrm
 import manuall.api.dto.crm.NovoCrmLog
 import manuall.api.service.CrmService
@@ -23,7 +24,7 @@ class CrmController (
     @SecurityRequirement(name = "Bearer")
     fun buscarMensagensManuel(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
-    ): ResponseEntity<String> {
+    ): ResponseEntity<List<Int>> {
         return crmService.buscarMensagensManuel(token)
     }
 
@@ -39,8 +40,8 @@ class CrmController (
     @SecurityRequirement(name = "Bearer")
     fun postarMensagemManuel(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
-        @RequestBody novoCrmLog: NovoCrmLog
+        @RequestBody crmMsgs: List<Int>
     ): ResponseEntity<Unit> {
-        return crmService.postarMensagemManuel(token, novoCrmLog)
+        return crmService.postarMensagemManuel(token, crmMsgs)
     }
 }

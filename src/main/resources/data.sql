@@ -229,10 +229,16 @@ VALUES
 (26, 21);
 
 INSERT INTO crm_log
-(acessou_url, hist_msgs, inicio_contato, processo_finalizado, usuario_id)
+(acessou_url, inicio_contato, processo_finalizado, usuario_id)
 VALUES
-(0, '0', '2023-08-12 14:17:00', 0, 1),
-(0, '0', '2023-08-15 11:23:45', 0, 2),
-(0, '0', '2023-09-01 10:15:30', 0, 3),
-(0, '0', '2023-09-02 17:47:20', 0, 4),
-(0, '0', '2023-08-19 09:34:50', 0, 5);
+(0, '2023-08-12 14:17:00', 0, 1),
+(0, '2023-08-15 11:23:45', 0, 2),
+(0, '2023-09-01 10:15:30', 0, 3),
+(0, '2023-09-02 17:47:20', 0, 4),
+(0, '2023-08-19 09:34:50', 0, 5);
+
+INSERT INTO crm_log_mensagem
+(mensagem, crm_log_id)
+VALUES
+(20458, 1),
+(78503, 1);

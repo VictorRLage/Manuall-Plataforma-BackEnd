@@ -18,9 +18,6 @@ class CrmLog {
     @Column(name = "inicio_contato")
     var inicioContato: Date? = null
 
-    @Column(name = "hist_msgs", length = 30)
-    var histMsgs: String? = null
-
     @Column(name = "acessou_url")
     var acessouUrl: Boolean? = null
 
