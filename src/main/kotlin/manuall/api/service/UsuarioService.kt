@@ -133,14 +133,14 @@ class UsuarioService (
         return ResponseEntity.status(200).build()
     }
 
-    fun checarValidadeLogin(token: String?): ResponseEntity<Int> {
+    fun checarValidadeLoginAdm(token: String?): ResponseEntity<Unit> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        return ResponseEntity.status(200).body(
-            TipoUsuario.fromObjectToInt(usuario)
-        )
+        if (usuario !is Administrador) return ResponseEntity.status(480).build()
+
+        return ResponseEntity.status(200).build()
     }
 
     fun aprovacoesPendentes(token: String?): ResponseEntity<List<AprovacaoDto>> {
@@ -191,8 +191,6 @@ class UsuarioService (
                 if (crescente) "Asc" else "Desc"
             }
         """.trimIndent()
-
-        println(filtroCompleto)
 
         val method = try {
             if (idArea == 0)

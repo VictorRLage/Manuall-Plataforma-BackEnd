@@ -77,10 +77,10 @@ class UsuarioController(
 
     @GetMapping("/login/checar/validade")
     @SecurityRequirement(name = "Bearer")
-    fun checarValidadeLogin(
+    fun checarValidadeLoginAdm(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?
-    ): ResponseEntity<Int> {
-        return usuarioService.checarValidadeLogin(token)
+    ): ResponseEntity<Unit> {
+        return usuarioService.checarValidadeLoginAdm(token)
     }
 
     @GetMapping("/aprovacoesPendentes")
