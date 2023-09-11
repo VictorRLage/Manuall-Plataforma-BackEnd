@@ -27,6 +27,14 @@ class UsuarioService (
     val usuarioServicoRepository: UsuarioServicoRepository
 ) {
 
+    fun getIdByToken(token: String?): ResponseEntity<Int> {
+
+        val usuario = jwtTokenManager.validateToken(token)
+            ?: return ResponseEntity.status(480).build()
+
+        return ResponseEntity.status(200).body(usuario.id)
+    }
+
     fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
         return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadores())
     }

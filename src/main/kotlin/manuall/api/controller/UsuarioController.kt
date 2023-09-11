@@ -20,6 +20,14 @@ class UsuarioController(
     val usuarioService: UsuarioService
 ) {
 
+    @GetMapping("/id")
+    @SecurityRequirement(name = "Bearer")
+    fun getIdByToken(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<Int> {
+        return usuarioService.getIdByToken(token)
+    }
+
     @GetMapping("/prestadores")
     fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
         return usuarioService.getPrestadoresOrderByPlano()
