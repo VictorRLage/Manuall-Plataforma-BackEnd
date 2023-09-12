@@ -107,15 +107,15 @@ class PerfilService(
         val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(usuario.id)
 
         val perfilDTO = PerfilDto(
-            nomeArea!!,
-            usuario.descricao!!,
-            usuario.anexoPfp!!,
-            usuario.nome!!,
-            usuario.orcamentoMin!!,
-            usuario.orcamentoMax!!,
-            usuario.prestaAula!!,
-            dadosEndereco.estado!!,
-            dadosEndereco.cidade!!,
+            nomeArea,
+            usuario.descricao,
+            usuario.anexoPfp,
+            usuario.nome,
+            usuario.orcamentoMin,
+            usuario.orcamentoMax,
+            usuario.prestaAula,
+            dadosEndereco.estado,
+            dadosEndereco.cidade,
             urls,
             servicos,
             dadosAvaliacao,
@@ -167,10 +167,12 @@ class PerfilService(
 
     fun atualizarPFP(token: String?, alterPfpRequest: AlterPfpRequest): ResponseEntity<Usuario> {
 
+        println("usuario.id")
         // Checando se token foi expirado e então encontrando usuário por token
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
+        println(usuario.id)
         if (usuario !is Prestador)
             return ResponseEntity.status(403).build()
 
