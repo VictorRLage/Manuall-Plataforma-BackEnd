@@ -179,7 +179,10 @@ class UsuarioService (
 
         val usuario = usuarioRepository.findById(idPrestador).get()
 
+        usuario as Prestador
+
         usuario.status = if (aprovar) 2 else 4
+        usuario.plano = 1
 
         usuarioRepository.save(usuario)
 
