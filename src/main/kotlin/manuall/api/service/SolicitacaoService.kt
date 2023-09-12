@@ -34,7 +34,7 @@ class SolicitacaoService(
     }
 
     fun getServicosPrestadorPorPrestador(idPrestador: Int): ResponseEntity<List<Int>> {
-        return ResponseEntity.status(200).body(usuarioServicoRepository.findServicosByUsuarioId(idPrestador))
+        return ResponseEntity.status(200).body(usuarioServicoRepository.findServicosIdByUsuarioId(idPrestador))
     }
 
     fun enviarSolicitacao(token: String?, solicitacaoDto: SolicitacaoDto): ResponseEntity<Unit> {

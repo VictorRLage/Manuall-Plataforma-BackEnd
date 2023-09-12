@@ -104,7 +104,7 @@ class PerfilService(
         val notificacoes = solicitacaoRepository.findAllByUsuarioId(usuario.id)
         val nomeArea = areaRepository.findAreaNomeByUsuarioId(usuario.id)
         val urls = usuarioImgRepository.findUrlsByUsuarioId(usuario.id)
-        val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(usuario.id)
+        val servicos = usuarioServicoRepository.findServicosByUsuarioId(usuario.id)
 
         val perfilDTO = PerfilDto(
             nomeArea,
