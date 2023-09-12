@@ -18,7 +18,7 @@ class Prestador: Usuario() {
     // @field:PositiveOrZero
     var orcamentoMax: Double? = null
 
-    @Column(name = "descricao", length = 270)
+    @Column(name = "descricao", length = 1000)
     // @field:Size(max = 270)
     var descricao: String? = null
 
@@ -31,7 +31,7 @@ class Prestador: Usuario() {
     // 2: Plano Advanced
     // 3: Plano Premium
 
-    @Column(name = "anexo_pfp", length = 150)
+    @Column(name = "anexo_pfp", length = 500)
     @field:URL
     // @field:NotBlank
     // @field:Size(max = 90)
