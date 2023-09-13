@@ -12,39 +12,39 @@ abstract class Usuario {
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 //    @field:NotNull
-    var id: Int = 0
+    open var id: Int = 0
 
     @Column(name = "nome", length = 60)
 //    @field:NotBlank
 //    @field:Size(max = 60)
-    var nome: String? = null
+    open var nome: String? = null
 
     @Column(name = "email", length = 256)
 //    @field:NotBlank
 //    @field:Email
-    var email: String? = null
+    open var email: String? = null
 
     @Column(name = "senha", length = 60)
 //    @field:NotBlank
 //    @field:Size(min = 60, max = 60)
-    var senha: String? = null
+    open var senha: String? = null
 
     @Column(name = "cpf", length = 11)
 //    @field:CPF
-    var cpf: String? = null
+    open var cpf: String? = null
 
     @Column(name="telefone", length = 11)
 //    @field:NotBlank
-    var telefone: String? = null
+    open var telefone: String? = null
 
     @Column(name = "status")
-    var status: Int? = null
+    open var status: Int? = null
     // 1: Aprovação pendente
     // 2: Inscrição aprovada
     // 4: Inscrição recusada
 
     @Column(name = "canal")
-    var canal: Int? = null
+    open var canal: Int? = null
     // 0: Website
     // 1: Redes Sociais
     // 2: Pesquisa
