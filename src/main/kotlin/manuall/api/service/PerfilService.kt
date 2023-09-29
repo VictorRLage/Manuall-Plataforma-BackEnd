@@ -25,7 +25,7 @@ class PerfilService(
     val usuarioServicoRepository: UsuarioServicoRepository
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Usuario>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()

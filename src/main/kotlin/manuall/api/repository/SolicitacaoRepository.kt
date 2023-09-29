@@ -6,12 +6,13 @@ import manuall.api.dto.chat.ChatPegarDadosDestinatarioDto
 import manuall.api.dto.chat.ChatPegarDadosDestinatariosDto
 import manuall.api.dto.dashboard.PegarRegiaoDto
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
+interface SolicitacaoRepository: JpaRepository<Solicitacao, Int>, JpaSpecificationExecutor<Solicitacao> {
 
     @Query("""
         select

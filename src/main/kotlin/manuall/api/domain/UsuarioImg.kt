@@ -20,4 +20,7 @@ class UsuarioImg {
     @field:URL
     @field:NotBlank
     var anexo: String? = ""
+
+    @ManyToOne
+    var solicitacao: Solicitacao = Solicitacao()
 }

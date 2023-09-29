@@ -51,4 +51,6 @@ class Solicitacao {
     @OneToOne
     var formOrcamento: FormOrcamento? = null
 
+    @OneToMany
+    var solicitacaoImg: List<SolicitacaoImg> = listOf()
 }

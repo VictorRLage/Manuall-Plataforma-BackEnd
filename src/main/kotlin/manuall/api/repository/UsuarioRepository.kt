@@ -4,13 +4,14 @@ import manuall.api.domain.Usuario
 import manuall.api.dto.usuario.AprovacaoSubDto
 import manuall.api.dto.usuario.FilteredUsuario
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface UsuarioRepository: JpaRepository<Usuario, Int> {
+interface UsuarioRepository: JpaRepository<Usuario, Int>, JpaSpecificationExecutor<Usuario> {
 
     fun findByEmail(
         email: String?

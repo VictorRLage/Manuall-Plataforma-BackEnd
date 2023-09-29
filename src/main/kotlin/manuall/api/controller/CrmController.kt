@@ -2,6 +2,8 @@ package manuall.api.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import manuall.api.domain.CrmLog
+import manuall.api.domain.Prospect
 import manuall.api.dto.crm.DadosContratanteCrm
 import manuall.api.dto.crm.DadosPrestadorCrm
 import manuall.api.service.CrmService
@@ -13,9 +15,9 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class CrmController (
     val crmService: CrmService
-): DominiosBuscaveis {
+): DominiosBuscaveis<Prospect> {
 
-    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    override fun buscarTodos(token: String?): ResponseEntity<List<Prospect>> {
         return crmService.buscarTodos(token)
     }
 

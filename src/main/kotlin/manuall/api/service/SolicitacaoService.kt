@@ -23,7 +23,7 @@ class SolicitacaoService(
     val avaliacaoRepository: AvaliacaoRepository
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Solicitacao>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()

@@ -16,4 +16,7 @@ class Avaliacao {
 
     @Column(name = "descricao", length = 75)
     var descricao: String? = null
+
+    @OneToOne
+    var solicitacao: Solicitacao = Solicitacao()
 }

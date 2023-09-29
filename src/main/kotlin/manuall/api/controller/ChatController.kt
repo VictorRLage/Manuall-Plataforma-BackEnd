@@ -2,6 +2,7 @@ package manuall.api.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import manuall.api.domain.Chat
 import manuall.api.dto.chat.ChatMensagemRequest
 import manuall.api.dto.chat.ChatMensagensResponse
 import manuall.api.dto.chat.ChatPegarDadosDestinatariosDto
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class ChatController (
     val chatService: ChatService
-): DominiosBuscaveis {
+): DominiosBuscaveis<Chat> {
 
-    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    override fun buscarTodos(token: String?): ResponseEntity<List<Chat>> {
         return chatService.buscarTodos(token)
     }
 

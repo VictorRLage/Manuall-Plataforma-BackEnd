@@ -28,25 +28,13 @@ class UsuarioController(
         return usuarioService.getIdByToken(token)
     }
 
-    @GetMapping("/prestadores")
-    fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
-        return usuarioService.getPrestadoresOrderByPlano()
-    }
-
-    @GetMapping("/prestadores/{idArea}")
-    fun getPrestadoresByAreaIdOrderByPlano(
-        @PathVariable idArea: Int
-    ): ResponseEntity<List<FilteredUsuario>> {
-        return usuarioService.getPrestadoresByAreaIdOrderByPlano(idArea)
-    }
-
     @GetMapping("prestadores/{idArea}/{filtro}/{crescente}")
-    fun getPrestadoresFiltrados(
+    fun getPrestadores(
         @PathVariable idArea: String,
         @PathVariable filtro: String,
         @PathVariable crescente: Boolean
-    ): ResponseEntity<List<FilteredUsuario>> {
-        return usuarioService.getPrestadoresFiltrados(idArea.toInt(), filtro, crescente)
+    ): ResponseEntity<List<Any>> {
+        return usuarioService.getPrestadores(idArea.toInt(), filtro, crescente)
     }
 
     @GetMapping("/areas")

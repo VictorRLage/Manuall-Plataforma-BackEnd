@@ -23,4 +23,7 @@ class CrmLog {
 
     @Column(name = "processo_finalizado")
     var processoFinalizado: Boolean? = null
+
+    @OneToMany
+    var crmLogMensagem: List<CrmLogMensagem> = listOf()
 }

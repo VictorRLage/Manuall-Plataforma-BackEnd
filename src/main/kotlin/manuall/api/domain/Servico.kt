@@ -17,4 +17,10 @@ class Servico {
     @Column(name = "nome", length = 90)
     var nome: String? = null
 
+    @OneToMany
+    var usuarioServico: List<UsuarioServico> = listOf()
+
+    @OneToMany
+    var solicitacao: List<Solicitacao> = listOf()
+
 }

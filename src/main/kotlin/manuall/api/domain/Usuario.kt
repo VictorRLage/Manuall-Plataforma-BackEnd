@@ -50,4 +50,13 @@ abstract class Usuario {
     // 2: Pesquisa
     // 3: Indicação
     // 4: Tela de contato (no Website)
+
+    @OneToMany
+    open var solicitacao: List<Solicitacao> = listOf()
+
+    @OneToOne
+    open var dadosEndereco: DadosEndereco = DadosEndereco()
+
+    @OneToMany
+    open var crmLog: List<CrmLog> = listOf()
 }

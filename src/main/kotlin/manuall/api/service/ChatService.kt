@@ -18,7 +18,7 @@ class ChatService (
     val jwtTokenManager: JwtTokenManager
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Chat>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()

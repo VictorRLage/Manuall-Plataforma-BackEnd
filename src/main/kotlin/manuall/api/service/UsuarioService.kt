@@ -8,6 +8,8 @@ import manuall.api.dto.usuario.FilteredUsuario
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
+import manuall.api.specification.UsuarioSpecification
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service
 class UsuarioService (
     val passwordEncoder: PasswordEncoder,
     val jwtTokenManager: JwtTokenManager,
+    val solicitacaoRepository: SolicitacaoRepository,
     val authenticationManager: AuthenticationManager,
     val usuarioRepository: UsuarioRepository,
     val dadosEnderecoRepository: DadosEnderecoRepository,
@@ -35,12 +38,45 @@ class UsuarioService (
         return ResponseEntity.status(200).body(usuario.id)
     }
 
-    fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
-        return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadores())
-    }
+    fun getPrestadores(
+        idArea: Int,
+        filtro: String,
+        crescente: Boolean
+    ): ResponseEntity<List<Any>> {
 
-    fun getPrestadoresByAreaIdOrderByPlano(idArea: Int): ResponseEntity<List<FilteredUsuario>> {
-        return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadoresByArea(idArea))
+        return ResponseEntity.status(200).body(solicitacaoRepository.findAll(
+            UsuarioSpecification.filtrarUsuarios(idArea, filtro, crescente)
+        ))
+
+
+//        val filtroCompleto = """
+//            find${
+//                if (idArea == 0) "All" else "ByAreaId"
+//            }OrderBy$filtro${
+//                if (crescente) "Asc" else "Desc"
+//            }
+//        """.trimIndent()
+//
+//        val method = try {
+//            if (idArea == 0)
+//                usuarioRepository::class.java
+//                    .getMethod(filtroCompleto)
+//            else
+//                usuarioRepository::class.java
+//                    .getMethod(filtroCompleto, idArea::class.java)
+//        } catch (e: NoSuchMethodException) {
+//            return ResponseEntity.status(404).build()
+//        }
+//
+//        val filtragem = runCatching {
+//            if (idArea == 0)
+//                method.invoke(usuarioRepository)
+//            else
+//                method.invoke(usuarioRepository, idArea)
+//        }.getOrElse { _ -> return ResponseEntity.status(404).build() }
+//
+//        return ResponseEntity.status(200).body(filtragem as List<FilteredUsuario>)
+
     }
 
     fun buscarArea(): List<Area> {
@@ -187,42 +223,6 @@ class UsuarioService (
         usuarioRepository.save(usuario)
 
         return ResponseEntity.status(200).build()
-    }
-
-    fun getPrestadoresFiltrados(
-        idArea: Int,
-        filtro: String,
-        crescente: Boolean
-    ): ResponseEntity<List<FilteredUsuario>> {
-
-        val filtroCompleto = """
-            find${
-                if (idArea == 0) "All" else "ByAreaId"
-            }OrderBy$filtro${
-                if (crescente) "Asc" else "Desc"
-            }
-        """.trimIndent()
-
-        val method = try {
-            if (idArea == 0)
-                usuarioRepository::class.java
-                    .getMethod(filtroCompleto)
-            else
-                usuarioRepository::class.java
-                    .getMethod(filtroCompleto, idArea::class.java)
-        } catch (e: NoSuchMethodException) {
-            return ResponseEntity.status(404).build()
-        }
-
-        val filtragem = runCatching {
-            if (idArea == 0)
-                method.invoke(usuarioRepository)
-            else
-                method.invoke(usuarioRepository, idArea)
-        }.getOrElse { _ -> return ResponseEntity.status(404).build() }
-
-        return ResponseEntity.status(200).body(filtragem as List<FilteredUsuario>)
-
     }
 
 }

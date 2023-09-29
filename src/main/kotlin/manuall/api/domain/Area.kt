@@ -13,4 +13,13 @@ class Area {
 
     @Column(name = "nome", length = 30)
     var nome: String? = null
+
+    @OneToMany
+    var servico: List<Servico> = listOf()
+
+    @OneToMany
+    var prospect: List<Prospect> = listOf()
+
+    @OneToMany
+    var usuario: List<Prestador> = listOf()
 }
