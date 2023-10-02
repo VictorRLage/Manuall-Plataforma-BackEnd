@@ -11,20 +11,24 @@ import org.springframework.stereotype.Repository
 interface HistoricoRepository : JpaRepository<Solicitacao, Long> {
 
     @Query("""
-        SELECT new manuall.api.dto.HistoricoDTO(
-            s.data_inicio,
-            s.data_fim,
-            s.prestador_usuarioId,
-            s.servico_id,
-            s.formOrcamento_id,
+        SELECT new manuall.api.dto.dashboard.HistoricoDTO(
+            s.prestadorUsuario.id,
+            s.servico.id,
+            s.formOrcamento.id,
             s.status,
             s.descricao,
-            serv.area_id,
-            serv.nome
+            servico.area.id,
+            servico.nome,
+            formOrcamento.orcamento
         )
-        FROM Solicitacao s
-        JOIN s.servico serv
-        WHERE s.contratante_usuario_id = :usuario_id
+        FROM
+            Solicitacao s
+        JOIN
+            s.servico servico
+        LEFT JOIN
+            s.formOrcamento formOrcamento 
+        WHERE
+            s.contratanteUsuario.id = :usuario_id
     """)
     fun buscarHistorico(@Param("usuario_id") usuario_id: Long): List<HistoricoDTO>
 }
