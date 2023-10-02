@@ -16,7 +16,7 @@ VALUES
 (1, 'Controle de Pragas'),
 (1, 'Projeto e paisagismo de jardins'),
 (2, 'Pintura de paredes internas e externas'),
-(2, 'Pintura de portas, janelas e portões'),
+(2, 'Pintura de portas, janelas e portoes'),
 (2, 'Restauração e repintura de fachadas'),
 (3, 'Instalação e manutenção elétrica residencial'),
 (3, 'Troca de fiação elétrica'),
