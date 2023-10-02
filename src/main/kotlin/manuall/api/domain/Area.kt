@@ -14,12 +14,12 @@ class Area {
     @Column(name = "nome", length = 30)
     var nome: String? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "area")
     var servico: List<Servico> = listOf()
 
-    @OneToMany
+    @OneToMany(mappedBy = "area")
     var prospect: List<Prospect> = listOf()
 
-    @OneToMany
+    @OneToMany(mappedBy = "area")
     var usuario: List<Prestador> = listOf()
 }

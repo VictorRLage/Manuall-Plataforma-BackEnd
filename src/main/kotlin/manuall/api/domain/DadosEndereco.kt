@@ -32,6 +32,6 @@ class DadosEndereco {
     @Column(name = "complemento", length = 25)
     var complemento: String? = null
 
-    @ManyToOne
+    @OneToOne
     var usuario: Usuario? = null
 }

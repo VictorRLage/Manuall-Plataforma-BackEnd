@@ -17,6 +17,6 @@ class Avaliacao {
     @Column(name = "descricao", length = 75)
     var descricao: String? = null
 
-    @OneToOne
+    @OneToOne(mappedBy = "avaliacao")
     var solicitacao: Solicitacao = Solicitacao()
 }

@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import manuall.api.domain.Area
 import manuall.api.domain.Servico
-import manuall.api.dto.usuario.AprovacaoDto
-import manuall.api.dto.usuario.UsuarioLoginCheckRequest
-import manuall.api.dto.usuario.UsuarioLoginRequest
-import manuall.api.dto.usuario.FilteredUsuario
+import manuall.api.dto.usuario.*
 import manuall.api.service.UsuarioService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -33,7 +30,7 @@ class UsuarioController(
         @PathVariable idArea: String,
         @PathVariable filtro: String,
         @PathVariable crescente: Boolean
-    ): ResponseEntity<List<Any>> {
+    ): ResponseEntity<List<PrestadorCardDto>> {
         return usuarioService.getPrestadores(idArea.toInt(), filtro, crescente)
     }
 

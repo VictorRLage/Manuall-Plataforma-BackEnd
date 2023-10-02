@@ -13,10 +13,10 @@ class Solicitacao {
     var id: Int = 0
 
     @ManyToOne
-    var contratanteUsuario: Contratante = Contratante()
+    var contratante: Contratante = Contratante()
 
     @ManyToOne
-    var prestadorUsuario: Prestador = Prestador()
+    var prestador: Prestador = Prestador()
 
     @Column(name = "tamanho")
     var tamanho: Double? = null
@@ -51,6 +51,6 @@ class Solicitacao {
     @OneToOne
     var formOrcamento: FormOrcamento? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "solicitacao")
     var solicitacaoImg: List<SolicitacaoImg> = listOf()
 }

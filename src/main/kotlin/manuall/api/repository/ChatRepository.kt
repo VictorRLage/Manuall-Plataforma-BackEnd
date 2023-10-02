@@ -13,7 +13,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
         select
         new manuall.api.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
-        where c.solicitacao.contratanteUsuario.id = ?1
+        where c.solicitacao.contratante.id = ?1
         and c.solicitacao.id = ?2
     """)
     fun getMsgsByUsuarioIdAndSolicitacaoIdContratante(idUsuario: Int, idSolicitacao: Int): List<ChatMensagemResponse>
@@ -22,7 +22,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
         select
         new manuall.api.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
-        where c.solicitacao.prestadorUsuario.id = ?1
+        where c.solicitacao.prestador.id = ?1
         and c.solicitacao.id = ?2
     """)
     fun getMsgsByUsuarioIdAndSolicitacaoIdPrestador(idUsuario: Int, idSolicitacao: Int): List<ChatMensagemResponse>
@@ -31,7 +31,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
         select
         new manuall.api.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
-        where c.solicitacao.contratanteUsuario.id = ?1
+        where c.solicitacao.contratante.id = ?1
         and c.solicitacao.id = ?2
         and c.id > ?3
     """)
@@ -41,7 +41,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
         select
         new manuall.api.dto.chat.ChatMensagemResponse(c.id, CASE c.idRemetente WHEN ?1 THEN true ELSE false END, c.mensagem, c.horario, c.anexo)
         from Chat c
-        where c.solicitacao.prestadorUsuario.id = ?1
+        where c.solicitacao.prestador.id = ?1
         and c.solicitacao.id = ?2
         and c.id > ?3
     """)

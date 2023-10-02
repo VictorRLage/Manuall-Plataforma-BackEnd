@@ -24,6 +24,6 @@ class CrmLog {
     @Column(name = "processo_finalizado")
     var processoFinalizado: Boolean? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "crmLog")
     var crmLogMensagem: List<CrmLogMensagem> = listOf()
 }

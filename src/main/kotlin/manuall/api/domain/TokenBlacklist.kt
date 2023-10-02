@@ -6,8 +6,8 @@ import jakarta.persistence.*
 @Table(name = "token_blacklist")
 class TokenBlacklist {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Int = 0
 

@@ -32,7 +32,7 @@ class DashboardService(
     }
 
     fun pegarRegiao():List<PegarRegiaoDto> {
-        val usuario = solicitacaoRepository.findByContratanteUsuario()
+        val usuario = solicitacaoRepository.findByContratante()
         return usuario
         // TODO: count da quantidade de cont em cada região 
     }

@@ -51,12 +51,12 @@ abstract class Usuario {
     // 3: Indicação
     // 4: Tela de contato (no Website)
 
-    @OneToMany
-    open var solicitacao: List<Solicitacao> = listOf()
+    @OneToMany(mappedBy = "prestador")
+    var solicitacao: List<Solicitacao> = listOf()
 
-    @OneToOne
-    open var dadosEndereco: DadosEndereco = DadosEndereco()
+    @OneToOne(mappedBy = "usuario")
+    open var dadosEndereco: DadosEndereco? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "usuario")
     open var crmLog: List<CrmLog> = listOf()
 }

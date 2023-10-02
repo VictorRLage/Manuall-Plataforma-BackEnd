@@ -17,10 +17,10 @@ class Servico {
     @Column(name = "nome", length = 90)
     var nome: String? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "servico")
     var usuarioServico: List<UsuarioServico> = listOf()
 
-    @OneToMany
+    @OneToMany(mappedBy = "servico")
     var solicitacao: List<Solicitacao> = listOf()
 
 }

@@ -48,7 +48,7 @@ interface UsuarioRepository: JpaRepository<Usuario, Int>, JpaSpecificationExecut
             select
             new manuall.api.dto.usuario.FilteredUsuario(u.id, u.nome, u.anexoPfp, u.area.id, u.orcamentoMin, u.orcamentoMax, d.cidade, u.prestaAula, COALESCE(avg(a.nota)), count(a.id))
             from Usuario u
-            LEFT JOIN Solicitacao s ON u.id = s.prestadorUsuario.id
+            LEFT JOIN Solicitacao s ON u.id = s.prestador.id
             JOIN Avaliacao a ON a.id = s.avaliacao.id
             JOIN DadosEndereco d ON u.id = d.usuario.id
             WHERE TYPE(u) = Prestador

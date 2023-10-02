@@ -45,8 +45,8 @@ class SolicitacaoService(
                 ) as Contratante
 
         val solicitacao = Solicitacao()
-        solicitacao.contratanteUsuario = usuario
-        solicitacao.prestadorUsuario = usuarioRepository.findById(solicitacaoDto.idPrestador).get() as Prestador
+        solicitacao.contratante = usuario
+        solicitacao.prestador = usuarioRepository.findById(solicitacaoDto.idPrestador).get() as Prestador
         solicitacao.tamanho = solicitacaoDto.tamanho
         solicitacao.medida = solicitacaoDto.medida
         solicitacao.descricao = solicitacaoDto.descricao

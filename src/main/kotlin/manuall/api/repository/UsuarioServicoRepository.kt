@@ -9,17 +9,17 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UsuarioServicoRepository: JpaRepository<UsuarioServico, Int> {
 
-    @Query("select u.servico.id from UsuarioServico u where u.usuario.id = ?1")
+    @Query("select u.servico.id from UsuarioServico u where u.prestador.id = ?1")
     fun findServicosIdByUsuarioId(id: Int): List<Int>
 
-    @Query("select u.servico.nome from UsuarioServico u where u.usuario.id = ?1")
+    @Query("select u.servico.nome from UsuarioServico u where u.prestador.id = ?1")
     fun findServicosNomeByUsuarioId(id: Int): List<String>
 
     @Query("""
         select
         new manuall.api.service.PerfilServicoServiceDto(
         u.servico.id, u.servico.nome
-        ) from UsuarioServico u where u.usuario.id = ?1
+        ) from UsuarioServico u where u.prestador.id = ?1
     """)
     fun findServicosByUsuarioId(id: Int): List<PerfilServicoServiceDto>
 }

@@ -1,10 +1,7 @@
 package manuall.api.service
 
 import manuall.api.domain.*
-import manuall.api.dto.usuario.AprovacaoDto
-import manuall.api.dto.usuario.LoginResponse
-import manuall.api.dto.usuario.UsuarioLoginRequest
-import manuall.api.dto.usuario.FilteredUsuario
+import manuall.api.dto.usuario.*
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
@@ -27,7 +24,8 @@ class UsuarioService (
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val areaRepository: AreaRepository,
     val servicoRepository: ServicoRepository,
-    val usuarioServicoRepository: UsuarioServicoRepository
+    val usuarioServicoRepository: UsuarioServicoRepository,
+    val usuarioSpecification: UsuarioSpecification
 ) {
 
     fun getIdByToken(token: String?): ResponseEntity<Int> {
@@ -42,11 +40,9 @@ class UsuarioService (
         idArea: Int,
         filtro: String,
         crescente: Boolean
-    ): ResponseEntity<List<Any>> {
+    ): ResponseEntity<List<PrestadorCardDto>> {
 
-        return ResponseEntity.status(200).body(solicitacaoRepository.findAll(
-            UsuarioSpecification.filtrarUsuarios(idArea, filtro, crescente)
-        ))
+        return ResponseEntity.status(200).body(usuarioSpecification.filtrar())
 
 
 //        val filtroCompleto = """

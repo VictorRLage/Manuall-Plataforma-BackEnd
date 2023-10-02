@@ -1,54 +1,58 @@
 package manuall.api.specification
 
-import jakarta.persistence.criteria.JoinType
+import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
+import jakarta.persistence.TypedQuery
+import jakarta.persistence.criteria.*
 import manuall.api.domain.*
-import org.springframework.data.jpa.domain.Specification
+import manuall.api.dto.usuario.PrestadorCardDto
+import org.springframework.stereotype.Service
 
+@Service
+class UsuarioSpecification(
+    @PersistenceContext
+    private val entityManager: EntityManager
+) {
 
-class UsuarioSpecification {
+    fun filtrar(): List<PrestadorCardDto> {
+        val cb: CriteriaBuilder = entityManager.criteriaBuilder
+        val cq: CriteriaQuery<PrestadorCardDto> = cb.createQuery(PrestadorCardDto::class.java)
 
-    companion object {
-        fun filtrarUsuarios(
-            idArea: Int,
-            filtro: String,
-            crescente: Boolean
-        ): Specification<Solicitacao> =
-            Specification<Solicitacao> { root, _, builder ->
+        val dadosEnderecoRoot: Root<DadosEndereco> = cq.from(DadosEndereco::class.java)
+        val prestadorJoin: Join<DadosEndereco, Prestador> = dadosEnderecoRoot.join("usuario")
+        val solicitacaoJoin: Join<Prestador, Solicitacao> = prestadorJoin.join("solicitacao", JoinType.LEFT)
+        val avaliacaoJoin: Join<Solicitacao, Avaliacao> = solicitacaoJoin.join("avaliacao")
 
-//                val solicitacaoJoin =
-//                    root.join<Solicitacao, Usuario>("prestadorUsuario")
+        cq.where(cb.equal(prestadorJoin.type(), Prestador::class.java))
 
-//                val avaliacaoJoin =
-//                    solicitacaoJoin.join<Solicitacao, Avaliacao>("avaliacao")
-//
-//                val dadosEnderecoJoin =
-//                    avaliacaoJoin.join<Usuario, DadosEndereco>("dadosEndereco")
+        val avgNota: Expression<Double> = cb.avg(avaliacaoJoin.get<Double>("nota"))
 
-                builder.like(root.get("nome"), "Joaquim Gimenes Pires")
-            }
+        cq.select(cb.construct(
+            PrestadorCardDto::class.java,
+            prestadorJoin.get<Int?>("id"),
+            prestadorJoin.get<String?>("nome"),
+            prestadorJoin.get<String?>("anexoPfp"),
+            prestadorJoin.get<Int?>("area").get<Int>("id"),
+            prestadorJoin.get<Double?>("orcamentoMin"),
+            prestadorJoin.get<Double?>("orcamentoMax"),
+            prestadorJoin.get<Boolean?>("prestaAula"),
+            dadosEnderecoRoot.get<String?>("cidade"),
+            avgNota
+        ))
 
-        fun isPrestadorWithType(): Specification<Usuario> {
-            return Specification { root, _, cb ->
-                cb.equal(root.type(), Prestador::class.java)
-            }
-        }
+        cq.groupBy(
+            prestadorJoin.get<Int>("id"),
+            prestadorJoin.get<String>("nome"),
+            prestadorJoin.get<String>("anexoPfp"),
+            prestadorJoin.get<Int>("area").get<Int>("id"),
+            prestadorJoin.get<Double>("orcamentoMin"),
+            prestadorJoin.get<Double>("orcamentoMax"),
+            prestadorJoin.get<Boolean>("prestaAula"),
+            dadosEnderecoRoot.get<String>("cidade")
+        )
 
-//        fun joinWithSolicitacao(): Specification<Usuario> {
-//            return Specification { root, _, _ ->
-//                root.join<Usuario, Solicitacao>("solicitacao", JoinType.LEFT)
-//            }
-//        }
-//
-//        fun joinWithAvaliacao(): Specification<Usuario> {
-//            return Specification { root, _, _ ->
-//                root.join<Usuario, Avaliacao>("avaliacao")
-//            }
-//        }
-//
-//        fun joinWithDadosEndereco(): Specification<Usuario> {
-//            return Specification { root, _, _ ->
-//                root.join<Usuario, DadosEndereco>("dadosEndereco")
-//            }
-//        }
+        val query: TypedQuery<PrestadorCardDto> = entityManager.createQuery(cq)
+
+        return query.resultList
     }
 }

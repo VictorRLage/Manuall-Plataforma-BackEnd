@@ -44,7 +44,7 @@ VALUES
 ('Rafaela Lima', 'rafaela.lima@example.com', '$2a$10$NFvy/hCRZkaEMiE468y1quooIfRTVWPJEAAE2772.iry.TCCaYO3a', '34567890123', '11923456789', 1200.00, 2000.00, 'Especialista em Ciências', 0, 2, 2, 'foto.png', 0, 2, 1, 6),
 ('Carlos Mendes', 'carlos.mendes@example.com', '$2a$10$UT.ocrWrVawMkbqVc/6RN.NALwJOcuKIXupneVOZ.nlnWX3KBEKQy', '45678901234', '11934567890', 1500.00, 3000.00, 'Aulas de Inglês para todos os níveis', 1, 1, 2, 'avatar.jpg', 0, 1, 4, 7),
 ('Pedro Santos', 'pedro.santos@example.com', '$2a$10$DdOzkLpv3MWFxIijfxBNGONl3kHALH//z4G27bTGd92mq9dZRdJiS', '56789012345', '11945678901', 800.00, 1500.00, 'Professor de História', 1, 2, 2, 'perfil.jpg', 0, 1, 1, 3),
-('Lucas Monte', 'lucas.monte@example.com', '$2a$10$GLZUkiDGCqZG9LX7YC/tRuPVBCNtaEhDlf.KvYtiSI7TkQ41.0zNu', '67890123456', '11956789012', 700.00, 1400.00, 'Olá! Meu nome é Lucas Monte e sou um marceneiro apaixonado com mais de 10 de experiência no ramo. Cada pedaço de madeira é uma oportunidade para mim de transformar um simples material em uma obra de arte funcional e durável. Me especializo em projetos residenciais.', 0, 1, 2, 'https://images.unsplash.com/photo-1533101585792-27f81a845550?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 1, 2),
+('Lucas Monte', 'lucas.monte@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '67890123456', '11956789012', 700.00, 1400.00, 'Olá! Meu nome é Lucas Monte e sou um marceneiro apaixonado com mais de 10 de experiência no ramo. Cada pedaço de madeira é uma oportunidade para mim de transformar um simples material em uma obra de arte funcional e durável. Me especializo em projetos residenciais.', 0, 1, 2, 'https://images.unsplash.com/photo-1533101585792-27f81a845550?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 1, 2),
 ('Pedro Oliveira', 'pedro.oliveira@example.com', '$2a$10$u8ZWxnPbnTQfU1lWRNBq1Ouc1TFdBoz6GGJfhmMd1ULWliTirNH4O', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 3', 1, 3, 2, 'anexo3.jpg', 0, 2, 2, 3),
 ('Ana Souza', 'ana.souza@example.com', '$2a$10$AOnNkhW49gT6wW6t46Hbuenh7MEJqRAtTiIocj7chIGIq6rn2g87S', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 4', 0, 1, 2, 'anexo4.jpg', 0, 2, 3, 4),
 ('Lucas Ferreira', 'lucas.ferreira@example.com', '$2a$10$Nx2rDH7u93q2bM3XFA4bTeUusk3AKN18yqE2hddIhNRXPAEFHd2zm', '56789012345', '11943210987', 3000.00, 4000.00, 'Descrição do usuário 5', 1, 2, 2, 'anexo5.jpg', 0, 1, 4, 5),
@@ -144,7 +144,7 @@ VALUES
 (5, 'Serviço excepcional, superou minhas expectativas');
 
 INSERT INTO solicitacao
-(contratante_usuario_id, prestador_usuario_id, tamanho, medida, descricao, status, servico_id, avaliacao_id)
+(contratante_id, prestador_id, tamanho, medida, descricao, status, servico_id, avaliacao_id)
 VALUES
 (1, 2, 40.0, 'm2', 'Poda de árvores no quintal', 1, 1, 1),
 (3, 5, 60.0, 'm2', 'Pintura das paredes da sala', 2, 4, 4),
@@ -197,14 +197,14 @@ VALUES
 (6, 19, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-08-15 13:32:00');
 
 INSERT INTO usuario_img
-(usuario_id, anexo)
+(prestador_id, anexo)
 VALUES
 (2, 'https://www.youtube.com'),
 (2, 'https://www.google.com'),
 (2, 'https://www.facebook.com');
 
 INSERT INTO usuario_servico
-(usuario_id, servico_id)
+(prestador_id, servico_id)
 VALUES
 (2, 1),
 (2, 2),

@@ -45,9 +45,9 @@ class Prestador: Usuario() {
     @ManyToOne
     var area: Area? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "prestador")
     var usuarioImg: List<UsuarioImg> = listOf()
 
-    @OneToMany
+    @OneToMany(mappedBy = "prestador")
     var usuarioServico: List<UsuarioServico> = listOf()
 }
