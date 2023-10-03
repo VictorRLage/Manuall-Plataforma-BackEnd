@@ -14,11 +14,19 @@ class UsuarioSpecification(
     private val entityManager: EntityManager
 ) {
 
-    fun getOrder(cb: CriteriaBuilder, path: Path<*>, crescente: Boolean): Order {
-        return if (crescente)
-            cb.asc(path)
-        else
-            cb.desc(path)
+    companion object {
+        fun getOrder(cb: CriteriaBuilder, path: Path<*>, crescente: Boolean): Order {
+            return if (crescente)
+                cb.asc(path)
+            else
+                cb.desc(path)
+        }
+        fun getOrder(cb: CriteriaBuilder, path: Expression<*>, crescente: Boolean): Order {
+            return if (crescente)
+                cb.asc(path)
+            else
+                cb.desc(path)
+        }
     }
 
     fun filtrar(
@@ -47,7 +55,7 @@ class UsuarioSpecification(
             prestadorJoin.get<Double?>("orcamentoMax"),
             prestadorJoin.get<Boolean?>("prestaAula"),
             dadosEnderecoRoot.get<String?>("cidade"),
-            cb.avg(avaliacaoJoin.get<Double>("nota"))
+            cb.avg(avaliacaoJoin.get<Double>("nota")),
         ))
 
         cq.groupBy(
@@ -58,8 +66,7 @@ class UsuarioSpecification(
             prestadorJoin.get<Double>("orcamentoMin"),
             prestadorJoin.get<Double>("orcamentoMax"),
             prestadorJoin.get<Boolean>("prestaAula"),
-            dadosEnderecoRoot.get<String>("cidade"),
-            avaliacaoJoin.get<Double>("nota")
+            dadosEnderecoRoot.get<String>("cidade")
         )
 
         if (idArea > 0)
@@ -81,7 +88,8 @@ class UsuarioSpecification(
             else -> null
         }
 
-        val planoOrder: Order = getOrder(cb, prestadorJoin.get<String>("plano"), crescente)
+        val planoOrder: Order =
+            getOrder(cb, prestadorJoin.get<String>("plano"), crescente)
 
         if (filtroOrder !== null)
             cq.orderBy(filtroOrder, planoOrder)
