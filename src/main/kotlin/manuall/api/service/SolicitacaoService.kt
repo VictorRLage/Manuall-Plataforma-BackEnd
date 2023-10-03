@@ -23,7 +23,7 @@ class SolicitacaoService(
     val avaliacaoRepository: AvaliacaoRepository
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Solicitacao>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
@@ -45,8 +45,8 @@ class SolicitacaoService(
                 ) as Contratante
 
         val solicitacao = Solicitacao()
-        solicitacao.contratanteUsuario = usuario
-        solicitacao.prestadorUsuario = usuarioRepository.findById(solicitacaoDto.idPrestador).get() as Prestador
+        solicitacao.contratante = usuario
+        solicitacao.prestador = usuarioRepository.findById(solicitacaoDto.idPrestador).get() as Prestador
         solicitacao.tamanho = solicitacaoDto.tamanho
         solicitacao.medida = solicitacaoDto.medida
         solicitacao.descricao = solicitacaoDto.descricao

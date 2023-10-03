@@ -25,7 +25,7 @@ class PerfilService(
     val usuarioServicoRepository: UsuarioServicoRepository
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Usuario>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
@@ -100,7 +100,7 @@ class PerfilService(
     fun checarPrestador(usuario: Prestador): ResponseEntity<PerfilDto> {
 
         val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuario.id).get()
-        val dadosAvaliacao = avaliacaoRepository.findByPrestadorUsuarioId(usuario.id)
+        val dadosAvaliacao = avaliacaoRepository.findByPrestadorId(usuario.id)
         val notificacoes = solicitacaoRepository.findAllByUsuarioId(usuario.id)
         val nomeArea = areaRepository.findAreaNomeByUsuarioId(usuario.id)
         val urls = usuarioImgRepository.findUrlsByUsuarioId(usuario.id)
@@ -201,10 +201,10 @@ class PerfilService(
             ?: return ResponseEntity.status(480).build()
 
         if (usuario is Prestador) {
-            val solicitacoes = solicitacaoRepository.findByPrestadorUsuarioIdOrderByIdDesc(usuario.id)
+            val solicitacoes = solicitacaoRepository.findByPrestadorIdOrderByIdDesc(usuario.id)
             return ResponseEntity.status(200).body(solicitacoes.map {
                 NotificacaoDto(
-                    it.contratanteUsuario.nome,
+                    it.contratante.nome,
                     when (it.status) {
                         1 -> "Você recebeu uma solicitação de "
                         2 -> "Você aceitou a solicitação de "
@@ -214,16 +214,16 @@ class PerfilService(
                 )
             })
         } else {
-            val solicitacoes = solicitacaoRepository.findByContratanteUsuarioIdOrderByIdDesc(usuario.id)
+            val solicitacoes = solicitacaoRepository.findByContratanteIdOrderByIdDesc(usuario.id)
             return ResponseEntity.status(200).body(solicitacoes.map {
                 NotificacaoDto(
-                    it.prestadorUsuario.nome,
+                    it.prestador.nome,
                     when (it.status) {
                         1 -> "Você enviou uma solicitação para "
                         2 -> "Sua solicitação foi aceita por "
                         else -> "Sua solicitação foi recusada por "
                     },
-                    it.prestadorUsuario.anexoPfp
+                    it.prestador.anexoPfp
                 )
             })
         }
@@ -235,7 +235,7 @@ class PerfilService(
             ?: return ResponseEntity.status(480).build()
 
         val usuarioImg = UsuarioImg()
-        usuarioImg.usuario = usuarioRepository.findById(usuario.id).get() as Prestador
+        usuarioImg.prestador = usuarioRepository.findById(usuario.id).get() as Prestador
         usuarioImg.anexo = anexo.imagem
         usuarioImgRepository.save(usuarioImg)
 
@@ -248,7 +248,7 @@ class PerfilService(
             ?: return ResponseEntity.status(480).build()
 
         usuarioImgRepository.delete(
-            usuarioImgRepository.findByAnexoAndUsuarioId(
+            usuarioImgRepository.findByAnexoAndPrestadorId(
                 anexo.imagem,
                 usuarioRepository.findById(usuario.id).get().id
             ).get()

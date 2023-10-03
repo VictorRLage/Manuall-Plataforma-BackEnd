@@ -3,6 +3,7 @@ package manuall.api.controller
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
+import manuall.api.domain.Solicitacao
 import manuall.api.dto.solicitacao.PostarAvaliacaoDto
 import manuall.api.dto.solicitacao.OrcamentoDto
 import manuall.api.dto.solicitacao.SolicitacaoDto
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class SolicitacaoController (
     val solicitacaoService: SolicitacaoService
-): DominiosBuscaveis {
+): DominiosBuscaveis<Solicitacao> {
 
-    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    override fun buscarTodos(token: String?): ResponseEntity<List<Solicitacao>> {
         return solicitacaoService.buscarTodos(token)
     }
 

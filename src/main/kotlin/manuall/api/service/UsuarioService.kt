@@ -1,13 +1,12 @@
 package manuall.api.service
 
 import manuall.api.domain.*
-import manuall.api.dto.usuario.AprovacaoDto
-import manuall.api.dto.usuario.LoginResponse
-import manuall.api.dto.usuario.UsuarioLoginRequest
-import manuall.api.dto.usuario.FilteredUsuario
+import manuall.api.dto.usuario.*
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
+import manuall.api.specification.UsuarioSpecification
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -24,7 +23,7 @@ class UsuarioService (
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val areaRepository: AreaRepository,
     val servicoRepository: ServicoRepository,
-    val usuarioServicoRepository: UsuarioServicoRepository
+    val usuarioServicoRepository: UsuarioServicoRepository,
 ) {
 
     fun getIdByToken(token: String?): ResponseEntity<Int> {
@@ -33,14 +32,6 @@ class UsuarioService (
             ?: return ResponseEntity.status(480).build()
 
         return ResponseEntity.status(200).body(usuario.id)
-    }
-
-    fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
-        return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadores())
-    }
-
-    fun getPrestadoresByAreaIdOrderByPlano(idArea: Int): ResponseEntity<List<FilteredUsuario>> {
-        return ResponseEntity.status(200).body(usuarioRepository.findAllPrestadoresByArea(idArea))
     }
 
     fun buscarArea(): List<Area> {
@@ -187,42 +178,6 @@ class UsuarioService (
         usuarioRepository.save(usuario)
 
         return ResponseEntity.status(200).build()
-    }
-
-    fun getPrestadoresFiltrados(
-        idArea: Int,
-        filtro: String,
-        crescente: Boolean
-    ): ResponseEntity<List<FilteredUsuario>> {
-
-        val filtroCompleto = """
-            find${
-                if (idArea == 0) "All" else "ByAreaId"
-            }OrderBy$filtro${
-                if (crescente) "Asc" else "Desc"
-            }
-        """.trimIndent()
-
-        val method = try {
-            if (idArea == 0)
-                usuarioRepository::class.java
-                    .getMethod(filtroCompleto)
-            else
-                usuarioRepository::class.java
-                    .getMethod(filtroCompleto, idArea::class.java)
-        } catch (e: NoSuchMethodException) {
-            return ResponseEntity.status(404).build()
-        }
-
-        val filtragem = runCatching {
-            if (idArea == 0)
-                method.invoke(usuarioRepository)
-            else
-                method.invoke(usuarioRepository, idArea)
-        }.getOrElse { _ -> return ResponseEntity.status(404).build() }
-
-        return ResponseEntity.status(200).body(filtragem as List<FilteredUsuario>)
-
     }
 
 }

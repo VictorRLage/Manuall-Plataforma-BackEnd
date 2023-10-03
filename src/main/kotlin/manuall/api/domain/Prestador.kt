@@ -4,6 +4,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.DiscriminatorValue
 import jakarta.persistence.Entity
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
 import org.hibernate.validator.constraints.URL
 
 @Entity
@@ -43,4 +44,10 @@ class Prestador: Usuario() {
 
     @ManyToOne
     var area: Area? = null
+
+    @OneToMany(mappedBy = "prestador")
+    var usuarioImg: List<UsuarioImg> = listOf()
+
+    @OneToMany(mappedBy = "prestador")
+    var usuarioServico: List<UsuarioServico> = listOf()
 }

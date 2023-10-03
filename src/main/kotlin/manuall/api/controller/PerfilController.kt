@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("http://localhost:5173")
 class PerfilController(
     val perfilService: PerfilService
-): DominiosBuscaveis {
+): DominiosBuscaveis<Usuario> {
 
-    override fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    override fun buscarTodos(token: String?): ResponseEntity<List<Usuario>> {
         return perfilService.buscarTodos(token)
     }
 

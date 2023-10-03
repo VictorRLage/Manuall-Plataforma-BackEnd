@@ -144,7 +144,7 @@ VALUES
 (5, 'Serviço excepcional, superou minhas expectativas');
 
 INSERT INTO solicitacao
-(contratante_usuario_id, prestador_usuario_id, tamanho, medida, descricao, status, servico_id, avaliacao_id)
+(contratante_id, prestador_id, tamanho, medida, descricao, status, servico_id, avaliacao_id)
 VALUES
 (1, 2, 40.0, 'm2', 'Poda de árvores no quintal', 1, 1, 1),
 (3, 5, 60.0, 'm2', 'Pintura das paredes da sala', 2, 4, 4),
@@ -197,14 +197,14 @@ VALUES
 (6, 19, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-08-15 13:32:00');
 
 INSERT INTO usuario_img
-(usuario_id, anexo)
+(prestador_id, anexo)
 VALUES
 (2, 'https://www.youtube.com'),
 (2, 'https://www.google.com'),
 (2, 'https://www.facebook.com');
 
 INSERT INTO usuario_servico
-(usuario_id, servico_id)
+(prestador_id, servico_id)
 VALUES
 (2, 1),
 (2, 2),

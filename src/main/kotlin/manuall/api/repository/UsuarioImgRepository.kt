@@ -9,8 +9,8 @@ import java.util.Optional
 @Repository
 interface UsuarioImgRepository: JpaRepository<UsuarioImg, Int> {
 
-    @Query("SELECT ui.anexo FROM UsuarioImg ui WHERE ui.usuario.id = :usuarioId")
+    @Query("SELECT ui.anexo FROM UsuarioImg ui WHERE ui.prestador.id = :usuarioId")
     fun findUrlsByUsuarioId(usuarioId: Int): List<String>
 
-    fun findByAnexoAndUsuarioId(anexo: String, usuarioId: Int): Optional<UsuarioImg>
+    fun findByAnexoAndPrestadorId(anexo: String, usuarioId: Int): Optional<UsuarioImg>
 }

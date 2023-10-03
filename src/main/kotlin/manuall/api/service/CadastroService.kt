@@ -126,7 +126,7 @@ class CadastroService (
 
         cadastrar3Dto.servico.forEach {
             val usuarioServico = UsuarioServico()
-            usuarioServico.usuario = prestador
+            usuarioServico.prestador = prestador
             usuarioServico.servico = servicoRepository.findById(it).get()
             usuarioServicoRepository.save(usuarioServico)
         }

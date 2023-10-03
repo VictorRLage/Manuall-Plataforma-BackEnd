@@ -18,7 +18,7 @@ class ChatService (
     val jwtTokenManager: JwtTokenManager
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Chat>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
@@ -34,8 +34,8 @@ class ChatService (
             ?: return ResponseEntity.status(480).build()
 
         val chats = when (usuario) {
-            is Contratante -> solicitacaoRepository.getPrestadoresByContratanteUsuarioId(usuario.id)
-            is Prestador -> solicitacaoRepository.getContratantesByPrestadorUsuarioId(usuario.id)
+            is Contratante -> solicitacaoRepository.getPrestadoresByContratanteId(usuario.id)
+            is Prestador -> solicitacaoRepository.getContratantesByPrestadorId(usuario.id)
             else -> arrayListOf()
         }
 

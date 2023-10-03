@@ -12,7 +12,7 @@ class UsuarioServico {
     var id: Int = 0
 
     @ManyToOne
-    var usuario: Prestador = Prestador()
+    var prestador: Prestador = Prestador()
 
     @ManyToOne
     var servico: Servico = Servico()

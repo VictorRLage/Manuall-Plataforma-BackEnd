@@ -5,11 +5,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import manuall.api.domain.Area
 import manuall.api.domain.Servico
-import manuall.api.dto.usuario.AprovacaoDto
-import manuall.api.dto.usuario.UsuarioLoginCheckRequest
-import manuall.api.dto.usuario.UsuarioLoginRequest
-import manuall.api.dto.usuario.FilteredUsuario
+import manuall.api.dto.usuario.*
 import manuall.api.service.UsuarioService
+import manuall.api.specification.UsuarioSpecification
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -17,7 +15,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/usuario")
 @CrossOrigin("http://localhost:5173")
 class UsuarioController(
-    val usuarioService: UsuarioService
+    val usuarioService: UsuarioService,
+    val usuarioSpecification: UsuarioSpecification
 ) {
 
     @GetMapping("/id")
@@ -28,25 +27,19 @@ class UsuarioController(
         return usuarioService.getIdByToken(token)
     }
 
-    @GetMapping("/prestadores")
-    fun getPrestadoresOrderByPlano(): ResponseEntity<List<FilteredUsuario>> {
-        return usuarioService.getPrestadoresOrderByPlano()
-    }
-
-    @GetMapping("/prestadores/{idArea}")
-    fun getPrestadoresByAreaIdOrderByPlano(
-        @PathVariable idArea: Int
-    ): ResponseEntity<List<FilteredUsuario>> {
-        return usuarioService.getPrestadoresByAreaIdOrderByPlano(idArea)
-    }
-
     @GetMapping("prestadores/{idArea}/{filtro}/{crescente}")
-    fun getPrestadoresFiltrados(
-        @PathVariable idArea: String,
+    fun getPrestadores(
+        @PathVariable idArea: Int,
         @PathVariable filtro: String,
         @PathVariable crescente: Boolean
-    ): ResponseEntity<List<FilteredUsuario>> {
-        return usuarioService.getPrestadoresFiltrados(idArea.toInt(), filtro, crescente)
+    ): ResponseEntity<List<PrestadorCardDto>> {
+        return ResponseEntity.status(200).body(
+            usuarioSpecification.filtrar(
+                idArea,
+                filtro,
+                crescente
+            )
+        )
     }
 
     @GetMapping("/areas")

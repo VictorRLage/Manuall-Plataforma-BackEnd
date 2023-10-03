@@ -16,4 +16,7 @@ class FormOrcamento {
 
     @Column(name = "orcamento")
     var orcamento: Double? = 0.0
+
+    @OneToOne(mappedBy = "formOrcamento")
+    var solicitacao: Solicitacao = Solicitacao()
 }

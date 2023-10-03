@@ -1,9 +1,6 @@
 package manuall.api.service
 
-import manuall.api.domain.Administrador
-import manuall.api.domain.Contratante
-import manuall.api.domain.CrmLogMensagem
-import manuall.api.domain.Prestador
+import manuall.api.domain.*
 import manuall.api.dto.crm.DadosContratanteCrm
 import manuall.api.dto.crm.DadosPrestadorCrm
 import manuall.api.enums.Plano
@@ -22,7 +19,7 @@ class CrmService (
     val jwtTokenManager: JwtTokenManager
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Any>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Prospect>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
