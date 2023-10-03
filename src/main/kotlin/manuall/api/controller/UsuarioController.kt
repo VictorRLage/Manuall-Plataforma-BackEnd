@@ -27,7 +27,7 @@ class UsuarioController(
         return usuarioService.getIdByToken(token)
     }
 
-    @GetMapping("prestadores/{idArea}/{filtro}/{crescente}")
+    @GetMapping("/prestadores/{idArea}/{filtro}/{crescente}")
     fun getPrestadores(
         @PathVariable idArea: Int,
         @PathVariable filtro: String,

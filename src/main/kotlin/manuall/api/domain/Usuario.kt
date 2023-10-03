@@ -1,5 +1,6 @@
 package manuall.api.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -51,12 +52,15 @@ abstract class Usuario {
     // 3: Indicação
     // 4: Tela de contato (no Website)
 
+    @JsonIgnore
     @OneToMany(mappedBy = "prestador")
     open var solicitacao: List<Solicitacao> = listOf()
 
+    @JsonIgnore
     @OneToOne(mappedBy = "usuario")
     open var dadosEndereco: DadosEndereco? = null
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     open var crmLog: List<CrmLog> = listOf()
 }

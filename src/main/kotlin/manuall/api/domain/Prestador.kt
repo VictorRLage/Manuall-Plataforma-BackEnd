@@ -1,5 +1,6 @@
 package manuall.api.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.Column
 import jakarta.persistence.DiscriminatorValue
 import jakarta.persistence.Entity
@@ -45,9 +46,11 @@ class Prestador: Usuario() {
     @ManyToOne
     var area: Area? = null
 
+    @JsonIgnore
     @OneToMany(mappedBy = "prestador")
     var usuarioImg: List<UsuarioImg> = listOf()
 
+    @JsonIgnore
     @OneToMany(mappedBy = "prestador")
     var usuarioServico: List<UsuarioServico> = listOf()
 }

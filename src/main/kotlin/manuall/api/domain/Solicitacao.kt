@@ -1,5 +1,6 @@
 package manuall.api.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.*
 
@@ -51,6 +52,7 @@ class Solicitacao {
     @OneToOne
     var formOrcamento: FormOrcamento? = null
 
+    @JsonIgnore
     @OneToMany(mappedBy = "solicitacao")
     var solicitacaoImg: List<SolicitacaoImg> = listOf()
 }

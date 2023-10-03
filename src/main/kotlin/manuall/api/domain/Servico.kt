@@ -1,5 +1,6 @@
 package manuall.api.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -17,9 +18,11 @@ class Servico {
     @Column(name = "nome", length = 90)
     var nome: String? = null
 
+    @JsonIgnore
     @OneToMany(mappedBy = "servico")
     var usuarioServico: List<UsuarioServico> = listOf()
 
+    @JsonIgnore
     @OneToMany(mappedBy = "servico")
     var solicitacao: List<Solicitacao> = listOf()
 

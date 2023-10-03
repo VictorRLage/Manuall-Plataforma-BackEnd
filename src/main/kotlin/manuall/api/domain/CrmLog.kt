@@ -1,5 +1,6 @@
 package manuall.api.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.*
 
@@ -24,6 +25,7 @@ class CrmLog {
     @Column(name = "processo_finalizado")
     var processoFinalizado: Boolean? = null
 
+    @JsonIgnore
     @OneToMany(mappedBy = "crmLog")
     var crmLogMensagem: List<CrmLogMensagem> = listOf()
 }

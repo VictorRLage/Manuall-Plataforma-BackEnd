@@ -1,5 +1,6 @@
 package manuall.api.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -17,6 +18,7 @@ class Avaliacao {
     @Column(name = "descricao", length = 75)
     var descricao: String? = null
 
+    @JsonIgnore
     @OneToOne(mappedBy = "avaliacao")
     var solicitacao: Solicitacao = Solicitacao()
 }

@@ -1,5 +1,6 @@
 package manuall.api.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -17,6 +18,7 @@ class FormOrcamento {
     @Column(name = "orcamento")
     var orcamento: Double? = 0.0
 
+    @JsonIgnore
     @OneToOne(mappedBy = "formOrcamento")
     var solicitacao: Solicitacao = Solicitacao()
 }
