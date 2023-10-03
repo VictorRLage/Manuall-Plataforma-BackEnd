@@ -15,18 +15,10 @@ class UsuarioSpecification(
 ) {
 
     companion object {
-        fun getOrder(cb: CriteriaBuilder, path: Path<*>, crescente: Boolean): Order {
-            return if (crescente)
-                cb.asc(path)
-            else
-                cb.desc(path)
-        }
-        fun getOrder(cb: CriteriaBuilder, path: Expression<*>, crescente: Boolean): Order {
-            return if (crescente)
-                cb.asc(path)
-            else
-                cb.desc(path)
-        }
+        fun getOrder(cb: CriteriaBuilder, path: Path<*>, crescente: Boolean): Order =
+            if (crescente) cb.asc(path) else cb.desc(path)
+        fun getOrder(cb: CriteriaBuilder, path: Expression<*>, crescente: Boolean): Order =
+            if (crescente) cb.asc(path) else cb.desc(path)
     }
 
     fun filtrar(
@@ -96,8 +88,6 @@ class UsuarioSpecification(
         else
             cq.orderBy(planoOrder)
 
-        val query: TypedQuery<PrestadorCardDto> = entityManager.createQuery(cq)
-
-        return query.resultList
+        return entityManager.createQuery(cq).resultList
     }
 }
