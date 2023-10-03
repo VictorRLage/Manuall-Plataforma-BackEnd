@@ -7,6 +7,7 @@ import manuall.api.domain.Area
 import manuall.api.domain.Servico
 import manuall.api.dto.usuario.*
 import manuall.api.service.UsuarioService
+import manuall.api.specification.UsuarioSpecification
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/usuario")
 @CrossOrigin("http://localhost:5173")
 class UsuarioController(
-    val usuarioService: UsuarioService
+    val usuarioService: UsuarioService,
+    val usuarioSpecification: UsuarioSpecification
 ) {
 
     @GetMapping("/id")
@@ -31,7 +33,13 @@ class UsuarioController(
         @PathVariable filtro: String,
         @PathVariable crescente: Boolean
     ): ResponseEntity<List<PrestadorCardDto>> {
-        return usuarioService.getPrestadores(idArea.toInt(), filtro, crescente)
+        return ResponseEntity.status(200).body(
+            usuarioSpecification.filtrar(
+                idArea.toInt(),
+                filtro,
+                crescente
+            )
+        )
     }
 
     @GetMapping("/areas")

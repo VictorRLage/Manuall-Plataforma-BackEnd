@@ -52,7 +52,7 @@ abstract class Usuario {
     // 4: Tela de contato (no Website)
 
     @OneToMany(mappedBy = "prestador")
-    var solicitacao: List<Solicitacao> = listOf()
+    open var solicitacao: List<Solicitacao> = listOf()
 
     @OneToOne(mappedBy = "usuario")
     open var dadosEndereco: DadosEndereco? = null

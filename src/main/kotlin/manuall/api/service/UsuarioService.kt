@@ -18,14 +18,12 @@ import org.springframework.stereotype.Service
 class UsuarioService (
     val passwordEncoder: PasswordEncoder,
     val jwtTokenManager: JwtTokenManager,
-    val solicitacaoRepository: SolicitacaoRepository,
     val authenticationManager: AuthenticationManager,
     val usuarioRepository: UsuarioRepository,
     val dadosEnderecoRepository: DadosEnderecoRepository,
     val areaRepository: AreaRepository,
     val servicoRepository: ServicoRepository,
     val usuarioServicoRepository: UsuarioServicoRepository,
-    val usuarioSpecification: UsuarioSpecification
 ) {
 
     fun getIdByToken(token: String?): ResponseEntity<Int> {
@@ -34,45 +32,6 @@ class UsuarioService (
             ?: return ResponseEntity.status(480).build()
 
         return ResponseEntity.status(200).body(usuario.id)
-    }
-
-    fun getPrestadores(
-        idArea: Int,
-        filtro: String,
-        crescente: Boolean
-    ): ResponseEntity<List<PrestadorCardDto>> {
-
-        return ResponseEntity.status(200).body(usuarioSpecification.filtrar())
-
-
-//        val filtroCompleto = """
-//            find${
-//                if (idArea == 0) "All" else "ByAreaId"
-//            }OrderBy$filtro${
-//                if (crescente) "Asc" else "Desc"
-//            }
-//        """.trimIndent()
-//
-//        val method = try {
-//            if (idArea == 0)
-//                usuarioRepository::class.java
-//                    .getMethod(filtroCompleto)
-//            else
-//                usuarioRepository::class.java
-//                    .getMethod(filtroCompleto, idArea::class.java)
-//        } catch (e: NoSuchMethodException) {
-//            return ResponseEntity.status(404).build()
-//        }
-//
-//        val filtragem = runCatching {
-//            if (idArea == 0)
-//                method.invoke(usuarioRepository)
-//            else
-//                method.invoke(usuarioRepository, idArea)
-//        }.getOrElse { _ -> return ResponseEntity.status(404).build() }
-//
-//        return ResponseEntity.status(200).body(filtragem as List<FilteredUsuario>)
-
     }
 
     fun buscarArea(): List<Area> {
