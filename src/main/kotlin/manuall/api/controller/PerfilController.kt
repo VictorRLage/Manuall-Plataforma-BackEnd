@@ -57,7 +57,7 @@ class PerfilController(
     fun atualizarSenha(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody alterSenhaRequest: AlterSenhaRequest
-    ): ResponseEntity<Usuario> {
+    ): ResponseEntity<Unit> {
         return perfilService.atualizarSenha(token, alterSenhaRequest)
     }
 
@@ -66,7 +66,7 @@ class PerfilController(
     fun atualizarDesc(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody alterDescRequest: AlterDescRequest
-    ): ResponseEntity<Usuario> {
+    ): ResponseEntity<Unit> {
         return perfilService.atualizarDesc(token, alterDescRequest)
     }
 
@@ -79,12 +79,20 @@ class PerfilController(
         return perfilService.deletar(token)
     }
 
+    @GetMapping("/fotoPerfil")
+    @SecurityRequirement(name = "Bearer")
+    fun getPfp(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<String> {
+        return perfilService.getPfp(token)
+    }
+
     @PatchMapping("/alterar/fotoPerfil")
     @SecurityRequirement(name = "Bearer")
     fun atualizarFotoPerfil(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestBody alterPfpRequest: AlterPfpRequest
-    ): ResponseEntity<Usuario> {
+    ): ResponseEntity<Unit> {
         return perfilService.atualizarPFP(token, alterPfpRequest)
     }
 
@@ -96,23 +104,21 @@ class PerfilController(
         return perfilService.getSolicitacoes(token)
     }
 
-    @PostMapping("/postarUrl")
+    @PostMapping("/imagem")
     @SecurityRequirement(name = "Bearer")
     fun postarUrl(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
-        @RequestBody urlPerfilDto: UrlPerfilDto
-    ): ResponseEntity<List<String>> {
-
-        return perfilService.postarUrl(token, urlPerfilDto)
+        @RequestBody anexo: UrlImagemDto
+    ): ResponseEntity<Unit> {
+        return perfilService.postarUrl(token, anexo)
     }
 
-    @DeleteMapping("/excluirUrl")
+    @PostMapping("/imagem/delete")
     @SecurityRequirement(name = "Bearer")
     fun excluirUrl(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
-        @RequestBody urlPerfilDto: UrlPerfilDto
-    ): ResponseEntity<Int> {
-
-        return perfilService.excluirUrls(token, urlPerfilDto)
+        @RequestBody anexo: UrlImagemDto
+    ): ResponseEntity<Unit> {
+        return perfilService.excluirUrls(token, anexo)
     }
 }

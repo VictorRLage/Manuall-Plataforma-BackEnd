@@ -33,3 +33,4 @@ build/
 .vscode/
 
 *.mwb.bak
+src/main/resources/application.properties

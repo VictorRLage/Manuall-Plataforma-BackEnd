@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository
 interface CrmLogRepository: JpaRepository<CrmLog, Int> {
 
     @Query("SELECT cl FROM CrmLog cl WHERE cl.usuario.id = ?1 ORDER BY cl.inicioContato DESC LIMIT 1")
-    fun findByUsuarioIdOrderByInicioContatoDesc(id: Int): CrmLog
+    fun findByUsuarioIdOrderByInicioContatoDesc(id: Int): CrmLog?
 }

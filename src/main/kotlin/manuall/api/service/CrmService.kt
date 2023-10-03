@@ -34,9 +34,12 @@ class CrmService (
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
+        val contatoMaisRecente = crmLogRepository.findByUsuarioIdOrderByInicioContatoDesc(usuario.id)
+            ?: return ResponseEntity.status(404).build()
+
         return ResponseEntity.status(200).body(
             crmLogMensagemRepository.findByCrmLogId(
-                crmLogRepository.findByUsuarioIdOrderByInicioContatoDesc(usuario.id).id
+                contatoMaisRecente.id
             ).map { it.mensagem!! }
         )
     }
@@ -47,6 +50,7 @@ class CrmService (
             ?: return ResponseEntity.status(480).build()
 
         val crmLogAtual = crmLogRepository.findByUsuarioIdOrderByInicioContatoDesc(usuario.id)
+            ?: return ResponseEntity.status(404).build()
 
         val msgsCrmLogAtual = crmLogMensagemRepository.findByCrmLogId(
             crmLogAtual.id

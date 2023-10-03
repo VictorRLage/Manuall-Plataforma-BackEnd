@@ -92,7 +92,7 @@ class PerfilService(
             ?: return ResponseEntity.status(404).build()
 
         if (usuario !is Prestador)
-            return ResponseEntity.status(404).build()
+            return ResponseEntity.status(403).build()
 
         return checarPrestador(usuario)
     }
@@ -124,25 +124,25 @@ class PerfilService(
         return ResponseEntity.status(200).body(perfilDTO)
     }
 
-    fun atualizarSenha(token: String?, alterSenhaRequest: AlterSenhaRequest): ResponseEntity<Usuario> {
+    fun atualizarSenha(token: String?, alterSenhaRequest: AlterSenhaRequest): ResponseEntity<Unit> {
 
-        // Checando se token foi expirado e então encontrando usuário por token
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
         return if (passwordEncoder.matches(alterSenhaRequest.senhaAntiga, usuario.senha)) {
 
             usuario.senha = passwordEncoder.encode(alterSenhaRequest.senhaNova)
-            ResponseEntity.status(200).body(usuarioRepository.save(usuario))
+            usuarioRepository.save(usuario)
+
+            ResponseEntity.status(200).build()
 
         } else {
             ResponseEntity.status(401).build()
         }
     }
 
-    fun atualizarDesc(token: String?, alterDescRequest: AlterDescRequest): ResponseEntity<Usuario> {
+    fun atualizarDesc(token: String?, alterDescRequest: AlterDescRequest): ResponseEntity<Unit> {
 
-        // Checando se token foi expirado e então encontrando usuário por token
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
@@ -150,7 +150,9 @@ class PerfilService(
             return ResponseEntity.status(403).build()
 
         usuario.descricao = alterDescRequest.descricao
-        return ResponseEntity.status(200).body(usuarioRepository.save(usuario))
+        usuarioRepository.save(usuario)
+
+        return ResponseEntity.status(200).build()
     }
 
     fun deletar(token: String?): ResponseEntity<String> {
@@ -165,19 +167,32 @@ class PerfilService(
 
     }
 
-    fun atualizarPFP(token: String?, alterPfpRequest: AlterPfpRequest): ResponseEntity<Usuario> {
+    fun getPfp(token: String?): ResponseEntity<String> {
 
-        println("usuario.id")
-        // Checando se token foi expirado e então encontrando usuário por token
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        println(usuario.id)
+        if (usuario !is Prestador)
+            return ResponseEntity.status(403).build()
+
+        return if (usuario.anexoPfp == null)
+            ResponseEntity.status(404).build()
+        else
+            ResponseEntity.status(200).body(usuario.anexoPfp)
+    }
+
+    fun atualizarPFP(token: String?, alterPfpRequest: AlterPfpRequest): ResponseEntity<Unit> {
+
+        val usuario = jwtTokenManager.validateToken(token)
+            ?: return ResponseEntity.status(480).build()
+
         if (usuario !is Prestador)
             return ResponseEntity.status(403).build()
 
         usuario.anexoPfp = alterPfpRequest.novaUrl
-        return ResponseEntity.status(200).body(usuarioRepository.save(usuario))
+        usuarioRepository.save(usuario)
+
+        return ResponseEntity.status(200).build()
     }
 
     fun getSolicitacoes(token: String?): ResponseEntity<List<NotificacaoDto>> {
@@ -214,35 +229,31 @@ class PerfilService(
         }
     }
 
-    fun postarUrl(token: String?, urlPerfilDto: UrlPerfilDto): ResponseEntity<List<String>> {
+    fun postarUrl(token: String?, anexo: UrlImagemDto): ResponseEntity<Unit> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        urlPerfilDto.imagens.forEach {
-            val usuarioImg = UsuarioImg()
+        val usuarioImg = UsuarioImg()
+        usuarioImg.prestador = usuarioRepository.findById(usuario.id).get() as Prestador
+        usuarioImg.anexo = anexo.imagem
+        usuarioImgRepository.save(usuarioImg)
 
-            usuarioImg.prestador = usuarioRepository.findById(usuario.id).get() as Prestador
-            usuarioImg.anexo = it
-
-            usuarioImgRepository.save(usuarioImg)
-        }
         return ResponseEntity.status(201).build()
     }
 
-    fun excluirUrls(token: String?, urlPerfilDto: UrlPerfilDto): ResponseEntity<Int> {
+    fun excluirUrls(token: String?, anexo: UrlImagemDto): ResponseEntity<Unit> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        urlPerfilDto.imagens.forEach {
-
-            val teste = usuarioImgRepository.findByAnexoAndPrestadorId(
-                it,
+        usuarioImgRepository.delete(
+            usuarioImgRepository.findByAnexoAndPrestadorId(
+                anexo.imagem,
                 usuarioRepository.findById(usuario.id).get().id
-            )
-            usuarioImgRepository.delete(teste.get())
-        }
-        return ResponseEntity.status(201).build()
+            ).get()
+        )
+
+        return ResponseEntity.status(200).build()
     }
 }
