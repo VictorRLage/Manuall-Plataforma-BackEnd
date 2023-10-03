@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
-interface HistoricoRepository : JpaRepository<Solicitacao, Long> {
+interface HistoricoRepository : JpaRepository<Solicitacao, Int> {
 
     @Query("""
         SELECT new manuall.api.dto.dashboard.HistoricoDTO(
-            s.prestadorUsuario.id,
+            s.prestador.id,
             s.servico.id,
             s.formOrcamento.id,
             s.status,
@@ -28,7 +28,7 @@ interface HistoricoRepository : JpaRepository<Solicitacao, Long> {
         LEFT JOIN
             s.formOrcamento formOrcamento 
         WHERE
-            s.contratanteUsuario.id = :usuario_id
+            s.contratante.id = :usuarioId
     """)
-    fun buscarHistorico(@Param("usuario_id") usuario_id: Long): List<HistoricoDTO>
+    fun buscarHistorico(@Param("usuarioId") usuarioId: Int): List<HistoricoDTO>
 }
