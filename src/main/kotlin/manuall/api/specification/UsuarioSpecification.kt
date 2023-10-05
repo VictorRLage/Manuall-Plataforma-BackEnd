@@ -33,50 +33,65 @@ class UsuarioSpecification(
         val dadosEnderecoRoot: Root<DadosEndereco> = cq.from(DadosEndereco::class.java)
         val prestadorJoin: Join<DadosEndereco, Prestador> = dadosEnderecoRoot.join("usuario")
         val solicitacaoJoin: Join<Prestador, Solicitacao> = prestadorJoin.join("solicitacao", JoinType.LEFT)
-        val avaliacaoJoin: Join<Solicitacao, Avaliacao> = solicitacaoJoin.join("avaliacao")
+        val avaliacaoJoin: Join<Solicitacao, Avaliacao> = solicitacaoJoin.join("avaliacao", JoinType.LEFT)
+        
+        val id = prestadorJoin.get<Int>("id")
+        val nome = prestadorJoin.get<String>("nome")
+        val anexoPfp = prestadorJoin.get<String>("anexoPfp")
+        val area = prestadorJoin.get<Int>("area").get<Int>("id")
+        val orcamentoMin = prestadorJoin.get<Double>("orcamentoMin")
+        val orcamentoMax = prestadorJoin.get<Double>("orcamentoMax")
+        val prestaAula = prestadorJoin.get<Boolean>("prestaAula")
+        val cidade = dadosEnderecoRoot.get<String>("cidade")
 
-        cq.where(cb.equal(prestadorJoin.type(), Prestador::class.java))
+        val nota: Expression<Double> = cb.avg(avaliacaoJoin.get<Double>("nota"))
+        val notaCoalesce: CriteriaBuilder.Coalesce<Double> = cb.coalesce()
+        notaCoalesce.value(nota).value(0.0)
 
         cq.select(cb.construct(
             PrestadorCardDto::class.java,
-            prestadorJoin.get<Int?>("id"),
-            prestadorJoin.get<String?>("nome"),
-            prestadorJoin.get<String?>("anexoPfp"),
-            prestadorJoin.get<Int?>("area").get<Int>("id"),
-            prestadorJoin.get<Double?>("orcamentoMin"),
-            prestadorJoin.get<Double?>("orcamentoMax"),
-            prestadorJoin.get<Boolean?>("prestaAula"),
-            dadosEnderecoRoot.get<String?>("cidade"),
-            cb.avg(avaliacaoJoin.get<Double>("nota")),
+            id,
+            nome,
+            anexoPfp,
+            area,
+            orcamentoMin,
+            orcamentoMax,
+            prestaAula,
+            cidade,
+            notaCoalesce,
         ))
 
         cq.groupBy(
-            prestadorJoin.get<Int>("id"),
-            prestadorJoin.get<String>("nome"),
-            prestadorJoin.get<String>("anexoPfp"),
-            prestadorJoin.get<Int>("area").get<Int>("id"),
-            prestadorJoin.get<Double>("orcamentoMin"),
-            prestadorJoin.get<Double>("orcamentoMax"),
-            prestadorJoin.get<Boolean>("prestaAula"),
-            dadosEnderecoRoot.get<String>("cidade")
+            id,
+            nome,
+            anexoPfp,
+            area,
+            orcamentoMin,
+            orcamentoMax,
+            prestaAula,
+            cidade
         )
 
+        val usuarioIsPrestador = cb.equal(prestadorJoin.type(), Prestador::class.java)
+
         if (idArea > 0)
-            cq.where(cb.equal(prestadorJoin.get<Int>("area").get<Int>("id"), idArea))
+            cq.where(usuarioIsPrestador, cb.equal(area, idArea))
+        else
+            cq.where(usuarioIsPrestador)
 
         val filtroOrder: Order? = when (filtro) {
             "Nota" ->
-                getOrder(cb, cb.avg(avaliacaoJoin.get<Double>("nota")), crescente)
+                getOrder(cb, notaCoalesce, crescente)
             "Alfabetica" ->
-                getOrder(cb, prestadorJoin.get<String>("nome"), crescente)
+                getOrder(cb, nome, crescente)
             "PrecoMax" ->
-                getOrder(cb, prestadorJoin.get<Double>("orcamentoMax"), crescente)
+                getOrder(cb, orcamentoMax, crescente)
             "PrecoMin" ->
-                getOrder(cb, prestadorJoin.get<Double>("orcamentoMin"), crescente)
+                getOrder(cb, orcamentoMin, crescente)
             "Servico" ->
-                cb.asc(prestadorJoin.get<Boolean>("prestaAula"))
+                cb.asc(prestaAula)
             "ServicoAula" ->
-                cb.desc(prestadorJoin.get<Boolean>("prestaAula"))
+                cb.desc(prestaAula)
             else -> null
         }
 
