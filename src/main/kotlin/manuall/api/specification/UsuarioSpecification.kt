@@ -48,6 +48,13 @@ class UsuarioSpecification(
         val notaCoalesce: CriteriaBuilder.Coalesce<Double> = cb.coalesce()
         notaCoalesce.value(nota).value(0.0)
 
+        val usuarioIsPrestador = cb.equal(prestadorJoin.type(), Prestador::class.java)
+
+        if (idArea > 0)
+            cq.where(usuarioIsPrestador, cb.equal(area, idArea))
+        else
+            cq.where(usuarioIsPrestador)
+
         cq.select(cb.construct(
             PrestadorCardDto::class.java,
             id,
@@ -71,13 +78,6 @@ class UsuarioSpecification(
             prestaAula,
             cidade
         )
-
-        val usuarioIsPrestador = cb.equal(prestadorJoin.type(), Prestador::class.java)
-
-        if (idArea > 0)
-            cq.where(usuarioIsPrestador, cb.equal(area, idArea))
-        else
-            cq.where(usuarioIsPrestador)
 
         val filtroOrder: Order? = when (filtro) {
             "Nota" ->
