@@ -2,6 +2,7 @@ package manuall.api.service
 
 import manuall.api.domain.*
 import manuall.api.dto.cadastro.*
+import manuall.api.dto.usuario.LoginResponse
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
@@ -48,20 +49,44 @@ class CadastroService (
 
     }
 
-    fun cadastrar1(cadastrar1DTO: Cadastrar1Dto): ResponseEntity<Int> {
+    fun cadastrar1(cadastrar1DTO: Cadastrar1Dto): ResponseEntity<Cad1Response> {
 
         val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(
             cadastrar1DTO.email,
             TipoUsuario.fromIntToClass(cadastrar1DTO.tipoUsuario)
         )
         if (emailExistente.isPresent) {
-            return ResponseEntity.status(409).body(null)
+            val usuario = emailExistente.get()
+
+            println(usuario.status)
+            println(usuario::class.java)
+            println(usuario is Prestador)
+            return if (usuario.status == null) {
+                if (dadosEnderecoRepository.findByUsuarioId(usuario.id).isEmpty)
+                    ResponseEntity.status(206).body(
+                        Cad1Response(2, usuario.id)
+                    )
+                else if (usuario is Prestador)
+                    ResponseEntity.status(206).body(
+                        Cad1Response(3, usuario.id)
+                    )
+                else
+                    ResponseEntity.status(409).build()
+            } else {
+                if (usuario.canal !== null)
+                    ResponseEntity.status(409).build()
+                else
+                    ResponseEntity.status(206).body(
+                        Cad1Response(4, usuario.id)
+                    )
+            }
         } else {
             val usuarioVisitante = prospectRepository.findByEmail(cadastrar1DTO.email)
-            var canal: Int? = 0
-            if (usuarioVisitante != null) {
-                canal = usuarioVisitante.optCanal
-            }
+            val canal: Int? =
+                if (usuarioVisitante != null)
+                    usuarioVisitante.optCanal
+                else
+                    0
 
             val usuario = if(cadastrar1DTO.tipoUsuario == 1) {
                 Contratante()
@@ -76,9 +101,10 @@ class CadastroService (
             usuario.telefone = cadastrar1DTO.telefone
             usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
             usuario.canal = canal
-            usuario.status = null
 
-            return ResponseEntity.status(201).body(usuarioRepository.save(usuario).id)
+            return ResponseEntity.status(201).body(
+                Cad1Response(null, usuarioRepository.save(usuario).id)
+            )
         }
     }
 

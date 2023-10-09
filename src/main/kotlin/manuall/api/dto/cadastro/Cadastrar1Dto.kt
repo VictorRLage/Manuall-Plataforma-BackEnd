@@ -31,6 +31,8 @@ data class Cadastrar1Dto (
     @Schema(example = "1")
     @field:NotNull
     @field:Min(1)
-    @field:Max(3)
-    val tipoUsuario:Int
+    @field:Max(2)
+    val tipoUsuario:Int,
+
+//    val isReturning: Boolean
 )

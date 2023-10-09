@@ -25,7 +25,7 @@ class CadastroController (
     @PostMapping("/1")
     fun cadastrar1(
         @RequestBody @Valid cadastrar1DTO: Cadastrar1Dto
-    ): ResponseEntity<Int> {
+    ): ResponseEntity<Cad1Response> {
         return cadastroService.cadastrar1(cadastrar1DTO)
     }
 
