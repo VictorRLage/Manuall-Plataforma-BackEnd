@@ -5,8 +5,6 @@ import manuall.api.dto.usuario.*
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
-import manuall.api.specification.UsuarioSpecification
-import org.springframework.data.jpa.domain.Specification
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -42,66 +40,68 @@ class UsuarioService (
         return servicoRepository.findAllByAreaId(idServico)
     }
 
-    fun loginChecar(email: String): ResponseEntity<Int> {
+    fun loginChecar(email: String): ResponseEntity<List<Int>> {
         val possiveisUsuarios = usuarioRepository.findByEmail(email)
 
-        return if (possiveisUsuarios.isEmpty()) {
-            ResponseEntity.status(204).build()
-        } else if (possiveisUsuarios.size > 1) {
-            ResponseEntity.status(409).build()
-        } else {
-            ResponseEntity.status(200).body(
-                TipoUsuario.fromObjectToInt(possiveisUsuarios[0].get())
+        return if (possiveisUsuarios.size > 1) {
+            ResponseEntity.status(207).body(
+                possiveisUsuarios.map { TipoUsuario.fromObjectToInt(it) }
             )
+        } else {
+            ResponseEntity.status(200).build()
         }
     }
 
-    fun loginEfetuar(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<String> {
+    fun loginEfetuar(usuarioLoginRequest: UsuarioLoginRequest): ResponseEntity<LoginResponse> {
 
-        // Pegando os usuários com o email requisitado em uma lista, já que podem
-        // existir 2 usuários com o mesmo email e tipo_usuario diferentes
-        val possivelUsuario =
-            usuarioRepository.findByEmailAndTipoUsuario(
+        val possiveisUsuarios = if (usuarioLoginRequest.tipoUsuario !== null) {
+            usuarioRepository.findByEmailAndTipoUsuarioList(
                 usuarioLoginRequest.email,
-                TipoUsuario.fromIntToClass(usuarioLoginRequest.tipoUsuario)
+                TipoUsuario.fromIntToClass(usuarioLoginRequest.tipoUsuario!!)
             )
-
-        return if (possivelUsuario.isEmpty) {
-            ResponseEntity.status(401).body("Credenciais inválidas")
         } else {
-            // Tendo em vista que existe apenas 1 usuário nesta lista, vamos simplificar e chamá-lo de "usuario"
-            val usuario = possivelUsuario.get()
+            usuarioRepository.findByEmail(usuarioLoginRequest.email)
+        }
 
-            // Autenticando sua senha, essa função decripta a senha do banco e a compara com a recebida
+        return if (possiveisUsuarios.isEmpty()) {
+            ResponseEntity.status(401).build()
+        } else {
+            val usuario = possiveisUsuarios[0]
+
             if (passwordEncoder.matches(usuarioLoginRequest.senha, usuario.senha)) {
-
                 when (usuario.status) {
-                    null -> {
-                        if (dadosEnderecoRepository.findByUsuarioId(usuario.id).isEmpty) {
-                            // Parou o cadastro na fase 2
-                            ResponseEntity.status(403).body(
-                                LoginResponse(
-                                    usuario.id,
-                                    2
-                                )
-                            )
-                        } else {
-                            // Parou o cadastro na fase 3
-                            ResponseEntity.status(403).body(
-                                LoginResponse(
-                                    usuario.id,
-                                    3
-                                )
-                            )
-                        }
-
-                    }
-
-                    4 -> return ResponseEntity.status(403).body("Aprovação negada")
-                    1 -> return ResponseEntity.status(403).body("Aprovação pendente")
+                    null -> return ResponseEntity.status(206).body(
+                        LoginResponse(
+                            null,
+                            null,
+                            TipoUsuario.fromObjectToInt(usuario),
+                            if (dadosEnderecoRepository.findByUsuarioId(usuario.id).isEmpty)
+                                2
+                            else
+                                3,
+                            null
+                        )
+                    )
+                    4 -> return ResponseEntity.status(403).body(
+                        LoginResponse(
+                            null,
+                            "Aprovação negada",
+                            null,
+                            null,
+                            null
+                        )
+                    )
+                    1 -> return ResponseEntity.status(403).body(
+                        LoginResponse(
+                            null,
+                            "Aprovação pendente",
+                            null,
+                            null,
+                            null
+                        )
+                    )
                 }
 
-                // Gerando token de sessão com base no tipo_usuario e email, para identificar unicamente cada login
                 val authentication = authenticationManager.authenticate(
                     UsernamePasswordAuthenticationToken(
                         TipoUsuario.fromObjectToString(usuario) + usuario.email,
@@ -110,26 +110,30 @@ class UsuarioService (
                 )
 
                 SecurityContextHolder.getContext().authentication = authentication
-                // Token + 200 = Cadastro 100% concluído
-                // Token + 403 = Parou na escolha de plano
-                ResponseEntity.status(if (usuario is Prestador && usuario.plano == null) 206 else 200)
-                    .body(jwtTokenManager.generateToken(authentication))
-
+                if (usuario is Prestador && usuario.plano == null)
+                    ResponseEntity.status(206).body(
+                        LoginResponse(
+                            jwtTokenManager.generateToken(authentication),
+                            null,
+                            null,
+                            4,
+                            usuario.id
+                        )
+                    )
+                else
+                    ResponseEntity.status(200).body(
+                        LoginResponse(
+                            jwtTokenManager.generateToken(authentication),
+                            null,
+                            TipoUsuario.fromObjectToInt(usuario),
+                            null,
+                            null
+                        )
+                    )
             } else {
-                ResponseEntity.status(401).body("Credenciais inválidas")
+                ResponseEntity.status(401).build()
             }
-
         }
-
-    }
-
-    fun logoff(token: String?): ResponseEntity<Unit> {
-
-        if (jwtTokenManager.validateToken(token) == null)
-            return ResponseEntity.status(480).build()
-
-        jwtTokenManager.expirarToken(token!!)
-        return ResponseEntity.status(200).build()
     }
 
     fun checarValidadeLoginAdm(token: String?): ResponseEntity<Unit> {
@@ -139,6 +143,15 @@ class UsuarioService (
 
         if (usuario !is Administrador) return ResponseEntity.status(480).build()
 
+        return ResponseEntity.status(200).build()
+    }
+
+    fun logoff(token: String?): ResponseEntity<Unit> {
+
+        if (jwtTokenManager.validateToken(token) == null)
+            return ResponseEntity.status(480).build()
+
+        jwtTokenManager.expirarToken(token!!)
         return ResponseEntity.status(200).build()
     }
 
@@ -173,7 +186,6 @@ class UsuarioService (
         usuario as Prestador
 
         usuario.status = if (aprovar) 2 else 4
-        usuario.plano = 1
 
         usuarioRepository.save(usuario)
 

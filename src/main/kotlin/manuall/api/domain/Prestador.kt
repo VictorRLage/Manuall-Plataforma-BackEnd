@@ -29,7 +29,7 @@ class Prestador: Usuario() {
 
     @Column(name = "plano")
     var plano: Int? = null
-    // 1: Plano Básico
+    // 1: Plano Basic
     // 2: Plano Advanced
     // 3: Plano Premium
 

@@ -112,16 +112,16 @@ class CadastroService (
         }
     }
 
-    fun cadastrar3(id: Int, cadastrar3Dto: Cadastrar3Dto): ResponseEntity<String> {
+    fun cadastrar3(id: Int, cadastrar3Dto: Cadastrar3Dto): ResponseEntity<Unit> {
         val usuario = usuarioRepository.findById(id)
         if (usuario.isEmpty) {
-            return ResponseEntity.status(404).body("Usuário não encontrado!")
+            return ResponseEntity.status(404).build()
         }
         val prestador = usuario.get() as? Prestador
-            ?: return ResponseEntity.status(403).body("Usuário é um contratante")
+            ?: return ResponseEntity.status(403).build()
 
         if (prestador.area != null) {
-            return ResponseEntity.status(409).body("Campos já cadastrados!")
+            return ResponseEntity.status(409).build()
         }
 
         cadastrar3Dto.servico.forEach {
@@ -138,7 +138,7 @@ class CadastroService (
         prestador.status = 1
 
         usuarioRepository.save(prestador)
-        return ResponseEntity.status(201).body("Serviços cadastrados com sucesso!")
+        return ResponseEntity.status(201).build()
     }
 
     fun cadastrar4(token: String?, idPlano: Int): ResponseEntity<String> {

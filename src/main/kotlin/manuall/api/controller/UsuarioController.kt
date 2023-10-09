@@ -56,24 +56,16 @@ class UsuarioController(
 
     @PostMapping("/login/checar")
     fun loginChecar(
-        @RequestBody @Valid usuarioLoginCheckRequest: UsuarioLoginCheckRequest
-    ): ResponseEntity<Int> {
+        @RequestBody usuarioLoginCheckRequest: UsuarioLoginCheckRequest
+    ): ResponseEntity<List<Int>> {
         return usuarioService.loginChecar(usuarioLoginCheckRequest.email)
     }
 
     @PostMapping("/login/efetuar")
     fun loginEfetuar(
         @RequestBody @Valid usuarioLoginRequest: UsuarioLoginRequest
-    ): ResponseEntity<String> {
+    ): ResponseEntity<LoginResponse> {
         return usuarioService.loginEfetuar(usuarioLoginRequest)
-    }
-
-    @PostMapping("/logoff")
-    @SecurityRequirement(name = "Bearer")
-    fun logoff(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
-    ): ResponseEntity<Unit> {
-        return usuarioService.logoff(token)
     }
 
     @GetMapping("/login/checar/validade")
@@ -82,6 +74,14 @@ class UsuarioController(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<Unit> {
         return usuarioService.checarValidadeLoginAdm(token)
+    }
+
+    @PostMapping("/logoff")
+    @SecurityRequirement(name = "Bearer")
+    fun logoff(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<Unit> {
+        return usuarioService.logoff(token)
     }
 
     @GetMapping("/aprovacoesPendentes")

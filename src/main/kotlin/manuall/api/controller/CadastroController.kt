@@ -41,7 +41,7 @@ class CadastroController (
     fun cadastrar3(
         @PathVariable @Schema(example = "1") id: Int,
         @RequestBody cadastrar3Dto: Cadastrar3Dto
-    ): ResponseEntity<String> {
+    ): ResponseEntity<Unit> {
         return cadastroService.cadastrar3(id, cadastrar3Dto)
     }
 

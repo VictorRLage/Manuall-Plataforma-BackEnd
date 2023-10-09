@@ -1,6 +1,9 @@
 package manuall.api.dto.usuario
 
 data class LoginResponse (
-    val idUsuario: Int,
-    val faseAtual: Int
+    val token: String?,
+    val msg: String?,
+    val tipoUsuario: Int?,
+    val fase: Int?,
+    val usuarioId: Int?,
 )

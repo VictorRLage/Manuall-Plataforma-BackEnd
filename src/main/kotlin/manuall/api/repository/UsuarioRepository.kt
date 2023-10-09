@@ -15,13 +15,19 @@ interface UsuarioRepository: JpaRepository<Usuario, Int>, JpaSpecificationExecut
 
     fun findByEmail(
         email: String?
-    ): List<Optional<Usuario>>
+    ): List<Usuario>
 
     @Query("select u from Usuario u where u.email = ?1 and TYPE(u) = ?2")
     fun findByEmailAndTipoUsuario(
         email: String?,
         @Param("tipoUsuario") tipoUsuario: Class<out Usuario>
     ): Optional<Usuario>
+
+    @Query("select u from Usuario u where u.email = ?1 and TYPE(u) = ?2")
+    fun findByEmailAndTipoUsuarioList(
+        email: String?,
+        @Param("tipoUsuario") tipoUsuario: Class<out Usuario>
+    ): List<Usuario>
 
     @Query("select count(u) from Usuario u where TYPE(u) = ?1 group by u.canal")
     fun countByTipoUsuarioGroupByCanal(
