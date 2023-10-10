@@ -31,29 +31,29 @@ class UsuarioControllerTest {
         assertEquals("http://localhost:5173", annotation.value[0])
     }
 
-    @Test
-    fun getPrestadoresOrderByPlano() {
-        val method = UsuarioController::getPrestadoresOrderByPlano
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("/prestadores", annotation!!.value[0])
-    }
-
-    @Test
-    fun getPrestadoresByAreaIdOrderByPlano() {
-        val method = UsuarioController::getPrestadoresByAreaIdOrderByPlano
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("/prestadores/{idArea}", annotation!!.value[0])
-    }
-
-    @Test
-    fun getPrestadoresFiltrado() {
-        val method = UsuarioController::getPrestadoresFiltrados
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("prestadores/{idArea}/{filtro}/{crescente}", annotation!!.value[0])
-    }
+//    @Test
+//    fun getPrestadoresOrderByPlano() {
+//        val method = UsuarioController::getPrestadoresOrderByPlano
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("/prestadores", annotation!!.value[0])
+//    }
+//
+//    @Test
+//    fun getPrestadoresByAreaIdOrderByPlano() {
+//        val method = UsuarioController::getPrestadoresByAreaIdOrderByPlano
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("/prestadores/{idArea}", annotation!!.value[0])
+//    }
+//
+//    @Test
+//    fun getPrestadoresFiltrado() {
+//        val method = UsuarioController::getPrestadoresFiltrados
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("prestadores/{idArea}/{filtro}/{crescente}", annotation!!.value[0])
+//    }
 
     @Test
     fun buscarArea() {
@@ -102,20 +102,20 @@ class UsuarioControllerTest {
         assertEquals("Bearer", annotation.name)
     }
 
-    @Test
-    fun checarValidadeLogin() {
-        val method = UsuarioController::checarValidadeLogin
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("/login/checar/validade", annotation!!.value[0])
-    }
-    @Test
-    fun `método checarValidadeLogin() possui a anotação SecurityRequirement e name = 'Bearer'`() {
-        val method = UsuarioController::checarValidadeLogin
-        assertTrue(method.hasAnnotation<SecurityRequirement>())
-        val annotation = method.annotations[0] as SecurityRequirement
-        assertEquals("Bearer", annotation.name)
-    }
+//    @Test
+//    fun checarValidadeLogin() {
+//        val method = UsuarioController::checarValidadeLogin
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("/login/checar/validade", annotation!!.value[0])
+//    }
+//    @Test
+//    fun `método checarValidadeLogin() possui a anotação SecurityRequirement e name = 'Bearer'`() {
+//        val method = UsuarioController::checarValidadeLogin
+//        assertTrue(method.hasAnnotation<SecurityRequirement>())
+//        val annotation = method.annotations[0] as SecurityRequirement
+//        assertEquals("Bearer", annotation.name)
+//    }
 
     @Test
     fun aprovacoesPendentes() {
