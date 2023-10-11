@@ -3,6 +3,7 @@ package manuall.api.config
 import manuall.api.repository.TokenBlacklistRepository
 import manuall.api.repository.UsuarioRepository
 import manuall.api.security.*
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
@@ -26,6 +27,7 @@ import java.util.*
 @EnableMethodSecurity
 class SecurityConfig (
     val jwtAuthenticationService: JwtAuthenticationService,
+    @Qualifier("jwtAuthenticationEntryPoint")
     val autenticacaoJwtEntryPoint: JwtAuthenticationEntryPoint,
     val usuarioRepository: UsuarioRepository,
     val tokenBlacklistRepository: TokenBlacklistRepository

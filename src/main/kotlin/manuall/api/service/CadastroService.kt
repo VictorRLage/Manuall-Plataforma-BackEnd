@@ -71,10 +71,28 @@ class CadastroService (
                         Cad1Response(3, usuario.id)
                     )
                 else
-                    ResponseEntity.status(409).build()
+                    if (cadastrar1DTO.isReturning) {
+                        usuario.nome = cadastrar1DTO.nome
+                        usuario.email = cadastrar1DTO.email
+                        usuario.cpf = cadastrar1DTO.cpf
+                        usuario.telefone = cadastrar1DTO.telefone
+                        usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
+                        usuarioRepository.save(usuario)
+                        ResponseEntity.status(201).build()
+                    } else
+                        ResponseEntity.status(409).build()
             } else {
                 if (usuario.canal !== null)
-                    ResponseEntity.status(409).build()
+                    if (cadastrar1DTO.isReturning) {
+                        usuario.nome = cadastrar1DTO.nome
+                        usuario.email = cadastrar1DTO.email
+                        usuario.cpf = cadastrar1DTO.cpf
+                        usuario.telefone = cadastrar1DTO.telefone
+                        usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
+                        usuarioRepository.save(usuario)
+                        ResponseEntity.status(201).build()
+                    } else
+                        ResponseEntity.status(409).build()
                 else
                     ResponseEntity.status(206).body(
                         Cad1Response(4, usuario.id)
@@ -88,7 +106,7 @@ class CadastroService (
                 else
                     0
 
-            val usuario = if(cadastrar1DTO.tipoUsuario == 1) {
+            val usuario = if (cadastrar1DTO.tipoUsuario == 1) {
                 Contratante()
             } else {
                 val temporaryPrestador = Prestador()

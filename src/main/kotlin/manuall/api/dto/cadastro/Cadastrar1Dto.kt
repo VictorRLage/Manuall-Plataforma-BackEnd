@@ -34,5 +34,5 @@ data class Cadastrar1Dto (
     @field:Max(2)
     val tipoUsuario:Int,
 
-//    val isReturning: Boolean
+    val isReturning: Boolean
 )

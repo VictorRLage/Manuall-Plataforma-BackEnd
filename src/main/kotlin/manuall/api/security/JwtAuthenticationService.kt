@@ -2,13 +2,15 @@ package manuall.api.security
 
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.UsuarioRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
+@Component
 class JwtAuthenticationService (
     val usuarioRepository: UsuarioRepository
 ): UserDetailsService {

@@ -10,6 +10,7 @@ import manuall.api.domain.*
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.TokenBlacklistRepository
 import manuall.api.repository.UsuarioRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
@@ -22,7 +23,9 @@ import java.util.stream.Collectors
 import javax.crypto.SecretKey
 
 class JwtTokenManager (
+    @Autowired
     private val usuarioRepository: UsuarioRepository,
+    @Autowired
     private val tokenBlacklistRepository: TokenBlacklistRepository
 ) {
 
