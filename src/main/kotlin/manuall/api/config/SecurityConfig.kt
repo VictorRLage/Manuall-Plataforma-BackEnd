@@ -23,7 +23,7 @@ import java.util.*
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 class SecurityConfig (
     val jwtAuthenticationService: JwtAuthenticationService,
     val autenticacaoJwtEntryPoint: JwtAuthenticationEntryPoint,

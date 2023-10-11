@@ -1,5 +1,6 @@
 package manuall.api.security
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -8,7 +9,9 @@ import org.springframework.security.core.AuthenticationException
 import org.springframework.security.crypto.password.PasswordEncoder
 
 class JwtAuthenticationProvider (
+    @Autowired
     private val usuarioAutorizacaoService: JwtAuthenticationService,
+    @Autowired
     private val passwordEncoder: PasswordEncoder
 ): AuthenticationProvider {
 

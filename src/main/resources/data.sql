@@ -56,14 +56,13 @@ VALUES
 ('Camila Gomes', 'camila.gomes@example.com', '$2a$10$5nP0d/R1NRI02FygaUviFOBojVFljzJyScPlGhOVxjG3fTPQ9IAC.', '01234567890', '11998765432', null, null, null, null, null, 2, null, null, 1, 2, null),
 ('Ricardo Santos', 'ricardo.santos@example.com', '$2a$10$W3EcOn.A/DFF/eCyQXgHSOBnzFMYsuVL8QFx.NMSnbqswH/SthAHe', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
 ('Amanda Oliveira', 'amanda.oliveira@example.com', '$2a$10$DiZnbfv.2Zz/YkwAmfnvtOnF8TMTIKiD29gyEAhySsHPGN7UAGwIW', '23456789012', '11976543210', null, null, null, null, null, 2, null, null, 1, 1, null),
-('Gabriel Rodrigues', 'gabriel.rodrigues@example.com', '$2a$10$UdS5.K.yHjQjbeBv0RsVvel3bo.KFdaV0KOZWPa/R60T8ZjLqXkDm', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 2, 3),
+('José Faria', 'jose.faria@example.com', '$2a$10$UdS5.K.yHjQjbeBv0RsVvel3bo.KFdaV0KOZWPa/R60T8ZjLqXkDm', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://img.freepik.com/fotos-gratis/close-up-foto-de-um-homem-bonito-branco-com-barba-vestido-com-uma-camiseta-olhando-e-sorrindo-com-uma-expressao-alegre-e-feliz-sentado-em-um-restaurante-na-calcada-em-um-dia-ensolarado-esperando-por-amigos_273609-6600.jpg', 0, 2, 2, 3),
 ('Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'https://images.unsplash.com/photo-1618085221129-cb9f9ac1e651?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 3, 4),
 ('Matheus Ferreira', 'matheus.ferreira@example.com', '$2a$10$KRIagtT591nRBgkGCXJoFOiTIaztE/GhqlNkTyVETiYvWfn3VeqDm', '56789012345', '11943210987', null, null, null, null, null, 2, null, null, 1, 4, null),
 ('Camila Gomes', 'camila.gomes@example.com', '$2a$10$5nP0d/R1NRI02FygaUviFOBojVFljzJyScPlGhOVxjG3fTPQ9IAC.', '01234567890', '11998765432', null, null, null, null, null, 2, null, null, 1, 2, null),
 ('Ricardo Santos', 'ricardo.santos@example.com', '$2a$10$W3EcOn.A/DFF/eCyQXgHSOBnzFMYsuVL8QFx.NMSnbqswH/SthAHe', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
 ('Amanda Oliveira', 'amanda.oliveira@example.com', '$2a$10$DiZnbfv.2Zz/YkwAmfnvtOnF8TMTIKiD29gyEAhySsHPGN7UAGwIW', '23456789012', '11976543210', null, null, null, null, null, 2, null, null, 1, 1, null),
 ('Gabriel Rodrigues', 'gabriel.rodrigues@example.com', '$2a$10$UdS5.K.yHjQjbeBv0RsVvel3bo.KFdaV0KOZWPa/R60T8ZjLqXkDm', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 2, 3),
-('Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'https://images.unsplash.com/photo-1618085221129-cb9f9ac1e651?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 3, 4),
 ('ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
 ('ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '98765432109', '11976543210', 1000.00, 2000.00, 'Ofereço aulas particulares', 0, 2, 2, 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 1, 3),
 ('ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', null, null, null, null, null, null, null, 2, null, null, 3, null, null);
@@ -97,10 +96,9 @@ VALUES
 ('SP', 'Jundiaí', '13201054', 'Centro', 'Rua Barão de Jundiaí', '1520', null, 24),
 ('SP', 'Itapevi', '06690000', 'Centro', 'Rua Presidente Vargas', '587', 'Apto 103', 25),
 ('SP', 'Itaquaquecetuba', '08570000', 'Estação', 'Rua das Orquídeas', '987', null, 26),
-('SP', 'Franca', '14401221', 'Centro', 'Avenida Champagnat', '1201', 'Conjunto 403', 27),
+('SP', 'Piracicaba', '13400240', 'Centro', 'Rua Governador', '321', 'Sala 1201', 27),
 ('SP', 'Piracicaba', '13400240', 'Centro', 'Rua Governador', '321', 'Sala 1201', 28),
-('SP', 'Piracicaba', '13400240', 'Centro', 'Rua Governador', '321', 'Sala 1201', 29),
-('SP', 'Piracicaba', '13400240', 'Centro', 'Rua Governador', '321', 'Sala 1201', 30);
+('SP', 'Piracicaba', '13400240', 'Centro', 'Rua Governador', '321', 'Sala 1201', 29);
 
 INSERT INTO avaliacao
 (nota, descricao)
