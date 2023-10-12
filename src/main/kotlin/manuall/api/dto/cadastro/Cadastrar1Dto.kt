@@ -24,8 +24,6 @@ data class Cadastrar1Dto (
     val telefone:String,
 
     @Schema(example = "urubu100")
-    @field:NotBlank
-    @field:Size(min = 8, max = 24)
     val senha:String,
 
     @Schema(example = "1")
@@ -34,5 +32,6 @@ data class Cadastrar1Dto (
     @field:Max(2)
     val tipoUsuario:Int,
 
-    val isReturning: Boolean
+    val isReturning: Boolean,
+    val id: Int?
 )

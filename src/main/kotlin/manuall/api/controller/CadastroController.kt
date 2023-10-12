@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/cadastrar")
 @CrossOrigin("http://localhost:5173")
-class CadastroController (
+class CadastroController(
     val cadastroService: CadastroService
 ) {
 
@@ -52,5 +52,19 @@ class CadastroController (
         @PathVariable @Schema(example = "1") idPlano: Int
     ): ResponseEntity<String> {
         return cadastroService.cadastrar4(token, idPlano)
+    }
+
+    @GetMapping("/1/{id}")
+    fun getCad1Info(
+        @PathVariable @Schema(example = "1") id: Int,
+    ): ResponseEntity<Cad1InfoResponse> {
+        return cadastroService.getCad1Info(id)
+    }
+
+    @GetMapping("/2/{id}")
+    fun getCad2Info(
+        @PathVariable @Schema(example = "1") id: Int,
+    ): ResponseEntity<Cad2InfoResponse> {
+        return cadastroService.getCad2Info(id)
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class CadastroService (
+class CadastroService(
     val prospectRepository: ProspectRepository,
     val usuarioRepository: UsuarioRepository,
     val passwordEncoder: PasswordEncoder,
@@ -51,6 +51,23 @@ class CadastroService (
 
     fun cadastrar1(cadastrar1DTO: Cadastrar1Dto): ResponseEntity<Cad1Response> {
 
+        if (cadastrar1DTO.isReturning) {
+            if (cadastrar1DTO.id == null) return ResponseEntity.status(404).build()
+            val possivelUsuario = usuarioRepository.findById(cadastrar1DTO.id)
+            if (possivelUsuario.isEmpty) {
+                return ResponseEntity.status(404).build()
+            }
+            val usuario = possivelUsuario.get()
+            usuario.nome = cadastrar1DTO.nome
+            usuario.email = cadastrar1DTO.email
+            usuario.cpf = cadastrar1DTO.cpf
+            usuario.telefone = cadastrar1DTO.telefone
+            usuarioRepository.save(usuario)
+            return ResponseEntity.status(201).body(
+                Cad1Response(null, usuario.id)
+            )
+        }
+
         val emailExistente = usuarioRepository.findByEmailAndTipoUsuario(
             cadastrar1DTO.email,
             TipoUsuario.fromIntToClass(cadastrar1DTO.tipoUsuario)
@@ -71,28 +88,10 @@ class CadastroService (
                         Cad1Response(3, usuario.id)
                     )
                 else
-                    if (cadastrar1DTO.isReturning) {
-                        usuario.nome = cadastrar1DTO.nome
-                        usuario.email = cadastrar1DTO.email
-                        usuario.cpf = cadastrar1DTO.cpf
-                        usuario.telefone = cadastrar1DTO.telefone
-                        usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
-                        usuarioRepository.save(usuario)
-                        ResponseEntity.status(201).build()
-                    } else
-                        ResponseEntity.status(409).build()
+                    ResponseEntity.status(409).build()
             } else {
                 if (usuario.canal !== null)
-                    if (cadastrar1DTO.isReturning) {
-                        usuario.nome = cadastrar1DTO.nome
-                        usuario.email = cadastrar1DTO.email
-                        usuario.cpf = cadastrar1DTO.cpf
-                        usuario.telefone = cadastrar1DTO.telefone
-                        usuario.senha = passwordEncoder.encode(cadastrar1DTO.senha)
-                        usuarioRepository.save(usuario)
-                        ResponseEntity.status(201).build()
-                    } else
-                        ResponseEntity.status(409).build()
+                    ResponseEntity.status(409).build()
                 else
                     ResponseEntity.status(206).body(
                         Cad1Response(4, usuario.id)
@@ -132,28 +131,30 @@ class CadastroService (
             return ResponseEntity.status(404).body("Usuário não encontrado!")
         }
         val enderecoCadastrado = dadosEnderecoRepository.findByUsuarioId(id)
-        if (enderecoCadastrado.isPresent) {
-            return ResponseEntity.status(409).body("Endereço já cadastrado!")
-        } else {
-            val dadosEndereco = DadosEndereco()
-            dadosEndereco.usuario = usuario.get()
-            dadosEndereco.cep = cadastrar2DTO.cep
-            dadosEndereco.cidade = cadastrar2DTO.cidade
-            dadosEndereco.estado = cadastrar2DTO.estado
-            dadosEndereco.bairro = cadastrar2DTO.bairro
-            dadosEndereco.rua = cadastrar2DTO.rua
-            dadosEndereco.numero = cadastrar2DTO.numero
-            dadosEndereco.complemento = cadastrar2DTO.complemento
+        val dadosEndereco =
+            if (enderecoCadastrado.isPresent) {
+                enderecoCadastrado.get()
+            } else {
+                if (usuario.get() is Contratante) {
+                    val novoUsuario: Usuario = usuario.get()
+                    novoUsuario.status = 2
+                    usuarioRepository.save(novoUsuario)
+                }
 
-            if (usuario.get() is Contratante) {
-                val novoUsuario: Usuario = usuario.get()
-                novoUsuario.status = 2
-                usuarioRepository.save(novoUsuario)
+                val newDadosEndereco = DadosEndereco()
+                newDadosEndereco.usuario = usuario.get()
+                newDadosEndereco
             }
+        dadosEndereco.cep = cadastrar2DTO.cep
+        dadosEndereco.cidade = cadastrar2DTO.cidade
+        dadosEndereco.estado = cadastrar2DTO.estado
+        dadosEndereco.bairro = cadastrar2DTO.bairro
+        dadosEndereco.rua = cadastrar2DTO.rua
+        dadosEndereco.numero = cadastrar2DTO.numero
+        dadosEndereco.complemento = cadastrar2DTO.complemento
 
-            dadosEnderecoRepository.save(dadosEndereco)
-            return ResponseEntity.status(201).body("Endereço cadastrado com sucesso!")
-        }
+        dadosEnderecoRepository.save(dadosEndereco)
+        return ResponseEntity.status(201).body("Endereço cadastrado com sucesso!")
     }
 
     fun cadastrar3(id: Int, cadastrar3Dto: Cadastrar3Dto): ResponseEntity<Unit> {
@@ -196,5 +197,46 @@ class CadastroService (
         usuario.plano = idPlano
         usuarioRepository.save(usuario)
         return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
+    }
+
+    fun getCad1Info(userId: Int): ResponseEntity<Cad1InfoResponse> {
+        val user = usuarioRepository.findById(userId)
+
+        if (user.isEmpty) {
+            return ResponseEntity.status(404).build()
+        }
+
+        val usuario = user.get()
+
+        return ResponseEntity.status(200).body(
+            Cad1InfoResponse(
+                usuario.nome,
+                usuario.email,
+                usuario.cpf,
+                usuario.telefone,
+            )
+        )
+    }
+
+    fun getCad2Info(userId: Int): ResponseEntity<Cad2InfoResponse> {
+        val endereco = dadosEnderecoRepository.findByUsuarioId(userId)
+
+        if (endereco.isEmpty) {
+            return ResponseEntity.status(404).build()
+        }
+
+        val dadosEndereco = endereco.get()
+
+        return ResponseEntity.status(200).body(
+            Cad2InfoResponse(
+                dadosEndereco.cep,
+                dadosEndereco.estado,
+                dadosEndereco.cidade,
+                dadosEndereco.bairro,
+                dadosEndereco.rua,
+                dadosEndereco.numero,
+                dadosEndereco.complemento
+            )
+        )
     }
 }
