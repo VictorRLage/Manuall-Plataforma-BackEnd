@@ -50,7 +50,7 @@ class CadastroController(
     fun cadastrar4(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable @Schema(example = "1") idPlano: Int
-    ): ResponseEntity<String> {
+    ): ResponseEntity<Unit> {
         return cadastroService.cadastrar4(token, idPlano)
     }
 

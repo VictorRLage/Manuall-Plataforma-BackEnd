@@ -49,11 +49,12 @@ class UsuarioSpecification(
         notaCoalesce.value(nota).value(0.0)
 
         val usuarioIsPrestador = cb.equal(prestadorJoin.type(), Prestador::class.java)
+        val planoIsNotNull = cb.isNotNull(prestadorJoin.get<Int>("plano"))
 
         if (idArea > 0)
-            cq.where(usuarioIsPrestador, cb.equal(area, idArea))
+            cq.where(usuarioIsPrestador, planoIsNotNull, cb.equal(area, idArea))
         else
-            cq.where(usuarioIsPrestador)
+            cq.where(usuarioIsPrestador,  planoIsNotNull)
 
         cq.select(cb.construct(
             PrestadorCardDto::class.java,
@@ -96,7 +97,7 @@ class UsuarioSpecification(
         }
 
         val planoOrder: Order =
-            getOrder(cb, prestadorJoin.get<String>("plano"), crescente)
+            getOrder(cb, prestadorJoin.get<Int>("plano"), crescente)
 
         if (filtroOrder !== null)
             cq.orderBy(filtroOrder, planoOrder)

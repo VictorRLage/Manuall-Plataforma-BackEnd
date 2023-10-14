@@ -186,17 +186,17 @@ class CadastroService(
         return ResponseEntity.status(201).build()
     }
 
-    fun cadastrar4(token: String?, idPlano: Int): ResponseEntity<String> {
+    fun cadastrar4(token: String?, idPlano: Int): ResponseEntity<Unit> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
         if (usuario !is Prestador)
-            return ResponseEntity.status(403).body("Usuário não é um prestador")
+            return ResponseEntity.status(403).build()
 
         usuario.plano = idPlano
         usuarioRepository.save(usuario)
-        return ResponseEntity.status(201).body("Plano cadastrado com sucesso!")
+        return ResponseEntity.status(201).build()
     }
 
     fun getCad1Info(userId: Int): ResponseEntity<Cad1InfoResponse> {
