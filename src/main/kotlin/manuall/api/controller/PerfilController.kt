@@ -96,14 +96,6 @@ class PerfilController(
         return perfilService.atualizarPFP(token, alterPfpRequest)
     }
 
-    @GetMapping("/solicitacoes")
-    @SecurityRequirement(name = "Bearer")
-    fun getSolicitacoes(
-        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
-    ): ResponseEntity<List<NotificacaoDto>> {
-        return perfilService.getSolicitacoes(token)
-    }
-
     @PostMapping("/imagem")
     @SecurityRequirement(name = "Bearer")
     fun postarUrl(

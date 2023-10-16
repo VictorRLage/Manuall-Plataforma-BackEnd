@@ -101,7 +101,6 @@ class PerfilService(
 
         val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuario.id).get()
         val dadosAvaliacao = avaliacaoRepository.findByPrestadorId(usuario.id)
-        val notificacoes = solicitacaoRepository.findAllByUsuarioId(usuario.id)
         val nomeArea = areaRepository.findAreaNomeByUsuarioId(usuario.id)
         val urls = usuarioImgRepository.findUrlsByUsuarioId(usuario.id)
         val servicos = usuarioServicoRepository.findServicosByUsuarioId(usuario.id)
@@ -118,8 +117,7 @@ class PerfilService(
             dadosEndereco.cidade,
             urls,
             servicos,
-            dadosAvaliacao,
-            notificacoes
+            dadosAvaliacao
         )
         return ResponseEntity.status(200).body(perfilDTO)
     }
@@ -193,40 +191,6 @@ class PerfilService(
         usuarioRepository.save(usuario)
 
         return ResponseEntity.status(200).build()
-    }
-
-    fun getSolicitacoes(token: String?): ResponseEntity<List<NotificacaoDto>> {
-
-        val usuario = jwtTokenManager.validateToken(token)
-            ?: return ResponseEntity.status(480).build()
-
-        if (usuario is Prestador) {
-            val solicitacoes = solicitacaoRepository.findByPrestadorIdOrderByIdDesc(usuario.id)
-            return ResponseEntity.status(200).body(solicitacoes.map {
-                NotificacaoDto(
-                    it.contratante.nome,
-                    when (it.status) {
-                        1 -> "Você recebeu uma solicitação de "
-                        2 -> "Você aceitou a solicitação de "
-                        else -> "Você recusou a solicitação de "
-                    },
-                    null
-                )
-            })
-        } else {
-            val solicitacoes = solicitacaoRepository.findByContratanteIdOrderByIdDesc(usuario.id)
-            return ResponseEntity.status(200).body(solicitacoes.map {
-                NotificacaoDto(
-                    it.prestador.nome,
-                    when (it.status) {
-                        1 -> "Você enviou uma solicitação para "
-                        2 -> "Sua solicitação foi aceita por "
-                        else -> "Sua solicitação foi recusada por "
-                    },
-                    it.prestador.anexoPfp
-                )
-            })
-        }
     }
 
     fun postarUrl(token: String?, anexo: UrlImagemDto): ResponseEntity<Unit> {

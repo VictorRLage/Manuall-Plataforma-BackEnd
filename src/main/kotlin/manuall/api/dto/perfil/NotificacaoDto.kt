@@ -1,7 +1,11 @@
 package manuall.api.dto.perfil
 
-data class NotificacaoDto (
-    val nome: String?,
-    val notificacao: String,
-    val ftPerfil: String?
+import java.sql.Date
+
+data class NotificacaoDto(
+    val solicitacaoId: Int,
+    val nomeUsuario: String,
+    val type: String,
+    val date: Date?,
+    val isSolicitacao: NotificacaoSolicitacaoDto?,
 )

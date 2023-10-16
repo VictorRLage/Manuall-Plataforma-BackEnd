@@ -1,12 +1,10 @@
 package manuall.api.repository
 
 import manuall.api.domain.Solicitacao
-import manuall.api.dto.solicitacao.NotificacaoDto
 import manuall.api.dto.chat.ChatPegarDadosDestinatarioDto
 import manuall.api.dto.chat.ChatPegarDadosDestinatariosDto
 import manuall.api.dto.dashboard.PegarRegiaoDto
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -65,7 +63,4 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
     fun findByContratanteIdOrderByIdDesc(id: Int): List<Solicitacao>
 
     fun findByPrestadorIdOrderByIdDesc(id: Int): List<Solicitacao>
-
-    @Query("SELECT new manuall.api.dto.solicitacao.NotificacaoDto(s.id, s.prestador.nome, s.descricao) FROM Solicitacao s WHERE s.prestador.id = ?1")
-    fun findAllByUsuarioId(usuarioId: Int): List<NotificacaoDto>
 }

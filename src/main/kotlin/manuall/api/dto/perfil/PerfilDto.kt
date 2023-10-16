@@ -1,7 +1,6 @@
 package manuall.api.dto.perfil
 
 import manuall.api.dto.solicitacao.AvaliacaoDto
-import manuall.api.dto.solicitacao.NotificacaoDto
 import manuall.api.service.PerfilServicoServiceDto
 
 data class PerfilDto(
@@ -16,6 +15,5 @@ data class PerfilDto(
     val cidade: String?,
     val imagens: List<String>,
     val servicos: List<PerfilServicoServiceDto>,
-    val avaliacoes: List<AvaliacaoDto>,
-    val notificacoes: List<NotificacaoDto>
+    val avaliacoes: List<AvaliacaoDto>
 )

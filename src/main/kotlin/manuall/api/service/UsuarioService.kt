@@ -1,6 +1,7 @@
 package manuall.api.service
 
 import manuall.api.domain.*
+import manuall.api.dto.perfil.NotificacaoDto
 import manuall.api.dto.usuario.*
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
@@ -153,6 +154,28 @@ class UsuarioService (
 
         jwtTokenManager.expirarToken(token!!)
         return ResponseEntity.status(200).build()
+    }
+
+    fun getNotificacoes(token: String?): ResponseEntity<List<NotificacaoDto>> {
+
+        val usuario = jwtTokenManager.validateToken(token)
+            ?: return ResponseEntity.status(480).build()
+
+        val notificacoesDto = mutableListOf<NotificacaoDto>()
+
+//        notificacoes.forEach {
+//            notificacoesDto.add(
+//                NotificacaoDto(
+//                    it.descricao,
+//                    it.pfp,
+//                    it.type
+//                )
+//            )
+//        }
+
+        return ResponseEntity.status(200).body(
+            notificacoesDto
+        )
     }
 
     fun aprovacoesPendentes(token: String?): ResponseEntity<List<AprovacaoDto>> {

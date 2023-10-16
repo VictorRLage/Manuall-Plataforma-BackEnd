@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import manuall.api.domain.Area
 import manuall.api.domain.Servico
+import manuall.api.dto.perfil.NotificacaoDto
 import manuall.api.dto.usuario.*
 import manuall.api.service.UsuarioService
 import manuall.api.specification.UsuarioSpecification
@@ -82,6 +83,13 @@ class UsuarioController(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<Unit> {
         return usuarioService.logoff(token)
+    }
+
+    @GetMapping("/notificacoes")
+    fun getNotificacoes(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<List<NotificacaoDto>> {
+        return usuarioService.getNotificacoes(token)
     }
 
     @GetMapping("/aprovacoesPendentes")
