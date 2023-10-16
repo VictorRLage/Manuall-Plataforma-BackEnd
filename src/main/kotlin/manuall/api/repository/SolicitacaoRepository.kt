@@ -1,6 +1,7 @@
 package manuall.api.repository
 
 import manuall.api.domain.Solicitacao
+import manuall.api.domain.Usuario
 import manuall.api.dto.chat.ChatPegarDadosDestinatarioDto
 import manuall.api.dto.chat.ChatPegarDadosDestinatariosDto
 import manuall.api.dto.dashboard.PegarRegiaoDto
@@ -60,7 +61,7 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
     """)
     fun findByContratante():List<PegarRegiaoDto>
 
-    fun findByContratanteIdOrderByIdDesc(id: Int): List<Solicitacao>
+    fun findByContratanteId(usuarioId: Int): List<Solicitacao>
 
-    fun findByPrestadorIdOrderByIdDesc(id: Int): List<Solicitacao>
+    fun findByPrestadorId(usuarioId: Int): List<Solicitacao>
 }

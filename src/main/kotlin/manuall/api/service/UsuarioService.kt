@@ -2,6 +2,7 @@ package manuall.api.service
 
 import manuall.api.domain.*
 import manuall.api.dto.perfil.NotificacaoDto
+import manuall.api.dto.perfil.NotificacaoSolicitacaoDto
 import manuall.api.dto.usuario.*
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
@@ -12,9 +13,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
-class UsuarioService (
+class UsuarioService(
     val passwordEncoder: PasswordEncoder,
     val jwtTokenManager: JwtTokenManager,
     val authenticationManager: AuthenticationManager,
@@ -23,6 +25,7 @@ class UsuarioService (
     val areaRepository: AreaRepository,
     val servicoRepository: ServicoRepository,
     val usuarioServicoRepository: UsuarioServicoRepository,
+    val solicitacaoRepository: SolicitacaoRepository
 ) {
 
     fun getIdByToken(token: String?): ResponseEntity<Int> {
@@ -83,6 +86,7 @@ class UsuarioService (
                             null
                         )
                     )
+
                     4 -> return ResponseEntity.status(403).body(
                         LoginResponse(
                             null,
@@ -92,6 +96,7 @@ class UsuarioService (
                             null
                         )
                     )
+
                     1 -> return ResponseEntity.status(403).body(
                         LoginResponse(
                             null,
@@ -161,21 +166,81 @@ class UsuarioService (
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        val notificacoesDto = mutableListOf<NotificacaoDto>()
+        val usuarioSolicitacoes = when (usuario) {
+            is Contratante -> solicitacaoRepository.findByContratanteId(usuario.id)
+            is Prestador -> solicitacaoRepository.findByPrestadorId(usuario.id)
+            else -> return ResponseEntity.status(404).build()
+        }
 
-//        notificacoes.forEach {
-//            notificacoesDto.add(
-//                NotificacaoDto(
-//                    it.descricao,
-//                    it.pfp,
-//                    it.type
-//                )
-//            )
-//        }
+        val notificacoes = mutableListOf<NotificacaoDto>()
 
-        return ResponseEntity.status(200).body(
-            notificacoesDto
-        )
+        for (i in usuarioSolicitacoes.indices) {
+            val solicitacao = usuarioSolicitacoes[i]
+            when (solicitacao.status) {
+                1 -> {
+                    notificacoes.add(
+                        NotificacaoDto(
+                            solicitacao.id,
+                            if (usuario is Prestador)
+                                solicitacao.contratante.nome!!
+                            else
+                                solicitacao.prestador.nome!!,
+                            1,
+                            solicitacao.dataFim,
+                            NotificacaoSolicitacaoDto()
+                        )
+                    )
+                }
+
+                2 -> {
+                    val cal = Calendar.getInstance()
+                    cal.add(Calendar.DATE, -4)
+                    if (solicitacao.dataFim != null && solicitacao.dataFim!!.before(cal.time)) {
+                        if (solicitacao.formOrcamento == null && usuario is Prestador) {
+                            notificacoes.add(
+                                NotificacaoDto(
+                                    solicitacao.id,
+                                    solicitacao.contratante.nome!!,
+                                    4,
+                                    solicitacao.dataFim,
+                                    null
+                                )
+                            )
+                        }
+                    } else {
+                        notificacoes.add(
+                            NotificacaoDto(
+                                solicitacao.id,
+                                if (usuario is Prestador)
+                                    solicitacao.contratante.nome!!
+                                else
+                                    solicitacao.prestador.nome!!,
+                                2,
+                                null,
+                                null,
+                            )
+                        )
+                    }
+                }
+
+                4 -> {
+                    notificacoes.add(
+                        NotificacaoDto(
+                            solicitacao.id,
+                            if (usuario is Prestador)
+                                solicitacao.contratante.nome!!
+                            else
+                                solicitacao.prestador.nome!!,
+                            3,
+                            solicitacao.dataFim,
+                            null,
+                        )
+                    )
+                }
+            }
+        }
+
+        return ResponseEntity.status(200).body(notificacoes)
     }
 
     fun aprovacoesPendentes(token: String?): ResponseEntity<List<AprovacaoDto>> {
@@ -190,10 +255,12 @@ class UsuarioService (
         val usuarios = usuarioRepository.aprovacoesPendentes()
         val listaPendentes = mutableListOf<AprovacaoDto>()
         usuarios.forEach {
-            listaPendentes.add(AprovacaoDto(
-                it,
-                usuarioServicoRepository.findServicosNomeByUsuarioId(it.id)
-            ))
+            listaPendentes.add(
+                AprovacaoDto(
+                    it,
+                    usuarioServicoRepository.findServicosNomeByUsuarioId(it.id)
+                )
+            )
         }
 
         return ResponseEntity.status(200).body(listaPendentes)
