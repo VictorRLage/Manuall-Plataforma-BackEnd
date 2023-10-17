@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.concurrent.ArrayBlockingQueue
 
 @Service
 class UsuarioService(
@@ -250,8 +251,9 @@ class UsuarioService(
         return ResponseEntity.status(200).body(notificacoes)
     }
 
-    fun aprovacoesPendentes(token: String?): ResponseEntity<List<AprovacaoDto>> {
+    private val filaPrestadores = ArrayBlockingQueue<AprovacaoDto>(20)
 
+    fun aprovacoesPendentes(token: String?): ResponseEntity<List<AprovacaoDto>> {
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
@@ -260,9 +262,8 @@ class UsuarioService(
         }
 
         val usuarios = usuarioRepository.aprovacoesPendentes()
-        val listaPendentes = mutableListOf<AprovacaoDto>()
         usuarios.forEach {
-            listaPendentes.add(
+            filaPrestadores.put(
                 AprovacaoDto(
                     it,
                     usuarioServicoRepository.findServicosNomeByUsuarioId(it.id)
@@ -270,7 +271,12 @@ class UsuarioService(
             )
         }
 
-        return ResponseEntity.status(200).body(listaPendentes)
+        val prestadores = mutableListOf<AprovacaoDto>()
+        while (!filaPrestadores.isEmpty()) {
+            prestadores.add(filaPrestadores.take())
+        }
+
+        return ResponseEntity.status(200).body(prestadores)
     }
 
     fun aprovar(token: String?, idPrestador: Int, aprovar: Boolean): ResponseEntity<Unit> {
