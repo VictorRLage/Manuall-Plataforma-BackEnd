@@ -86,6 +86,7 @@ class UsuarioController(
     }
 
     @GetMapping("/notificacoes")
+    @SecurityRequirement(name = "Bearer")
     fun getNotificacoes(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<List<NotificacaoDto>> {

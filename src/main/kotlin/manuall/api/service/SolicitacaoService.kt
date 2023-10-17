@@ -67,7 +67,13 @@ class SolicitacaoService(
 
         val solicitacao = solicitacaoRepository.findById(idSolicitacao).get()
 
-        solicitacao.status = if (aceitar) 2 else 4
+        solicitacao.dataInicio = Date()
+        solicitacao.status = if (aceitar) {
+            2
+        } else {
+            solicitacao.dataFim = Date()
+            4
+        }
 
         solicitacaoRepository.save(solicitacao)
 

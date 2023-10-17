@@ -11,5 +11,5 @@ data class NotificacaoDto(
     // 3: Recusada
     // 4: Finalizada - Apenas para prestador
     val date: Date?,
-    val isSolicitacao: NotificacaoSolicitacaoDto?,
+    val solicitacao: NotificacaoSolicitacaoDto?,
 )
