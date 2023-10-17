@@ -187,7 +187,14 @@ class UsuarioService(
                                 solicitacao.prestador.nome!!,
                             1,
                             solicitacao.dataFim,
-                            NotificacaoSolicitacaoDto()
+                            NotificacaoSolicitacaoDto(
+                                solicitacao.incluiAula,
+                                solicitacao.servico.nome,
+                                solicitacao.tamanho,
+                                solicitacao.medida,
+                                solicitacao.descricao,
+                                solicitacao.solicitacaoImg.map { it.anexo }
+                            )
                         )
                     )
                 }

@@ -169,10 +169,20 @@ class CadastroService(
             return ResponseEntity.status(409).build()
         }
 
-        cadastrar3Dto.servico.forEach {
+        val servicos = servicoRepository.findAll()
+
+        val servicosMap = mutableMapOf<Int, Servico>()
+        servicos.forEach {
+            servicosMap[it.id] = it
+        }
+
+        cadastrar3Dto.servico.forEach loopServicos@{
+
+            if (servicosMap[it] == null) return@loopServicos
+
             val usuarioServico = UsuarioServico()
             usuarioServico.prestador = prestador
-            usuarioServico.servico = servicoRepository.findById(it).get()
+            usuarioServico.servico = servicosMap[it]!!
             usuarioServicoRepository.save(usuarioServico)
         }
 
