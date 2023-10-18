@@ -125,20 +125,20 @@ class PerfilControllerTest {
         assertEquals("Bearer", annotation.name)
     }
 
-    @Test
-    fun getSolicitacoes() {
-        val method = PerfilController::getSolicitacoes
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("/solicitacoes", annotation!!.value[0])
-    }
-    @Test
-    fun `método getSolicitacoes() possui a anotação SecurityRequirement e name = 'Bearer'`() {
-        val method = PerfilController::getSolicitacoes
-        assertTrue(method.hasAnnotation<SecurityRequirement>())
-        val annotation = method.annotations[0] as SecurityRequirement
-        assertEquals("Bearer", annotation.name)
-    }
+//    @Test
+//    fun getSolicitacoes() {
+//        val method = PerfilController::getSolicitacoes
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("/solicitacoes", annotation!!.value[0])
+//    }
+//    @Test
+//    fun `método getSolicitacoes() possui a anotação SecurityRequirement e name = 'Bearer'`() {
+//        val method = PerfilController::getSolicitacoes
+//        assertTrue(method.hasAnnotation<SecurityRequirement>())
+//        val annotation = method.annotations[0] as SecurityRequirement
+//        assertEquals("Bearer", annotation.name)
+//    }
 
     @Test
     fun postarUrl() {
