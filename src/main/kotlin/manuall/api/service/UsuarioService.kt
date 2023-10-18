@@ -251,8 +251,6 @@ class UsuarioService(
         return ResponseEntity.status(200).body(notificacoes)
     }
 
-    private val filaPrestadores = ArrayBlockingQueue<AprovacaoDto>(20)
-
     fun aprovacoesPendentes(token: String?): ResponseEntity<List<AprovacaoDto>> {
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
@@ -262,6 +260,9 @@ class UsuarioService(
         }
 
         val usuarios = usuarioRepository.aprovacoesPendentes()
+
+        val filaPrestadores = ArrayBlockingQueue<AprovacaoDto>(usuarios.size)
+
         usuarios.forEach {
             filaPrestadores.put(
                 AprovacaoDto(
