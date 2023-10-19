@@ -13,7 +13,7 @@ interface HistoricoRepository : JpaRepository<Solicitacao, Int> {
     @Query("""
         SELECT new manuall.api.dto.dashboard.HistoricoDTO(
             s.prestador.id,
-            s.servico.id,
+            s.servico.id,   
             s.formOrcamento.id,
             s.status,
             s.descricao,
