@@ -1,12 +1,11 @@
 package manuall.api.repository
 
 import manuall.api.domain.Solicitacao
-import manuall.api.domain.Usuario
 import manuall.api.dto.chat.ChatPegarDadosDestinatarioDto
 import manuall.api.dto.chat.ChatPegarDadosDestinatariosDto
-import manuall.api.dto.dashboard.PegarRegiaoDto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.util.*
 
@@ -51,17 +50,14 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
     """)
     fun getContratantesByPrestadorId(id: Int): List<ChatPegarDadosDestinatariosDto>
 
-
-    @Query("""
-        select
-        new manuall.api.dto.dashboard.PegarRegiaoDto(e.cidade, e.estado)
-        from Solicitacao s, Usuario u, DadosEndereco e
-        where u.id = s.contratante.id and u.id = e.usuario.id
-        and s.status = 2
-    """)
-    fun findByContratante():List<PegarRegiaoDto>
-
     fun findByContratanteId(usuarioId: Int): List<Solicitacao>
 
     fun findByPrestadorId(usuarioId: Int): List<Solicitacao>
+
+    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.prestador.id = :prestadorId AND s.dataFim BETWEEN :startDate AND :endDate")
+    fun findAllByPrestadorIdAndDataFimBetween(
+        @Param("prestadorId") prestadorId: Int,
+        @Param("startDate") startDate: Date,
+        @Param("endDate") endDate: Date
+    ): Long
 }

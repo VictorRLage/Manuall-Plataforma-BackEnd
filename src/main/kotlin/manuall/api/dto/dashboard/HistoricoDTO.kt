@@ -1,7 +1,5 @@
 package manuall.api.dto.dashboard
 
-import java.util.*
-
 data class HistoricoDTO(
     val prestador_usuario_id: Int?,
     val servico_id: Int?,
