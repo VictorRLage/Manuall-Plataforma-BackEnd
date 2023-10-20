@@ -1,59 +1,51 @@
 package manuall.api.service
 
-import manuall.api.dto.dashboard.DashboardComplitudeCadastroContratanteDto
-import manuall.api.dto.dashboard.DashboardComplitudeCadastroDto
-import manuall.api.dto.dashboard.DashboardComplitudeCadastroPrestadorDto
-import manuall.api.dto.dashboard.PegarRegiaoDto
-import manuall.api.enums.TipoUsuario
+import manuall.api.dto.dashboard.DashboardDto
+import manuall.api.repository.ChatRepository
 import manuall.api.repository.SolicitacaoRepository
 import manuall.api.repository.UsuarioRepository
+import manuall.api.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import java.text.DecimalFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 @Service
 class DashboardService(
     val usuarioRepository: UsuarioRepository,
-    val solicitacaoRepository: SolicitacaoRepository
+    val solicitacaoRepository: SolicitacaoRepository,
+    val jwtTokenManager: JwtTokenManager,
+    val chatRepository: ChatRepository
 ) {
 
-    fun usuariosCanal(tipoUsuario: Int): List<String> {
-        val usuario = usuarioRepository.countByTipoUsuarioGroupByCanal(
-            TipoUsuario.fromIntToClass(tipoUsuario)
-        )
+    fun getDashboard(token: String?, from: Date, to: Date): ResponseEntity<DashboardDto> {
 
-        val totalUsuarios = usuario.sum().toDouble()
-        val porcentagem = mutableListOf<String>()
-        for (i in usuario) {
-            val df = DecimalFormat("#.##")
-            porcentagem.add(df.format((i.toDouble() * 100) / totalUsuarios))
+        val usuario = jwtTokenManager.validateToken(token)
+            ?: return ResponseEntity.status(480).build()
+
+        val mensagens = chatRepository.findMessagesBySolicitacaoId(usuario.id, from, to)
+        val averageMinutes = if (mensagens.size < 2) {
+            null
+        } else {
+            var totalDifference: Long = 0
+            for (i in 1 until mensagens.size)
+                totalDifference += mensagens[i].horario!!.time - mensagens[i - 1].horario!!.time
+
+            TimeUnit.MILLISECONDS.toMinutes(
+                totalDifference / (mensagens.size - 1)
+            )
         }
-        return porcentagem
-    }
-
-    fun pegarRegiao():List<PegarRegiaoDto> {
-        val usuario = solicitacaoRepository.findByContratante()
-        return usuario
-        // TODO: count da quantidade de cont em cada região 
-    }
-
-    fun taxaComplitudeCadastro(): ResponseEntity<DashboardComplitudeCadastroDto> {
-
-        usuarioRepository
 
         return ResponseEntity.status(200).body(
-            DashboardComplitudeCadastroDto(
-            DashboardComplitudeCadastroContratanteDto(
-                2,
-                3
-            ),
-            DashboardComplitudeCadastroPrestadorDto(
-                5,
-                4,
-                3,
-                1
+            DashboardDto(
+                solicitacaoRepository.findAllByPrestadorIdAndDataFimBetween(usuario.id, from, to),
+                averageMinutes,
+                0.0,
+                listOf(),
+                listOf(),
+                listOf(),
+                listOf(),
             )
-        )
         )
     }
 }

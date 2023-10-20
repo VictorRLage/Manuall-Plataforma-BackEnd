@@ -204,7 +204,7 @@ class UsuarioService(
                     val cal = Calendar.getInstance()
                     cal.add(Calendar.DATE, -4)
                     if (solicitacao.dataFim != null && solicitacao.dataFim!!.before(cal.time)) {
-                        if (solicitacao.formOrcamento == null && usuario is Prestador) {
+                        if (solicitacao.formOrcamento == null) {
                             notificacoes.add(
                                 NotificacaoDto(
                                     solicitacao.id,
@@ -255,9 +255,8 @@ class UsuarioService(
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        if (usuario !is Administrador) {
+        if (usuario !is Administrador)
             return ResponseEntity.status(403).build()
-        }
 
         val usuarios = usuarioRepository.aprovacoesPendentes()
 
