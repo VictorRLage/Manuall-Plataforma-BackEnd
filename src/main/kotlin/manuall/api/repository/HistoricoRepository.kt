@@ -16,6 +16,8 @@ interface HistoricoRepository : JpaRepository<Solicitacao, Int> {
             s.servico.id,   
             s.formOrcamento.id,
             s.status,
+            s.dataInicio,
+            s.dataFim,
             s.descricao,
             servico.area.id,
             servico.nome,
