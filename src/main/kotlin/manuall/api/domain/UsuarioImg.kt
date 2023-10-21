@@ -17,7 +17,6 @@ class UsuarioImg {
     var prestador: Prestador = Prestador()
 
     @Column(name = "anexo", length = 150)
-    @field:URL
     @field:NotBlank
     var anexo: String? = ""
 }

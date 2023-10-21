@@ -28,6 +28,5 @@ class Chat {
     var horario: Date? = null
 
     @Column(name = "anexo", length = 90)
-    @field:URL
     var anexo: String? = ""
 }

@@ -17,7 +17,6 @@ data class FilteredUsuario (
 
     @field:NotBlank
     @field:Size(max = 90)
-    @field:URL
     val anexoPfp: String?,
 
     val idArea: Int?,
