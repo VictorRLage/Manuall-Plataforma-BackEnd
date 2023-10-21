@@ -12,27 +12,27 @@ VALUES
 INSERT INTO servico
 (area_id, nome)
 VALUES
-(1, 'Poda'),#1
-(1, 'Controle de Pragas'),#2
-(1, 'Projeto e paisagismo de jardins'),#3
-(2, 'Pintura de paredes internas e externas'),#4
-(2, 'Pintura de portas, janelas e portoes'),#5
-(2, 'Restauração e repintura de fachadas'),#6
-(3, 'Instalação e manutenção elétrica residencial'),#7
-(3, 'Troca de fiação elétrica'),#8
-(3, 'Troca de lâmpada'),#9
-(4, 'Reparos e manutenção de encanamentos'),#10
-(4, 'Instalação de torneiras, chuveiros e pias'),#11
-(4, 'Detecção e reparos de vazamentos'),#12
-(5, 'Fabricação e montagem de móveis sob medida'),#13
-(5, 'Restauração e reparo de móveis de madeira'),#14
-(5, 'Criação de projetos personalizados em madeira'),#15
-(6, 'Montagem de móveis pré-fabricados'),#16
-(6, 'Montagem de estruturas metálicas'),#17
-(6, 'Instalação de sistemas modulares'),#18
-(7, 'Molduras e sancas de gesso'),#19
-(7, 'Decoração em gesso 3D'),#20
-(7, 'Reparos e manutenção em elementos de gesso');#21
+(1, 'Poda'), --1
+(1, 'Controle de Pragas'), --2
+(1, 'Projeto e paisagismo de jardins'), --3
+(2, 'Pintura de paredes internas e externas'), --4
+(2, 'Pintura de portas, janelas e portoes'), --5
+(2, 'Restauração e repintura de fachadas'), --6
+(3, 'Instalação e manutenção elétrica residencial'), --7
+(3, 'Troca de fiação elétrica'), --8
+(3, 'Troca de lâmpada'), --9
+(4, 'Reparos e manutenção de encanamentos'), --10
+(4, 'Instalação de torneiras, chuveiros e pias'), --11
+(4, 'Detecção e reparos de vazamentos'), --12
+(5, 'Fabricação e montagem de móveis sob medida'), --13
+(5, 'Restauração e reparo de móveis de madeira'), --14
+(5, 'Criação de projetos personalizados em madeira'), --15
+(6, 'Montagem de móveis pré-fabricados'), --16
+(6, 'Montagem de estruturas metálicas'), --17
+(6, 'Instalação de sistemas modulares'), --18
+(7, 'Molduras e sancas de gesso'), --19
+(7, 'Decoração em gesso 3D'), --20
+(7, 'Reparos e manutenção em elementos de gesso'); --21
 
 INSERT INTO usuario
 (id, nome, email, senha, cpf, telefone, orcamento_min, orcamento_max, descricao, presta_aula, plano, status, anexo_pfp, acessos, tipo_usuario, canal, area_id)
@@ -40,129 +40,129 @@ VALUES
 (1, 'Joaquim Gimenes Pires', 'joaquim.pires@sptech.school', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
 (2, 'Maria Santos', 'maria.santos@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '98765432109', '11976543210', 1000.00, 2000.00, 'Ofereço aulas particulares', 0, 2, 2, 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 4, 3),
 (3, 'Maria Santos', 'maria.santos@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '98765432109', '11976543210', null, null, null, null, null, 2, null, null, 1, 1, null),
-(4, 'Ana Oliveira', 'ana.oliveira@example.com', '$2a$10$5ph0RY7U8DKcKkHKJgYjPOToAtW6y0ZfQygJSiR4j2DYeFSKytJni', '76543210987', '11965432109', null, null, null, null, null, 2, null, null, 1, 4, null),
-(5, 'Fernanda Souza', 'fernanda.souza@example.com', '$2a$10$IMisr8TdWydcgH22StC/lutUcdtDmqYVDWxyJmZmQX8Tp.nraC5dq', '23456789012', '11912345678', null, null, null, null, null, 2, null, null, 1, 3, null),
-(6, 'Rafaela Lima', 'rafaela.lima@example.com', '$2a$10$NFvy/hCRZkaEMiE468y1quooIfRTVWPJEAAE2772.iry.TCCaYO3a', '34567890123', '11923456789', 1200.00, 2000.00, 'Especialista em Ciências', 0, 2, 2, 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80', 0, 2, 1, 6),
-(7, 'Carlos Mendes', 'carlos.mendes@example.com', '$2a$10$UT.ocrWrVawMkbqVc/6RN.NALwJOcuKIXupneVOZ.nlnWX3KBEKQy', '45678901234', '11934567890', null, null, null, null, null, 2, null, null, 1, 4, null),
-(8, 'Pedro Santos', 'pedro.santos@example.com', '$2a$10$DdOzkLpv3MWFxIijfxBNGONl3kHALH//z4G27bTGd92mq9dZRdJiS', '56789012345', '11945678901', null, null, null, null, null, 2, null, null, 1, 1, null),
+(4, 'Ana Oliveira', 'ana.oliveira@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '76543210987', '11965432109', null, null, null, null, null, 2, null, null, 1, 4, null),
+(5, 'Fernanda Souza', 'fernanda.souza@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '23456789012', '11912345678', null, null, null, null, null, 2, null, null, 1, 3, null),
+(6, 'Rafaela Lima', 'rafaela.lima@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '34567890123', '11923456789', 1200.00, 2000.00, 'Especialista em Ciências', 0, 2, 2, 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80', 0, 2, 1, 6),
+(7, 'Carlos Mendes', 'carlos.mendes@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '45678901234', '11934567890', null, null, null, null, null, 2, null, null, 1, 4, null),
+(8, 'Pedro Santos', 'pedro.santos@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '56789012345', '11945678901', null, null, null, null, null, 2, null, null, 1, 1, null),
 (9, 'Lucas Monte', 'lucas.monte@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '67890123456', '11956789012', 700.00, 1400.00, 'Olá! Meu nome é Lucas Monte e sou um marceneiro apaixonado com mais de 10 de experiência no ramo. Cada pedaço de madeira é uma oportunidade para mim de transformar um simples material em uma obra de arte funcional e durável. Me especializo em projetos residenciais.', 0, 1, 2, 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60', 0, 2, 1, 2),
-(10, 'Pedro Oliveira', 'pedro.oliveira@example.com', '$2a$10$u8ZWxnPbnTQfU1lWRNBq1Ouc1TFdBoz6GGJfhmMd1ULWliTirNH4O', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 3', 1, 3, 2, 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 2, 3),
-(11, 'Ana Souza', 'ana.souza@example.com', '$2a$10$AOnNkhW49gT6wW6t46Hbuenh7MEJqRAtTiIocj7chIGIq6rn2g87S', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 4', 0, 1, 2, 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 3, 4),
-(12, 'Lucas Ferreira', 'lucas.ferreira@example.com', '$2a$10$Nx2rDH7u93q2bM3XFA4bTeUusk3AKN18yqE2hddIhNRXPAEFHd2zm', '56789012345', '11943210987', null, null, null, null, null, 2, null, null, 1, 4, null),
-(13, 'Fernanda Rodrigues', 'fernanda.rodrigues@example.com', '$2a$10$cNXBWXutEmZLpCFZV/X8duyms0Nfkq6E4/yhrSdsGCjkK90qS8zC.', '67890123456', '11932109876', null, null, null, null, null, 2, null, null, 1, 3, null),
-(14, 'Gustavo Lima', 'gustavo.lima@example.com', '$2a$10$of6uGGU9YmW4t29qTsgnaedhdGvT7J03JoC5E5mAwdnqdHuVIb7tG', '78901234567', '11921098765', 4000.00, 5000.00, 'Descrição do usuário 7', 0, 1, 2, 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1889&q=80', 0, 2, 4, 7),
-(15, 'Juliana Almeida', 'juliana.almeida@example.com', '$2a$10$cischjBywyKBTR5QEVuOBOtnEF5AMesyj0YIOlxsLghwalKHzwvWa', '89012345678', '11910987654', null, null, null, null, null, 2, null, null, 1, 0, null),
-(16, 'Rafael Martins', 'rafael.martins@example.com', '$2a$10$Cx06v8rau8pXFYOGTe28leArpQq1gzmsxc.2elyxthfEVaNQl6HUK', '90123456789', '11909876543', 4000.00, 5000.00, 'Descrição do usuário 9', 0, 3, 2, 'https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1854&q=80', 0, 2, 1, 2),
-(17, 'Camila Gomes', 'camila.gomes@example.com', '$2a$10$5nP0d/R1NRI02FygaUviFOBojVFljzJyScPlGhOVxjG3fTPQ9IAC.', '01234567890', '11998765432', null, null, null, null, null, 2, null, null, 1, 2, null),
-(18, 'Ricardo Santos', 'ricardo.santos@example.com', '$2a$10$W3EcOn.A/DFF/eCyQXgHSOBnzFMYsuVL8QFx.NMSnbqswH/SthAHe', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
-(19, 'Amanda Oliveira', 'amanda.oliveira@example.com', '$2a$10$DiZnbfv.2Zz/YkwAmfnvtOnF8TMTIKiD29gyEAhySsHPGN7UAGwIW', '23456789012', '11976543210', null, null, null, null, null, 2, null, null, 1, 1, null),
-(20, 'José Faria', 'jose.faria@example.com', '$2a$10$UdS5.K.yHjQjbeBv0RsVvel3bo.KFdaV0KOZWPa/R60T8ZjLqXkDm', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://img.freepik.com/fotos-gratis/close-up-foto-de-um-homem-bonito-branco-com-barba-vestido-com-uma-camiseta-olhando-e-sorrindo-com-uma-expressao-alegre-e-feliz-sentado-em-um-restaurante-na-calcada-em-um-dia-ensolarado-esperando-por-amigos_273609-6600.jpg', 0, 2, 2, 3),
-(21, 'Carolina Souza', 'carolina.souza@example.com', '$2a$10$aXk4jmNvpTMhWpksBpqqrusqeX7ENeBvgWpnBSl3ZFzypzcB3ApoG', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'https://images.unsplash.com/photo-1618085221129-cb9f9ac1e651?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 3, 4),
-(22, 'Matheus Ferreira', 'matheus.ferreira@example.com', '$2a$10$KRIagtT591nRBgkGCXJoFOiTIaztE/GhqlNkTyVETiYvWfn3VeqDm', '56789012345', '11943210987', null, null, null, null, null, 2, null, null, 1, 4, null),
-(23, 'Camila Gomes', 'camila.gomes@example.com', '$2a$10$5nP0d/R1NRI02FygaUviFOBojVFljzJyScPlGhOVxjG3fTPQ9IAC.', '01234567890', '11998765432', null, null, null, null, null, 2, null, null, 1, 2, null),
-(24, 'Ricardo Santos', 'ricardo.santos@example.com', '$2a$10$W3EcOn.A/DFF/eCyQXgHSOBnzFMYsuVL8QFx.NMSnbqswH/SthAHe', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
-(25, 'Amanda Oliveira', 'amanda.oliveira@example.com', '$2a$10$DiZnbfv.2Zz/YkwAmfnvtOnF8TMTIKiD29gyEAhySsHPGN7UAGwIW', '23456789012', '11976543210', null, null, null, null, null, 2, null, null, 1, 1, null),
-(26, 'Gabriel Rodrigues', 'gabriel.rodrigues@example.com', '$2a$10$UdS5.K.yHjQjbeBv0RsVvel3bo.KFdaV0KOZWPa/R60T8ZjLqXkDm', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 2, 3),
-(27, 'João Pedro', 'joao.pedro@email.com', 'senha1', '12345678901', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
-(28, 'João Paulo', 'joao.paulo@email.com', 'senha2', '12345678902', '1234567891', 60, 3000, 'Descrição 2', 1, 2, 2, 'IMAGEM', NULL, 2, 1, 2),
-(29, 'João Matheus', 'joao.matheus@email.com', 'senha3', '12345678903', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
-(30, 'João Lucas', 'joão.lucas@email.com', 'senha4', '12345678904', '1234567893', 80, 4000, 'Descrição 4', 1, 1, 2, 'IMAGEM', NULL, 2, 3, 4),
-(31, 'João Joaquim', 'joao.joaquim@email.com', 'senha5', '12345678905', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
-(32, 'João Victor', 'joao.victor@email.com', 'senha6', '12345678906', '1234567895', 100, 5000, 'Descrição 6', 0, 2, 2, 'IMAGEM', NULL, 2, 1, 2),
-(33, 'João Vitor', 'joao.vitor@email.com', 'senha7', '12345678907', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
-(34, 'João Viktor', 'joao.viktor@email.com', 'senha8', '12345678908', '1234567897', 65, 3250, 'Descrição 8', 1, 3, 2, 'IMAGEM',NULL,  2, 3, 1),
-(35, 'João Mateus', 'joao.mateus@email.com', 'senha9', '12345678909', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(36, 'João Marco', 'joao.marco@email.com', 'senha10', '12345678910', '1234567899', 75, 3750, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 3),
-(37, 'João Marcos', 'joao.marcos@email.com', 'senha11', '12345678911', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(38, 'João Marcus', 'joao.marcus@email.com', 'senha12', '12345678912', '1234567891', 90, 4500, 'Descrição 10', 1, 2, 2, 'IMAGEM', NULL,  2, 2, 5),
-(39, 'João Kleber', 'joao.kleber@email.com', 'senha13', '12345678913', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(40, 'João Cleber', 'joao.cleber@email.com', 'senha14', '12345678914', '1234567893', 55, 2750, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 0, 7),
-(41, 'João Gomes', 'joao.gomes@email.com', 'senha15', '12345678915', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(42, 'Pedro Paulo', 'pedro.paulo@email.com', 'senha16', '12345678916', '1234567895', 80, 4000, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 2),
-(43, 'Pedro Cesar', 'pedro.cesar@email.com', 'senha17', '12345678917', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(44, 'Pedro Lima', 'pedro.lima@email.com', 'senha18', '12345678918', '1234567897', 70, 3500, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 4),
-(45, 'Pedro Gustavo', 'pedro.gustavo@email.com', 'senha19', '12345678919', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(46, 'João Gustavo', 'joao.gustavo@email.com', 'senha20', '12345678920', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 6),
-(47, 'Pedro Ferro', 'pedro.ferro@email.com', 'senha21', '12345678921', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
-(48, 'Matheus Siqueira', 'matheus.siqueira@email.com', 'senha22', '12345678922', '1234567891', 60, 3000, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 1, 2),
-(49, 'Matheus Nunes', 'matheus.nunes@email.com', 'senha23', '12345678923', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
-(50, 'Matheus Pinto', 'metheus.pinto@email.com', 'senha24', '12345678924', '1234567893', 80, 4000, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 3, 4),
-(51, 'Matheus Kasaoka', 'matheus.kasaoka@email.com', 'senha25', '12345678925', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
-(52, 'Matheus Hugo', 'matheus.hugo@email.com', 'senha26', '12345678926', '1234567895', 100, 5000, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 1, 2),
-(53, 'Victor Madeira', 'victor.madeira@email.com', 'senha27', '12345678927', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
-(54, 'Victor Kogos', 'victor.kogos@email.com', 'senha28', '12345678928', '1234567897', 65, 3250, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 3, 1),
-(55, 'Victor Pedra', 'victor.pedra@email.com', 'senha29', '12345678929', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(56, 'Victor Ferreira', 'victor.ferreira@email.com', 'senha30', '12345678930', '1234567899', 75, 3750, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 3),
-(57, 'Victor Lanterna', 'victor.lanterna@email.com', 'senha31', '12345678931', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(58, 'Victor Pato', 'victor.pato@email.com', 'senha32', '12345678932', '1234567891', 90, 4500, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 2, 5),
-(59, 'Victor Ganso', 'victor.ganso@email.com', 'senha33', '12345678933', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(60, 'Julia Pasta', 'julia.pasta@email.com', 'senha34', '12345678934', '1234567893', 55, 2750, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 7),
-(61, 'Julia Vieira', 'julia.vieira@email.com', 'senha35', '12345678935', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(62, 'Julia Barbosa', 'julia.barbasa@email.com', 'senha36', '12345678936', '1234567895', 80, 4000, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 2),
-(63, 'Julia Flores', 'julia.flores@email.com', 'senha37', '12345678937', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(64, 'Julia Meneses', 'julia.meneses@email.com', 'senha38', '12345678938', '1234567897', 70, 3500, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 4),
-(65, 'Fabio Seabra', 'fabio.seabra@email.com', 'senha39', '12345678939', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(66, 'Paulo Gimenes', 'paulo.gimenes@email.com', 'senha40', '12345678940', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 6),
-(67, 'Julia Maria', 'julia.maria@email.com', 'senha41', '12345678941', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(68, 'Maria Julia', 'maria.julia@email.com', 'senha42', '12345678942', '1234567891', 75, 3750, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 2, 3),
-(69, 'Maria Eduarda', 'maria.eduarda@email.com', 'senha43', '12345678943', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(70, 'Maria Fernanda', 'maria.fernanda@email.com', 'senha44', '12345678944', '1234567893', 65, 3250, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 5),
-(71, 'Maria Humberto', 'maria.humberto@email.com', 'senha45', '12345678945', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(72, 'Maria Carla', 'maria.carla@email.com', 'senha46', '12345678946', '1234567895', 90, 4500, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 7),
-(73, 'Maria Beatriz', 'maria.beatriz@email.com', 'senha47', '12345678947', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(74, 'Maria Lima', 'maria.lima@email.com', 'senha48', '12345678948', '1234567897', 70, 3500, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 0, 2),
-(75, 'Maria Fernandez', 'maria.fernandez@email.com', 'senha49', '12345678949', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(76, 'Maria Plumus', 'maria.plumus@email.com', 'senha50', '12345678950', '1234567899', 75, 3750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
-(77, 'Maria Branca', 'maria.branca@email.com', 'senha51', '12345678951', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(78, 'Maria Corvo', 'maria.corva@email.com', 'senha52', '12345678952', '1234567891', 90, 4500, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 2, 5),
-(79, 'Humberto Lopes', 'humberto.lopes@email.com', 'senha53', '12345678953', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(80, 'Julio Fermo', 'julio.fermo@email.com', 'senha54', '12345678954', '1234567893', 55, 2750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 0, 7),
-(81, 'Helena Rodrigues', 'helena.rodrigues@email.com', 'senha55', '12345678955', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(82, 'Lara Santana', 'lara.santana@email.com', 'senha56', '12345678956', '1234567895', 80, 4000, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 2),
-(83, 'Alice Ribeiro', 'alice.ribeiro@email.com', 'senha57', '12345678957', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(84, 'Lívia Castro', 'livia.castro@email.com', 'senha58', '12345678958', '1234567897', 70, 3500, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 0, 4),
-(85, 'Samuel Antonelli', 'samuel.antonelli@email.com', 'senha59', '12345678959', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(86, 'Gael Campbell', 'gael.campbell@email.com', 'senha60', '12345678960', '1234567899', 75, 3750, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 2, 6),
-(87, 'Davi Stewart', 'davi.stewart@email.com', 'senha61', '12345678961', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(88, 'Benicio Alencar', 'banecio.alencar@email.com', 'senha62', '12345678962', '1234567891', 75, 3750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 3),
-(89, 'Guilherme Diniz', 'guilherme.diniz@email.com', 'senha63', '12345678963', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(90, 'Arthur Santos', 'arthur.santos@email.com', 'senha64', '12345678964', '1234567893', 65, 3250, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 5),
-(91, 'Arthur Medina', 'arthur.medina@email.com', 'senha65', '12345678965', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(92, 'Heitor Lamberti', 'heitor.lamberti@email.com', 'senha66', '12345678966', '1234567895', 90, 4500, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 7),
-(93, 'Josué Sanchez', 'josue.sanchez@email.com', 'senha67', '12345678967', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(94, 'Isaque Hermans', 'isaque.hermans@email.com', 'senha68', '12345678968', '1234567897', 70, 3500, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 2),
-(95, 'Paulo Medina', 'paulo.medina@email.com', 'senha69', '12345678969', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(96, 'Elias Alonso', 'elias.alonso@email.com', 'senha70', '12345678970', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
-(97, 'David Espinosa', 'david.espinosa@email.com', 'senha71', '12345678971', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(98, 'Jonas Iglesias', 'jonas.iglesias@email.com', 'senha72', '12345678972', '1234567891', 75, 3750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 3),
-(99, 'Caleb Wong', 'caleb.wong@email.com', 'senha73', '12345678973', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(100, 'Thiago Loyola', 'thiago.loyola@email.com', 'senha74', '12345678974', '1234567893', 65, 3250, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 0, 5),
-(101, 'Tiago Baumann', 'tiago.baumann@email.com', 'senha75', '12345678975', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0 , NULL),
-(102, 'Danilo Dirksen', 'danilo.dirksen@email.com', 'senha76', '12345678976', '1234567895', 90, 4500, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 6),
-(103, 'Daniel Fischer', 'daniel.fischer@email.com', 'senha77', '12345678977', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(104, 'Ezequiel Zhang', 'ezequiel.zhanf@email.com', 'senha78', '12345678978', '1234567897', 70, 3500, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 0, 2),
-(105, 'Saulo Ivanov', 'saulo.ivanov@email.com', 'senha79', '12345678979', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(106, 'Abner Kimura', 'abner.kimura@email.com', 'senha80', '12345678980', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
-(107, 'Roberto Johnson', 'roberto.johnson@email.com', 'senha81', '12345678981', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(108, 'Ismael Cooper', 'ismael.cooper@email.com', 'senha82', '12345678982', '1234567891', 75, 3750, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 2, 3),
-(109, 'Luiz Davis', 'luiz.davis@email.com', 'senha83', '12345678983', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(110, 'Oliver Miller', 'oliver.miller@email.com', 'senha84', '12345678984', '1234567893', 65, 3250, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 0, 5),
-(111, 'Douglas Wilson', 'dougles.wilson@email.com', 'senha85', '12345678985', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(112, 'Ryan Stevens', 'ryan.stevens@email.com', 'senha86', '12345678986', '1234567895', 90, 4500, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 2, 7),
-(113, 'Michael Taylor', 'michel.taylor@email.com', 'senha87', '12345678987', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(114, 'Thomas Thompson', 'thomas.thompson@email.com', 'senha88', '12345678988', '1234567897', 70, 3500, 'Descrição 10', 1, 3, 2,'IMAGEM', NULL,  2, 0, 2),
-(115, 'Scott Walker', 'scott.walker@email.com', 'senha89', '12345678989', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(116, 'George White', 'george.white@email.com', 'senha90', '12345678990', '1234567899', 75, 3750, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 4),
-(117, 'Eric Adams', 'eric.adams@email.com', 'senha91', '12345678991', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(118, 'Joseph Green', 'joseph.green@email.com', 'senha92', '12345678992', '1234567891', 75, 3750, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 3),
-(119, 'Peter Baker', 'peter.baker@email.com', 'senha93', '12345678993', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(120, 'James Phillips', 'james.phillips@email.com', 'senha94', '12345678994', '1234567893', 65, 3250, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 5),
-(121, 'Andrew Andersson', 'andrew.andersson@email.com', 'senha95', '12345678995', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(122, 'Charles Watson', 'charles.watson@email.com', 'senha96', '12345678996', '1234567895', 90, 4500, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 2, 7),
-(123, 'Brain Clark', 'brain.clark@email.com', 'senha97', '12345678997', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
-(124, 'Edward Harris', 'edward.harris@email.com', 'senha98', '12345678998', '1234567897', 70, 3500, 'Descrição 10', 1, 2, 2,'IMAGEM', NULL,  2, 0, 2),
-(125, 'Dylan Bellini', 'dylan.bellini@email.com', 'senha99', '12345678999', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
-(126, 'Henry Greco', 'henry.greco@email.com', 'senha100', '12345678910', '1234567899', 70, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
+(10, 'Pedro Oliveira', 'pedro.oliveira@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 3', 1, 3, 2, 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 2, 3),
+(11, 'Ana Souza', 'ana.souza@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 4', 0, 1, 2, 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 3, 4),
+(12, 'Lucas Ferreira', 'lucas.ferreira@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '56789012345', '11943210987', null, null, null, null, null, 2, null, null, 1, 4, null),
+(13, 'Fernanda Rodrigues', 'fernanda.rodrigues@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '67890123456', '11932109876', null, null, null, null, null, 2, null, null, 1, 3, null),
+(14, 'Gustavo Lima', 'gustavo.lima@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '78901234567', '11921098765', 4000.00, 5000.00, 'Descrição do usuário 7', 0, 1, 2, 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1889&q=80', 0, 2, 4, 7),
+(15, 'Juliana Almeida', 'juliana.almeida@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '89012345678', '11910987654', null, null, null, null, null, 2, null, null, 1, 0, null),
+(16, 'Rafael Martins', 'rafael.martins@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '90123456789', '11909876543', 4000.00, 5000.00, 'Descrição do usuário 9', 0, 3, 2, 'https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1854&q=80', 0, 2, 1, 2),
+(17, 'Camila Gomes', 'camila.gomes@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '01234567890', '11998765432', null, null, null, null, null, 2, null, null, 1, 2, null),
+(18, 'Ricardo Santos', 'ricardo.santos@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
+(19, 'Amanda Oliveira', 'amanda.oliveira@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '23456789012', '11976543210', null, null, null, null, null, 2, null, null, 1, 1, null),
+(20, 'José Faria', 'jose.faria@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://img.freepik.com/fotos-gratis/close-up-foto-de-um-homem-bonito-branco-com-barba-vestido-com-uma-camiseta-olhando-e-sorrindo-com-uma-expressao-alegre-e-feliz-sentado-em-um-restaurante-na-calcada-em-um-dia-ensolarado-esperando-por-amigos_273609-6600.jpg', 0, 2, 2, 3),
+(21, 'Carolina Souza', 'carolina.souza@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '45678901234', '11954321098', 2500.00, 3500.00, 'Descrição do usuário 14', 0, 1, 2, 'https://images.unsplash.com/photo-1618085221129-cb9f9ac1e651?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 3, 4),
+(22, 'Matheus Ferreira', 'matheus.ferreira@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '56789012345', '11943210987', null, null, null, null, null, 2, null, null, 1, 4, null),
+(23, 'Camila Gomes', 'camila.gomes@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '01234567890', '11998765432', null, null, null, null, null, 2, null, null, 1, 2, null),
+(24, 'Ricardo Santos', 'ricardo.santos@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678901', '11987654321', null, null, null, null, null, 2, null, null, 1, 0, null),
+(25, 'Amanda Oliveira', 'amanda.oliveira@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '23456789012', '11976543210', null, null, null, null, null, 2, null, null, 1, 1, null),
+(26, 'Gabriel Rodrigues', 'gabriel.rodrigues@example.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '34567890123', '11965432107', 2000.00, 3000.00, 'Descrição do usuário 13', 1, 3, 2, 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80', 0, 2, 2, 3),
+(27, 'João Pedro', 'joao.pedro@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678901', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
+(28, 'João Paulo', 'joao.paulo@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678902', '1234567891', 60, 3000, 'Descrição 2', 1, 2, 2, 'IMAGEM', NULL, 2, 1, 2),
+(29, 'João Matheus', 'joao.matheus@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678903', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
+(30, 'João Lucas', 'joão.lucas@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678904', '1234567893', 80, 4000, 'Descrição 4', 1, 1, 2, 'IMAGEM', NULL, 2, 3, 4),
+(31, 'João Joaquim', 'joao.joaquim@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678905', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
+(32, 'João Victor', 'joao.victor@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678906', '1234567895', 100, 5000, 'Descrição 6', 0, 2, 2, 'IMAGEM', NULL, 2, 1, 2),
+(33, 'João Vitor', 'joao.vitor@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678907', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
+(34, 'João Viktor', 'joao.viktor@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678908', '1234567897', 65, 3250, 'Descrição 8', 1, 3, 2, 'IMAGEM',NULL,  2, 3, 1),
+(35, 'João Mateus', 'joao.mateus@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678909', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(36, 'João Marco', 'joao.marco@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 75, 3750, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 3),
+(37, 'João Marcos', 'joao.marcos@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678911', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(38, 'João Marcus', 'joao.marcus@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678912', '1234567891', 90, 4500, 'Descrição 10', 1, 2, 2, 'IMAGEM', NULL,  2, 2, 5),
+(39, 'João Kleber', 'joao.kleber@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678913', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(40, 'João Cleber', 'joao.cleber@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678914', '1234567893', 55, 2750, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 0, 7),
+(41, 'João Gomes', 'joao.gomes@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678915', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(42, 'Pedro Paulo', 'pedro.paulo@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678916', '1234567895', 80, 4000, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 2),
+(43, 'Pedro Cesar', 'pedro.cesar@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678917', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(44, 'Pedro Lima', 'pedro.lima@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678918', '1234567897', 70, 3500, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 4),
+(45, 'Pedro Gustavo', 'pedro.gustavo@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678919', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(46, 'João Gustavo', 'joao.gustavo@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678920', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 6),
+(47, 'Pedro Ferro', 'pedro.ferro@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678921', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
+(48, 'Matheus Siqueira', 'matheus.siqueira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678922', '1234567891', 60, 3000, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 1, 2),
+(49, 'Matheus Nunes', 'matheus.nunes@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678923', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
+(50, 'Matheus Pinto', 'metheus.pinto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678924', '1234567893', 80, 4000, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 3, 4),
+(51, 'Matheus Kasaoka', 'matheus.kasaoka@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678925', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0, NULL),
+(52, 'Matheus Hugo', 'matheus.hugo@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678926', '1234567895', 100, 5000, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 1, 2),
+(53, 'Victor Madeira', 'victor.madeira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678927', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 2, NULL),
+(54, 'Victor Kogos', 'victor.kogos@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678928', '1234567897', 65, 3250, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 3, 1),
+(55, 'Victor Pedra', 'victor.pedra@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678929', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(56, 'Victor Ferreira', 'victor.ferreira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678930', '1234567899', 75, 3750, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 3),
+(57, 'Victor Lanterna', 'victor.lanterna@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678931', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(58, 'Victor Pato', 'victor.pato@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678932', '1234567891', 90, 4500, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 2, 5),
+(59, 'Victor Ganso', 'victor.ganso@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678933', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(60, 'Julia Pasta', 'julia.pasta@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678934', '1234567893', 55, 2750, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 7),
+(61, 'Julia Vieira', 'julia.vieira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678935', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(62, 'Julia Barbosa', 'julia.barbasa@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678936', '1234567895', 80, 4000, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 2),
+(63, 'Julia Flores', 'julia.flores@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678937', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(64, 'Julia Meneses', 'julia.meneses@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678938', '1234567897', 70, 3500, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 4),
+(65, 'Fabio Seabra', 'fabio.seabra@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678939', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(66, 'Paulo Gimenes', 'paulo.gimenes@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678940', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 6),
+(67, 'Julia Maria', 'julia.maria@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678941', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(68, 'Maria Julia', 'maria.julia@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678942', '1234567891', 75, 3750, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 2, 3),
+(69, 'Maria Eduarda', 'maria.eduarda@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678943', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(70, 'Maria Fernanda', 'maria.fernanda@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678944', '1234567893', 65, 3250, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 5),
+(71, 'Maria Humberto', 'maria.humberto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678945', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(72, 'Maria Carla', 'maria.carla@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678946', '1234567895', 90, 4500, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 7),
+(73, 'Maria Beatriz', 'maria.beatriz@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678947', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(74, 'Maria Lima', 'maria.lima@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678948', '1234567897', 70, 3500, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 0, 2),
+(75, 'Maria Fernandez', 'maria.fernandez@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678949', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(76, 'Maria Plumus', 'maria.plumus@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678950', '1234567899', 75, 3750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
+(77, 'Maria Branca', 'maria.branca@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678951', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(78, 'Maria Corvo', 'maria.corva@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678952', '1234567891', 90, 4500, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 2, 5),
+(79, 'Humberto Lopes', 'humberto.lopes@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678953', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(80, 'Julio Fermo', 'julio.fermo@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678954', '1234567893', 55, 2750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 0, 7),
+(81, 'Helena Rodrigues', 'helena.rodrigues@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678955', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(82, 'Lara Santana', 'lara.santana@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678956', '1234567895', 80, 4000, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 2),
+(83, 'Alice Ribeiro', 'alice.ribeiro@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678957', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(84, 'Lívia Castro', 'livia.castro@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678958', '1234567897', 70, 3500, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 0, 4),
+(85, 'Samuel Antonelli', 'samuel.antonelli@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678959', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(86, 'Gael Campbell', 'gael.campbell@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678960', '1234567899', 75, 3750, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 2, 6),
+(87, 'Davi Stewart', 'davi.stewart@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678961', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(88, 'Benicio Alencar', 'banecio.alencar@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678962', '1234567891', 75, 3750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 3),
+(89, 'Guilherme Diniz', 'guilherme.diniz@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678963', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(90, 'Arthur Santos', 'arthur.santos@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678964', '1234567893', 65, 3250, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 5),
+(91, 'Arthur Medina', 'arthur.medina@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678965', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(92, 'Heitor Lamberti', 'heitor.lamberti@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678966', '1234567895', 90, 4500, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 7),
+(93, 'Josué Sanchez', 'josue.sanchez@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678967', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(94, 'Isaque Hermans', 'isaque.hermans@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678968', '1234567897', 70, 3500, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 0, 2),
+(95, 'Paulo Medina', 'paulo.medina@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678969', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(96, 'Elias Alonso', 'elias.alonso@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678970', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
+(97, 'David Espinosa', 'david.espinosa@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678971', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(98, 'Jonas Iglesias', 'jonas.iglesias@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678972', '1234567891', 75, 3750, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 2, 3),
+(99, 'Caleb Wong', 'caleb.wong@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678973', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(100, 'Thiago Loyola', 'thiago.loyola@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678974', '1234567893', 65, 3250, 'Descrição 10', 1, 1, 2, 'IMAGEM',NULL,  2, 0, 5),
+(101, 'Tiago Baumann', 'tiago.baumann@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678975', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 0 , NULL),
+(102, 'Danilo Dirksen', 'danilo.dirksen@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678976', '1234567895', 90, 4500, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 6),
+(103, 'Daniel Fischer', 'daniel.fischer@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678977', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(104, 'Ezequiel Zhang', 'ezequiel.zhanf@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678978', '1234567897', 70, 3500, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 0, 2),
+(105, 'Saulo Ivanov', 'saulo.ivanov@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678979', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(106, 'Abner Kimura', 'abner.kimura@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678980', '1234567899', 75, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
+(107, 'Roberto Johnson', 'roberto.johnson@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678981', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(108, 'Ismael Cooper', 'ismael.cooper@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678982', '1234567891', 75, 3750, 'Descrição 10', 0, 2, 2, 'IMAGEM',NULL,  2, 2, 3),
+(109, 'Luiz Davis', 'luiz.davis@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678983', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(110, 'Oliver Miller', 'oliver.miller@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678984', '1234567893', 65, 3250, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 0, 5),
+(111, 'Douglas Wilson', 'dougles.wilson@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678985', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(112, 'Ryan Stevens', 'ryan.stevens@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678986', '1234567895', 90, 4500, 'Descrição 10', 1, 2, 2, 'IMAGEM',NULL,  2, 2, 7),
+(113, 'Michael Taylor', 'michel.taylor@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678987', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(114, 'Thomas Thompson', 'thomas.thompson@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678988', '1234567897', 70, 3500, 'Descrição 10', 1, 3, 2,'IMAGEM', NULL,  2, 0, 2),
+(115, 'Scott Walker', 'scott.walker@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678989', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(116, 'George White', 'george.white@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678990', '1234567899', 75, 3750, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 4),
+(117, 'Eric Adams', 'eric.adams@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678991', '1234567890', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(118, 'Joseph Green', 'joseph.green@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678992', '1234567891', 75, 3750, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 2, 3),
+(119, 'Peter Baker', 'peter.baker@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678993', '1234567892', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(120, 'James Phillips', 'james.phillips@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678994', '1234567893', 65, 3250, 'Descrição 10', 1, 3, 2, 'IMAGEM',NULL,  2, 0, 5),
+(121, 'Andrew Andersson', 'andrew.andersson@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678995', '1234567894', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(122, 'Charles Watson', 'charles.watson@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678996', '1234567895', 90, 4500, 'Descrição 10', 0, 3, 2, 'IMAGEM',NULL,  2, 2, 7),
+(123, 'Brain Clark', 'brain.clark@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678997', '1234567896', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 3, NULL),
+(124, 'Edward Harris', 'edward.harris@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678998', '1234567897', 70, 3500, 'Descrição 10', 1, 2, 2,'IMAGEM', NULL,  2, 0, 2),
+(125, 'Dylan Bellini', 'dylan.bellini@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678999', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+(126, 'Henry Greco', 'henry.greco@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 70, 3750, 'Descrição 10', 0, 1, 2, 'IMAGEM',NULL,  2, 2, 4),
 (127, 'ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', null, null, null, null, null, null, null, 2, null, null, 3, null, null);
 
 INSERT INTO dados_endereco
@@ -295,7 +295,6 @@ VALUES
     ('SP', 'Santo André', '09000-678', 'Vila Feliz', 'Avenida das Árvores', '678', 'Casa dos Fundos', 125),
     ('SP', 'Santo André', '09000-678', 'Vila Feliz', 'Avenida das Árvores', '678', 'Casa dos Fundos', 126),
     ('SP', 'Santo André', '09000-678', 'Vila Feliz', 'Avenida das Árvores', '678', 'Casa dos Fundos', 127);
-
 
 INSERT INTO usuario_servico
 (prestador_id, servico_id)
@@ -717,3 +716,20 @@ INSERT INTO crm_log_mensagem
 VALUES
 (20458, 1),
 (78503, 1);
+
+drop view if exists vw_bi_avaliacoes_area;
+
+create view vw_bi_avaliacoes_area as
+select
+	a.id,
+	a.descricao,
+	a.nota,
+	a2.id as area_id
+from
+	avaliacao a
+join solicitacao s on
+	s.avaliacao_id = a.id
+join servico s2 on
+	s.servico_id = s2.id
+join area a2 on
+	a2.id = s2.area_id ;

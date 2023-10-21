@@ -208,7 +208,10 @@ class UsuarioService(
                             notificacoes.add(
                                 NotificacaoDto(
                                     solicitacao.id,
-                                    solicitacao.contratante.nome!!,
+                                    if (usuario is Prestador)
+                                        solicitacao.contratante.nome!!
+                                    else
+                                        solicitacao.prestador.nome!!,
                                     4,
                                     solicitacao.dataFim,
                                     null

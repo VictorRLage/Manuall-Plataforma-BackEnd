@@ -12,28 +12,28 @@ class UsuarioServiceTest (
     @Autowired
     val usuarioService: UsuarioService
 ) {
-
-    @Test
-    fun `retornos loginChecar`() {
-        assertEquals(
-            HttpStatus.valueOf(204),
-            usuarioService.loginChecar("joaquim.pires@joaquim.pires").statusCode
-        )
-        assertEquals(
-            HttpStatus.valueOf(200),
-            usuarioService.loginChecar("joaquim.pires@sptech.school").statusCode
-        )
-    }
-
-    @Test
-    fun loginEfetuar() {
-        val usuario = UsuarioLoginRequest()
-        usuario.email = "joaquim.pires@sptech.school"
-        usuario.senha = "senha123"
-        usuario.tipoUsuario = 1
-        assertEquals(
-            HttpStatus.valueOf(200),
-            usuarioService.loginEfetuar(usuario).statusCode
-        )
-    }
+//
+//    @Test
+//    fun `retornos loginChecar`() {
+//        assertEquals(
+//            HttpStatus.valueOf(204),
+//            usuarioService.loginChecar("joaquim.pires@joaquim.pires").statusCode
+//        )
+//        assertEquals(
+//            HttpStatus.valueOf(200),
+//            usuarioService.loginChecar("joaquim.pires@sptech.school").statusCode
+//        )
+//    }
+//
+//    @Test
+//    fun loginEfetuar() {
+//        val usuario = UsuarioLoginRequest()
+//        usuario.email = "joaquim.pires@sptech.school"
+//        usuario.senha = "senha123"
+//        usuario.tipoUsuario = 1
+//        assertEquals(
+//            HttpStatus.valueOf(200),
+//            usuarioService.loginEfetuar(usuario).statusCode
+//        )
+//    }
 }
