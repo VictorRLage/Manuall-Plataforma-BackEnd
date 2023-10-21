@@ -263,6 +263,8 @@ class UsuarioService(
 
         val usuarios = usuarioRepository.aprovacoesPendentes()
 
+        if (usuarios.isEmpty()) return ResponseEntity.status(200).body(listOf())
+
         val filaPrestadores = ArrayBlockingQueue<AprovacaoDto>(usuarios.size)
 
         usuarios.forEach {
