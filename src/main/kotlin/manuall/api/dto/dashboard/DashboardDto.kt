@@ -8,8 +8,7 @@ data class DashboardDto(
     val valorArrecadado: Double,
 
     // Dashboards
-    val servicosMaisContratados: List<ServicosMaisContratadosDto>,
-    val avaliacoesPorServico: List<AvaliacoesPorServicoDto>,
+    val servicos: List<DashboardServicosDto>, // grafico servicosMaisContratados e mediaAvaliacoesServico
     val avaliacoes: List<String>, // apenas os textos, para fazer a wordcloud por js
     val solicitacoesMensais: List<SolicitacoesMensaisDto>,
 )
