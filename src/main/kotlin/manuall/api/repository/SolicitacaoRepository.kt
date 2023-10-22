@@ -44,21 +44,21 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
     @Query("""
         SELECT
             new manuall.api.dto.dashboard.SolicitacoesMensaisDto(
-                YEAR(s.dataFim),
-                MONTH(s.dataFim),
+                YEAR(s.dataInicio),
+                MONTH(s.dataInicio),
                 COUNT(s.id),
                 SUM(CASE WHEN s.status = 4 THEN 1 ELSE 0 END)
             )
         FROM Solicitacao s
         WHERE
             s.prestador.id = :prestadorId
-            AND s.dataFim BETWEEN :startDate AND :endDate
+            AND s.dataInicio BETWEEN :startDate AND :endDate
         GROUP BY
-            YEAR(s.dataFim),
-            MONTH(s.dataFim)
+            YEAR(s.dataInicio),
+            MONTH(s.dataInicio)
         ORDER BY
-            YEAR(s.dataFim) DESC,
-            MONTH(s.dataFim) DESC
+            YEAR(s.dataInicio) DESC,
+            MONTH(s.dataInicio) DESC
     """)
     fun countByPrestadorIdAndIntervalGroupByMonth(
         @Param("prestadorId") prestadorId: Int,
