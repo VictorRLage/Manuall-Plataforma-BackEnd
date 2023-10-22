@@ -1,7 +1,6 @@
 package manuall.api.dto.perfil
 
 import manuall.api.dto.solicitacao.AvaliacaoDto
-import manuall.api.service.PerfilServicoServiceDto
 
 data class PerfilDto(
     val area: String?,

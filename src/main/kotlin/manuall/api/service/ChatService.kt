@@ -10,9 +10,11 @@ import manuall.api.repository.SolicitacaoRepository
 import manuall.api.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
+import java.util.*
 
 @Service
-class ChatService (
+class ChatService(
     val chatRepository: ChatRepository,
     val solicitacaoRepository: SolicitacaoRepository,
     val jwtTokenManager: JwtTokenManager
@@ -28,92 +30,72 @@ class ChatService (
         return ResponseEntity.status(200).body(chatRepository.findAll())
     }
 
-    fun getChats(token: String?): ResponseEntity<List<ChatPegarDadosDestinatariosDto>> {
+    fun getChats(token: String?): ResponseEntity<List<ChatResponse>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        val chats = when (usuario) {
-            is Contratante -> solicitacaoRepository.getPrestadoresByContratanteId(usuario.id)
-            is Prestador -> solicitacaoRepository.getContratantesByPrestadorId(usuario.id)
-            else -> arrayListOf()
+        val solicitacoes = when (usuario) {
+            is Contratante -> solicitacaoRepository.findByContratanteIdAndStatus2AndDataFimNull(usuario.id)
+            is Prestador -> solicitacaoRepository.findByPrestadorIdAndStatus2AndDataFimNull(usuario.id)
+            else -> return ResponseEntity.status(401).build()
+        }
+
+        val chats = solicitacoes.map { solicitacao ->
+            when (usuario) {
+                is Contratante -> ChatResponse(
+                    solicitacao.id,
+                    solicitacao.prestador.nome,
+                    solicitacao.prestador.anexoPfp,
+                    solicitacao.chat.map { mensagem ->
+                        MensagemDto(
+                            mensagem.idRemetente == usuario.id,
+                            mensagem.horario,
+                            mensagem.mensagem,
+                            mensagem.anexo,
+                        )
+                    }
+                )
+                is Prestador -> ChatResponse(
+                    solicitacao.id,
+                    solicitacao.contratante.nome,
+                    null,
+                    solicitacao.chat.map { mensagem ->
+                        MensagemDto(
+                            mensagem.idRemetente == usuario.id,
+                            mensagem.horario,
+                            mensagem.mensagem,
+                            mensagem.anexo,
+                        )
+                    }
+                )
+                else -> return ResponseEntity.status(401).build()
+            }
         }
 
         return ResponseEntity.status(if (chats.isEmpty()) 204 else 200).body(chats)
 
     }
 
-    fun getChatsByIdSolicitacao(token: String?, idSolicitacao: Int): ResponseEntity<ChatMensagensResponse> {
+    fun mandarMensagem(chatMensagemRequest: ChatMensagemRequest) {
 
-        val usuario = jwtTokenManager.validateToken(token)
-            ?: return ResponseEntity.status(480).build()
+        val usuario = jwtTokenManager.validateToken(chatMensagemRequest.token)
+            ?: return
 
-        if (solicitacaoRepository.findById(idSolicitacao).isEmpty)
-            return ResponseEntity.status(404).build()
+        val solicitacao = solicitacaoRepository.findById(chatMensagemRequest.solicitacaoId)
 
-        val destinatario: ChatPegarDadosDestinatarioDto
-        val mensagens: List<ChatMensagemResponse>
+        if (solicitacao.isEmpty)
+            return
 
-        if (usuario is Contratante) {
-            destinatario = solicitacaoRepository.getDadosPrestadorById(idSolicitacao).get()
-            mensagens = chatRepository.getMsgsByUsuarioIdAndSolicitacaoIdContratante(usuario.id, idSolicitacao)
-        } else {
-            destinatario = solicitacaoRepository.getDadosContratanteById(idSolicitacao).get()
-            mensagens = chatRepository.getMsgsByUsuarioIdAndSolicitacaoIdPrestador(usuario.id, idSolicitacao)
-        }
+//        val mensagem = Chat()
+//        mensagem.solicitacao = solicitacao.get()
+//        mensagem.mensagem = chatMensagemRequest.mensagem
+//        mensagem.horario = Date()
+//        mensagem.anexo = chatMensagemRequest.anexo
+//        mensagem.idRemetente = usuario.id
+//
+//        chatRepository.save(mensagem)
 
-        return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(
-            ChatMensagensResponse(
-                destinatario,
-                mensagens
-            )
-        )
-    }
-
-    fun getBySolicitacaoIdWhereSolicitacaoIdHigherThan(token: String?, idSolicitacao: Int, idUltimaMensagem: Int): ResponseEntity<ChatMensagensResponse> {
-
-        val usuario = jwtTokenManager.validateToken(token)
-            ?: return ResponseEntity.status(480).build()
-
-        if (solicitacaoRepository.findById(idSolicitacao).isEmpty) {
-            return ResponseEntity.status(404).build()
-        }
-
-        val destinatario: ChatPegarDadosDestinatarioDto
-        val mensagens: List<ChatMensagemResponse>
-
-        if (usuario is Contratante) {
-            destinatario = solicitacaoRepository.getDadosPrestadorById(idSolicitacao).get()
-            mensagens = chatRepository.getBySolicitacaoIdWhereSolicitacaoIdHigherThanContratante(usuario.id, idSolicitacao, idUltimaMensagem)
-        } else {
-            destinatario = solicitacaoRepository.getDadosContratanteById(idSolicitacao).get()
-            mensagens = chatRepository.getBySolicitacaoIdWhereSolicitacaoIdHigherThanPrestador(usuario.id, idSolicitacao, idUltimaMensagem)
-        }
-
-        return ResponseEntity.status(if (mensagens.isEmpty()) 204 else 200).body(
-            ChatMensagensResponse(
-                destinatario,
-                mensagens
-            )
-        )
-    }
-
-    fun mandarMensagem(token: String?, chatMensagemRequest: ChatMensagemRequest): ResponseEntity<Int> {
-
-        val usuario = jwtTokenManager.validateToken(token)
-            ?: return ResponseEntity.status(480).build()
-
-        if (solicitacaoRepository.findById(chatMensagemRequest.idSolicitacao).isEmpty) {
-            return ResponseEntity.status(404).build()
-        }
-
-        val mensagem = Chat()
-        mensagem.solicitacao = solicitacaoRepository.findById(chatMensagemRequest.idSolicitacao).get()
-        mensagem.mensagem = chatMensagemRequest.mensagem
-        mensagem.horario = chatMensagemRequest.horario
-        mensagem.anexo = chatMensagemRequest.anexo
-        mensagem.idRemetente = usuario.id
-
-        return ResponseEntity.status(201).body(chatRepository.save(mensagem).id)
+        println(chatMensagemRequest)
     }
 }

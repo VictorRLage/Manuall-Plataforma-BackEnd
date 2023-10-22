@@ -2,7 +2,7 @@ package manuall.api.repository
 
 import manuall.api.domain.Solicitacao
 import manuall.api.dto.chat.ChatPegarDadosDestinatarioDto
-import manuall.api.dto.chat.ChatPegarDadosDestinatariosDto
+import manuall.api.dto.chat.ChatResponse
 import manuall.api.dto.dashboard.DashboardServicosDto
 import manuall.api.dto.dashboard.SolicitacoesMensaisDto
 import org.springframework.data.jpa.repository.JpaRepository
@@ -13,44 +13,6 @@ import java.util.*
 
 @Repository
 interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
-
-    @Query("""
-        select
-        new manuall.api.dto.chat.ChatPegarDadosDestinatarioDto(s.contratante.id, u.nome)
-        from Solicitacao s, Usuario u
-        where u.id = s.contratante.id
-        and s.id = ?1
-    """)
-    fun getDadosContratanteById(id: Int): Optional<ChatPegarDadosDestinatarioDto>
-
-    @Query("""
-        select
-        new manuall.api.dto.chat.ChatPegarDadosDestinatarioDto(s.prestador.id, u.nome)
-        from Solicitacao s, Usuario u
-        where u.id = s.prestador.id
-        and s.id = ?1
-    """)
-    fun getDadosPrestadorById(id: Int): Optional<ChatPegarDadosDestinatarioDto>
-
-    @Query("""
-        select
-        new manuall.api.dto.chat.ChatPegarDadosDestinatariosDto(s.id, s.prestador.id, u.nome)
-        from Solicitacao s, Usuario u
-        where u.id = s.prestador.id
-        and s.contratante.id = ?1
-        and s.status = 2
-    """)
-    fun getPrestadoresByContratanteId(id: Int): List<ChatPegarDadosDestinatariosDto>
-
-    @Query("""
-        select
-        new manuall.api.dto.chat.ChatPegarDadosDestinatariosDto(s.id, s.contratante.id, u.nome)
-        from Solicitacao s, Usuario u
-        where u.id = s.contratante.id
-        and s.prestador.id = ?1
-        and s.status = 2
-    """)
-    fun getContratantesByPrestadorId(id: Int): List<ChatPegarDadosDestinatariosDto>
 
     fun findByContratanteId(usuarioId: Int): List<Solicitacao>
 
@@ -103,4 +65,10 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
         @Param("startDate") startDate: Date,
         @Param("endDate") endDate: Date
     ): List<SolicitacoesMensaisDto>
+
+    @Query("SELECT s from Solicitacao s where s.contratante.id = ?1 and s.status = 2 and s.dataFim is null")
+    fun findByContratanteIdAndStatus2AndDataFimNull(usuarioId: Int): List<Solicitacao>
+
+    @Query("SELECT s from Solicitacao s where s.prestador.id = ?1 and s.status = 2 and s.dataFim is null")
+    fun findByPrestadorIdAndStatus2AndDataFimNull(usuarioId: Int): List<Solicitacao>
 }

@@ -122,7 +122,7 @@ class UsuarioService(
                         LoginResponse(
                             jwtTokenManager.generateToken(authentication),
                             null,
-                            null,
+                            2,
                             4,
                             usuario.id
                         )

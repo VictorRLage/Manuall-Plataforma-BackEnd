@@ -55,4 +55,8 @@ class Solicitacao {
     @JsonIgnore
     @OneToMany(mappedBy = "solicitacao")
     var solicitacaoImg: List<SolicitacaoImg> = listOf()
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "solicitacao")
+    var chat: List<Chat> = listOf()
 }
