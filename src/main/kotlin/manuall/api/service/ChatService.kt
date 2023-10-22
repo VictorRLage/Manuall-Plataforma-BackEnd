@@ -9,6 +9,7 @@ import manuall.api.repository.ChatRepository
 import manuall.api.repository.SolicitacaoRepository
 import manuall.api.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
@@ -17,7 +18,8 @@ import java.util.*
 class ChatService(
     val chatRepository: ChatRepository,
     val solicitacaoRepository: SolicitacaoRepository,
-    val jwtTokenManager: JwtTokenManager
+    val jwtTokenManager: JwtTokenManager,
+    private val template: SimpMessagingTemplate
 ) {
 
     fun buscarTodos(token: String?): ResponseEntity<List<Chat>> {
@@ -79,23 +81,42 @@ class ChatService(
 
     fun mandarMensagem(chatMensagemRequest: ChatMensagemRequest) {
 
-        val usuario = jwtTokenManager.validateToken(chatMensagemRequest.token)
+        val usuario = jwtTokenManager.validateToken("Bearer ${chatMensagemRequest.token}")
             ?: return
 
-        val solicitacao = solicitacaoRepository.findById(chatMensagemRequest.solicitacaoId)
+        val possivelSolicitacao = solicitacaoRepository.findById(chatMensagemRequest.solicitacaoId)
 
-        if (solicitacao.isEmpty)
+        if (possivelSolicitacao.isEmpty)
             return
 
-//        val mensagem = Chat()
-//        mensagem.solicitacao = solicitacao.get()
-//        mensagem.mensagem = chatMensagemRequest.mensagem
-//        mensagem.horario = Date()
-//        mensagem.anexo = chatMensagemRequest.anexo
-//        mensagem.idRemetente = usuario.id
-//
-//        chatRepository.save(mensagem)
+        val solicitacao = possivelSolicitacao.get()
 
-        println(chatMensagemRequest)
+        val mensagem = Chat()
+        mensagem.solicitacao = solicitacao
+        mensagem.mensagem = chatMensagemRequest.mensagem
+        mensagem.horario = Date()
+        mensagem.anexo = chatMensagemRequest.anexo
+        mensagem.idRemetente = usuario.id
+
+        chatRepository.save(mensagem)
+
+        template.convertAndSend("/chat/${solicitacao.contratante.id}",
+            MensagemDtoSolo(
+                solicitacao.id,
+                usuario is Contratante,
+                mensagem.horario,
+                mensagem.mensagem,
+                mensagem.anexo
+            )
+        )
+        template.convertAndSend("/chat/${solicitacao.prestador.id}",
+            MensagemDtoSolo(
+                solicitacao.id,
+                usuario is Prestador,
+                mensagem.horario,
+                mensagem.mensagem,
+                mensagem.anexo
+            )
+        )
     }
 }

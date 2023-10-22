@@ -1,8 +1,6 @@
 package manuall.api.repository
 
 import manuall.api.domain.Solicitacao
-import manuall.api.dto.chat.ChatPegarDadosDestinatarioDto
-import manuall.api.dto.chat.ChatResponse
 import manuall.api.dto.dashboard.DashboardServicosDto
 import manuall.api.dto.dashboard.SolicitacoesMensaisDto
 import org.springframework.data.jpa.repository.JpaRepository

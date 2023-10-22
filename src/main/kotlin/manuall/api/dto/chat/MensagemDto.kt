@@ -2,9 +2,9 @@ package manuall.api.dto.chat
 
 import java.util.Date
 
-data class MensagemDto(
-    val selfSender: Boolean,
-    val horario: Date?,
-    val mensagem: String?,
-    val anexo: String?
+open class MensagemDto(
+    open val selfSender: Boolean,
+    open val horario: Date?,
+    open val mensagem: String?,
+    open val anexo: String?
 )

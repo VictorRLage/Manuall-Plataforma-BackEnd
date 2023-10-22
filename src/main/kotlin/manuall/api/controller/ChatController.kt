@@ -3,8 +3,6 @@ package manuall.api.controller
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import manuall.api.domain.Chat
-import manuall.api.dto.chat.ChatMensagemRequest
-import manuall.api.dto.chat.ChatMensagensResponse
 import manuall.api.dto.chat.ChatResponse
 import manuall.api.service.ChatService
 import org.springframework.http.ResponseEntity
