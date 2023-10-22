@@ -286,7 +286,7 @@ class UsuarioService(
         return ResponseEntity.status(200).body(prestadores)
     }
 
-    fun aprovar(token: String?, idPrestador: Int, aprovar: Boolean): ResponseEntity<Unit> {
+    fun aprovar(token: String?, idPrestador: Int, aprovar: Int): ResponseEntity<Unit> {
 
         if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()
@@ -295,7 +295,7 @@ class UsuarioService(
 
         usuario as Prestador
 
-        usuario.status = if (aprovar) 2 else 4
+        usuario.status = aprovar
 
         usuarioRepository.save(usuario)
 

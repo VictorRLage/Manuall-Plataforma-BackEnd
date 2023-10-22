@@ -106,7 +106,7 @@ class UsuarioController(
     fun aprovar(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @PathVariable idPrestador: Int,
-        @PathVariable aprovar: Boolean
+        @PathVariable aprovar: Int
     ): ResponseEntity<Unit> {
         return usuarioService.aprovar(token, idPrestador, aprovar)
     }

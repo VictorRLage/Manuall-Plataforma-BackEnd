@@ -163,7 +163,19 @@ VALUES
     (124, 'Eduardo Harry', 'eduardo.harry@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678998', '1234567897', 70, 3500, 'Olá! Sou Eduardo Harry, um pintor com mais de 10 anos de experiência, apaixonado por transformar ambientes através da arte da pintura. Cada projeto é uma tela em branco para mim, uma oportunidade de criar atmosferas únicas e expressivas. Minha abordagem combina técnica refinada, sensibilidade artística e um olhar atento aos detalhes. Trabalho com uma variedade de estilos e técnicas, desde pinturas internas e externas até murais artísticos personalizados. Sempre priorizo a qualidade, durabilidade e a satisfação do cliente em cada pincelada. Utilizo tintas de alta qualidade e me mantenho atualizado com as tendências e inovações no mundo da pintura. Se você procura um pintor que transforma ideias em obras de arte visíveis em suas paredes, estou à disposição para colorir sua vida e seus espaços de forma única e cativante!', 1, 2, 2,'https://images.pexels.com/photos/1277631/pexels-photo-1277631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', NULL,  2, 0, 2),
     (125, 'Danilo Bellini', 'danilo.bellini@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678999', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
     (126, 'Henrique Figueira', 'henrique.figueira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 70, 3750, 'Olá! Sou Henrique Figueira, um encanador com mais de 10 anos de experiência, comprometido em garantir que sistemas hidráulicos funcionem de forma eficiente e segura. No mundo complexo da encanação, cada conexão e tubulação desempenham um papel crucial, e minha missão é assegurar que tudo esteja perfeitamente alinhado. Realizo desde instalações novas até manutenções e reparos, sempre com foco na qualidade e na satisfação do cliente. Utilizo ferramentas modernas e técnicas atualizadas para garantir soluções eficazes e duradouras. Se você procura um encanador experiente, comprometido e que prioriza a excelência em cada projeto, estou à sua disposição para garantir que a água em seu espaço flua sem problemas e com total confiabilidade!', 0, 1, 2, 'https://images.pexels.com/photos/1486064/pexels-photo-1486064.jpeg?auto=compress&cs=tinysrgb&w=1600',NULL,  2, 2, 4),
-    (127, 'ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', null, null, null, null, null, null, null, 2, null, null, 3, null, null);
+
+    (127, 'Julio Guilherme', 'julio.guilherme@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1000, 3550, '', 0, 1, 1, '',NULL,  2, 2, 4),
+    (128, 'Frederico Paiva', 'frederico.paiva@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 2000, 2750, '', 1, 2, 1, '',NULL,  2, 1, 5),
+    (129, 'Fernando Augusto', 'fernando.augusto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 70, 750, '', 0, 3, 1, '',NULL,  2, 3, 6),
+    (130, 'Hugo Ferreira', 'hugo.ferreira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 700, 750, '', 1, 1, 1, '',NULL,  2, 1, 7),
+    (131, 'Guilherme Peixoto', 'guilherme.peixoto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 800, 2150, '', 0, 2, 1, '',NULL,  2, 2, 1),
+    (132, 'Fernanda Silva', 'fernanda.silva@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 900, 1950, '', 1, 3, 1, '',NULL,  2, 3, 2),
+    (133, 'Flavia Pimenta', 'flavia.pimenta@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1000, 2000, '', 0, 1, 1, '',NULL,  2, 1, 3),
+    (134, 'Gustavo Barbosa', 'gustavo.barbosa@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 700, 1000, '', 1, 2, 1, '',NULL,  2, 2, 4),
+    (135, 'Pedro Abe', 'pedro.abe@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 50, 150, '', 0, 3, 1, '',NULL,  2, 3, 5),
+    (136, 'Vitor Holler', 'vitor.holler@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1200, 3200, '', 1, 1, 1, '',NULL,  2, 2, 6),
+
+    (137, 'ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', null, null, null, null, null, null, null, 2, null, null, 3, null, null);
 
 
 INSERT INTO dados_endereco
@@ -295,7 +307,17 @@ VALUES
     ('SP', 'São Paulo', '03012-890', 'Vila das Árvores', 'Rua das Rosas', '890', 'Apto 303', 124),
     ('SP', 'Santo André', '09000-678', 'Vila Feliz', 'Avenida das Árvores', '678', 'Casa dos Fundos', 125),
     ('SP', 'Santo André', '09000-678', 'Vila Feliz', 'Avenida das Árvores', '678', 'Casa dos Fundos', 126),
-    ('SP', 'Santo André', '09000-678', 'Vila Feliz', 'Avenida das Árvores', '678', 'Casa dos Fundos', 127);
+    ('SP', 'Santo André', '09000-678', 'Vila Feliz', 'Avenida das Árvores', '678', 'Casa dos Fundos', 127),
+    ('SP', 'Campinas', '13045-678', 'Vila das Rosas', 'Avenida das Árvores', '678', 'Apto 404', 128),
+    ('SP', 'São Paulo', '04500-567', 'Vila Nova', 'Avenida das Árvores', '567', 'Bloco K, 3º Andar', 129),
+    ('SP', 'São Paulo', '04500-234', 'Vila das Tulipas', 'Avenida das Rosas', '234', 'Casa dos Fundos', 130),
+    ('SP', 'São Bernardo do Campo', '09876-567', 'Vila Feliz', 'Rua das Palmeiras', '567', 'Bloco M, 7º Andar', 131),
+    ('SP', 'São Bernardo do Campo', '09876-123', 'Centro', 'Rua Principal', '123', 'Bloco N, 6º Andar', 132),
+    ('SP', 'Santo André', '09000-567', 'Vila Feliz', 'Rua das Estrelas', '567', 'Apto 101', 133),
+    ('SP', 'São Paulo', '03012-123', 'Vila Nova', 'Rua das Estrelas', '123', NULL, 134),
+    ('SP', 'Piracicaba', '13400240', 'Centro', 'Rua Governador', '321', 'Sala 1201', 135),
+    ('SP', 'São Paulo', '03012-890', 'Jardim das Flores', 'Rua das Margaridas', '123', NULL, 136),
+    ('SP', 'São Paulo', '03012-567', 'Vila das Flores', 'Avenida das Flores', '567', 'Apto 202', 137);
 
 
 INSERT INTO usuario_servico
@@ -391,7 +413,26 @@ VALUES
 (122,6),
 (124,7),
 (124,8),
-(126,8);
+(126,8),
+(127, 11),
+(127, 12),
+(128, 1),
+(128, 2),
+(128, 3),
+(129, 6),
+(130, 7),
+(130,8),
+(131,18),
+(132,19),
+(132,20),
+(132,21),
+(133, 3),
+(134, 1),
+(134, 2),
+(135, 4),
+(135, 15),
+(136, 7),
+(136, 9);
 
 INSERT INTO usuario_servico
 (prestador_id, servico_id)
