@@ -201,9 +201,11 @@ class UsuarioService(
                 }
 
                 2 -> {
+                    if (solicitacao.dataFim != null) continue
+
                     val cal = Calendar.getInstance()
                     cal.add(Calendar.DATE, -4)
-                    if (solicitacao.dataFim != null && solicitacao.dataFim!!.before(cal.time)) {
+                    if (solicitacao.dataInicio != null && solicitacao.dataInicio!!.before(cal.time)) {
                         if (solicitacao.formOrcamento == null) {
                             notificacoes.add(
                                 NotificacaoDto(
