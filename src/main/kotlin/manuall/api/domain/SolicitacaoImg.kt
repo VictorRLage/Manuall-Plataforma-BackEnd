@@ -2,7 +2,6 @@ package manuall.api.domain
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
-import org.hibernate.validator.constraints.URL
 
 @Entity
 @Table(name = "solicitacao_img")
@@ -16,7 +15,7 @@ class SolicitacaoImg {
     @ManyToOne
     var solicitacao: Solicitacao = Solicitacao()
 
-    @Column(name = "anexo", length = 90)
+    @Column(name = "anexo", length = 500)
     @field:NotBlank
     var anexo: String? = ""
 }

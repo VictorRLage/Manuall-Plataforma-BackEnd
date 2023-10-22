@@ -27,6 +27,6 @@ class Chat {
     @Column(name = "horario")
     var horario: Date? = null
 
-    @Column(name = "anexo", length = 90)
+    @Column(name = "anexo", length = 500)
     var anexo: String? = ""
 }

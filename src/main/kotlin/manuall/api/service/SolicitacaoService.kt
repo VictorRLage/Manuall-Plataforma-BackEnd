@@ -57,6 +57,13 @@ class SolicitacaoService(
 
         solicitacaoRepository.save(solicitacao)
 
+        solicitacaoDto.anexo.forEach {
+            val solicitacaoImg = SolicitacaoImg()
+            solicitacaoImg.solicitacao = solicitacao
+            solicitacaoImg.anexo = it
+            solicitacaoImgRepository.save(solicitacaoImg)
+        }
+
         return ResponseEntity.status(201).build()
     }
 
