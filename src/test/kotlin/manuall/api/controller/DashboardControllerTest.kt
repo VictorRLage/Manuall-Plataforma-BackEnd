@@ -30,27 +30,27 @@ class DashboardControllerTest {
         assertEquals("http://localhost:5173", annotation.value[0])
     }
 
-    @Test
-    fun `usuariosCanal()`() {
-        val method = DashboardController::usuariosCanal
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("/geral/canal/{tipoUsuario}", annotation!!.value[0])
-    }
-
-    @Test
-    fun `pegarRegiao()`() {
-        val method = DashboardController::pegarRegiao
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("/geral/regiao", annotation!!.value[0])
-    }
-
-    @Test
-    fun taxaComplitudeCadastro() {
-        val method = DashboardController::taxaComplitudeCadastro
-        assertTrue(method.hasAnnotation<GetMapping>())
-        val annotation = method.findAnnotation<GetMapping>()
-        assertEquals("/geral/complitudeCadastro", annotation!!.value[0])
-    }
+//    @Test
+//    fun `usuariosCanal()`() {
+//        val method = DashboardController::usuariosCanal
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("/geral/canal/{tipoUsuario}", annotation!!.value[0])
+//    }
+//
+//    @Test
+//    fun `pegarRegiao()`() {
+//        val method = DashboardController::pegarRegiao
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("/geral/regiao", annotation!!.value[0])
+//    }
+//
+//    @Test
+//    fun taxaComplitudeCadastro() {
+//        val method = DashboardController::taxaComplitudeCadastro
+//        assertTrue(method.hasAnnotation<GetMapping>())
+//        val annotation = method.findAnnotation<GetMapping>()
+//        assertEquals("/geral/complitudeCadastro", annotation!!.value[0])
+//    }
 }

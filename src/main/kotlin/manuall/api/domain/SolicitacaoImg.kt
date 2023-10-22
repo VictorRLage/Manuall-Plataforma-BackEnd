@@ -17,7 +17,6 @@ class SolicitacaoImg {
     var solicitacao: Solicitacao = Solicitacao()
 
     @Column(name = "anexo", length = 90)
-    @field:URL
     @field:NotBlank
     var anexo: String? = ""
 }

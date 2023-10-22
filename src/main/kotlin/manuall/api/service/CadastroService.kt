@@ -75,9 +75,6 @@ class CadastroService(
         if (emailExistente.isPresent) {
             val usuario = emailExistente.get()
 
-            println(usuario.status)
-            println(usuario::class.java)
-            println(usuario is Prestador)
             return if (usuario.status == null) {
                 if (dadosEnderecoRepository.findByUsuarioId(usuario.id).isEmpty)
                     ResponseEntity.status(206).body(

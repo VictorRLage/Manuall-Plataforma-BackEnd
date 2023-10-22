@@ -34,10 +34,8 @@ class Prestador: Usuario() {
     // 3: Plano Premium
 
     @Column(name = "anexo_pfp", length = 500)
-    @field:URL
     // @field:NotBlank
     // @field:Size(max = 90)
-    // @field:URL
     var anexoPfp: String? = ""
 
     @Column(name = "acessos")

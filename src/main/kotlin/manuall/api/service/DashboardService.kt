@@ -1,21 +1,21 @@
 package manuall.api.service
 
 import manuall.api.dto.dashboard.DashboardDto
-import manuall.api.repository.ChatRepository
-import manuall.api.repository.SolicitacaoRepository
-import manuall.api.repository.UsuarioRepository
+import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Service
 class DashboardService(
-    val usuarioRepository: UsuarioRepository,
     val solicitacaoRepository: SolicitacaoRepository,
     val jwtTokenManager: JwtTokenManager,
-    val chatRepository: ChatRepository
+    val chatRepository: ChatRepository,
+    val formOrcamentoRepository: FormOrcamentoRepository,
+    val avaliacaoRepository: AvaliacaoRepository
 ) {
 
     fun getDashboard(token: String?, from: Date, to: Date): ResponseEntity<DashboardDto> {
@@ -23,7 +23,7 @@ class DashboardService(
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        val mensagens = chatRepository.findMessagesBySolicitacaoId(usuario.id, from, to)
+        val mensagens = chatRepository.findByPrestadorIdAndInterval(usuario.id, from, to)
         val averageMinutes = if (mensagens.size < 2) {
             null
         } else {
@@ -36,15 +36,28 @@ class DashboardService(
             )
         }
 
+        val now = LocalDate.now()
+
+        val startDate = now.minusMonths(11).withDayOfMonth(1)
+        val endDate = now.withDayOfMonth(now.lengthOfMonth())
+
+        val startDateConverted: Date = Date.from(startDate.atStartOfDay().toInstant(java.time.ZoneOffset.UTC))
+        val endDateConverted: Date = Date.from(endDate.atStartOfDay().toInstant(java.time.ZoneOffset.UTC))
+
+        val solicitacoesMensais = solicitacaoRepository.countByPrestadorIdAndIntervalGroupByMonth(
+            usuario.id,
+            startDateConverted,
+            endDateConverted,
+        )
+
         return ResponseEntity.status(200).body(
             DashboardDto(
-                solicitacaoRepository.findAllByPrestadorIdAndDataFimBetween(usuario.id, from, to),
+                solicitacaoRepository.countByPrestadorIdAndInterval(usuario.id, from, to),
                 averageMinutes,
-                0.0,
-                listOf(),
-                listOf(),
-                listOf(),
-                listOf(),
+                formOrcamentoRepository.findByPrestadorIdAndInterval(usuario.id, from, to),
+                solicitacaoRepository.findNotaAndCountServicosByPrestadorIdAndInterval(usuario.id, from, to),
+                avaliacaoRepository.findDescricaoByPrestadorIdAndInterval(usuario.id, from, to),
+                solicitacoesMensais,
             )
         )
     }

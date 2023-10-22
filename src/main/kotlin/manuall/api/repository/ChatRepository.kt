@@ -19,7 +19,7 @@ interface ChatRepository: JpaRepository<Chat, Int> {
         AND c.horario BETWEEN :startDate AND :endDate
         ORDER BY c.horario ASC
     """)
-    fun findMessagesBySolicitacaoId(
+    fun findByPrestadorIdAndInterval(
         @Param("prestadorId") prestadorId: Int,
         @Param("startDate") startDate: Date,
         @Param("endDate") endDate: Date
