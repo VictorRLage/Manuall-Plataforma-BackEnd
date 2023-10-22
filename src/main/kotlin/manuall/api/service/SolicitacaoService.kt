@@ -132,16 +132,16 @@ class SolicitacaoService(
             return ResponseEntity.status(480).build()
 
         val avaliacao = Avaliacao()
+        val solicitacao = solicitacaoRepository.findById(postarAvaliacaoDTO.solicitacaoId).get()
 
+        avaliacao.solicitacao = solicitacao
         avaliacao.descricao = postarAvaliacaoDTO.descricao
         avaliacao.nota = postarAvaliacaoDTO.nota
         avaliacaoRepository.save(avaliacao)
 
-        val solicitacao = solicitacaoRepository.findById(postarAvaliacaoDTO.solicitacaoId).get()
         solicitacao.avaliacao = avaliacao
-        if (solicitacao.dataFim == null) {
-            solicitacao.dataFim = java.util.Date()
-        }
+        if (solicitacao.dataFim == null)
+            solicitacao.dataFim = Date()
         solicitacaoRepository.save(solicitacao)
 
         return ResponseEntity.status(201).build()
