@@ -12,7 +12,6 @@ import java.util.Date
 
 @RestController
 @RequestMapping("/dashboard")
-@CrossOrigin("http://localhost:5173")
 class DashboardController(
     val dashboardService: DashboardService
 ) {

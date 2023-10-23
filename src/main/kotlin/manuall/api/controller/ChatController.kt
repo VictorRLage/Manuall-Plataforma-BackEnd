@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/chat")
-@CrossOrigin("http://localhost:5173")
 class ChatController (
     val chatService: ChatService
 ): DominiosBuscaveis<Chat> {

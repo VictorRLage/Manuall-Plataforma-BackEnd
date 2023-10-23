@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/solicitacao")
-@CrossOrigin("http://localhost:5173")
 class SolicitacaoController (
     val solicitacaoService: SolicitacaoService
 ): DominiosBuscaveis<Solicitacao> {

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/cadastrar")
-@CrossOrigin("http://localhost:5173")
 class CadastroController(
     val cadastroService: CadastroService
 ) {

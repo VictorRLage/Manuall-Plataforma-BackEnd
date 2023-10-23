@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/crm")
-@CrossOrigin("http://localhost:5173")
 class CrmController (
     val crmService: CrmService
 ): DominiosBuscaveis<Prospect> {

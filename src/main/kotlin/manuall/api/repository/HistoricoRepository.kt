@@ -12,16 +12,14 @@ interface HistoricoRepository : JpaRepository<Solicitacao, Int> {
 
     @Query("""
         SELECT new manuall.api.dto.dashboard.HistoricoDTO(
-            s.prestador.id,
-            s.servico.id,   
-            s.formOrcamento.id,
             s.status,
             s.dataInicio,
             s.dataFim,
-            s.descricao,
-            servico.area.id,
-            servico.nome,
-            formOrcamento.orcamento
+            s.prestador.nome,
+            s.servico.nome,
+            formOrcamento.orcamento,
+            s.prestador.anexoPfp,
+            s.descricao
         )
         FROM
             Solicitacao s
