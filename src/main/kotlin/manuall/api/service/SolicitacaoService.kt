@@ -118,11 +118,18 @@ class SolicitacaoService(
         if (jwtTokenManager.validateToken(token) == null)
             return ResponseEntity.status(480).build()
 
+        val solicitacaoPossivel = solicitacaoRepository.findById(orcamentoDto.solicitacaoId)
+
+        if (solicitacaoPossivel.isEmpty)
+            return ResponseEntity.status(404).build()
+
+        val solicitacao = solicitacaoPossivel.get()
+
         val formOrcamento = FormOrcamento()
-        val solicitacao = solicitacaoRepository.findById(orcamentoDto.solicitacaoId).get()
 
         formOrcamento.mensagem = orcamentoDto.mensagem
         formOrcamento.orcamento = orcamentoDto.orcamento
+        formOrcamento.solicitacao = solicitacao
         formOrcamentoRepository.save(formOrcamento)
 
         solicitacao.formOrcamento = formOrcamento
