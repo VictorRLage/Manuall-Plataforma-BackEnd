@@ -911,8 +911,8 @@ VALUES
 INSERT INTO crm_log
 (acessou_url, inicio_contato, processo_finalizado, usuario_id)
 VALUES
-(0, '2023-08-12 14:17:00', 0, 56),
-(0, '2023-08-15 11:23:45', 0, 2),
+(0, '2023-08-12 14:17:00', 0, 4),
+(0, '2023-08-15 11:23:45', 0, 56),
 (0, '2023-09-01 10:15:30', 0, 3),
 (0, '2023-09-02 17:47:20', 0, 4),
 (0, '2023-08-19 09:34:50', 0, 5);
@@ -921,7 +921,8 @@ INSERT INTO crm_log_mensagem
 (mensagem, crm_log_id)
 VALUES
 (20458, 1),
-(78503, 1);
+(78503, 1),
+(10428, 2)
 
 drop view if exists vw_bi_avaliacoes_area;
 
