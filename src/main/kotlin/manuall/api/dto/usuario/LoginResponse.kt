@@ -6,4 +6,5 @@ data class LoginResponse (
     val tipoUsuario: Int?,
     val fase: Int?,
     val usuarioId: Int?,
+    val plano: Int?
 )

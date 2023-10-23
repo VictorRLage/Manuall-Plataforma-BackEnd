@@ -49,6 +49,14 @@ class UsuarioService(
         return ResponseEntity.status(200).body(usuarioRepository.findById(usuario.id).get().nome)
     }
 
+    fun buscarPlanoUsuario(token: String?): ResponseEntity<Int?> {
+
+        val usuario = jwtTokenManager.validateToken(token)
+            ?: return ResponseEntity.status(480).build()
+
+        return ResponseEntity.status(200).body((usuario as Prestador).plano)
+    }
+
     fun buscarTiposServico(idServico: Int): List<Servico> {
         return servicoRepository.findAllByAreaId(idServico)
     }
@@ -92,7 +100,8 @@ class UsuarioService(
                                 2
                             else
                                 3,
-                            null
+                            null,
+                            if (usuario is Prestador) usuario.plano else null
                         )
                     )
 
@@ -102,7 +111,8 @@ class UsuarioService(
                             "Aprovação negada",
                             null,
                             null,
-                            null
+                            null,
+                            if (usuario is Prestador) usuario.plano else null
                         )
                     )
 
@@ -112,7 +122,8 @@ class UsuarioService(
                             "Aprovação pendente",
                             null,
                             null,
-                            null
+                            null,
+                            if (usuario is Prestador) usuario.plano else null
                         )
                     )
                 }
@@ -132,7 +143,8 @@ class UsuarioService(
                             null,
                             2,
                             4,
-                            usuario.id
+                            usuario.id,
+                            usuario.plano
                         )
                     )
                 else
@@ -142,7 +154,8 @@ class UsuarioService(
                             null,
                             TipoUsuario.fromObjectToInt(usuario),
                             null,
-                            null
+                            null,
+                            if (usuario is Prestador) usuario.plano else null
                         )
                     )
             } else {
