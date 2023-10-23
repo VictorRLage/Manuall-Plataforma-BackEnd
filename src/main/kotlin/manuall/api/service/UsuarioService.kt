@@ -41,6 +41,14 @@ class UsuarioService(
         return areaRepository.findAll()
     }
 
+    fun buscarNomeUsuario(token: String?): ResponseEntity<String?> {
+
+        val usuario = jwtTokenManager.validateToken(token)
+            ?: return ResponseEntity.status(480).build()
+
+        return ResponseEntity.status(200).body(usuarioRepository.findById(usuario.id).get().nome)
+    }
+
     fun buscarTiposServico(idServico: Int): List<Servico> {
         return servicoRepository.findAllByAreaId(idServico)
     }

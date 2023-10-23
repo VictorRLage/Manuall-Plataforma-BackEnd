@@ -671,7 +671,9 @@ VALUES
 
 (140, 4, 'Os trabalhos começaram no horário marcado'),
 (141, 5, 'Recomendaria sem hesitar'),
-(142, 3, 'Poderia ter sido melhor');
+(142, 3, 'Poderia ter sido melhor'),
+(143, 4, 'Muito bom, parabéns!'),
+(144, 4, 'Muito bom, parabéns!');
 
 INSERT INTO form_orcamento
 (id, orcamento, mensagem)
@@ -715,10 +717,12 @@ VALUES
 (87, 880.00, 'Cliente informado sobre situação'),
 (88, 890.00, 'Em espera por material solicitado'),
 (89, 900.00, 'Consultando disponibilidade de agenda'),
-
 (90, 1000.00, 'Em espera por material solicitado'),
 (91, 900.00, 'Revisão marcada para terça-feira'),
-(92, 800.00, 'Revisão Final Solicitada pelo Cliente');
+(92, 800.00, 'Revisão Final Solicitada pelo Cliente'),
+(93, 800.00, 'Revisão Final Solicitada pelo Cliente'),
+(94, 599.00, 'Revisão Final Solicitada pelo Cliente'),
+(95, 350.00, 'Consultando disponibilidade de agenda');
 
 INSERT INTO solicitacao
 (contratante_id, prestador_id, tamanho, medida, descricao, status, inclui_aula, data_inicio, data_fim
@@ -785,7 +789,7 @@ INSERT INTO solicitacao
 VALUES
 (1, 2, 40.0, 'm²', 'Poda de árvores no quintal', 1, 1, 1),
 (3, 6, 60.0, 'm²', 'Pintura das paredes da sala', 2, 4, 4),
-(4, 9, 30.0, 'm', 'Instalação de chuveiro elétrico', 4, 11, 9),
+(3, 9, 30.0, 'm', 'Instalação de chuveiro elétrico', 4, 11, 9),
 (7, 9, 10.0, 'cm', 'Reparos no encanamento do banheiro', 2, 12, 16),
 (7, 10, 15.0, 'Unidade', 'Criação de projeto de móveis para cozinha', 1, 15, 20),
 (18, 13, 100.0, 'm²', 'Montagem de móveis pré-fabricados', 4, 16, 25),
@@ -795,7 +799,7 @@ VALUES
 (17, 25, 45.0, 'm²', 'Instalação de sistemas modulares', 2, 18, 45),
 (18, 26, 35.0, 'm²', 'Reparos e manutenção em elementos de gesso', 1, 21, 49),
 (1, 26, 20.0, 'Unidade', 'Poda de árvores no quintal', 1, 1, 2),
-(4, 2, 100.0, 'm', 'Pintura das paredes da sala', 2, 4, 7),
+(3, 2, 100.0, 'm', 'Pintura das paredes da sala', 2, 4, 7),
 (6, 10, 55.0, 'm', 'Instalação de chuveiro elétrico', 4, 11, 12),
 (12, 8, 30.0, 'm', 'Reparos no encanamento do banheiro', 1, 12, 15),
 (7, 9, 45.0, 'm', 'Criação de projeto de móveis para cozinha', 2, 15, 19),
@@ -806,7 +810,7 @@ VALUES
 (7, 15, 40.0, 'Unidade', 'Instalação de sistemas modulares', 1, 18, 38),
 (24, 5, 50.0, 'm²', 'Reparos e manutenção em elementos de gesso', 2, 21, 43),
 (1, 26, 20.0, 'm²', 'Preciso de poda para árvores altas no quintal', 1, 1, 2),
-(4, 2, 100.0, 'm²', 'Pintura total em sala com paredes desgastadas', 2, 4, 7),
+(3, 26, 100.0, 'm²', 'Pintura total em sala com paredes desgastadas', 2, 4, 7),
 (6, 10, 55.0, 'm²', 'Instalação de chuveiro elétrico com disjuntor', 4, 11, 12),
 (12, 8, 30.0, 'Unidade', 'Reparos em encanamento com vazamento no banheiro', 1, 12, 15),
 (7, 9, 45.0, 'Unidade', 'Projeto de móveis planejados para cozinha pequena', 2, 15, 19),
@@ -867,7 +871,12 @@ VALUES
 (7, 56, 42, 'cm', 'Reparo em iluminação externa.', 2, 0, '2023-09-15', '2023-09-18', 9, 86, 136),
 (18, 56, 60, 'm', 'Instalação de ventilador de teto.', 2, 0, '2023-09-25', '2023-09-28', 9, 87, 137),
 (24, 56, 58, 'm²', 'Verificação de potencial de economia de energia.', 1, 1, '2023-02-05', null, 8, 88, 138),
-(17, 56, 45, 'cm', 'Reparo em sistema de alarme.', 2, 0, '2023-02-12', '2023-02-15', 8, 89, 139);
+(17, 56, 45, 'cm', 'Reparo em sistema de alarme.', 2, 0, '2023-02-12', '2023-02-15', 8, 89, 139),
+(4, 9, 30.0, 'm', 'Pode vir instalar um chuveiro elétrico aqui em casa? Se vier ainda hoje, pago o dobro', 4, 0, '2023-10-12', null, 11, null, null),
+(4, 2, 100.0, 'm', 'Pintura das paredes da sala', 2, 1, '2023-10-10', '2023-10-11', 4, 93, null),
+(4, 20, 100.0, 'm', 'Quero que você venha pintar as paredes da minha sala', 2, 1, '2023-10-14', '2023-10-14', 4, null, null),
+(4, 26, 100.0, 'm²', 'Pintura total em sala com paredes desgastadas', 2, 0, '2023-09-17', '2023-09-18', 13, 95, 144),
+(4, 6, 500.0, 'm²', 'E aí, tudo bem? Gostaria que você viesse consertar meu chuveiro antes da semana que vem', 2, 1, '2023-10-17', null, 13, null, null);
 
 
 

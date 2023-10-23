@@ -47,6 +47,14 @@ class UsuarioController(
         return usuarioService.buscarArea()
     }
 
+    @GetMapping("/nome")
+    @SecurityRequirement(name = "Bearer")
+    fun buscarNomeUsuario(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<String?> {
+        return usuarioService.buscarNomeUsuario(token)
+    }
+
     @GetMapping("/servico/{idServico}")
     fun buscarTiposServico(
         @PathVariable idServico: Int

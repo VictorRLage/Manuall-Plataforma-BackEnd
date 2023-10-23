@@ -19,16 +19,20 @@ interface HistoricoRepository : JpaRepository<Solicitacao, Int> {
             s.servico.nome,
             formOrcamento.orcamento,
             s.prestador.anexoPfp,
-            s.descricao
+            s.descricao,
+            avaliacao.nota,
+            s.id
         )
         FROM
             Solicitacao s
         JOIN
             s.servico servico
         LEFT JOIN
-            s.formOrcamento formOrcamento 
+            s.formOrcamento formOrcamento
+        LEFT JOIN s.avaliacao avaliacao
         WHERE
             s.contratante.id = :usuarioId
+        ORDER BY s.dataInicio DESC
     """)
     fun buscarHistorico(@Param("usuarioId") usuarioId: Int): List<HistoricoDTO>
 }

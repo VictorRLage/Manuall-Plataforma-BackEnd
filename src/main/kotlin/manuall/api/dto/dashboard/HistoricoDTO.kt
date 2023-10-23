@@ -13,4 +13,6 @@ data class HistoricoDTO(
 //    val mediaAvaliacoes: Double?,
 //    val qntAvaliacoes: Long,
     val descricao: String?,
+    val notaDada: Int?,
+    val solicitacaoId: Int,
 )
