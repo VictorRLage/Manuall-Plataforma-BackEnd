@@ -45,7 +45,7 @@ interface SolicitacaoRepository: JpaRepository<Solicitacao, Int> {
                 YEAR(s.dataInicio),
                 MONTH(s.dataInicio),
                 COUNT(s.id),
-                SUM(CASE WHEN s.status = 4 THEN 1 ELSE 0 END)
+                SUM(CASE WHEN s.status = 2 AND s.dataFim IS NOT NULL THEN 1 ELSE 0 END)
             )
         FROM Solicitacao s
         WHERE

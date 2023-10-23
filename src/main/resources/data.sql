@@ -363,8 +363,9 @@ VALUES
 (52, 11),
 (52, 10),
 (54, 13),
-(56, 14),
-(56, 15),
+(56, 7),
+(56, 8),
+(56, 9),
 (58, 15),
 (60, 16),
 (60, 17),
@@ -640,7 +641,7 @@ VALUES
 (49, 50, 30, 'm', 'Montagem de móveis pré-fabricados.', 4, 1,                   '2023-03-20', '2023-03-30', 11, 12, 12),
 (51, 52, 180, 'm²', 'Pintura de fachadas de edifícios.', 4, 0,                  '2023-04-05', '2023-04-10', 12, 13, 13),
 (53, 54, 150, 'm²', 'Detecção e reparo de vazamentos.', 4, 1,                   '2023-01-15', '2023-01-20', 13, 14, 14),
-(55, 56, 40, 'cm', 'Criação de projetos personalizados em madeira.', 4, 0,      '2023-02-10', '2023-02-15', 15, 15, 15),
+(55, 56, 40, 'cm', 'Instalação elétrica dando problema.', 4, 0,      '2023-10-10', '2023-10-15', 7, 15, 15),
 (57, 58, 50, 'cm', 'Restauração de móveis antigos.', 4, 0,                      '2023-03-05', '2023-05-15', 15, 16, 16),
 (59, 60, 150, 'm²', 'Reparos e manutenção em gesso.', 4, 1,                     '2023-01-20', '2023-01-25', 17, 17, 17),
 (61, 62, 40, 'cm', 'Molduras e sancas de gesso impressionantes.', 4, 0,         '2023-02-15', '2023-02-25', 17, 18, 18),
@@ -678,7 +679,6 @@ VALUES
 (125, 126, 90.0, 'cm', 'Restauração e repintura de fachadas', 4, 0,             '2023-03-20', '2023-03-30', 8, 50, 50);
 
 
-
 INSERT INTO solicitacao
 (contratante_id, prestador_id, tamanho, medida, descricao, status, servico_id, avaliacao_id)
 VALUES
@@ -687,10 +687,10 @@ VALUES
 (4, 9, 30.0, 'm', 'Instalação de chuveiro elétrico', 4, 11, 9),
 (7, 9, 10.0, 'cm', 'Reparos no encanamento do banheiro', 2, 12, 16),
 (7, 10, 15.0, 'Unidade', 'Criação de projeto de móveis para cozinha', 1, 15, 20),
-(11, 13, 100.0, 'm²', 'Montagem de móveis pré-fabricados', 4, 16, 25),
+(18, 13, 100.0, 'm²', 'Montagem de móveis pré-fabricados', 4, 16, 25),
 (12, 15, 25.0, 'm', 'Decoração em gesso 3D para sala', 2, 20, 30),
 (7, 19, 50.0, 'cm', 'Restauração e repintura de fachadas', 1, 6, 35),
-(16, 20, 70.0, 'Unidade', 'Fabricação e montagem de móveis sob medida', 4, 13, 40),
+(18, 20, 70.0, 'Unidade', 'Fabricação e montagem de móveis sob medida', 4, 13, 40),
 (17, 25, 45.0, 'm²', 'Instalação de sistemas modulares', 2, 18, 45),
 (18, 26, 35.0, 'm²', 'Reparos e manutenção em elementos de gesso', 1, 21, 49),
 (1, 26, 20.0, 'Unidade', 'Poda de árvores no quintal', 1, 1, 2),
@@ -717,6 +717,140 @@ VALUES
 (24, 5, 50.0, 'cm', 'Reparo em sancas de gesso danificadas por umidade', 2, 21, 43);
 
 
+INSERT INTO form_orcamento
+(id, orcamento, mensagem)
+VALUES
+(51, 400.00, 'Trabalho Finalizado'),
+(52, 300.00, 'Trabalho Finalizado'),
+(53, 200.00, 'Trabalho Finalizado'),
+(54, 800.00, 'Trabalho Finalizado'),
+(55, 450.00, 'Trabalho Finalizado'),
+(56, 350.00, 'Em Progresso'),
+(57, 650.00, 'Aguardando Confirmação'),
+(58, 470.00, 'Aguardando Peças'),
+(59, 490.00, 'Finalização em Andamento'),
+(60, 520.00, 'Consultando Cliente'),
+(61, 530.00, 'Revisando Serviço'),
+(62, 550.00, 'Início Imediato'),
+(63, 575.00, 'Esperando Aprovação'),
+(64, 595.00, 'Iniciando Diagnóstico'),
+(65, 605.00, 'Concluído com Observações'),
+(66, 610.00, 'Aguardando Pagamento'),
+(67, 620.00, 'Em Análise'),
+(68, 625.00, 'Serviço Parcialmente Concluído'),
+(69, 640.00, 'Precisa de Peças Adicionais'),
+(70, 650.00, 'Planejamento Aprovado'),
+(71, 670.00, 'Aguardando Feedback do Cliente'),
+(72, 690.00, 'Em Fase de Testes'),
+(73, 700.00, 'Urgente - Aguardando Peças'),
+(74, 720.00, 'Finalização Prevista para Amanhã'),
+(75, 735.00, 'Requer Aprovação do Orçamento'),
+(76, 750.00, 'Preparando para Início'),
+(77, 765.00, 'Em Fase de Conclusão'),
+(78, 780.00, 'Revisão Final Solicitada pelo Cliente'),
+(79, 800.00, 'Pendências Resolvidas'),
+(80, 810.00, 'Retorno agendado para conclusão'),
+(81, 820.00, 'Revisão marcada para terça-feira'),
+(82, 830.00, 'Requer autorização para peças adicionais'),
+(83, 840.00, 'Problemas encontrados no sistema'),
+(84, 850.00, 'Finalizado - aguardando confirmação'),
+(85, 860.00, 'Necessita de mais tempo para conclusão'),
+(86, 870.00, 'Reparo feito - em fase de testes'),
+(87, 880.00, 'Cliente informado sobre situação'),
+(88, 890.00, 'Em espera por material solicitado'),
+(89, 900.00, 'Consultando disponibilidade de agenda');
+
+INSERT INTO avaliacao
+(id, nota, descricao)
+VALUES
+(100, 4, 'Muito bom o serviço, mas demorou mais que o esperado'),
+(101, 5, 'Sensacional! Serviço impecável'),
+(102, 3, 'Serviço dentro das expectativas'),
+(103, 4, 'Ótimo atendimento, recomendo'),
+(104, 2, 'Insatisfatório, poderia ter sido melhor'),
+(105, 4, 'Satisfeito com o serviço'),
+(106, 5, 'Entrega antes do prazo'),
+(107, 3, 'Poderia melhorar na comunicação'),
+(108, 4, 'Atendeu às expectativas'),
+(109, 2, 'Necessário retorno para correção'),
+(110, 5, 'Aconselho a todos os conhecidos'),
+(111, 4, 'Preço justo pelo serviço'),
+(112, 4, 'Retorno rápido'),
+(113, 3, 'Faltaram algumas ferramentas'),
+(114, 5, 'O melhor da região'),
+(115, 4, 'Voltaria a contratar'),
+(116, 5, 'Tudo perfeito'),
+(117, 1, 'Teve dificuldade inicial'),
+(118, 1, 'Bom, mas caro'),
+(119, 4, 'Resolveu mais rápido do que esperava'),
+(120, 5, 'Profissionalismo impecável'),
+(121, 3, 'Poderia ter sido mais rápido'),
+(122, 5, 'Qualidade excepcional'),
+(123, 2, 'Atendimento ao cliente necessita melhorias'),
+(124, 5, 'Altamente recomendado'),
+(125, 2, 'Tive problemas com o agendamento'),
+(126, 2, 'Precisou de várias visitas para concluir'),
+(127, 2, 'Muito caro pelo que foi feito'),
+(128, 3, 'Eficiente, mas não muito cordial'),
+(129, 4, 'Serviço bem feito, sem problemas'),
+(130, 5, 'Muito atencioso e explicativo'),
+(131, 3, 'O serviço demorou mais do que o previsto'),
+(132, 5, 'Muito satisfeito com o resultado final'),
+(133, 3, 'O preço foi mais alto do que o esperado'),
+(134, 2, 'O atendimento deixou a desejar'),
+(135, 5, 'Serviço de primeira classe'),
+(136, 2, 'Tive que chamar novamente para correções'),
+(137, 4, 'Os trabalhos começaram no horário marcado'),
+(138, 5, 'Recomendaria sem hesitar'),
+(139, 3, 'Poderia ter sido melhor');
+
+INSERT INTO solicitacao
+(contratante_id, prestador_id, tamanho, medida, descricao, status, inclui_aula, data_inicio,
+data_fim, servico_id, form_orcamento_id, avaliacao_id)
+VALUES
+(18, 56, 40, 'm²', 'Instalação elétrica dando problema.', 1, 1, '2023-03-10', null, 8, 52, 102),
+(23, 56, 50, 'cm', 'Instalação elétrica dando problema.', 1, 0, '2023-03-10', null, 8, null, null),
+(24, 56, 60, 'm', 'Instalação elétrica dando problema.', 2, 0, '2023-06-10', '2023-06-15', 9, 53, 100),
+(17, 56, 90, 'cm', 'Instalação elétrica dando problema.', 2, 1, '2023-05-10', '2023-05-15', 7, null, 101),
+(7, 56, 80, 'm²', 'Instalação elétrica dando problema.', 2, 0, '2023-06-10', '2023-06-15', 9, 51, 103),
+(24, 56, 30, 'm', 'Instalação elétrica dando problema.', 2, 0, '2023-06-10', '2023-06-15', 7, 54, null),
+(18, 56, 20, 'cm', 'Instalação elétrica dando problema.', 2, 1, '2023-07-10', '2023-07-15', 7, 51, 104),
+(18, 56, 45, 'm²', 'Instalação de novos equipamentos elétricos.', 1, 1, '2023-04-12', null, 8, 55, 105),
+(23, 56, 35, 'cm', 'Reparo em fiação antiga.', 1, 0, '2023-05-20', null, 9, 56, 106),
+(17, 56, 95, 'm', 'Substituição de disjuntores.', 2, 1, '2023-07-05', '2023-07-10', 7, 57, 107),
+(18, 56, 47, 'm²', 'Instalação de iluminação LED.', 2, 0, '2023-08-12', '2023-08-15', 7, 58, 108),
+(24, 56, 37, 'cm', 'Checagem de falha em tomada.', 1, 0, '2023-09-01', null, 8, 59, 109),
+(7, 56, 25, 'm', 'Montagem de painel elétrico.', 1, 1, '2023-11-22', null, 9, 60, 110),
+(18, 56, 67, 'cm', 'Instalação de ventilador de teto.', 2, 1, '2023-12-05', '2023-12-09', 7, 61, 111),
+(7, 56, 48, 'm²', 'Revisão da rede elétrica.', 2, 0, '2023-12-15', '2023-12-18', 8, 62, 112),
+(18, 56, 38, 'cm', 'Instalação de campainha.', 1, 0, '2023-12-20', null, 9, 63, 113),
+(24, 56, 26, 'm', 'Reparo em chuveiro elétrico.', 1, 1, '2023-01-05', null, 8, 64, 114),
+(18, 56, 68, 'cm', 'Instalação de tomadas adicionais.', 2, 1, '2023-01-12', '2023-01-15', 7, 65, 115),
+(23, 56, 40, 'm²', 'Reparo em fiação exposta.', 2, 0, '2023-01-18', '2023-01-20', 9, 66, 116),
+(7, 56, 30, 'cm', 'Montagem de quadro elétrico.', 1, 0, '2023-10-01', null, 7, 67, 117),
+(17, 56, 29, 'm', 'Checagem de iluminação externa.', 1, 1, '2023-10-08', null, 8, 68, 118),
+(18, 56, 72, 'cm', 'Instalação de sensores de presença.', 2, 1, '2023-10-12', null, 9, 69, 119),
+(18, 56, 52, 'm²', 'Substituição de lâmpadas queimadas.', 1, 0, '2023-10-22', '2023-10-25', 7, 70, 120),
+(7, 56, 34, 'cm', 'Manutenção preventiva em sistema elétrico.', 2, 0, '2023-03-10', '2023-03-13', 7, 71, 121),
+(24, 56, 48, 'm', 'Instalação de sistema de segurança alimentado por energia solar.', 1, 1, '2023-03-18', null, 8, 72, 122),
+(18, 56, 27, 'cm', 'Atualização do sistema de aterramento.', 1, 0, '2023-04-01', null, 9, 73, 123),
+(23, 56, 37, 'm²', 'Inspeção e reparo de instalações elétricas após tempestade.', 2, 1, '2023-04-15', '2023-04-18', 9, 74, 124),
+(17, 56, 45, 'cm', 'Reparos em circuito de iluminação.', 2, 0, '2023-05-06', '2023-05-09', 9, 75, 125),
+(24, 56, 55, 'm', 'Instalação de gerador de emergência.', 1, 1, '2023-05-20', null, 8, 76, 126),
+(7, 56, 33, 'cm', 'Substituição de painel elétrico antigo.', 1, 0, '2023-06-12', null, 8, 77, 127),
+(18, 56, 61, 'm²', 'Avaliação de eficiência energética.', 2, 1, '2023-10-22', '2023-10-25', 8, 78, 128),
+(23, 56, 39, 'cm', 'Instalação de carregador para veículo elétrico.', 2, 0, '2023-07-02', '2023-07-05', 8, 79, 129),
+(18, 56, 40, 'm', 'Reparo em tomada queimada.', 1, 0, '2023-07-10', null, 8, 80, 130),
+(24, 56, 65, 'cm', 'Instalação de interruptor.', 1, 1, '2023-07-15', null, 7, 81, 131),
+(17, 56, 55, 'm²', 'Manutenção em quadro elétrico.', 2, 0, '2023-08-01', null, 7, 82, 132),
+(7, 56, 35, 'cm', 'Verificação de curto-circuito.', 1, 0, '2023-08-10', null, 7, 83, 133),
+(18, 56, 70, 'm', 'Instalação de luzes LED.', 1, 0, '2023-08-20', null, 7, 84, 134),
+(23, 56, 52, 'm²', 'Substituição de disjuntor.', 1, 1, '2023-09-05', null, 9, 85, 135),
+(7, 56, 42, 'cm', 'Reparo em iluminação externa.', 2, 0, '2023-09-15', '2023-09-18', 9, 86, 136),
+(18, 56, 60, 'm', 'Instalação de ventilador de teto.', 2, 0, '2023-09-25', '2023-09-28', 9, 87, 137),
+(24, 56, 58, 'm²', 'Verificação de potencial de economia de energia.', 1, 1, '2023-02-05', null, 8, 88, 138),
+(17, 56, 45, 'cm', 'Reparo em sistema de alarme.', 2, 0, '2023-02-12', '2023-02-15', 8, 89, 139);
+
 
 
 
@@ -734,7 +868,9 @@ VALUES
 (5, 11, 'Olá, vocês fazem instalação de torneiras também?', '2023-08-14 11:45:00'),
 (5, 15, 'Olá! Sim, fazemos. Gostaria de adicionar esse serviço?', '2023-08-14 11:47:00'),
 (6, 12, 'Oi, os móveis chegaram. Podemos agendar a montagem?', '2023-08-15 13:30:00'),
-(6, 19, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-08-15 13:32:00');
+(6, 19, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-08-15 13:32:00'),
+(105, 56, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-10-12 13:32:00'),
+(105, 56, 'Não sei muito bem.', '2023-10-12 13:57:00');
 
 INSERT INTO usuario_img
 (prestador_id, anexo)
@@ -748,7 +884,7 @@ VALUES
 INSERT INTO crm_log
 (acessou_url, inicio_contato, processo_finalizado, usuario_id)
 VALUES
-(0, '2023-08-12 14:17:00', 0, 1),
+(0, '2023-08-12 14:17:00', 0, 56),
 (0, '2023-08-15 11:23:45', 0, 2),
 (0, '2023-09-01 10:15:30', 0, 3),
 (0, '2023-09-02 17:47:20', 0, 4),
