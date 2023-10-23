@@ -8,7 +8,7 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 
 class UsuarioControllerTest {
-
+//
 //    @Test
 //    fun `classe deve estar anotada com @RestController`() {
 //        val classe = UsuarioController::class.java

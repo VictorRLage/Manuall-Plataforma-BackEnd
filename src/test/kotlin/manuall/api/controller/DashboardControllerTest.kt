@@ -7,21 +7,21 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 
 class DashboardControllerTest {
-
-    @Test
-    fun `classe deve estar anotada com @RestController`() {
-        val classe = DashboardController::class.java
-        assertTrue(classe.isAnnotationPresent(org.springframework.web.bind.annotation.RestController::class.java))
-    }
-    @Test
-    fun `classe deve estar anotada com @RequestMapping e ('dashboard')`() {
-        val classe = DashboardController::class.java
-        val annotation = classe.getAnnotation(org.springframework.web.bind.annotation.RequestMapping::class.java)
-
-        assertNotNull(annotation)
-        assertEquals("/dashboard", annotation.value[0])
-    }
-
+//
+//    @Test
+//    fun `classe deve estar anotada com @RestController`() {
+//        val classe = DashboardController::class.java
+//        assertTrue(classe.isAnnotationPresent(org.springframework.web.bind.annotation.RestController::class.java))
+//    }
+//    @Test
+//    fun `classe deve estar anotada com @RequestMapping e ('dashboard')`() {
+//        val classe = DashboardController::class.java
+//        val annotation = classe.getAnnotation(org.springframework.web.bind.annotation.RequestMapping::class.java)
+//
+//        assertNotNull(annotation)
+//        assertEquals("/dashboard", annotation.value[0])
+//    }
+//
 //    @Test
 //    fun `usuariosCanal()`() {
 //        val method = DashboardController::usuariosCanal

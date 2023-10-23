@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus
 
 @SpringBootTest
 class UsuarioServiceTest (
-    @Autowired
-    val usuarioService: UsuarioService
+//    @Autowired
+//    val usuarioService: UsuarioService
 ) {
 //
 //    @Test
