@@ -164,18 +164,20 @@ VALUES
     (125, 'Danilo Bellini', 'danilo.bellini@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678999', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
     (126, 'Henrique Figueira', 'henrique.figueira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 70, 3750, 'Olá! Sou Henrique Figueira, um encanador com mais de 10 anos de experiência, comprometido em garantir que sistemas hidráulicos funcionem de forma eficiente e segura. No mundo complexo da encanação, cada conexão e tubulação desempenham um papel crucial, e minha missão é assegurar que tudo esteja perfeitamente alinhado. Realizo desde instalações novas até manutenções e reparos, sempre com foco na qualidade e na satisfação do cliente. Utilizo ferramentas modernas e técnicas atualizadas para garantir soluções eficazes e duradouras. Se você procura um encanador experiente, comprometido e que prioriza a excelência em cada projeto, estou à sua disposição para garantir que a água em seu espaço flua sem problemas e com total confiabilidade!', 0, 1, 2, 'https://images.pexels.com/photos/1486064/pexels-photo-1486064.jpeg?auto=compress&cs=tinysrgb&w=1600',NULL,  2, 2, 4),
 
-    (127, 'Julio Guilherme', 'julio.guilherme@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1000, 3550, '', 0, 1, 1, '',NULL,  2, 2, 4),
-    (128, 'Frederico Paiva', 'frederico.paiva@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 2000, 2750, '', 1, 2, 1, '',NULL,  2, 1, 5),
-    (129, 'Fernando Augusto', 'fernando.augusto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 70, 750, '', 0, 3, 1, '',NULL,  2, 3, 6),
-    (130, 'Hugo Ferreira', 'hugo.ferreira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 700, 750, '', 1, 1, 1, '',NULL,  2, 1, 7),
-    (131, 'Guilherme Peixoto', 'guilherme.peixoto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 800, 2150, '', 0, 2, 1, '',NULL,  2, 2, 1),
-    (132, 'Fernanda Silva', 'fernanda.silva@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 900, 1950, '', 1, 3, 1, '',NULL,  2, 3, 2),
-    (133, 'Flavia Pimenta', 'flavia.pimenta@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1000, 2000, '', 0, 1, 1, '',NULL,  2, 1, 3),
-    (134, 'Gustavo Barbosa', 'gustavo.barbosa@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 700, 1000, '', 1, 2, 1, '',NULL,  2, 2, 4),
-    (135, 'Pedro Abe', 'pedro.abe@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 50, 150, '', 0, 3, 1, '',NULL,  2, 3, 5),
-    (136, 'Vitor Holler', 'vitor.holler@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1200, 3200, '', 1, 1, 1, '',NULL,  2, 2, 6),
+    (127, 'Julio Guilherme', 'julio.guilherme@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1000, 3550, '', 0, NULL, 1, '',NULL,  2, 2, 4),
+    (128, 'Frederico Paiva', 'frederico.paiva@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 2000, 2750, '', 1, NULL, 1, '',NULL,  2, 1, 5),
+    (129, 'Fernando Augusto', 'fernando.augusto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 70, 750, '', 0, NULL, 1, '',NULL,  2, 3, 6),
+    (130, 'Hugo Ferreira', 'hugo.ferreira@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 700, 750, '', 1, NULL, 1, '',NULL,  2, 1, 7),
+    (131, 'Guilherme Peixoto', 'guilherme.peixoto@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 800, 2150, '', 0, NULL, 1, '',NULL,  2, 2, 1),
+    (132, 'Fernanda Silva', 'fernanda.silva@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 900, 1950, '', 1, NULL, 1, '',NULL,  2, 3, 2),
+    (133, 'Flavia Pimenta', 'flavia.pimenta@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1000, 2000, '', 0, NULL, 1, '',NULL,  2, 1, 3),
+    (134, 'Gustavo Barbosa', 'gustavo.barbosa@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 700, 1000, '', 1, NULL, 1, '',NULL,  2, 2, 4),
+    (135, 'Pedro Abe', 'pedro.abe@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 50, 150, '', 0, NULL, 1, '',NULL,  2, 3, 5),
+    (136, 'Vitor Holler', 'vitor.holler@email.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678910', '1234567899', 1200, 3200, '', 1, NULL, 1, '',NULL,  2, 2, 6),
 
-    (137, 'ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', null, null, null, null, null, null, null, 2, null, null, 3, null, null);
+    (137, 'Paulo Plinio', 'paulo.plinio@gmail.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', '12345678999', '1234567898', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, 1, 1, NULL),
+
+    (138, 'ManuallAdm', 'manuall.services@outlook.com', '$2a$10$Pfz3ATcOC0jdOt4F36IxGuGBrfRtxovR1LAZkWoolJRdd7xVF.4sS', null, null, null, null, null, null, null, 2, null, null, 3, null, null);
 
 
 INSERT INTO dados_endereco
@@ -317,7 +319,9 @@ VALUES
     ('SP', 'São Paulo', '03012-123', 'Vila Nova', 'Rua das Estrelas', '123', NULL, 134),
     ('SP', 'Piracicaba', '13400240', 'Centro', 'Rua Governador', '321', 'Sala 1201', 135),
     ('SP', 'São Paulo', '03012-890', 'Jardim das Flores', 'Rua das Margaridas', '123', NULL, 136),
-    ('SP', 'São Paulo', '03012-567', 'Vila das Flores', 'Avenida das Flores', '567', 'Apto 202', 137);
+    ('SP', 'São Paulo', '03012-567', 'Vila das Flores', 'Avenida das Flores', '567', 'Apto 202', 137),
+    ('SP', 'São Paulo', '03012-567', 'Vila das Flores', 'Avenida das Flores', '567', 'Apto 202', 138);
+
 
 
 INSERT INTO usuario_servico
@@ -621,7 +625,100 @@ VALUES
 (49, 500.0, 'Trabalho Finalizado'),
 (50, 500.0, 'Trabalho Finalizado');
 
+INSERT INTO avaliacao
+(id, nota, descricao)
+VALUES
+(100, 4, 'Muito bom o serviço, mas demorou mais que o esperado'),
+(101, 5, 'Sensacional! Serviço impecável'),
+(102, 3, 'Serviço dentro das expectativas'),
+(103, 4, 'Ótimo atendimento, recomendo'),
+(104, 2, 'Insatisfatório, poderia ter sido melhor'),
+(105, 4, 'Satisfeito com o serviço'),
+(106, 5, 'Entrega antes do prazo'),
+(107, 3, 'Poderia melhorar na comunicação'),
+(108, 4, 'Atendeu às expectativas'),
+(109, 2, 'Necessário retorno para correção'),
+(110, 5, 'Aconselho a todos os conhecidos'),
+(111, 4, 'Preço justo pelo serviço'),
+(112, 4, 'Retorno rápido'),
+(113, 3, 'Faltaram algumas ferramentas'),
+(114, 5, 'O melhor da região'),
+(115, 4, 'Voltaria a contratar'),
+(116, 5, 'Tudo perfeito'),
+(117, 1, 'Teve dificuldade inicial'),
+(118, 1, 'Bom, mas caro'),
+(119, 4, 'Resolveu mais rápido do que esperava'),
+(120, 5, 'Profissionalismo impecável'),
+(121, 3, 'Poderia ter sido mais rápido'),
+(122, 5, 'Qualidade excepcional'),
+(123, 2, 'Atendimento ao cliente necessita melhorias'),
+(124, 5, 'Altamente recomendado'),
+(125, 2, 'Tive problemas com o agendamento'),
+(126, 2, 'Precisou de várias visitas para concluir'),
+(127, 2, 'Muito caro pelo que foi feito'),
+(128, 3, 'Eficiente, mas não muito cordial'),
+(129, 4, 'Serviço bem feito, sem problemas'),
+(130, 5, 'Muito atencioso e explicativo'),
+(131, 3, 'O serviço demorou mais do que o previsto'),
+(132, 5, 'Muito satisfeito com o resultado final'),
+(133, 3, 'O preço foi mais alto do que o esperado'),
+(134, 2, 'O atendimento deixou a desejar'),
+(135, 5, 'Serviço de primeira classe'),
+(136, 2, 'Tive que chamar novamente para correções'),
+(137, 4, 'Os trabalhos começaram no horário marcado'),
+(138, 5, 'Recomendaria sem hesitar'),
+(139, 3, 'Poderia ter sido melhor'),
 
+(140, 4, 'Os trabalhos começaram no horário marcado'),
+(141, 5, 'Recomendaria sem hesitar'),
+(142, 3, 'Poderia ter sido melhor');
+
+INSERT INTO form_orcamento
+(id, orcamento, mensagem)
+VALUES
+(51, 400.00, 'Trabalho Finalizado'),
+(52, 300.00, 'Trabalho Finalizado'),
+(53, 200.00, 'Trabalho Finalizado'),
+(54, 800.00, 'Trabalho Finalizado'),
+(55, 450.00, 'Trabalho Finalizado'),
+(56, 350.00, 'Em Progresso'),
+(57, 650.00, 'Aguardando Confirmação'),
+(58, 470.00, 'Aguardando Peças'),
+(59, 490.00, 'Finalização em Andamento'),
+(60, 520.00, 'Consultando Cliente'),
+(61, 530.00, 'Revisando Serviço'),
+(62, 550.00, 'Início Imediato'),
+(63, 575.00, 'Esperando Aprovação'),
+(64, 595.00, 'Iniciando Diagnóstico'),
+(65, 605.00, 'Concluído com Observações'),
+(66, 610.00, 'Aguardando Pagamento'),
+(67, 620.00, 'Em Análise'),
+(68, 625.00, 'Serviço Parcialmente Concluído'),
+(69, 640.00, 'Precisa de Peças Adicionais'),
+(70, 650.00, 'Planejamento Aprovado'),
+(71, 670.00, 'Aguardando Feedback do Cliente'),
+(72, 690.00, 'Em Fase de Testes'),
+(73, 700.00, 'Urgente - Aguardando Peças'),
+(74, 720.00, 'Finalização Prevista para Amanhã'),
+(75, 735.00, 'Requer Aprovação do Orçamento'),
+(76, 750.00, 'Preparando para Início'),
+(77, 765.00, 'Em Fase de Conclusão'),
+(78, 780.00, 'Revisão Final Solicitada pelo Cliente'),
+(79, 800.00, 'Pendências Resolvidas'),
+(80, 810.00, 'Retorno agendado para conclusão'),
+(81, 820.00, 'Revisão marcada para terça-feira'),
+(82, 830.00, 'Requer autorização para peças adicionais'),
+(83, 840.00, 'Problemas encontrados no sistema'),
+(84, 850.00, 'Finalizado - aguardando confirmação'),
+(85, 860.00, 'Necessita de mais tempo para conclusão'),
+(86, 870.00, 'Reparo feito - em fase de testes'),
+(87, 880.00, 'Cliente informado sobre situação'),
+(88, 890.00, 'Em espera por material solicitado'),
+(89, 900.00, 'Consultando disponibilidade de agenda'),
+
+(90, 1000.00, 'Em espera por material solicitado'),
+(91, 900.00, 'Revisão marcada para terça-feira'),
+(92, 800.00, 'Revisão Final Solicitada pelo Cliente');
 
 INSERT INTO solicitacao
 (contratante_id, prestador_id, tamanho, medida, descricao, status, inclui_aula, data_inicio, data_fim
@@ -676,8 +773,12 @@ VALUES
 (119, 120, 50.0, 'cm', 'Restauração e repintura de fachadas', 4, 1,             '2023-03-20', '2023-03-30', 6, 47, 47),
 (121, 122, 30.0, 'cm', 'Restauração e repintura de fachadas', 4, 1,             '2023-04-05', '2023-04-10', 6, 48, 48),
 (123, 124, 20.0, 'cm', 'Restauração e repintura de fachadas', 4, 0,             '2023-03-20', '2023-03-30', 7, 49, 49),
-(125, 126, 90.0, 'cm', 'Restauração e repintura de fachadas', 4, 0,             '2023-03-20', '2023-03-30', 8, 50, 50);
+(125, 126, 90.0, 'cm', 'Restauração e repintura de fachadas', 4, 0,             '2023-03-20', '2023-03-30', 8, 50, 50),
 
+(137, 126, 90.0, 'cm', 'Restauração e repintura de fachadas', 2, 0,             '2023-03-20', '2023-03-30', 8, 140, 90),
+(137, 116, 3.0, 'm²', 'Poda de árvores no quintal', 2, 0,                      '2023-04-05', '2023-04-15', 3, 141, 91),
+(137, 92, 6, 'Unidade', 'Pintura de portas e portões.', 2, 1,                        '2023-06-15', '2023-06-20', 12, 142, 92),
+(137, 78, 10.0, 'm', 'Pintura das paredes da sala', 2, 0,                       '2023-10-20', NULL, 5, NULL, NULL);
 
 INSERT INTO solicitacao
 (contratante_id, prestador_id, tamanho, medida, descricao, status, servico_id, avaliacao_id)
@@ -717,92 +818,9 @@ VALUES
 (24, 5, 50.0, 'cm', 'Reparo em sancas de gesso danificadas por umidade', 2, 21, 43);
 
 
-INSERT INTO form_orcamento
-(id, orcamento, mensagem)
-VALUES
-(51, 400.00, 'Trabalho Finalizado'),
-(52, 300.00, 'Trabalho Finalizado'),
-(53, 200.00, 'Trabalho Finalizado'),
-(54, 800.00, 'Trabalho Finalizado'),
-(55, 450.00, 'Trabalho Finalizado'),
-(56, 350.00, 'Em Progresso'),
-(57, 650.00, 'Aguardando Confirmação'),
-(58, 470.00, 'Aguardando Peças'),
-(59, 490.00, 'Finalização em Andamento'),
-(60, 520.00, 'Consultando Cliente'),
-(61, 530.00, 'Revisando Serviço'),
-(62, 550.00, 'Início Imediato'),
-(63, 575.00, 'Esperando Aprovação'),
-(64, 595.00, 'Iniciando Diagnóstico'),
-(65, 605.00, 'Concluído com Observações'),
-(66, 610.00, 'Aguardando Pagamento'),
-(67, 620.00, 'Em Análise'),
-(68, 625.00, 'Serviço Parcialmente Concluído'),
-(69, 640.00, 'Precisa de Peças Adicionais'),
-(70, 650.00, 'Planejamento Aprovado'),
-(71, 670.00, 'Aguardando Feedback do Cliente'),
-(72, 690.00, 'Em Fase de Testes'),
-(73, 700.00, 'Urgente - Aguardando Peças'),
-(74, 720.00, 'Finalização Prevista para Amanhã'),
-(75, 735.00, 'Requer Aprovação do Orçamento'),
-(76, 750.00, 'Preparando para Início'),
-(77, 765.00, 'Em Fase de Conclusão'),
-(78, 780.00, 'Revisão Final Solicitada pelo Cliente'),
-(79, 800.00, 'Pendências Resolvidas'),
-(80, 810.00, 'Retorno agendado para conclusão'),
-(81, 820.00, 'Revisão marcada para terça-feira'),
-(82, 830.00, 'Requer autorização para peças adicionais'),
-(83, 840.00, 'Problemas encontrados no sistema'),
-(84, 850.00, 'Finalizado - aguardando confirmação'),
-(85, 860.00, 'Necessita de mais tempo para conclusão'),
-(86, 870.00, 'Reparo feito - em fase de testes'),
-(87, 880.00, 'Cliente informado sobre situação'),
-(88, 890.00, 'Em espera por material solicitado'),
-(89, 900.00, 'Consultando disponibilidade de agenda');
 
-INSERT INTO avaliacao
-(id, nota, descricao)
-VALUES
-(100, 4, 'Muito bom o serviço, mas demorou mais que o esperado'),
-(101, 5, 'Sensacional! Serviço impecável'),
-(102, 3, 'Serviço dentro das expectativas'),
-(103, 4, 'Ótimo atendimento, recomendo'),
-(104, 2, 'Insatisfatório, poderia ter sido melhor'),
-(105, 4, 'Satisfeito com o serviço'),
-(106, 5, 'Entrega antes do prazo'),
-(107, 3, 'Poderia melhorar na comunicação'),
-(108, 4, 'Atendeu às expectativas'),
-(109, 2, 'Necessário retorno para correção'),
-(110, 5, 'Aconselho a todos os conhecidos'),
-(111, 4, 'Preço justo pelo serviço'),
-(112, 4, 'Retorno rápido'),
-(113, 3, 'Faltaram algumas ferramentas'),
-(114, 5, 'O melhor da região'),
-(115, 4, 'Voltaria a contratar'),
-(116, 5, 'Tudo perfeito'),
-(117, 1, 'Teve dificuldade inicial'),
-(118, 1, 'Bom, mas caro'),
-(119, 4, 'Resolveu mais rápido do que esperava'),
-(120, 5, 'Profissionalismo impecável'),
-(121, 3, 'Poderia ter sido mais rápido'),
-(122, 5, 'Qualidade excepcional'),
-(123, 2, 'Atendimento ao cliente necessita melhorias'),
-(124, 5, 'Altamente recomendado'),
-(125, 2, 'Tive problemas com o agendamento'),
-(126, 2, 'Precisou de várias visitas para concluir'),
-(127, 2, 'Muito caro pelo que foi feito'),
-(128, 3, 'Eficiente, mas não muito cordial'),
-(129, 4, 'Serviço bem feito, sem problemas'),
-(130, 5, 'Muito atencioso e explicativo'),
-(131, 3, 'O serviço demorou mais do que o previsto'),
-(132, 5, 'Muito satisfeito com o resultado final'),
-(133, 3, 'O preço foi mais alto do que o esperado'),
-(134, 2, 'O atendimento deixou a desejar'),
-(135, 5, 'Serviço de primeira classe'),
-(136, 2, 'Tive que chamar novamente para correções'),
-(137, 4, 'Os trabalhos começaram no horário marcado'),
-(138, 5, 'Recomendaria sem hesitar'),
-(139, 3, 'Poderia ter sido melhor');
+
+
 
 INSERT INTO solicitacao
 (contratante_id, prestador_id, tamanho, medida, descricao, status, inclui_aula, data_inicio,
