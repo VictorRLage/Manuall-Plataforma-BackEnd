@@ -904,7 +904,12 @@ INSERT INTO usuario_img
 VALUES
 (2, 'https://static.vecteezy.com/ti/fotos-gratis/t2/9759099-bela-cachoeira-natureza-cenario-da-floresta-profunda-colorida-em-dia-de-verao-gratis-foto.jpg'),
 (2, 'https://i.pinimg.com/236x/a4/bb/31/a4bb31b5f54ef7ad2581de5230b045b4.jpg'),
-(2, 'https://img.elo7.com.br/product/original/338BB23/painel-de-festa-paisagem-natureza-3x2-festa-infantil.jpg');
+(2, 'https://img.elo7.com.br/product/original/338BB23/painel-de-festa-paisagem-natureza-3x2-festa-infantil.jpg'),
+(56, 'https://www.totaleletrica.com.br/imagens/produtos/substituicao-de-fiacao-eletrica-predial/substituicao-de-fiacao-eletrica-predial-1.jpg'),
+(56, 'https://www.forestieri.com.br/blog/wp-content/uploads/2022/04/cabomaq.jpg'),
+(56, 'https://www.jornaldocomercio.com/_midias/jpg/2018/03/15/cd150318_fios_telefonia__90_-1763611.jpg'),
+(56, 'https://www.cec.com.br/files/blog/posts/2022/08_ago/24082022/fiacao-eletrica_700x409_2.png'),
+(56, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj9vFmyOKPm8j2kSZ5H04a49-O1hAKofk5xc4ylMDKQzcX3uaKw-qtyvqbpNKG_60qNhc&usqp=CAU');
 
 
 
