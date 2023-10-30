@@ -1,7 +1,5 @@
 package manuall.api.dto.perfil
 
-import manuall.api.dto.solicitacao.AvaliacaoDto
-
 data class PerfilDto(
     val area: String?,
     val descricao: String?,
@@ -12,7 +10,7 @@ data class PerfilDto(
     val prestaAula: Boolean?,
     val estado: String?,
     val cidade: String?,
-    val imagens: List<String>,
-    val servicos: List<PerfilServicoServiceDto>,
-    val avaliacoes: List<AvaliacaoDto>
+    val imagens: List<PerfilImagemDto>,
+    val servicos: List<PerfilServicoDto>,
+    val avaliacoes: List<PerfilAvaliacaoDto>,
 )

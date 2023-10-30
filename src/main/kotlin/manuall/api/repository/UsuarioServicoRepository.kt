@@ -1,7 +1,7 @@
 package manuall.api.repository
 
 import manuall.api.domain.UsuarioServico
-import manuall.api.dto.perfil.PerfilServicoServiceDto
+import manuall.api.dto.perfil.PerfilServicoDto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -17,9 +17,9 @@ interface UsuarioServicoRepository: JpaRepository<UsuarioServico, Int> {
 
     @Query("""
         select
-        new manuall.api.dto.perfil.PerfilServicoServiceDto(
+        new manuall.api.dto.perfil.PerfilServicoDto(
         u.servico.id, u.servico.nome
         ) from UsuarioServico u where u.prestador.id = ?1
     """)
-    fun findServicosByUsuarioId(id: Int): List<PerfilServicoServiceDto>
+    fun findServicosByUsuarioId(id: Int): List<PerfilServicoDto>
 }

@@ -104,12 +104,12 @@ class PerfilController(
         return perfilService.postarUrl(token, anexo)
     }
 
-    @PostMapping("/imagem/delete")
+    @PostMapping("/imagem/delete/{imagemId}")
     @SecurityRequirement(name = "Bearer")
     fun excluirUrl(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
-        @RequestBody anexo: UrlImagemDto
+        @PathVariable imagemId: Int,
     ): ResponseEntity<Unit> {
-        return perfilService.excluirUrls(token, anexo)
+        return perfilService.excluirUrls(token, imagemId)
     }
 }

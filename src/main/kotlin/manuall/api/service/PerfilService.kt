@@ -99,26 +99,25 @@ class PerfilService(
 
     fun checarPrestador(usuario: Prestador): ResponseEntity<PerfilDto> {
 
-        val dadosEndereco = dadosEnderecoRepository.findByUsuarioId(usuario.id).get()
-        val dadosAvaliacao = avaliacaoRepository.findByPrestadorId(usuario.id)
-        val nomeArea = areaRepository.findAreaNomeByUsuarioId(usuario.id)
-        val urls = usuarioImgRepository.findUrlsByUsuarioId(usuario.id)
+        val imagens = usuarioImgRepository.findUrlsByUsuarioId(usuario.id)
         val servicos = usuarioServicoRepository.findServicosByUsuarioId(usuario.id)
+        val avaliacoes = avaliacaoRepository.findByPrestadorId(usuario.id)
 
         val perfilDTO = PerfilDto(
-            nomeArea,
+            usuario.area?.nome,
             usuario.descricao,
             usuario.anexoPfp,
             usuario.nome,
             usuario.orcamentoMin,
             usuario.orcamentoMax,
             usuario.prestaAula,
-            dadosEndereco.estado,
-            dadosEndereco.cidade,
-            urls,
+            usuario.dadosEndereco?.estado,
+            usuario.dadosEndereco?.cidade,
+            imagens,
             servicos,
-            dadosAvaliacao
+            avaliacoes
         )
+
         return ResponseEntity.status(200).body(perfilDTO)
     }
 
@@ -206,16 +205,13 @@ class PerfilService(
         return ResponseEntity.status(201).build()
     }
 
-    fun excluirUrls(token: String?, anexo: UrlImagemDto): ResponseEntity<Unit> {
+    fun excluirUrls(token: String?, imagemId: Int): ResponseEntity<Unit> {
 
-        val usuario = jwtTokenManager.validateToken(token)
+        jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
         usuarioImgRepository.delete(
-            usuarioImgRepository.findByAnexoAndPrestadorId(
-                anexo.imagem,
-                usuarioRepository.findById(usuario.id).get().id
-            ).get()
+            usuarioImgRepository.findById(imagemId).get()
         )
 
         return ResponseEntity.status(200).build()

@@ -1,6 +1,6 @@
 package manuall.api.dto.perfil
 
-data class PerfilServicoServiceDto(
+data class PerfilServicoDto(
     val id: Int,
     val nome: String
 )

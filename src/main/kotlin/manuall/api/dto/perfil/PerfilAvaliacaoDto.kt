@@ -1,6 +1,6 @@
-package manuall.api.dto.solicitacao
+package manuall.api.dto.perfil
 
-data class AvaliacaoDto(
+data class PerfilAvaliacaoDto(
     val nome: String,
     val nota: Int,
     val descricao: String
