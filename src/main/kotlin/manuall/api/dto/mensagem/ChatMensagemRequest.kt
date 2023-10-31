@@ -1,4 +1,4 @@
-package manuall.api.dto.chat
+package manuall.api.dto.mensagem
 
 data class ChatMensagemRequest(
     val token: String?,

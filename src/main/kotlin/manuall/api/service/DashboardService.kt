@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class DashboardService(
     val solicitacaoRepository: SolicitacaoRepository,
     val jwtTokenManager: JwtTokenManager,
-    val chatRepository: ChatRepository,
+    val mensagemRepository: MensagemRepository,
     val formOrcamentoRepository: FormOrcamentoRepository,
     val avaliacaoRepository: AvaliacaoRepository
 ) {
@@ -23,7 +23,7 @@ class DashboardService(
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
-        val mensagens = chatRepository.findByPrestadorIdAndInterval(usuario.id, from, to)
+        val mensagens = mensagemRepository.findByPrestadorIdAndInterval(usuario.id, from, to)
         val averageMinutes = if (mensagens.size < 2) {
             null
         } else {

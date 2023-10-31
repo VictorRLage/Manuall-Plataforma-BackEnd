@@ -18,7 +18,7 @@ class SolicitacaoService(
     val usuarioRepository: UsuarioRepository,
     val servicoRepository: ServicoRepository,
     val solicitacaoImgRepository: SolicitacaoImgRepository,
-    val chatRepository: ChatRepository,
+    val mensagemRepository: MensagemRepository,
     val formOrcamentoRepository: FormOrcamentoRepository,
     val avaliacaoRepository: AvaliacaoRepository
 ) {
@@ -107,7 +107,7 @@ class SolicitacaoService(
             return ResponseEntity.status(480).build()
 
         solicitacaoImgRepository.deleteBySolicitacaoId(idSolicitacao)
-        chatRepository.deleteBySolicitacaoId(idSolicitacao)
+        mensagemRepository.deleteBySolicitacaoId(idSolicitacao)
         solicitacaoRepository.deleteById(idSolicitacao)
 
         return ResponseEntity.status(200).build()

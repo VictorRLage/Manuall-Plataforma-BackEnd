@@ -58,5 +58,5 @@ class Solicitacao {
 
     @JsonIgnore
     @OneToMany(mappedBy = "solicitacao")
-    var chat: List<Chat> = listOf()
+    var mensagem: List<Mensagem> = listOf()
 }

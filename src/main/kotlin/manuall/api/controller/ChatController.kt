@@ -2,8 +2,8 @@ package manuall.api.controller
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
-import manuall.api.domain.Chat
-import manuall.api.dto.chat.ChatResponse
+import manuall.api.domain.Mensagem
+import manuall.api.dto.mensagem.ChatResponse
 import manuall.api.service.ChatService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/chat")
 class ChatController (
     val chatService: ChatService
-): DominiosBuscaveis<Chat> {
+): DominiosBuscaveis<Mensagem> {
 
-    override fun buscarTodos(token: String?): ResponseEntity<List<Chat>> {
+    override fun buscarTodos(token: String?): ResponseEntity<List<Mensagem>> {
         return chatService.buscarTodos(token)
     }
 

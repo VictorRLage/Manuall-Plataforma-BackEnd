@@ -1,35 +1,34 @@
 package manuall.api.service
 
 import manuall.api.domain.Administrador
-import manuall.api.domain.Chat
+import manuall.api.domain.Mensagem
 import manuall.api.domain.Contratante
 import manuall.api.domain.Prestador
-import manuall.api.dto.chat.*
-import manuall.api.repository.ChatRepository
+import manuall.api.dto.mensagem.*
+import manuall.api.repository.MensagemRepository
 import manuall.api.repository.SolicitacaoRepository
 import manuall.api.security.JwtTokenManager
 import org.springframework.http.ResponseEntity
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
 import java.util.*
 
 @Service
 class ChatService(
-    val chatRepository: ChatRepository,
+    val mensagemRepository: MensagemRepository,
     val solicitacaoRepository: SolicitacaoRepository,
     val jwtTokenManager: JwtTokenManager,
     private val template: SimpMessagingTemplate
 ) {
 
-    fun buscarTodos(token: String?): ResponseEntity<List<Chat>> {
+    fun buscarTodos(token: String?): ResponseEntity<List<Mensagem>> {
 
         val usuario = jwtTokenManager.validateToken(token)
             ?: return ResponseEntity.status(480).build()
 
         if (usuario !is Administrador) return ResponseEntity.status(480).build()
 
-        return ResponseEntity.status(200).body(chatRepository.findAll())
+        return ResponseEntity.status(200).body(mensagemRepository.findAll())
     }
 
     fun getChats(token: String?): ResponseEntity<List<ChatResponse>> {
@@ -49,11 +48,13 @@ class ChatService(
                     solicitacao.id,
                     solicitacao.prestador.nome,
                     solicitacao.prestador.anexoPfp,
-                    solicitacao.chat.map { mensagem ->
+                    solicitacao.mensagem.map { mensagem ->
                         MensagemDto(
+                            mensagem.id,
+                            mensagem.visto,
                             mensagem.idRemetente == usuario.id,
                             mensagem.horario,
-                            mensagem.mensagem,
+                            mensagem.texto,
                             mensagem.anexo,
                         )
                     }
@@ -62,11 +63,13 @@ class ChatService(
                     solicitacao.id,
                     solicitacao.contratante.nome,
                     null,
-                    solicitacao.chat.map { mensagem ->
+                    solicitacao.mensagem.map { mensagem ->
                         MensagemDto(
+                            mensagem.id,
+                            mensagem.visto,
                             mensagem.idRemetente == usuario.id,
                             mensagem.horario,
-                            mensagem.mensagem,
+                            mensagem.texto,
                             mensagem.anexo,
                         )
                     }
@@ -91,30 +94,35 @@ class ChatService(
 
         val solicitacao = possivelSolicitacao.get()
 
-        val mensagem = Chat()
+        val mensagem = Mensagem()
         mensagem.solicitacao = solicitacao
-        mensagem.mensagem = chatMensagemRequest.mensagem
+        mensagem.texto = chatMensagemRequest.mensagem
         mensagem.horario = Date()
         mensagem.anexo = chatMensagemRequest.anexo
         mensagem.idRemetente = usuario.id
+        mensagem.visto = false
 
-        chatRepository.save(mensagem)
+        val id = mensagemRepository.save(mensagem).id
 
         template.convertAndSend("/chat/${solicitacao.contratante.id}",
             MensagemDtoSolo(
                 solicitacao.id,
+                id,
+                false,
                 usuario is Contratante,
                 mensagem.horario,
-                mensagem.mensagem,
+                mensagem.texto,
                 mensagem.anexo
             )
         )
         template.convertAndSend("/chat/${solicitacao.prestador.id}",
             MensagemDtoSolo(
                 solicitacao.id,
+                id,
+                false,
                 usuario is Prestador,
                 mensagem.horario,
-                mensagem.mensagem,
+                mensagem.texto,
                 mensagem.anexo
             )
         )

@@ -1,4 +1,4 @@
-package manuall.api.dto.chat
+package manuall.api.dto.mensagem
 
 data class ChatResponse(
     val solicitacaoId: Int,
