@@ -1,6 +1,7 @@
 package manuall.api.websocket
 
 import manuall.api.dto.mensagem.ChatMensagemRequest
+import manuall.api.dto.mensagem.VerMensagemRequest
 import manuall.api.service.ChatService
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,5 +18,10 @@ class MensagemWsController(
         chatService.mandarMensagem(chatMensagemRequest)
     }
 
-//    @MessageMapping("/visualizar")
+    @MessageMapping("/visualizar")
+    fun visualizarMensagem(
+        @RequestBody verMensagemRequest: VerMensagemRequest
+    ) {
+        chatService.visualizarMensagem(verMensagemRequest)
+    }
 }

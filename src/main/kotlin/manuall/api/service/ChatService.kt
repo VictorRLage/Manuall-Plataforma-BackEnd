@@ -107,6 +107,7 @@ class ChatService(
         template.convertAndSend("/chat/${solicitacao.contratante.id}",
             MensagemDtoSolo(
                 solicitacao.id,
+                if (usuario is Contratante) chatMensagemRequest.tempId else null,
                 id,
                 false,
                 usuario is Contratante,
@@ -118,6 +119,7 @@ class ChatService(
         template.convertAndSend("/chat/${solicitacao.prestador.id}",
             MensagemDtoSolo(
                 solicitacao.id,
+                if (usuario is Prestador) chatMensagemRequest.tempId else null,
                 id,
                 false,
                 usuario is Prestador,
@@ -126,5 +128,9 @@ class ChatService(
                 mensagem.anexo
             )
         )
+    }
+
+    fun visualizarMensagem(verMensagemRequest: VerMensagemRequest) {
+        TODO()
     }
 }

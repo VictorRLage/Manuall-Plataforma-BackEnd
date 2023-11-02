@@ -4,6 +4,7 @@ import java.util.*
 
 class MensagemDtoSolo(
     val solicitacaoId: Int,
+    val tempId: Int?,
     override val id: Int,
     override val visto: Boolean,
     override val selfSender: Boolean,
