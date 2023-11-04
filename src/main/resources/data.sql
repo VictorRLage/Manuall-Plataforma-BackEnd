@@ -850,22 +850,22 @@ VALUES
 (4, 6, 500.0, 'm²', 'E aí, tudo bem? Gostaria que você viesse consertar meu chuveiro antes da semana que vem', 2, 1, '2023-10-17', null, 13, null, null);
 
 INSERT INTO mensagem
-(solicitacao_id, id_remetente, texto, horario)
+(solicitacao_id, id_remetente, texto, horario, visto)
 VALUES
-(1, 1, 'Oi, tudo bem?', '2023-08-10 10:30:00'),
-(1, 2, 'Olá! Estou bem, e você?', '2023-08-10 10:31:00'),
-(2, 4, 'Bom dia, já pode começar o serviço?', '2023-08-11 09:00:00'),
-(2, 5, 'Bom dia! Sim, já estou a caminho.', '2023-08-11 09:02:00'),
-(3, 6, 'Oi, preciso alterar o horário do serviço para amanhã.', '2023-08-12 14:15:00'),
-(3, 8, 'Sem problemas, que horas seria melhor para você?', '2023-08-12 14:17:00'),
-(4, 7, 'Boa tarde, gostaria de adicionar um serviço extra.', '2023-08-13 16:20:00'),
-(4, 9, 'Boa tarde! Claro, qual seria o serviço adicional?', '2023-08-13 16:22:00'),
-(5, 11, 'Olá, vocês fazem instalação de torneiras também?', '2023-08-14 11:45:00'),
-(5, 15, 'Olá! Sim, fazemos. Gostaria de adicionar esse serviço?', '2023-08-14 11:47:00'),
-(6, 12, 'Oi, os móveis chegaram. Podemos agendar a montagem?', '2023-08-15 13:30:00'),
-(6, 19, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-08-15 13:32:00'),
-(105, 56, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-10-12 13:32:00'),
-(105, 56, 'Não sei muito bem.', '2023-10-12 13:57:00');
+(1, 1, 'Oi, tudo bem?', '2023-08-10 10:30:00', true),
+(1, 2, 'Olá! Estou bem, e você?', '2023-08-10 10:31:00', true),
+(2, 4, 'Bom dia, já pode começar o serviço?', '2023-08-11 09:00:00', true),
+(2, 5, 'Bom dia! Sim, já estou a caminho.', '2023-08-11 09:02:00', true),
+(3, 6, 'Oi, preciso alterar o horário do serviço para amanhã.', '2023-08-12 14:15:00', true),
+(3, 8, 'Sem problemas, que horas seria melhor para você?', '2023-08-12 14:17:00', true),
+(4, 7, 'Boa tarde, gostaria de adicionar um serviço extra.', '2023-08-13 16:20:00', true),
+(4, 9, 'Boa tarde! Claro, qual seria o serviço adicional?', '2023-08-13 16:22:00', true),
+(5, 11, 'Olá, vocês fazem instalação de torneiras também?', '2023-08-14 11:45:00', true),
+(5, 15, 'Olá! Sim, fazemos. Gostaria de adicionar esse serviço?', '2023-08-14 11:47:00', true),
+(6, 12, 'Oi, os móveis chegaram. Podemos agendar a montagem?', '2023-08-15 13:30:00', true),
+(6, 19, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-08-15 13:32:00', true),
+(105, 56, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-10-12 13:32:00', true),
+(105, 56, 'Não sei muito bem.', '2023-10-12 13:57:00', true);
 
 INSERT INTO usuario_img
 (prestador_id, anexo)

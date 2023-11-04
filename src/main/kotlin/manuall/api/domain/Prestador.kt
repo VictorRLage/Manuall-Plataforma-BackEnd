@@ -41,6 +41,12 @@ class Prestador: Usuario() {
     @Column(name = "acessos")
     var acessos: Int? = null
 
+    @Column(name = "status_processo_aprovacao")
+    var statusProcessoAprovacao: Int? = null
+    // 1: Pendente
+    // 2: Agendado
+    // 3: Finalizado
+
     @ManyToOne
     var area: Area? = null
 

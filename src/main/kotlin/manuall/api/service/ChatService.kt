@@ -104,7 +104,7 @@ class ChatService(
 
         val id = mensagemRepository.save(mensagem).id
 
-        template.convertAndSend("/chat/${solicitacao.contratante.id}",
+        template.convertAndSend("/mensagem/${solicitacao.contratante.id}",
             MensagemDtoSolo(
                 solicitacao.id,
                 if (usuario is Contratante) chatMensagemRequest.tempId else null,
@@ -116,7 +116,7 @@ class ChatService(
                 mensagem.anexo
             )
         )
-        template.convertAndSend("/chat/${solicitacao.prestador.id}",
+        template.convertAndSend("/mensagem/${solicitacao.prestador.id}",
             MensagemDtoSolo(
                 solicitacao.id,
                 if (usuario is Prestador) chatMensagemRequest.tempId else null,
@@ -131,6 +131,32 @@ class ChatService(
     }
 
     fun visualizarMensagem(verMensagemRequest: VerMensagemRequest) {
-        TODO()
+
+        val usuario = jwtTokenManager.validateToken("Bearer ${verMensagemRequest.token}")
+            ?: return
+
+        val possivelMensagem = mensagemRepository.findById(verMensagemRequest.mensagemId)
+
+        if (possivelMensagem.isEmpty)
+            return
+
+        val mensagem = possivelMensagem.get()
+
+        mensagem.visto = true
+
+        mensagemRepository.save(mensagem)
+
+        template.convertAndSend("/visualizacao/${mensagem.solicitacao.contratante.id}",
+            MensagemVisualizadaDto(
+                mensagem.solicitacao.id,
+                mensagem.id
+            )
+        )
+        template.convertAndSend("/visualizacao/${mensagem.solicitacao.prestador.id}",
+            MensagemVisualizadaDto(
+                mensagem.solicitacao.id,
+                mensagem.id
+            )
+        )
     }
 }
