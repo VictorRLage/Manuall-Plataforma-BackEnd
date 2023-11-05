@@ -57,7 +57,8 @@ class ChatService(
                             mensagem.texto,
                             mensagem.anexo,
                         )
-                    }
+                    },
+                    solicitacao.dataInicio,
                 )
                 is Prestador -> ChatResponse(
                     solicitacao.id,
@@ -72,7 +73,8 @@ class ChatService(
                             mensagem.texto,
                             mensagem.anexo,
                         )
-                    }
+                    },
+                    solicitacao.dataInicio,
                 )
                 else -> return ResponseEntity.status(401).build()
             }
