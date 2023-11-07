@@ -293,8 +293,19 @@ class UsuarioService(
         usuarios.forEach {
             filaPrestadores.put(
                 AprovacaoDto(
-                    it,
-                    usuarioServicoRepository.findServicosNomeByUsuarioId(it.id)
+                    it.id,
+                    it.nome,
+                    it.email,
+                    it.telefone,
+                    it.cpf,
+                    it.cidade,
+                    it.estado,
+                    it.area,
+                    usuarioServicoRepository.findServicosNomeByUsuarioId(it.id),
+                    it.orcamentoMin,
+                    it.orcamentoMax,
+                    it.ensino,
+                    it.statusProcesso,
                 )
             )
         }

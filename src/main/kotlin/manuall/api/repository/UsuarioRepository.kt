@@ -1,6 +1,7 @@
 package manuall.api.repository
 
 import manuall.api.domain.Usuario
+import manuall.api.dto.usuario.AprovacaoDto
 import manuall.api.dto.usuario.AprovacaoSubDto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -32,17 +33,28 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         @Param("tipoUsuario") tipoUsuario: Class<out Usuario>
     ): List<Int>
 
-    @Query("""
+    @Query(
+        """
         select
         new manuall.api.dto.usuario.AprovacaoSubDto(
-        u.id, u.nome, u.anexoPfp, u.email, u.telefone, u.cpf, de.cidade, de.estado, de.cep, de.bairro, de.rua, de.numero, de.complemento, u.area.nome, u.prestaAula, u.orcamentoMin, u.orcamentoMax
+            u.id,
+            u.nome,
+            u.email,
+            u.telefone,
+            u.cpf,
+            u.dadosEndereco.cidade,
+            u.dadosEndereco.estado,
+            u.area.nome,
+            u.orcamentoMin,
+            u.orcamentoMax,
+            u.prestaAula,
+            u.statusProcessoAprovacao
         )
         from Prestador u
-        join DadosEndereco de
-        on u.id = de.usuario.id
         where TYPE(u) = Prestador
         AND u.prestaAula IS NOT NULL
         AND u.status = 1
-    """)
+    """
+    )
     fun aprovacoesPendentes(): List<AprovacaoSubDto>
 }
