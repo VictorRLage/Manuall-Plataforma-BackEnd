@@ -334,4 +334,20 @@ class UsuarioService(
         return ResponseEntity.status(200).build()
     }
 
+    fun alterarStatusProcesso(token: String?, idPrestador: Int, statusProcesso: Int): ResponseEntity<Unit> {
+
+        if (jwtTokenManager.validateToken(token) == null)
+            return ResponseEntity.status(480).build()
+
+        val usuario = usuarioRepository.findById(idPrestador).get()
+
+        usuario as Prestador
+
+        usuario.statusProcessoAprovacao = statusProcesso
+
+        usuarioRepository.save(usuario)
+
+        return ResponseEntity.status(200).build()
+    }
+
 }

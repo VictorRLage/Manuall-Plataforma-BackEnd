@@ -116,7 +116,7 @@ class UsuarioController(
         return usuarioService.aprovacoesPendentes(token)
     }
 
-    @GetMapping("/aprovacoesPendentes/{idPrestador}/{aprovar}")
+    @PatchMapping("/aprovacoesPendentes/{idPrestador}/{aprovar}")
     @SecurityRequirement(name = "Bearer")
     fun aprovar(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
@@ -124,6 +124,15 @@ class UsuarioController(
         @PathVariable aprovar: Int
     ): ResponseEntity<Unit> {
         return usuarioService.aprovar(token, idPrestador, aprovar)
+    }
+
+    @PatchMapping("/aprovacoesPendentes/alterarStatusProcesso/{idPrestador}/{statusProcesso}")
+    fun alterarStatusProcesso(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
+        @PathVariable idPrestador: Int,
+        @PathVariable statusProcesso: Int
+    ): ResponseEntity<Unit> {
+        return usuarioService.alterarStatusProcesso(token, idPrestador, statusProcesso)
     }
 
 }
