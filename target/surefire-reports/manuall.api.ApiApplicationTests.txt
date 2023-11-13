@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: manuall.api.ApiApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 64.978 s - in manuall.api.ApiApplicationTests
