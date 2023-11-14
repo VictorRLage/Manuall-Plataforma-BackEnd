@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.io.FileWriter
+import java.io.InputStream
 import java.util.*
 import java.util.concurrent.ArrayBlockingQueue
 
@@ -306,6 +308,7 @@ class UsuarioService(
                     it.orcamentoMax,
                     it.ensino,
                     it.statusProcesso,
+                    it.status
                 )
             )
         }
@@ -316,6 +319,60 @@ class UsuarioService(
         }
 
         return ResponseEntity.status(200).body(prestadores)
+    }
+
+    fun gravarCsvAprovacoes(lista: List<AprovacaoDto>, nomeArquivo: String) {
+        FileWriter(nomeArquivo).use { arquivo ->
+            Formatter(arquivo).use { saida ->
+                for (aprovacao in lista) {
+                    val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(aprovacao.id)
+                    val servicosString = servicos.joinToString(", ")
+
+                    saida.format("%d;%s;%s;%s;%s;%s;%s;%s;%s;%.2f;%.2f;%s;%s;%d\n",
+                        aprovacao.id,
+                        aprovacao.nome,
+                        aprovacao.email,
+                        aprovacao.telefone,
+                        aprovacao.cpf,
+                        aprovacao.cidade,
+                        aprovacao.estado,
+                        aprovacao.area,
+                        servicosString,
+                        aprovacao.orcamentoMin,
+                        aprovacao.orcamentoMax,
+                        aprovacao.ensino,
+                        aprovacao.statusProcesso,
+                        aprovacao.status)
+                }
+            }
+        }
+    }
+
+    fun atualizarAprovacoesViaCsv(inputStream: InputStream) {
+        Scanner(inputStream).use { leitor ->
+            leitor.useDelimiter(";|\\n")
+            while (leitor.hasNext()) {
+                val id = leitor.nextInt()
+                val nome = leitor.next()
+                val email = leitor.next()
+                val telefone = leitor.next()
+                val cpf = leitor.next()
+                val cidade = leitor.next()
+                val estado = leitor.next()
+                val area = leitor.next()
+                val servicos = leitor.next()
+                val orcamentoMin = leitor.nextDouble()
+                val orcamentoMax = leitor.nextDouble()
+                val ensino = leitor.next()
+                val statusProcesso = leitor.next()
+                val status = leitor.nextInt()
+
+                val usuario = usuarioRepository.findById(id).get()
+
+                usuario.status = status
+                usuarioRepository.save(usuario)
+            }
+        }
     }
 
     fun aprovar(token: String?, idPrestador: Int, aprovar: Int): ResponseEntity<Unit> {

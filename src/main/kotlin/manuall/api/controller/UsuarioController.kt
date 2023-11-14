@@ -9,8 +9,15 @@ import manuall.api.dto.perfil.NotificacaoDto
 import manuall.api.dto.usuario.*
 import manuall.api.service.UsuarioService
 import manuall.api.specification.UsuarioSpecification
+import org.springframework.core.io.InputStreamResource
+import org.springframework.core.io.Resource
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
+import java.io.File
+import java.io.FileInputStream
 
 @RestController
 @RequestMapping("/usuario")
@@ -114,6 +121,37 @@ class UsuarioController(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?
     ): ResponseEntity<List<AprovacaoDto>> {
         return usuarioService.aprovacoesPendentes(token)
+    }
+
+    @GetMapping("/aprovacoesPendentes/csv")
+    @SecurityRequirement(name = "Bearer")
+    fun gerarCsvAprovacoesPendentes(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<Resource> {
+        val aprovacoes = usuarioService.aprovacoesPendentes(token).body ?: return ResponseEntity.noContent().build()
+        val nomeArquivo = "aprovacoes_pendentes.csv"
+        usuarioService.gravarCsvAprovacoes(aprovacoes, nomeArquivo)
+        val arquivo = File(nomeArquivo)
+
+        val resource: Resource = InputStreamResource(FileInputStream(arquivo))
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"$nomeArquivo\"")
+            .contentType(MediaType.parseMediaType("text/csv"))
+            .body(resource)
+    }
+
+    @PostMapping("/aprovacoesPendentes/atualizarCsv", consumes = ["multipart/form-data"])
+    @SecurityRequirement(name = "Bearer")
+    fun atualizarAprovacoesViaCsv(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
+        @RequestParam("arquivo") arquivo: MultipartFile
+    ): ResponseEntity<String> {
+        if (!arquivo.isEmpty) {
+            usuarioService.atualizarAprovacoesViaCsv(arquivo.inputStream)
+            return ResponseEntity.ok("Dados atualizados com sucesso.")
+        }
+        return ResponseEntity.badRequest().body("Arquivo não enviado.")
     }
 
     @PatchMapping("/aprovacoesPendentes/{idPrestador}/{aprovar}")

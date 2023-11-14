@@ -48,7 +48,8 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
             u.orcamentoMin,
             u.orcamentoMax,
             u.prestaAula,
-            u.statusProcessoAprovacao
+            u.statusProcessoAprovacao,
+            u.status
         )
         from Prestador u
         where TYPE(u) = Prestador

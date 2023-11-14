@@ -13,4 +13,5 @@ data class AprovacaoSubDto(
     val orcamentoMax: Double?,
     val ensino: Boolean?,
     val statusProcesso: Int?,
+    val status: Int?,
 )
