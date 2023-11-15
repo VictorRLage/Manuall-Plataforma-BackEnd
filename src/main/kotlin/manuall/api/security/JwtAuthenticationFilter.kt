@@ -41,7 +41,7 @@ class JwtAuthenticationFilter(
                     exception.claims.subject, exception.message
                 )
                 LOGGER.trace("[FALHA NA AUTENTICAÇÃO] - stack trace: %s", exception)
-                response.status = HttpServletResponse.SC_UNAUTHORIZED
+                response.status = 480
             }
         }
         if (username != null && SecurityContextHolder.getContext().authentication == null) {

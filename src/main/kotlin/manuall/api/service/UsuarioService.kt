@@ -385,6 +385,7 @@ class UsuarioService(
         usuario as Prestador
 
         usuario.status = aprovar
+        usuario.plano = 3
 
         usuarioRepository.save(usuario)
 
