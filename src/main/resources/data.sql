@@ -889,7 +889,6 @@ INSERT INTO crm_log_mensagem
 (mensagem, crm_log_id)
 VALUES
 (20458, 1),
-(78503, 1),
 (10428, 2);
 
 drop view if exists vw_bi_avaliacoes_area;
