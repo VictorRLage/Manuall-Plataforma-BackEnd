@@ -97,8 +97,9 @@ interface UsuarioRepository: JpaRepository<Usuario, Int> {
         new manuall.api.dto.routine.crm.PrestadoresTimesResult(
         s.contratante.id,
         s.contratante.email,
-        MAX(s.dataInicio) AS lastSolicitacaoDate,
-        MAX(cl.inicioContato) AS lastCrmDate
+        MAX(s.dataInicio),
+        MAX(cl.inicioContato)
+        )
         FROM Solicitacao s
         LEFT JOIN CrmLog cl ON s.contratante.id = cl.usuario.id
         WHERE TYPE(s.contratante) = Contratante
