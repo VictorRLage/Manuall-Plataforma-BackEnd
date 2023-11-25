@@ -4,6 +4,7 @@ import manuall.api.domain.*
 import manuall.api.dto.perfil.NotificacaoDto
 import manuall.api.dto.perfil.NotificacaoSolicitacaoDto
 import manuall.api.dto.usuario.*
+import manuall.api.enums.StatusProcesso
 import manuall.api.enums.TipoUsuario
 import manuall.api.repository.*
 import manuall.api.security.JwtTokenManager
@@ -341,8 +342,9 @@ class UsuarioService(
                         aprovacao.orcamentoMin,
                         aprovacao.orcamentoMax,
                         aprovacao.ensino,
-                        aprovacao.statusProcesso,
-                        aprovacao.status)
+                        aprovacao.statusProcesso?.let { StatusProcesso.fromIdToTexto(it) },
+                        aprovacao.status
+                    )
                 }
             }
         }
@@ -363,13 +365,15 @@ class UsuarioService(
                 val servicos = leitor.next()
                 val orcamentoMin = leitor.nextDouble()
                 val orcamentoMax = leitor.nextDouble()
-                val ensino = leitor.next()
+                val ensino = leitor.nextBoolean()
                 val statusProcesso = leitor.next()
                 val status = leitor.nextInt()
 
                 val usuario = usuarioRepository.findById(id).get()
+                usuario as Prestador
 
                 usuario.status = status
+                usuario.statusProcessoAprovacao = StatusProcesso.fromTextoToId(statusProcesso)
                 usuarioRepository.save(usuario)
             }
         }
