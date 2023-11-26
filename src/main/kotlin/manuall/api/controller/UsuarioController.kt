@@ -141,6 +141,24 @@ class UsuarioController(
             .body(resource)
     }
 
+    @GetMapping("/aprovacoesPendentes/txt")
+    @SecurityRequirement(name = "Bearer")
+    fun gerarTxtAprovacoesPendentes(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?
+    ): ResponseEntity<Resource> {
+        val aprovacoes = usuarioService.aprovacoesPendentes(token).body ?: return ResponseEntity.noContent().build()
+        val nomeArquivo = "aprovacoes_pendentes.txt"
+        usuarioService.gravarTxtAprovacoes(aprovacoes, nomeArquivo)
+        val arquivo = File(nomeArquivo)
+
+        val resource: Resource = InputStreamResource(FileInputStream(arquivo))
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"$nomeArquivo\"")
+            .contentType(MediaType.parseMediaType("text/txt"))
+            .body(resource)
+    }
+
     @PostMapping("/aprovacoesPendentes/atualizarCsv", consumes = ["multipart/form-data"])
     @SecurityRequirement(name = "Bearer")
     fun atualizarAprovacoesViaCsv(

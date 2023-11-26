@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.io.FileWriter
 import java.io.InputStream
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.ArrayBlockingQueue
 
@@ -327,7 +329,7 @@ class UsuarioService(
             Formatter(arquivo).use { saida ->
                 for (aprovacao in lista) {
                     val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(aprovacao.id)
-                    val servicosString = servicos.joinToString(", ")
+                    val servicosString = servicos.joinToString("| ")
 
                     saida.format("%d;%s;%s;%s;%s;%s;%s;%s;%s;%.2f;%.2f;%s;%s;%d\n",
                         aprovacao.id,
@@ -348,6 +350,52 @@ class UsuarioService(
                 }
             }
         }
+    }
+
+    fun gravarTxtAprovacoes(lista: List<AprovacaoDto>, nomeArquivo: String){
+        val arquivo =  FileWriter(nomeArquivo)
+        val saida = Formatter(arquivo)
+
+        var header = "00APROVACAO20232"
+        header += LocalDateTime.now()
+            .format(
+                DateTimeFormatter
+                .ofPattern("dd-MM-yyyy HH:mm:ss"))
+        header += "01"
+
+        saida.format(header + "\n")
+
+        for (aprovacao in lista) {
+            val servicos = usuarioServicoRepository.findServicosNomeByUsuarioId(aprovacao.id)
+            val servicosString = servicos.joinToString(" | ")
+
+            val linha = StringBuilder()
+            linha.append("02")
+            linha.append(String.format("%-30.30s", aprovacao.area)) //confere
+            linha.append(String.format("%-4.4s", aprovacao.id)) //confere
+            linha.append(String.format("%-60.60s", aprovacao.nome)) //confere
+            linha.append(String.format("%-256.256s", aprovacao.email)) //confere
+            linha.append(String.format("%-11.11s", aprovacao.telefone)) //confere
+            linha.append(String.format("%-11.11s", aprovacao.cpf)) //confere
+            linha.append(String.format("%-35.35s", aprovacao.cidade)) //confere
+            linha.append(String.format("%-25.25s", aprovacao.estado)) //confere
+            linha.append(String.format("%-272.272s", servicosString)) //confere
+            linha.append(String.format("%10.2f", aprovacao.orcamentoMin)) //confere
+            linha.append(String.format("%10.2f", aprovacao.orcamentoMax)) //confere
+            linha.append(String.format("%-5.5s", aprovacao.ensino)) //confere
+            linha.append(String.format("%01d", aprovacao.statusProcesso)) //confere
+            linha.append(String.format("%01d", aprovacao.status)) //confere
+
+            saida.format(linha.toString() + "\n")
+        }
+
+        var trailer = "01"
+        trailer += String.format("%010d", lista.size)
+
+        saida.format(trailer + "\n")
+
+        saida.close()
+        arquivo.close()
     }
 
     fun atualizarAprovacoesViaCsv(inputStream: InputStream) {
