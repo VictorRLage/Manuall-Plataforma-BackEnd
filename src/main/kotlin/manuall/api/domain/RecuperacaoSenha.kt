@@ -12,13 +12,12 @@ class RecuperacaoSenha {
     @Column(name = "id")
     var id: Int = 0
 
-    @Column(name = "nota")
-    var nota: Int? = null
+    @Column(name = "email")
+    var email: String? = null
 
-    @Column(name = "descricao", length = 75)
-    var descricao: String? = null
+    @Column(name = "codigo", length = 7)
+    var codigo: String? = null
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "avaliacao")
-    var solicitacao: Solicitacao = Solicitacao()
+    @Column(name = "dtEnvio")
+    var dtEnvio: String? = null
 }
