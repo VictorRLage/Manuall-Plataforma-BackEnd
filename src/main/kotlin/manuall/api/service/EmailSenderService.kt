@@ -24,7 +24,7 @@ class EmailSenderService(private val emailSender: JavaMailSender) {
     }
 
     private fun setupMessage(helper: MimeMessageHelper, email: Email) {
-        helper.setTo(email.to)
+        helper.setTo(email.email)
         helper.setSubject(email.subject)
         helper.setText(email.text)
     }
