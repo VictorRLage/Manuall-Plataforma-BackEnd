@@ -1,7 +1,7 @@
 package manuall.api.domain
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "recuperacao_senha")
@@ -12,12 +12,12 @@ class RecuperacaoSenha {
     @Column(name = "id")
     var id: Int = 0
 
-    @Column(name = "email")
-    var email: String? = null
-
-    @Column(name = "codigo", length = 7)
+    @Column(name = "codigo", length = 6)
     var codigo: String? = null
 
-    @Column(name = "dtEnvio")
-    var dtEnvio: String? = null
+    @Column(name = "dt_envio")
+    var dtEnvio: LocalDateTime? = null
+
+    @Column(name = "email")
+    var email: String? = null
 }
