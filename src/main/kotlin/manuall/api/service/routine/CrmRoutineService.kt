@@ -46,7 +46,7 @@ class CrmRoutineService(
         )
     }
 
-    fun getContratantesRecentes(): ResponseEntity<List<Any>> {
+    fun getContratantesRecentes(): ResponseEntity<List<UsuarioCrm>> {
         return ResponseEntity.status(200).body(
             usuarioRepository.findContratantesRecentes().filter {
                 val cal = Calendar.getInstance()

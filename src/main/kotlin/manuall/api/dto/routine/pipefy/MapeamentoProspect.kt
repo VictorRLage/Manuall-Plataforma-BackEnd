@@ -17,4 +17,3 @@ data class MapeamentoProspect(
     val blnCupom: Boolean?,
     val msgDesistencia: String?,
 )
-

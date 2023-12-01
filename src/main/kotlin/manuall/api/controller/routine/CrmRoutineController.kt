@@ -39,13 +39,13 @@ class CrmRoutineController(
     @GetMapping("/recentes")
     fun getContratantesRecentes(
         @RequestHeader("RoutineAuth") routineAuth: String?,
-    ): ResponseEntity<List<Any>> {
+    ): ResponseEntity<List<UsuarioCrm>> {
         if (routineAuth != secret) return ResponseEntity.status(404).build()
         return crmRoutineService.getContratantesRecentes()
     }
 
     @PostMapping("/{tipo}/iniciarCrm/{usuarioId}")
-    fun iniciarCrmOciosos(
+    fun iniciarCrm(
         @RequestHeader("RoutineAuth") routineAuth: String?,
         @PathVariable tipo: String,
         @PathVariable usuarioId: Int,
