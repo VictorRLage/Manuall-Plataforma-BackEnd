@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface RecuperacaoSenhaRepository : JpaRepository<RecuperacaoSenha, Int> {
-    fun findByEmailAndCodigo(email: String, codigo: String): RecuperacaoSenha
+    fun findByEmailAndCodigo(email: String, codigo: String): RecuperacaoSenha?
 
     @Modifying
     @Query("UPDATE Usuario u SET u.senha = :novaSenha WHERE u.email = :email")

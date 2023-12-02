@@ -53,28 +53,31 @@ class RecuperarSenhaService(
         recuperacaoSenhaRepository.save(recuperacaoSenha)
     }
 
-    fun verificarCodigo(email: String, codigo: String): ResponseEntity<String> {
+    fun verificarCodigo(email: String, codigo: String): ResponseEntity<Void> {
         val recuperacaoSenha = recuperacaoSenhaRepository.findByEmailAndCodigo(email, codigo)
+            ?: return ResponseEntity.status(404).build()
 
+        println(codigo)
+        println(recuperacaoSenha.codigo)
         // Verificação 1: O token digitado é o mesmo do banco?
         if (recuperacaoSenha.codigo != codigo) {
-            return ResponseEntity.status(400).body("Código incorreto")
+            return ResponseEntity.status(400).build()
         }
 
         // Verificação 2: O e-mail do banco é o mesmo e-mail que o usuário digitou no primeiro campo?
         if (recuperacaoSenha.email != email) {
-            return ResponseEntity.status(400).body("E-mail incorreto")
+            return ResponseEntity.status(400).build()
         }
 
         val tempoDecorrido = Duration.between(recuperacaoSenha.dtEnvio, LocalDateTime.now())
         val minutosDecorridos = tempoDecorrido.toMinutes()
 
         if (minutosDecorridos >= 30) {
-            return ResponseEntity.status(400).body("Código expirado")
+            return ResponseEntity.status(400).build()
         }
 
         // Se todas as verificações passarem, o código é válido
-        return ResponseEntity.ok("Código válido")
+        return ResponseEntity.status(200).build()
     }
 
     @Transactional

@@ -15,9 +15,8 @@ class RecuperarSenhaController(private val recuperarSenhaService: RecuperarSenha
         return ResponseEntity.ok().build()
     }
     @PostMapping("/verificar")
-    fun verificarCodigo(email: String, @RequestParam codigo: String): ResponseEntity<Void> {
-        recuperarSenhaService.verificarCodigo(email, codigo)
-        return ResponseEntity.ok().build()
+    fun verificarCodigo(@RequestParam email: String, @RequestParam codigo: String): ResponseEntity<Void> {
+        return recuperarSenhaService.verificarCodigo(email, codigo)
     }
 
     @PatchMapping("/alterarsenha")
