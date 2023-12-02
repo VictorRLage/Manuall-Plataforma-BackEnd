@@ -81,8 +81,9 @@ class RecuperarSenhaService(
     }
 
     @Transactional
-    fun alterarSenha(email: String, novaSenha: String) {
+    fun alterarSenha(email: String, novaSenha: String) : ResponseEntity<Void> {
         recuperacaoSenhaRepository.alterarSenha(email, novaSenha)
+        return ResponseEntity.status(200).build()
     }
 
 }

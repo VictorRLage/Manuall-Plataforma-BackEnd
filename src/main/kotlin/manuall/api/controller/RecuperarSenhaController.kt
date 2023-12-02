@@ -1,7 +1,9 @@
 package manuall.api.controller
 
 import manuall.api.domain.RecuperacaoSenha
+import manuall.api.dto.resetsenha.Alterar
 import manuall.api.dto.resetsenha.Email
+import manuall.api.dto.resetsenha.Verificar
 import manuall.api.service.RecuperarSenhaService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -15,13 +17,17 @@ class RecuperarSenhaController(private val recuperarSenhaService: RecuperarSenha
         return ResponseEntity.ok().build()
     }
     @PostMapping("/verificar")
-    fun verificarCodigo(@RequestParam email: String, @RequestParam codigo: String): ResponseEntity<Void> {
+    fun verificarCodigo(@RequestBody request: Verificar): ResponseEntity<Void> {
+        val email = request.email
+        val codigo = request.codigo
         return recuperarSenhaService.verificarCodigo(email, codigo)
     }
 
     @PatchMapping("/alterarsenha")
-    fun atualizarSenha(@RequestParam email: String, @RequestParam novaSenha: String): ResponseEntity<String> {
+    fun atualizarSenha(@RequestBody request: Alterar): ResponseEntity<Void> {
+        val email = request.email
+        val novaSenha = request.novaSenha
         recuperarSenhaService.alterarSenha(email, novaSenha)
-        return ResponseEntity.ok("Senhas atualizadas com sucesso")
+        return ResponseEntity.ok().build()
     }
 }
