@@ -9,7 +9,7 @@ data class NotificacaoDto(
     // 1: Pendente
     // 2: Aceita
     // 3: Recusada
-    // 4: Finalizada - Apenas para prestador
+    // 4: Finalizada
     val date: Date?,
     val solicitacao: NotificacaoSolicitacaoDto?,
 )

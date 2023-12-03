@@ -820,10 +820,10 @@ VALUES
 (24, 56, 26, 'm', 'Reparo em chuveiro elétrico.', 1, 1, '2023-01-05', null, 8, 64, 114),
 (18, 56, 68, 'cm', 'Instalação de tomadas adicionais.', 2, 1, '2023-01-12', '2023-01-15', 7, 65, 115),
 (23, 56, 40, 'm²', 'Reparo em fiação exposta.', 2, 0, '2023-01-18', '2023-01-20', 9, 66, 116),
-(7, 56, 30, 'cm', 'Montagem de quadro elétrico.', 1, 0, '2023-10-01', null, 7, 67, 117),
-(17, 56, 29, 'm', 'Checagem de iluminação externa.', 1, 1, '2023-10-08', null, 8, 68, 118),
-(18, 56, 72, 'cm', 'Instalação de sensores de presença.', 2, 1, '2023-10-12', null, 9, 69, 119),
-(18, 56, 52, 'm²', 'Substituição de lâmpadas queimadas.', 1, 0, '2023-10-22', '2023-10-25', 7, 70, 120),
+(7, 56, 30, 'cm', 'Montagem de quadro elétrico.', 1, 0, '2023-12-01', null, 7, 67, 117),
+(17, 56, 29, 'm', 'Checagem de iluminação externa.', 1, 1, '2023-12-08', null, 8, 68, 118),
+(18, 56, 72, 'cm', 'Instalação de sensores de presença.', 2, 1, '2023-12-12', null, 9, 69, 119),
+(18, 56, 52, 'm²', 'Substituição de lâmpadas queimadas.', 1, 0, '2023-12-22', '2023-10-25', 7, 70, 120),
 (7, 56, 34, 'cm', 'Manutenção preventiva em sistema elétrico.', 2, 0, '2023-03-10', '2023-03-13', 7, 71, 121),
 (24, 56, 48, 'm', 'Instalação de sistema de segurança alimentado por energia solar.', 1, 1, '2023-03-18', null, 8, 72, 122),
 (18, 56, 27, 'cm', 'Atualização do sistema de aterramento.', 1, 0, '2023-04-01', null, 9, 73, 123),
@@ -831,7 +831,7 @@ VALUES
 (17, 56, 45, 'cm', 'Reparos em circuito de iluminação.', 2, 0, '2023-05-06', '2023-05-09', 9, 75, 125),
 (24, 56, 55, 'm', 'Instalação de gerador de emergência.', 1, 1, '2023-05-20', null, 8, 76, 126),
 (7, 56, 33, 'cm', 'Substituição de painel elétrico antigo.', 1, 0, '2023-06-12', null, 8, 77, 127),
-(18, 56, 61, 'm²', 'Avaliação de eficiência energética.', 2, 1, '2023-10-22', '2023-10-25', 8, 78, 128),
+(18, 56, 61, 'm²', 'Avaliação de eficiência energética.', 2, 1, '2023-12-22', '2023-12-25', 8, 78, 128),
 (23, 56, 39, 'cm', 'Instalação de carregador para veículo elétrico.', 2, 0, '2023-07-02', '2023-07-05', 8, 79, 129),
 (18, 56, 40, 'm', 'Reparo em tomada queimada.', 1, 0, '2023-07-10', null, 8, 80, 130),
 (24, 56, 65, 'cm', 'Instalação de interruptor.', 1, 1, '2023-07-15', null, 7, 81, 131),
@@ -864,7 +864,7 @@ VALUES
 (5, 15, 'Olá! Sim, fazemos. Gostaria de adicionar esse serviço?', '2023-08-14 11:47:00', true),
 (6, 12, 'Oi, os móveis chegaram. Podemos agendar a montagem?', '2023-08-15 13:30:00', true),
 (6, 19, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-08-15 13:32:00', true),
-(105, 56, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-10-12 13:32:00', true),
+(105, 56, 'Oi! Claro, posso ir amanhã às 14h. Está bom para você?', '2023-12-12 13:32:00', true),
 (105, 56, 'Não sei muito bem.', '2023-10-12 13:57:00', true);
 
 INSERT INTO usuario_img

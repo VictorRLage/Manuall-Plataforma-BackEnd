@@ -159,17 +159,30 @@ class UsuarioController(
             .body(resource)
     }
 
-    @PostMapping("/aprovacoesPendentes/atualizarCsv", consumes = ["multipart/form-data"])
+    @PostMapping("/aprovacoesPendentes/csv", consumes = ["multipart/form-data"])
     @SecurityRequirement(name = "Bearer")
     fun atualizarAprovacoesViaCsv(
         @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
         @RequestParam("arquivo") arquivo: MultipartFile
-    ): ResponseEntity<String> {
+    ): ResponseEntity<Unit> {
         if (!arquivo.isEmpty) {
             usuarioService.atualizarAprovacoesViaCsv(arquivo.inputStream)
-            return ResponseEntity.ok("Dados atualizados com sucesso.")
+            return ResponseEntity.status(200).build()
         }
-        return ResponseEntity.badRequest().body("Arquivo não enviado.")
+        return ResponseEntity.status(400).build()
+    }
+
+    @PostMapping("/aprovacoesPendentes/txt", consumes = ["multipart/form-data"])
+    @SecurityRequirement(name = "Bearer")
+    fun atualizarAprovacoesViaTxt(
+        @RequestHeader("Authorization") @Schema(hidden = true) token: String?,
+        @RequestParam("arquivo") arquivo: MultipartFile
+    ): ResponseEntity<Unit> {
+        if (!arquivo.isEmpty) {
+            usuarioService.atualizarAprovacoesViaTxt(arquivo.inputStream)
+            return ResponseEntity.status(200).build()
+        }
+        return ResponseEntity.status(400).build()
     }
 
     @PatchMapping("/aprovacoesPendentes/{idPrestador}/{aprovar}")

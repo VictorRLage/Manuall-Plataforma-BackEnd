@@ -371,20 +371,20 @@ class UsuarioService(
 
             val linha = StringBuilder()
             linha.append("02")
-            linha.append(String.format("%-30.30s", aprovacao.area)) //confere
-            linha.append(String.format("%-4.4s", aprovacao.id)) //confere
-            linha.append(String.format("%-60.60s", aprovacao.nome)) //confere
-            linha.append(String.format("%-256.256s", aprovacao.email)) //confere
-            linha.append(String.format("%-11.11s", aprovacao.telefone)) //confere
-            linha.append(String.format("%-11.11s", aprovacao.cpf)) //confere
-            linha.append(String.format("%-35.35s", aprovacao.cidade)) //confere
-            linha.append(String.format("%-25.25s", aprovacao.estado)) //confere
-            linha.append(String.format("%-272.272s", servicosString)) //confere
-            linha.append(String.format("%10.2f", aprovacao.orcamentoMin)) //confere
-            linha.append(String.format("%10.2f", aprovacao.orcamentoMax)) //confere
-            linha.append(String.format("%-5.5s", aprovacao.ensino)) //confere
-            linha.append(String.format("%01d", aprovacao.statusProcesso)) //confere
-            linha.append(String.format("%01d", aprovacao.status)) //confere
+            linha.append(String.format("%-30.30s", aprovacao.area))
+            linha.append(String.format("%04d", aprovacao.id))
+            linha.append(String.format("%-60.60s", aprovacao.nome))
+            linha.append(String.format("%-256.256s", aprovacao.email))
+            linha.append(String.format("%-11.11s", aprovacao.telefone))
+            linha.append(String.format("%-11.11s", aprovacao.cpf))
+            linha.append(String.format("%-35.35s", aprovacao.cidade))
+            linha.append(String.format("%-25.25s", aprovacao.estado))
+            linha.append(String.format("%-272.272s", servicosString))
+            linha.append(String.format("%10.2f", aprovacao.orcamentoMin))
+            linha.append(String.format("%10.2f", aprovacao.orcamentoMax))
+            linha.append(String.format("%-5.5s", aprovacao.ensino))
+            linha.append(String.format("%-10.10s", aprovacao.statusProcesso?.let { StatusProcesso.fromIdToTexto(it) }))
+            linha.append(String.format("%01d", aprovacao.status))
 
             saida.format(linha.toString() + "\n")
         }
@@ -416,6 +416,40 @@ class UsuarioService(
                 val ensino = leitor.nextBoolean()
                 val statusProcesso = leitor.next()
                 val status = leitor.nextInt()
+
+                val usuario = usuarioRepository.findById(id).get()
+                usuario as Prestador
+
+                usuario.status = status
+                usuario.statusProcessoAprovacao = StatusProcesso.fromTextoToId(statusProcesso)
+                usuarioRepository.save(usuario)
+            }
+        }
+    }
+
+    fun atualizarAprovacoesViaTxt(inputStream: InputStream) {
+        Scanner(inputStream).use { leitor ->
+            leitor.useDelimiter("\\n")
+            while (leitor.hasNext()) {
+                val linha = leitor.next()
+                val tipoRegistro = linha.substring(0,2)
+
+                if (tipoRegistro != "02") continue
+
+                val area = linha.substring(2,32).trim()
+                val id = linha.substring(32,36).toInt()
+                val nome = linha.substring(36,96).trim()
+                val email = linha.substring(96,352).trim()
+                val telefone = linha.substring(352,363).trim()
+                val cpf = linha.substring(363,374).trim()
+                val cidade = linha.substring(374,409).trim()
+                val estado = linha.substring(409,434).trim()
+                val servicos = linha.substring(434,706).trim()
+                val orcamentoMin = linha.substring(706,716).toDouble()
+                val orcamentoMax = linha.substring(716,726).toDouble()
+                val ensino = linha.substring(726,731).trim().toBoolean()
+                val statusProcesso = linha.substring(731,741).trim()
+                val status = linha.substring(741,742).toInt()
 
                 val usuario = usuarioRepository.findById(id).get()
                 usuario as Prestador
