@@ -34,17 +34,19 @@ class UsuarioController(
         return usuarioService.getIdByToken(token)
     }
 
-    @GetMapping("/prestadores/{idArea}/{filtro}/{crescente}")
+    @GetMapping("/prestadores/{idArea}/{filtro}/{crescente}/{tipo}")
     fun getPrestadores(
         @PathVariable idArea: Int,
         @PathVariable filtro: String,
-        @PathVariable crescente: Boolean
+        @PathVariable crescente: Boolean,
+        @PathVariable tipo: String
     ): ResponseEntity<List<PrestadorCardDto>> {
         return ResponseEntity.status(200).body(
             usuarioSpecification.filtrar(
                 idArea,
                 filtro,
-                crescente
+                crescente,
+                tipo
             )
         )
     }

@@ -24,7 +24,8 @@ class UsuarioSpecification(
     fun filtrar(
         idArea: Int,
         filtro: String,
-        crescente: Boolean
+        crescente: Boolean,
+        tipo: String
     ): List<PrestadorCardDto> {
 
         val cb: CriteriaBuilder = entityManager.criteriaBuilder
@@ -48,13 +49,20 @@ class UsuarioSpecification(
         val notaCoalesce: CriteriaBuilder.Coalesce<Double> = cb.coalesce()
         notaCoalesce.value(nota).value(0.0)
 
-        val usuarioIsPrestador = cb.equal(prestadorJoin.type(), Prestador::class.java)
-        val planoIsNotNull = cb.isNotNull(prestadorJoin.get<Int>("plano"))
+        val parametros = mutableListOf<Predicate>()
 
+        parametros.add(cb.equal(prestadorJoin.type(), Prestador::class.java))
+        parametros.add(cb.isNotNull(prestadorJoin.get<Int>("plano")))
         if (idArea > 0)
-            cq.where(usuarioIsPrestador, planoIsNotNull, cb.equal(area, idArea))
-        else
-            cq.where(usuarioIsPrestador,  planoIsNotNull)
+            parametros.add(cb.equal(area, idArea))
+        when (tipo) {
+            "apenasServico" ->
+                parametros.add(cb.equal(prestaAula, false))
+            "servicoAula" ->
+                parametros.add(cb.equal(prestaAula, true))
+        }
+
+        cq.where(*parametros.toTypedArray())
 
         cq.select(cb.construct(
             PrestadorCardDto::class.java,
@@ -85,14 +93,8 @@ class UsuarioSpecification(
                 getOrder(cb, notaCoalesce, crescente)
             "Alfabetica" ->
                 getOrder(cb, nome, crescente)
-            "PrecoMax" ->
+            "Preco" ->
                 getOrder(cb, orcamentoMax, crescente)
-            "PrecoMin" ->
-                getOrder(cb, orcamentoMin, crescente)
-            "Servico" ->
-                cb.asc(prestaAula)
-            "ServicoAula" ->
-                cb.desc(prestaAula)
             else -> null
         }
 
