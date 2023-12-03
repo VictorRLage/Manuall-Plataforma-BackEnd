@@ -188,6 +188,7 @@ class CadastroService(
         prestador.orcamentoMin = cadastrar3Dto.orcamentoMin
         prestador.orcamentoMax = cadastrar3Dto.orcamentoMax
         prestador.status = 1
+        prestador.statusProcessoAprovacao = 1
 
         usuarioRepository.save(prestador)
         return ResponseEntity.status(201).build()
