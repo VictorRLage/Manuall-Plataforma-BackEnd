@@ -415,7 +415,7 @@ class UsuarioService(
                 val orcamentoMax = leitor.next().replace(",", ".").toDouble()
                 val ensino = leitor.nextBoolean()
                 val statusProcesso = leitor.next()
-                val status = leitor.nextInt()
+                val status = leitor.next().trim().toInt()
 
                 val usuario = usuarioRepository.findById(id).get()
                 usuario as Prestador
