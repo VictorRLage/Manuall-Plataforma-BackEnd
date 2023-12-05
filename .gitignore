@@ -34,3 +34,5 @@ build/
 
 *.mwb.bak
 src/main/resources/application.properties
+aprovacoes_pendentes.csv
+aprovacoes_pendentes.txt
